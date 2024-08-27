@@ -19,15 +19,15 @@ export default function CookieConsentComponent() {
   }
 
   return (
-    <div className="fixed inset-0 bg-slate-700 bg-opacity-50 z-[5000]">
-      <div className="fixed z-[99] left-0 bottom-0 w-full bg-gray-200 p-10 maxsm:p-5 flex flex-row maxmd:flex-col justify-between items-center text-blueDark h-[150px]">
-        <p className="text-lg maxsm:text-xs">
+    <div className="fixed inset-0 bg-black bg-opacity-70 z-[5000]">
+      <div className="fixed z-[99] left-0 bottom-0 w-full bg-background p-10 maxsm:p-5 flex flex-row maxmd:flex-col justify-between items-center text-blueDark h-[150px]">
+        <p className="text-xs">
           Utilizamos cookies para mejorar su experiencia de usuario. Al utilizar
           nuestro sitio web, acepta nuestro uso de cookies.{" "}
           <Link href={"/politica-privacidad"}>Más información...</Link>
         </p>
         <button
-          className="w-[250px] maxsm:w-[100px] py-3 bg-greenLight text-white flex justify-center items-center cursor-pointer"
+          className="w-[200px] maxsm:w-[100px] py-2 bg-primary rounded-lg flex justify-center items-center cursor-pointer"
           onClick={() => giveCookieConsent()}
         >
           Aceptar
