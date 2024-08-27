@@ -22,7 +22,7 @@ const ColFooterTextComponent = ({
         initial={{ y: 30, opacity: 0 }}
         whileInView={{ y: 0, opacity: 1 }}
         transition={{ duration: 0.6 }}
-        className="text-lg text-blueDark maxsm:text-sm tracking-normal uppercase"
+        className="text-lg  maxsm:text-sm tracking-normal uppercase"
       >
         {pretitle}
       </motion.p>
