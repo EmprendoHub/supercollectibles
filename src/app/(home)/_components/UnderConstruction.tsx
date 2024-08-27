@@ -18,9 +18,8 @@ const UnderConstruction = () => {
         <Image
           alt="Super Collectibles Mx"
           src="/covers/Main_cover_image_01.jpeg"
-          layout="fill"
-          objectFit="cover"
-          objectPosition="center"
+          fill
+          style={{ objectFit: "cover", objectPosition: "center" }}
           quality={100}
         />
       </div>
