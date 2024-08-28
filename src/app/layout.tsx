@@ -6,6 +6,7 @@ import { ThemeProvider } from "next-themes";
 import FooterComponent from "@/components/layouts/FooterComponent";
 import CookieConsentComponent from "./(home)/_components/CookieConsentComponent";
 import { GoogleAnalytics } from "@next/third-parties/google";
+import CustomSessionProvider from "./SessionProvider";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -24,17 +25,19 @@ export default function RootLayout({
     <html lang="es" suppressHydrationWarning>
       <GoogleAnalytics gaId="G-0FJ701YCLD" />
       <body className="max-w-full body-class overscroll-x-none overflow-x-hidden">
-        <ThemeProvider
-          attribute="class"
-          defaultTheme="dark"
-          enableSystem
-          disableTransitionOnChange
-        >
-          {/* <HeaderComponent /> */}
-          {children}
-          {/* <FooterComponent /> */}
-          {/* <CookieConsentComponent /> */}
-        </ThemeProvider>
+        <CustomSessionProvider>
+          <ThemeProvider
+            attribute="class"
+            defaultTheme="dark"
+            enableSystem
+            disableTransitionOnChange
+          >
+            {/* <HeaderComponent /> */}
+            {children}
+            {/* <FooterComponent /> */}
+            {/* <CookieConsentComponent /> */}
+          </ThemeProvider>
+        </CustomSessionProvider>
       </body>
     </html>
   );
