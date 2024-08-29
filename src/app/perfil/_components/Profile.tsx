@@ -6,10 +6,10 @@ import { useSession } from "next-auth/react";
 
 const Profile = () => {
   const session: any = useSession();
-
   const user = session?.data?.user;
+
   return (
-    <>
+    <div className="p-5 flex flex-col items-start">
       <figure className="flex maxsm:flex-col items-start sm:items-center text-foreground">
         <div className="relative flex ">
           {user?.image ? (
@@ -47,10 +47,9 @@ const Profile = () => {
             </span>
           </p>
         </figcaption>
+        <hr className="my-4" />
       </figure>
-
-      <hr className="my-4" />
-    </>
+    </div>
   );
 };
 

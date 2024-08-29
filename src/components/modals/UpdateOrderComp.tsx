@@ -56,7 +56,7 @@ const UpdateOrderComp = ({
           <div className="relative w-full text-center">
             <label className="block mb-1 text-xs">Estado</label>
             <select
-              className="block appearance-none border border-gray-200 bg-gray-100 rounded-md py-2 px-3 hover:border-gray-400 focus:outline-none focus:border-gray-400 w-full text-center"
+              className="block appearance-none border border-gray-200 bg-gray-100 rounded-xl py-2 px-3 hover:border-gray-400 focus:outline-none focus:border-gray-400 w-full text-center"
               name="orderStatus"
               required
               value={orderStatus}
@@ -91,13 +91,13 @@ const UpdateOrderComp = ({
         <div className="flex items-center gap-3 ">
           <div
             onClick={() => setShowModal(false)}
-            className={`bg-red-700 text-white py-2 px-8 text-xl hover:bg-slate-200 hover:text-red-900 ease-in-out duration-700 rounded-md cursor-pointer`}
+            className={`bg-red-700 text-white py-2 px-8 text-xl hover:bg-slate-200 hover:text-red-900 ease-in-out duration-700 rounded-xl cursor-pointer`}
           >
             Cancelar
           </div>
           <button
             type="submit"
-            className={`bg-black text-white py-2 px-8 text-xl hover:bg-slate-200 hover:text-foreground ease-in-out duration-700 rounded-md`}
+            className={`bg-black text-white py-2 px-8 text-xl hover:bg-slate-200 hover:text-foreground ease-in-out duration-700 rounded-xl`}
           >
             Actualizar
           </button>

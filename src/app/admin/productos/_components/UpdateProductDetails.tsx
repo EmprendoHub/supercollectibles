@@ -483,7 +483,7 @@ const UpdateProductDetails = ({ product }: { product: any }) => {
                 </label>
                 <input
                   type="text"
-                  className="appearance-none border bg-background rounded-md py-2 px-3 border-gray-300 focus:outline-none focus:border-gray-400 w-full"
+                  className="appearance-none border bg-background rounded-xl py-2 px-3 border-gray-300 focus:outline-none focus:border-gray-400 w-full"
                   placeholder="Nombre de Producto"
                   value={title}
                   onChange={(e) => setTitle(e.target.value)}
@@ -497,7 +497,7 @@ const UpdateProductDetails = ({ product }: { product: any }) => {
                 </label>
                 <textarea
                   rows={2}
-                  className="appearance-none border  bg-background rounded-md py-2 px-3 border-gray-300 focus:outline-none focus:border-gray-400 w-full"
+                  className="appearance-none border  bg-background rounded-xl py-2 px-3 border-gray-300 focus:outline-none focus:border-gray-400 w-full"
                   placeholder="Descripción del Producto"
                   value={description}
                   onChange={(e) => setDescription(e.target.value)}
@@ -511,7 +511,7 @@ const UpdateProductDetails = ({ product }: { product: any }) => {
                 </label>
                 <input
                   type="text"
-                  className="appearance-none border bg-background rounded-md py-2 px-3 border-gray-300 focus:outline-none focus:border-gray-400 w-full"
+                  className="appearance-none border bg-background rounded-xl py-2 px-3 border-gray-300 focus:outline-none focus:border-gray-400 w-full"
                   placeholder="Marca del Producto"
                   value={brand}
                   onChange={(e) => setBrand(e.target.value)}
@@ -527,7 +527,7 @@ const UpdateProductDetails = ({ product }: { product: any }) => {
                     <div className="col-span-2">
                       <input
                         type="number"
-                        className="appearance-none border border-gray-300 bg-background rounded-md py-2 px-3focus:outline-none focus:border-gray-400 w-full"
+                        className="appearance-none border border-gray-300 bg-background rounded-xl py-2 px-3focus:outline-none focus:border-gray-400 w-full"
                         placeholder="0.00"
                         value={price}
                         onChange={(e) => setPrice(e.target.value)}
@@ -542,7 +542,7 @@ const UpdateProductDetails = ({ product }: { product: any }) => {
                     <div className="col-span-2">
                       <input
                         type="number"
-                        className="appearance-none border border-gray-300 bg-background rounded-md py-2 px-3focus:outline-none focus:border-gray-400 w-full"
+                        className="appearance-none border border-gray-300 bg-background rounded-xl py-2 px-3focus:outline-none focus:border-gray-400 w-full"
                         placeholder="0.00"
                         value={cost}
                         onChange={(e) => setCost(e.target.value)}
@@ -560,7 +560,7 @@ const UpdateProductDetails = ({ product }: { product: any }) => {
                     <div className="col-span-2">
                       <input
                         type="number"
-                        className="appearance-none border border-gray-300 bg-background rounded-md py-2 px-3 focus:outline-none focus:border-gray-400 w-full"
+                        className="appearance-none border border-gray-300 bg-background rounded-xl py-2 px-3 focus:outline-none focus:border-gray-400 w-full"
                         placeholder="1"
                         value={stock}
                         onChange={(e) => setStock(e.target.value)}
@@ -576,7 +576,7 @@ const UpdateProductDetails = ({ product }: { product: any }) => {
                   </label>
                   <div className="relative">
                     <select
-                      className="block appearance-none border border-gray-300 bg-background rounded-md py-2 px-3 focus:outline-none focus:border-gray-400 w-full"
+                      className="block appearance-none border border-gray-300 bg-background rounded-xl py-2 px-3 focus:outline-none focus:border-gray-400 w-full"
                       name="featured"
                       onChange={(e) => setFeatured(e.target.value)}
                       value={featured}
@@ -607,7 +607,7 @@ const UpdateProductDetails = ({ product }: { product: any }) => {
                 <label className="block mb-1 text-slate-500"> Género </label>
                 <div className="relative">
                   <select
-                    className="block appearance-none border border-gray-300 bg-background rounded-md py-2 px-3 focus:outline-none focus:border-gray-400 w-full"
+                    className="block appearance-none border border-gray-300 bg-background rounded-xl py-2 px-3 focus:outline-none focus:border-gray-400 w-full"
                     name="gender"
                     value={gender}
                     onChange={(e) => handleGenderChange(e.target.value)}
@@ -634,7 +634,7 @@ const UpdateProductDetails = ({ product }: { product: any }) => {
                 <label className="block mb-1 text-slate-500"> Categoría </label>
                 <div className="relative">
                   <select
-                    className="block appearance-none border border-gray-300 bg-background rounded-md py-2 px-3 focus:outline-none focus:border-gray-400 w-full"
+                    className="block appearance-none border border-gray-300 bg-background rounded-xl py-2 px-3 focus:outline-none focus:border-gray-400 w-full"
                     name="category"
                     value={category}
                     onChange={(e) => handleCategoryChange(e.target.value)}
@@ -678,7 +678,7 @@ const UpdateProductDetails = ({ product }: { product: any }) => {
                   <div className="col-span-2">
                     <input
                       type="number"
-                      className="appearance-none border border-gray-300 bg-background rounded-md py-2 px-3focus:outline-none focus:border-gray-400 w-full"
+                      className="appearance-none border border-gray-300 bg-background rounded-xl py-2 px-3focus:outline-none focus:border-gray-400 w-full"
                       placeholder="0.00"
                       value={salePrice}
                       onChange={(e) => setSalePrice(e.target.value)}
@@ -705,7 +705,7 @@ const UpdateProductDetails = ({ product }: { product: any }) => {
             <div>
               <button
                 type="button"
-                className=" bg-black text-white rounded-md p-4 mb-5 flex flex-row items-center w-[250px]"
+                className=" bg-black text-white rounded-xl p-4 mb-5 flex flex-row items-center w-[250px]"
                 onClick={handleAddImageField}
               >
                 Agregar Imagen <FaImage className="text-white ml-1" />
@@ -741,7 +741,7 @@ const UpdateProductDetails = ({ product }: { product: any }) => {
                             <div className="w-40 h-40 maxsm:w-full maxsm:h-80 relative space-x-3 my-2 ">
                               <FaExchangeAlt className="absolute z-20 text-3xl top-[50%] left-[50%] text-slate-200" />
                               <Image
-                                className="rounded-md object-cover"
+                                className="rounded-xl object-cover"
                                 src={inputImageField?.url}
                                 fill={true}
                                 sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
@@ -767,7 +767,7 @@ const UpdateProductDetails = ({ product }: { product: any }) => {
                           </label>
                           <div className="relative">
                             <select
-                              className="block appearance-none border border-gray-300 bg-background rounded-md py-2 px-3 focus:outline-none focus:border-gray-400 w-full cursor-pointer"
+                              className="block appearance-none border border-gray-300 bg-background rounded-xl py-2 px-3 focus:outline-none focus:border-gray-400 w-full cursor-pointer"
                               name="i_color-${index + 1}"
                               onChange={(e) =>
                                 handleImageInputChange(index, "i_color", e)
@@ -800,7 +800,7 @@ const UpdateProductDetails = ({ product }: { product: any }) => {
 
             <button
               type="submit"
-              className="my-2 px-4 py-2 text-center inline-block text-white bg-blue-600 border border-transparent rounded-md hover:bg-blue-700 w-full"
+              className="my-2 px-4 py-2 text-center inline-block text-white bg-blue-600 border border-transparent rounded-xl hover:bg-blue-700 w-full"
             >
               Actualizar Producto
             </button>

@@ -31,7 +31,7 @@ const MobileFilterComponet = ({
   return (
     <div className=" w-full mb-5 text-muted">
       <div
-        className={`mt-5 p-3 border border-muted rounded-md text-center w-full justify-between flex mx-auto `}
+        className={`mt-5 p-3 border border-muted rounded-xl text-center w-full justify-between flex mx-auto `}
       >
         <div
           className={`${styles.header} burger-class flex flex-row justify-between t items-center w-full`}

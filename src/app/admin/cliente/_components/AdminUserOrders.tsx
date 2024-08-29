@@ -85,7 +85,7 @@ const AdminUserOrders = ({
                 <td className="px-6 maxsm:px-1 py-2">
                   <Link
                     href={`/admin/pedido/${order._id}`}
-                    className="px-2 py-2 inline-block text-foreground shadow-sm border border-gray-200 rounded-md bg-background cursor-pointer mr-2"
+                    className="px-2 py-2 inline-block text-foreground shadow-sm border border-gray-200 rounded-xl bg-background cursor-pointer mr-2"
                   >
                     {order?.orderId}
                   </Link>
@@ -133,7 +133,7 @@ const AdminUserOrders = ({
                   <div className="flex items-center">
                     <Link
                       href={`/admin/pedido/${order._id}`}
-                      className="px-2 py-2 inline-block text-white hover:text-foreground bg-black shadow-sm border border-gray-200 rounded-md hover:bg-background cursor-pointer mr-2"
+                      className="px-2 py-2 inline-block text-white hover:text-foreground bg-black shadow-sm border border-gray-200 rounded-xl hover:bg-background cursor-pointer mr-2"
                     >
                       <FaEye className="" />
                     </Link>
@@ -150,7 +150,7 @@ const AdminUserOrders = ({
                           true
                             ? ""
                             : "bg-emerald-700"
-                        }  shadow-sm border border-gray-200 rounded-md hover:scale-110 cursor-pointer mr-2 duration-200 ease-in-out`}
+                        }  shadow-sm border border-gray-200 rounded-xl hover:scale-110 cursor-pointer mr-2 duration-200 ease-in-out`}
                       >
                         {order?.paymentInfo?.amountPaid >=
                           getTotalFromItems(order.orderItems) ===

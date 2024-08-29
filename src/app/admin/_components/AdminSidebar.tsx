@@ -85,7 +85,7 @@ const AdminSidebar = ({ children }: { children: any }) => {
                     {user?.name.substring(0, 12)}
                   </h4>
                   <div
-                    className=" text-red-800 hover:bg-foreground hover:text-white-500 rounded-md cursor-pointer"
+                    className=" text-red-800 hover:bg-foreground hover:text-white-500 rounded-xl cursor-pointer"
                     onClick={() => signOut()}
                   >
                     <div
@@ -143,7 +143,7 @@ export function SideBarItem({
 
   return (
     <li
-      className={`relative flex flex-col items-center font-medium rounded-md cursor-pointer text-[14px] ${
+      className={`relative flex flex-col items-center font-medium rounded-xl cursor-pointer text-[14px] ${
         active === "true"
           ? " text-secondary"
           : "hover:text-secondary text-slate-500"
@@ -165,7 +165,7 @@ export function SideBarItem({
 
       {/* Conditional rendering for main item hover text */}
       {!expandSidebar && hoveredIndex === "main" && (
-        <div className="absolute z-50 left-full rounded-md px-2 py-1 ml-0 bg-indigo-100 text-primary text-xs opacity-100 min-w-[250px]">
+        <div className="absolute z-50 left-full rounded-xl px-2 py-1 ml-0 bg-indigo-100 text-primary text-xs opacity-100 min-w-[250px]">
           {text}
         </div>
       )}
@@ -194,7 +194,7 @@ export function SideBarItem({
               ) => (
                 <Link href={item.url} key={index} className="min-w-full">
                   <li
-                    className={`p-2 cursor-pointer flex items-center justify-center rounded-md ${
+                    className={`p-2 cursor-pointer flex items-center justify-center rounded-xl ${
                       item.active === "true"
                         ? "bg-gradient-to-tr from-indigo-200 to-indigo-100 text-primary"
                         : "hover:bg-indigo-50 text-gray-600 bg-opacity-0"
@@ -214,7 +214,7 @@ export function SideBarItem({
                     </span>
                     {/* Conditional rendering for dropdown item hover text */}
                     {!expandSidebar && hoveredIndex === index.toString() && (
-                      <div className="absolute z-50 left-full rounded-md px-2 py-1 ml-0 bg-indigo-100 text-primary text-xs opacity-100 min-w-[250px]">
+                      <div className="absolute z-50 left-full rounded-xl px-2 py-1 ml-0 bg-indigo-100 text-primary text-xs opacity-100 min-w-[250px]">
                         {item.text}
                       </div>
                     )}

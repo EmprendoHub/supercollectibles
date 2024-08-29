@@ -254,7 +254,7 @@ const AdminProducts = ({
                         alt="Title"
                         width={200}
                         height={200}
-                        className="w-14 object-cover h-14 maxsm:w-14 rounded-md"
+                        className="w-14 object-cover h-14 maxsm:w-14 rounded-xl"
                       />
                     </Link>
 
@@ -277,7 +277,7 @@ const AdminProducts = ({
                 <td className="w-full px-1 py-0 flex flex-row items-center gap-x-1">
                   <Link
                     href={`/${pathname}/productos/variacion/${product?.slug}?&callback=${currentPage}`}
-                    className="p-2 inline-block text-foreground hover:text-card-foreground bg-background shadow-sm border border-gray-200 rounded-md hover:bg-background cursor-pointer "
+                    className="p-2 inline-block text-foreground hover:text-card-foreground bg-background shadow-sm border border-gray-200 rounded-xl hover:bg-background cursor-pointer "
                   >
                     <FaPencilAlt className="maxsm:text-[10px]" />
                   </Link>
@@ -289,7 +289,7 @@ const AdminProducts = ({
                         product?.availability?.online
                       )
                     }
-                    className="p-2 inline-block text-foreground hover:text-card-foreground bg-background shadow-sm border border-gray-200 rounded-md hover:bg-background cursor-pointer "
+                    className="p-2 inline-block text-foreground hover:text-card-foreground bg-background shadow-sm border border-gray-200 rounded-xl hover:bg-background cursor-pointer "
                   >
                     <TbWorldWww
                       className={` ${
@@ -307,7 +307,7 @@ const AdminProducts = ({
                         product?.availability?.branch
                       )
                     }
-                    className="p-2 inline-block text-foreground hover:text-card-foreground bg-background shadow-sm border border-gray-200 rounded-md hover:bg-background cursor-pointer "
+                    className="p-2 inline-block text-foreground hover:text-card-foreground bg-background shadow-sm border border-gray-200 rounded-xl hover:bg-background cursor-pointer "
                   >
                     <FaShop
                       className={` ${
@@ -324,7 +324,7 @@ const AdminProducts = ({
                         product?.availability?.instagram
                       )
                     }
-                    className="p-2 inline-block text-foreground hover:text-card-foreground bg-background shadow-sm border border-gray-200 rounded-md hover:bg-background cursor-pointer "
+                    className="p-2 inline-block text-foreground hover:text-card-foreground bg-background shadow-sm border border-gray-200 rounded-xl hover:bg-background cursor-pointer "
                   >
                     <SiMercadopago
                       className={` ${
@@ -336,7 +336,7 @@ const AdminProducts = ({
                   </button>
                   <button
                     onClick={() => deleteHandler(product?._id)}
-                    className="p-2 inline-block text-foreground hover:text-card-foreground bg-background shadow-sm border border-gray-200 rounded-md hover:bg-background cursor-pointer "
+                    className="p-2 inline-block text-foreground hover:text-card-foreground bg-background shadow-sm border border-gray-200 rounded-xl hover:bg-background cursor-pointer "
                   >
                     <FaExclamationCircle
                       className={`text-red-500 maxsm:text-[10px]`}

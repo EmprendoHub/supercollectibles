@@ -7,15 +7,17 @@ import {
   isValidPhone,
 } from "@/backend/helpers";
 import { toast } from "sonner";
-import { getSession } from "next-auth/react";
+import { useSession } from "next-auth/react";
 import { ValidationError } from "@/types";
+import Image from "next/image";
 
 const UpdateProfileWithFormData = () => {
-  const session: any = getSession();
-  const user = session?.data.user;
+  const session: any = useSession();
+
+  const user = session?.data?.user;
 
   const [loading, setLoading] = useState(false);
-  const [name, setName] = useState("");
+  const [name, setName] = useState(user?.name);
   const [email, setEmail] = useState("");
   const [avatar, setAvatar] = useState("");
   // const [avatarPreview, setAvatarPreview] = useState(
@@ -129,12 +131,13 @@ const UpdateProfileWithFormData = () => {
           </h2>
 
           <div className="mb-4">
+            <Image src={user?.image} width={100} height={100} alt="avtar" />
             <label className="block mb-1  font-EB_Garamond">
               {" "}
               Nombre Completo{" "}
             </label>
             <input
-              className="appearance-none border border-gray-200 bg-background rounded-md py-2 px-3 hover:border-gray-400 focus:outline-none focus:border-gray-400 w-full"
+              className="appearance-none border border-gray-200 bg-background rounded-xl py-2 px-3 hover:border-gray-400 focus:outline-none focus:border-gray-400 w-full"
               type="text"
               placeholder="Ingresa tu nombre"
               required
@@ -155,8 +158,9 @@ const UpdateProfileWithFormData = () => {
               Correo Electrónico{" "}
             </label>
             <input
-              className="appearance-none border border-gray-200 bg-background rounded-md py-2 px-3 hover:border-gray-400 focus:outline-none focus:border-gray-400 w-full"
+              className="appearance-none border border-gray-200 bg-background rounded-xl py-2 px-3 hover:border-gray-400 focus:outline-none focus:border-gray-400 w-full"
               type="text"
+              disabled={user?.image.includes("lh3.googleusercontent")}
               placeholder="Ingresa tu correo electrónico"
               required
               name="email"
@@ -172,7 +176,7 @@ const UpdateProfileWithFormData = () => {
           <div className="mb-4 md:col-span-1">
             <label className="block mb-1  font-EB_Garamond"> Teléfono </label>
             <input
-              className="appearance-none border border-gray-200 bg-background rounded-md py-2 px-3 hover:border-gray-400 focus:outline-none focus:border-gray-400 w-full "
+              className="appearance-none border border-gray-200 bg-background rounded-xl py-2 px-3 hover:border-gray-400 focus:outline-none focus:border-gray-400 w-full "
               type="tel"
               placeholder="Ingresa tu teléfono"
               name="phone"
@@ -212,7 +216,7 @@ const UpdateProfileWithFormData = () => {
 
           <button
             type="submit"
-            className="my-2 px-4 py-2 text-center w-full inline-block text-white bg-blue-600 border border-transparent rounded-md hover:bg-blue-700"
+            className="my-2 px-4 py-2 text-center w-full inline-block text-white bg-blue-600 border border-transparent rounded-xl hover:bg-blue-700"
             disabled={loading ? true : false}
           >
             {loading ? "Actualizando..." : "Actualizar"}

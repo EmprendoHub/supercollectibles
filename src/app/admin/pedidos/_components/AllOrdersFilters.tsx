@@ -79,7 +79,7 @@ const AllOrdersFilters = () => {
 
   return (
     <div className="w-full print:hidden">
-      <div className=" mb-2  w-full text-start h-full px-4 py-2 inline-block text-2xl  shadow-sm border border-gray-200 rounded-md font-EB_Garamond ">
+      <div className=" mb-2  w-full text-start h-full px-4 py-2 inline-block text-2xl  shadow-sm border border-gray-200 rounded-xl font-EB_Garamond ">
         Generar Reporte
       </div>
       <div className="min-w-full flex items-center justify-start h-full">
@@ -92,14 +92,14 @@ const AllOrdersFilters = () => {
           <div className="flex items-center justify-center gap-x-2 text-foreground">
             <div className="mb-4 flex flex-col gap-2 items-center w-full">
               <DateTimePicker
-                className={"appearance-none rounded-md"}
+                className={"appearance-none rounded-xl"}
                 onChange={onStartDateChangeDate}
                 value={startDate}
                 locale={"es-MX"}
                 disableClock={true}
               />
               <DateTimePicker
-                className={"appearance-none rounded-md"}
+                className={"appearance-none rounded-xl"}
                 onChange={onEndDateChangeDate}
                 value={endDate}
                 locale={"es-MX"}
@@ -114,7 +114,7 @@ const AllOrdersFilters = () => {
 
           <div className="relative w-full">
             <select
-              className="flex relative appearance-none border border-gray-300 bg-background rounded-md py-2 px-3 focus:outline-none cursor-pointer focus:border-gray-400 w-full z-10 bg-opacity-0"
+              className="flex relative appearance-none border border-gray-300 bg-background rounded-xl py-2 px-3 focus:outline-none cursor-pointer focus:border-gray-400 w-full z-10 bg-opacity-0"
               name="paymentMethod"
               onChange={(e) => setPaymentMethod(e.target.value)}
               value={paymentMethod}
@@ -144,7 +144,7 @@ const AllOrdersFilters = () => {
 
           <div className="relative w-full">
             <select
-              className="relative flex appearance-none border border-gray-300 bg-background rounded-md py-2 px-3 mb-2 focus:outline-none cursor-pointer focus:border-gray-400 w-full z-10 bg-opacity-0"
+              className="relative flex appearance-none border border-gray-300 bg-background rounded-xl py-2 px-3 mb-2 focus:outline-none cursor-pointer focus:border-gray-400 w-full z-10 bg-opacity-0"
               name="store"
               onChange={(e) => setStore(e.target.value)}
               value={store}
@@ -171,7 +171,7 @@ const AllOrdersFilters = () => {
 
         <button
           type="button"
-          className="px-4 py-2 mt-5 inline-block text-white border border-transparent  rounded-md bg-black w-1/6"
+          className="px-4 py-2 mt-5 inline-block text-white border border-transparent  rounded-xl bg-black w-1/6"
           onClick={handleClick}
         >
           Reporte

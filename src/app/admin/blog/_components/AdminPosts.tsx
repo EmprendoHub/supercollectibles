@@ -77,7 +77,7 @@ const AdminPosts = ({ posts }: { posts: any }) => {
                     <div>
                       <Link
                         href={`/admin/blog/editar/${post.slug}`}
-                        className="px-2 py-2 inline-block text-white hover:text-foreground bg-black shadow-sm border border-gray-200 rounded-md hover:bg-background cursor-pointer mr-2"
+                        className="px-2 py-2 inline-block text-white hover:text-foreground bg-black shadow-sm border border-gray-200 rounded-xl hover:bg-background cursor-pointer mr-2"
                       >
                         <FaPencilAlt className="maxsm:text-[10px]" />
                       </Link>

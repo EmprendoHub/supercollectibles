@@ -107,7 +107,7 @@ const UserOrders = ({
                 <div>
                   <Link
                     href={`/perfil/pedido/${order._id}`}
-                    className="px-2 py-2 inline-block text-white hover:text-foreground bg-black shadow-sm border border-gray-200 rounded-md hover:bg-background cursor-pointer mr-2"
+                    className="px-2 py-2 inline-block text-white hover:text-foreground bg-black shadow-sm border border-gray-200 rounded-xl hover:bg-background cursor-pointer mr-2"
                   >
                     <FaEye className="" />
                   </Link>

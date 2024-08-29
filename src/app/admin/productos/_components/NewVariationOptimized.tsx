@@ -623,7 +623,7 @@ const NewVariationOptimized = ({
                   </p>
                   <input
                     type="text"
-                    className="appearance-none border bg-card text-card-foreground rounded-md py-2 px-3 border-gray-300 focus:outline-none focus:border-gray-400 w-full"
+                    className="appearance-none border bg-card text-card-foreground rounded-xl py-2 px-3 border-gray-300 focus:outline-none focus:border-gray-400 w-full"
                     placeholder="Titulo de Producto"
                     value={title}
                     onChange={(e) => setTitle(e.target.value)}
@@ -638,7 +638,7 @@ const NewVariationOptimized = ({
                 <div className="mb-4">
                   <textarea
                     rows={2}
-                    className="appearance-none border bg-card text-card-foreground rounded-md py-2 px-3 border-gray-300 focus:outline-none focus:border-gray-400 w-full"
+                    className="appearance-none border bg-card text-card-foreground rounded-xl py-2 px-3 border-gray-300 focus:outline-none focus:border-gray-400 w-full"
                     placeholder="Descripción del Producto"
                     value={description}
                     onChange={(e) => setDescription(e.target.value)}
@@ -655,7 +655,7 @@ const NewVariationOptimized = ({
                   <div className="mb-1  w-full">
                     <input
                       type="text"
-                      className="appearance-none border bg-card text-card-foreground rounded-md py-2 px-3 border-gray-300 focus:outline-none focus:border-gray-400 w-full"
+                      className="appearance-none border bg-card text-card-foreground rounded-xl py-2 px-3 border-gray-300 focus:outline-none focus:border-gray-400 w-full"
                       placeholder="Marca del Producto"
                       value={brand}
                       onChange={(e) => setBrand(e.target.value)}
@@ -674,7 +674,7 @@ const NewVariationOptimized = ({
                     </label>
                     <div className="relative">
                       <select
-                        className="block appearance-none border border-gray-300 bg-card text-card-foreground rounded-md py-2 px-3 cursor-pointer focus:outline-none focus:border-gray-400 w-full"
+                        className="block appearance-none border border-gray-300 bg-card text-card-foreground rounded-xl py-2 px-3 cursor-pointer focus:outline-none focus:border-gray-400 w-full"
                         name="gender"
                         onChange={(e) => handleGenderChange(e.target.value)}
                       >
@@ -727,7 +727,7 @@ const NewVariationOptimized = ({
                     </label>
                     <div className="relative">
                       <select
-                        className="block appearance-none border border-gray-400 bg-card text-card-foreground rounded-md pl-2 py-1 focus:outline-none focus:border-gray-400 w-full cursor-pointer"
+                        className="block appearance-none border border-gray-400 bg-card text-card-foreground rounded-xl pl-2 py-1 focus:outline-none focus:border-gray-400 w-full cursor-pointer"
                         name="category"
                         onChange={(e) => handleCategoryChange(e.target.value)}
                       >
@@ -765,7 +765,7 @@ const NewVariationOptimized = ({
                       <div className="col-span-2">
                         <input
                           type="number"
-                          className="appearance-none border border-gray-300 bg-card text-card-foreground rounded-md py-1 px-3 focus:outline-none focus:border-gray-400 w-full remove-arrow "
+                          className="appearance-none border border-gray-300 bg-card text-card-foreground rounded-xl py-1 px-3 focus:outline-none focus:border-gray-400 w-full remove-arrow "
                           placeholder="0.00"
                           min="0"
                           value={salePrice}
@@ -786,7 +786,7 @@ const NewVariationOptimized = ({
                     </label>
                     <div className="flex flex-row items-center gap-x-3"></div>
                     <DateTimePicker
-                      className={"appearance-none rounded-md"}
+                      className={"appearance-none rounded-xl"}
                       onChange={onChangeDate}
                       value={salePriceEndDate}
                       locale={"es-MX"}
@@ -799,7 +799,7 @@ const NewVariationOptimized = ({
             <div className="w-[300px]">
               <div
                 onClick={addVariation}
-                className="my-4 px-8 py-2 text-center inline-block text-white bg-black border border-transparent rounded-md hover:bg-slate-800 w-auto cursor-pointer"
+                className="my-4 px-8 py-2 text-center inline-block text-white bg-black border border-transparent rounded-xl hover:bg-slate-800 w-auto cursor-pointer"
               >
                 Variación +
               </div>
@@ -817,7 +817,7 @@ const NewVariationOptimized = ({
                       value={variations[0].size}
                       onChange={(e) => handleSizeChange(0, e.target.value)}
                       name="size"
-                      className="appearance-none border border-gray-300 bg-card text-card-foreground rounded-md pl-2 py-1 cursor-pointer focus:outline-none focus:border-gray-400 w-full"
+                      className="appearance-none border border-gray-300 bg-card text-card-foreground rounded-xl pl-2 py-1 cursor-pointer focus:outline-none focus:border-gray-400 w-full"
                     >
                       {sizeSelection.map((option) => (
                         <option key={option.value} value={option.value}>
@@ -858,7 +858,7 @@ const NewVariationOptimized = ({
                           hexThreeValue
                         );
                       }}
-                      className="appearance-none border border-gray-300 bg-card text-card-foreground rounded-md pl-2 py-1 cursor-pointer focus:outline-none focus:border-gray-400 w-full"
+                      className="appearance-none border border-gray-300 bg-card text-card-foreground rounded-xl pl-2 py-1 cursor-pointer focus:outline-none focus:border-gray-400 w-full"
                     >
                       {set_colors.map((option) => (
                         <option
@@ -887,7 +887,7 @@ const NewVariationOptimized = ({
                     <div className="col-span-2">
                       <input
                         type="number"
-                        className="appearance-none border border-gray-300 bg-card text-card-foreground rounded-md pl-2 py-1 remove-arrow focus:outline-none focus:border-gray-400 w-full"
+                        className="appearance-none border border-gray-300 bg-card text-card-foreground rounded-xl pl-2 py-1 remove-arrow focus:outline-none focus:border-gray-400 w-full"
                         placeholder="0.00"
                         min="1"
                         value={variations[0].price}
@@ -911,7 +911,7 @@ const NewVariationOptimized = ({
                     <div className="col-span-2">
                       <input
                         type="number"
-                        className="appearance-none border border-gray-300 bg-card text-card-foreground rounded-md pl-2 py-1 remove-arrow focus:outline-none focus:border-gray-400 w-full"
+                        className="appearance-none border border-gray-300 bg-card text-card-foreground rounded-xl pl-2 py-1 remove-arrow focus:outline-none focus:border-gray-400 w-full"
                         placeholder="0.00"
                         min="1"
                         value={variations[0].cost}
@@ -935,7 +935,7 @@ const NewVariationOptimized = ({
                     <div className="col-span-2">
                       <input
                         type="number"
-                        className="appearance-none border border-gray-300 bg-card text-card-foreground rounded-md pl-2 py-1 remove-arrow focus:outline-none focus:border-gray-400 w-full"
+                        className="appearance-none border border-gray-300 bg-card text-card-foreground rounded-xl pl-2 py-1 remove-arrow focus:outline-none focus:border-gray-400 w-full"
                         placeholder="1"
                         min="1"
                         value={variations[0].stock}
@@ -1009,7 +1009,7 @@ const NewVariationOptimized = ({
                         onChange={(e) =>
                           handleSizeChange(index + 1, e.target.value)
                         }
-                        className="appearance-none border border-gray-300 bg-card text-card-foreground rounded-md  pl-2 py-1 cursor-pointer focus:outline-none focus:border-gray-400 w-full"
+                        className="appearance-none border border-gray-300 bg-card text-card-foreground rounded-xl  pl-2 py-1 cursor-pointer focus:outline-none focus:border-gray-400 w-full"
                       >
                         {sizeSelection.map((option) => (
                           <option key={option.value} value={option.value}>
@@ -1051,7 +1051,7 @@ const NewVariationOptimized = ({
                             hexThreeValue
                           );
                         }}
-                        className="appearance-none border border-gray-300 bg-card text-card-foreground rounded-md pl-2 py-1 cursor-pointer focus:outline-none focus:border-gray-400 w-full"
+                        className="appearance-none border border-gray-300 bg-card text-card-foreground rounded-xl pl-2 py-1 cursor-pointer focus:outline-none focus:border-gray-400 w-full"
                       >
                         {set_colors.map((option) => (
                           <option key={option.value} value={option.value}>
@@ -1079,7 +1079,7 @@ const NewVariationOptimized = ({
                         onChange={(e) =>
                           handlePriceChange(index + 1, e.target.value)
                         }
-                        className="appearance-none border border-gray-300 bg-card text-card-foreground rounded-md  pl-2 py-1 remove-arrow focus:outline-none focus:border-gray-400 w-full"
+                        className="appearance-none border border-gray-300 bg-card text-card-foreground rounded-xl  pl-2 py-1 remove-arrow focus:outline-none focus:border-gray-400 w-full"
                       />
                     </div>
                   </div>
@@ -1097,7 +1097,7 @@ const NewVariationOptimized = ({
                         onChange={(e) =>
                           handleCostChange(index + 1, e.target.value)
                         }
-                        className="appearance-none border border-gray-300 bg-card text-card-foreground rounded-md pl-2 py-1 remove-arrow focus:outline-none focus:border-gray-400 w-full"
+                        className="appearance-none border border-gray-300 bg-card text-card-foreground rounded-xl pl-2 py-1 remove-arrow focus:outline-none focus:border-gray-400 w-full"
                       />
                     </div>
                   </div>
@@ -1115,7 +1115,7 @@ const NewVariationOptimized = ({
                         onChange={(e) =>
                           handleStockChange(index + 1, e.target.value)
                         }
-                        className="appearance-none border border-gray-300 bg-card text-card-foreground rounded-md pl-2 py-1 remove-arrow focus:outline-none focus:border-gray-400 w-full"
+                        className="appearance-none border border-gray-300 bg-card text-card-foreground rounded-xl pl-2 py-1 remove-arrow focus:outline-none focus:border-gray-400 w-full"
                       />
                     </div>
                   </div>
@@ -1164,7 +1164,7 @@ const NewVariationOptimized = ({
               onClick={hanldeFormSubmit}
               className={`${
                 isSending ? "cursor-wait" : ""
-              } my-2 cursor-pointer px-4 py-2 text-center inline-block text-white bg-black border border-transparent rounded-md hover:bg-slate-800 w-full`}
+              } my-2 cursor-pointer px-4 py-2 text-center inline-block text-white bg-black border border-transparent rounded-xl hover:bg-slate-800 w-full`}
             >
               {isSending ? "Creando..." : "Crear Producto"}
             </button>

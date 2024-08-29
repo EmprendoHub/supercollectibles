@@ -104,7 +104,7 @@ const AllFiltersComponent = ({
               <input
                 name="min"
                 min={0}
-                className="appearance-none border border-muted bg-input rounded-md py-2 px-3 hover:border-gray-400 focus:outline-none focus:border-gray-400 w-full text-sm"
+                className="appearance-none border border-muted bg-input rounded-xl py-2 px-3 hover:border-gray-400 focus:outline-none focus:border-gray-400 w-full text-sm"
                 type="number"
                 placeholder="Min"
                 value={minAmount}
@@ -116,7 +116,7 @@ const AllFiltersComponent = ({
               <input
                 name="max"
                 min={0}
-                className="appearance-none border border-muted bg-input rounded-md py-2 px-3 hover:border-gray-400 focus:outline-none focus:border-gray-400 w-full text-sm"
+                className="appearance-none border border-muted bg-input rounded-xl py-2 px-3 hover:border-gray-400 focus:outline-none focus:border-gray-400 w-full text-sm"
                 type="number"
                 placeholder="Max"
                 value={maxAmount}
@@ -126,7 +126,7 @@ const AllFiltersComponent = ({
 
             <div className="mb-4">
               <button
-                className="px-1 py-2 text-center text-xs w-full inline-block text-white bg-black border border-transparent rounded-md hover:bg-slate-700 hover:text-foreground"
+                className="px-1 py-2 text-center text-xs w-full inline-block text-white bg-black border border-transparent rounded-xl hover:bg-slate-700 hover:text-foreground"
                 onClick={handlePriceButtonClick}
               >
                 Filtrar

@@ -30,7 +30,7 @@ const AdminOrderSearch = () => {
       className="flex flex-row items-center w-full order-last maxmd:order-none my-5 maxmd:my-0 "
     >
       <input
-        className="flex-grow text-foreground appearance-none border border-gray-200 bg-background rounded-md mr-2 py-2 px-3 hover:border-gray-400 focus:outline-none focus:border-gray-400 w-40"
+        className="flex-grow text-foreground appearance-none border border-gray-200 bg-background rounded-xl mr-2 py-2 px-3 hover:border-gray-400 focus:outline-none focus:border-gray-400 w-40"
         type="text"
         placeholder="búsqueda"
         value={keyword}
@@ -38,7 +38,7 @@ const AdminOrderSearch = () => {
       />
       <button
         type="button"
-        className="px-4 py-2 text-white border border-transparent rounded-md bg-black flex-row flex items-center gap-x-3"
+        className="px-4 py-2 text-white border border-transparent rounded-xl bg-black flex-row flex items-center gap-x-3"
         onClick={submitHandler}
       >
         <span className="maxsm:hidden"> Buscar</span> <FaSearch />

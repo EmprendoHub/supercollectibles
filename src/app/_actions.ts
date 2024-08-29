@@ -3426,9 +3426,9 @@ export async function getOneAddress(id: string) {
   //check for errors
   await dbConnect();
   const address = await Address.findOne({ _id: id });
-
+  const stringAddress = JSON.stringify(address);
   if (address) {
-    return { address };
+    return stringAddress;
   }
 }
 

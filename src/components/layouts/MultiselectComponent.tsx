@@ -14,7 +14,7 @@ const MultiselectComponent = ({
     <Select
       value={values}
       options={options}
-      className="block appearance-none border border-gray-300 bg-background rounded-md py-2 px-3 focus:outline-none focus:border-gray-400 w-full"
+      className="block appearance-none border border-gray-300 bg-background rounded-xl py-2 px-3 focus:outline-none focus:border-gray-400 w-full"
       name="sizes"
       onChange={handleAddSizeField}
     />

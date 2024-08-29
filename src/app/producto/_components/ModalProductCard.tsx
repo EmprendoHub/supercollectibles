@@ -39,7 +39,7 @@ const ModalProductCard = ({
       >
         <div
           onClick={() => closeModal()}
-          className="my-2 px-4 py-2 text-center text-white bg-red-700 border border-transparent rounded-md hover:bg-red-800 w-full flex flex-row items-center justify-center gap-1 cursor-pointer"
+          className="my-2 px-4 py-2 text-center text-white bg-red-700 border border-transparent rounded-xl hover:bg-red-800 w-full flex flex-row items-center justify-center gap-1 cursor-pointer"
         >
           <FaCircleExclamation className="text-xl" />
           Cerrar

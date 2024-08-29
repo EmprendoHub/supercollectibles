@@ -638,7 +638,7 @@ const EditVariationProduct = ({
                   </label>
                   <input
                     type="text"
-                    className="appearance-none border bg-background rounded-md py-2 px-3 border-gray-300 focus:outline-none focus:border-gray-400 w-full"
+                    className="appearance-none border bg-background rounded-xl py-2 px-3 border-gray-300 focus:outline-none focus:border-gray-400 w-full"
                     placeholder="Nombre de Producto"
                     value={title}
                     onChange={(e) => setTitle(e.target.value)}
@@ -657,7 +657,7 @@ const EditVariationProduct = ({
                   </label>
                   <textarea
                     rows={2}
-                    className="appearance-none border  bg-background rounded-md py-2 px-3 border-gray-300 focus:outline-none focus:border-gray-400 w-full"
+                    className="appearance-none border  bg-background rounded-xl py-2 px-3 border-gray-300 focus:outline-none focus:border-gray-400 w-full"
                     placeholder="Descripción del Producto"
                     value={description}
                     onChange={(e) => setDescription(e.target.value)}
@@ -675,7 +675,7 @@ const EditVariationProduct = ({
                   <div className="mb-4 w-full">
                     <input
                       type="text"
-                      className="appearance-none border bg-input rounded-md py-2 px-3 border-gray-300 focus:outline-none focus:border-gray-400 w-full"
+                      className="appearance-none border bg-input rounded-xl py-2 px-3 border-gray-300 focus:outline-none focus:border-gray-400 w-full"
                       placeholder="Marca"
                       value={brand}
                       onChange={(e) => setBrand(e.target.value)}
@@ -767,7 +767,7 @@ const EditVariationProduct = ({
                       <div className="col-span-2">
                         <input
                           type="number"
-                          className="appearance-none border border-gray-300 bg-background rounded-md py-2 px-3focus:outline-none focus:border-gray-400 w-full remove-arrow "
+                          className="appearance-none border border-gray-300 bg-background rounded-xl py-2 px-3focus:outline-none focus:border-gray-400 w-full remove-arrow "
                           placeholder="0.00"
                           min="0"
                           value={salePrice}
@@ -801,7 +801,7 @@ const EditVariationProduct = ({
             <div className="w-[300px]">
               <div
                 onClick={addVariation}
-                className="my-4 px-8 py-2 text-center inline-block text-white bg-black border border-transparent rounded-md hover:bg-slate-800 w-auto cursor-pointer"
+                className="my-4 px-8 py-2 text-center inline-block text-white bg-black border border-transparent rounded-xl hover:bg-slate-800 w-auto cursor-pointer"
               >
                 Variación +
               </div>
@@ -816,7 +816,7 @@ const EditVariationProduct = ({
                       value={variations[0]?.size}
                       name="size"
                       onChange={(e) => handleSizeChange(0, e.target.value)}
-                      className="appearance-none border border-gray-300 bg-background rounded-md pl-2 cursor-pointer focus:outline-none focus:border-gray-400 w-full"
+                      className="appearance-none border border-gray-300 bg-background rounded-xl pl-2 cursor-pointer focus:outline-none focus:border-gray-400 w-full"
                     >
                       {sizeSelection.map((option) => (
                         <option key={option.value} value={option.value}>
@@ -854,7 +854,7 @@ const EditVariationProduct = ({
                           hexThreeValue
                         );
                       }}
-                      className="appearance-none border border-gray-300 bg-background rounded-md pl-2 cursor-pointer focus:outline-none focus:border-gray-400 w-full"
+                      className="appearance-none border border-gray-300 bg-background rounded-xl pl-2 cursor-pointer focus:outline-none focus:border-gray-400 w-full"
                     >
                       {set_colors.map((option) => (
                         <option
@@ -881,7 +881,7 @@ const EditVariationProduct = ({
                     <div className="col-span-2">
                       <input
                         type="number"
-                        className="appearance-none border border-gray-300 bg-background rounded-md pl-2 remove-arrow  focus:outline-none focus:border-gray-400 w-full"
+                        className="appearance-none border border-gray-300 bg-background rounded-xl pl-2 remove-arrow  focus:outline-none focus:border-gray-400 w-full"
                         placeholder="0.00"
                         min="1"
                         value={variations[0]?.price}
@@ -902,7 +902,7 @@ const EditVariationProduct = ({
                     <div className="col-span-2">
                       <input
                         type="number"
-                        className="appearance-none border border-gray-300 bg-background rounded-md pl-2 remove-arrow focus:outline-none focus:border-gray-400 w-full"
+                        className="appearance-none border border-gray-300 bg-background rounded-xl pl-2 remove-arrow focus:outline-none focus:border-gray-400 w-full"
                         placeholder="0.00"
                         min="1"
                         value={variations[0]?.cost}
@@ -926,7 +926,7 @@ const EditVariationProduct = ({
                     <div className="col-span-2">
                       <input
                         type="number"
-                        className="appearance-none border border-gray-300 bg-background rounded-md pl-2 remove-arrow focus:outline-none focus:border-gray-400 w-full"
+                        className="appearance-none border border-gray-300 bg-background rounded-xl pl-2 remove-arrow focus:outline-none focus:border-gray-400 w-full"
                         placeholder="1"
                         min="1"
                         value={variations[0]?.stock}
@@ -1012,7 +1012,7 @@ const EditVariationProduct = ({
                           onChange={(e) =>
                             handleSizeChange(index + 1, e.target.value)
                           }
-                          className="appearance-none border border-gray-300 bg-background rounded-md pl-2 cursor-pointer focus:outline-none focus:border-gray-400 w-full"
+                          className="appearance-none border border-gray-300 bg-background rounded-xl pl-2 cursor-pointer focus:outline-none focus:border-gray-400 w-full"
                         >
                           {sizeSelection.map((option) => (
                             <option key={option.value} value={option.value}>
@@ -1054,7 +1054,7 @@ const EditVariationProduct = ({
                               hexThreeValue
                             );
                           }}
-                          className="appearance-none border border-gray-300 bg-background rounded-md pl-2 cursor-pointer  focus:outline-none focus:border-gray-400 w-full"
+                          className="appearance-none border border-gray-300 bg-background rounded-xl pl-2 cursor-pointer  focus:outline-none focus:border-gray-400 w-full"
                         >
                           {set_colors.map((option) => (
                             <option
@@ -1088,7 +1088,7 @@ const EditVariationProduct = ({
                           onChange={(e) =>
                             handlePriceChange(index + 1, e.target.value)
                           }
-                          className="appearance-none border border-gray-300 bg-background rounded-md pl-2 curs focus:outline-none focus:border-gray-400 w-full m-0 remove-arrow"
+                          className="appearance-none border border-gray-300 bg-background rounded-xl pl-2 curs focus:outline-none focus:border-gray-400 w-full m-0 remove-arrow"
                         />
                       </div>
                     </div>
@@ -1106,7 +1106,7 @@ const EditVariationProduct = ({
                           onChange={(e) =>
                             handleCostChange(index + 1, e.target.value)
                           }
-                          className="appearance-none border border-gray-300 bg-background rounded-md pl-2 remove-arrow focus:outline-none focus:border-gray-400 w-full"
+                          className="appearance-none border border-gray-300 bg-background rounded-xl pl-2 remove-arrow focus:outline-none focus:border-gray-400 w-full"
                         />
                       </div>
                     </div>
@@ -1124,7 +1124,7 @@ const EditVariationProduct = ({
                           onChange={(e) =>
                             handleStockChange(index + 1, e.target.value)
                           }
-                          className="appearance-none border border-gray-300 bg-background rounded-md pl-2 remove-arrow focus:outline-none focus:border-gray-400 w-full"
+                          className="appearance-none border border-gray-300 bg-background rounded-xl pl-2 remove-arrow focus:outline-none focus:border-gray-400 w-full"
                         />
                       </div>
                     </div>
@@ -1171,7 +1171,7 @@ const EditVariationProduct = ({
               onClick={hanldeFormSubmit}
               className={`${
                 isSending ? "cursor-wait" : ""
-              } my-2 cursor-pointer px-4 py-2 text-center inline-block text-white bg-black border border-transparent rounded-md hover:bg-slate-800 w-full`}
+              } my-2 cursor-pointer px-4 py-2 text-center inline-block text-white bg-black border border-transparent rounded-xl hover:bg-slate-800 w-full`}
             >
               {isSending ? "Actualizando..." : "Actualizar"}
             </button>

@@ -168,7 +168,7 @@ const PayCartComp = ({
               <label className="block mb-1"> Referencia </label>
               <input
                 type="text"
-                className="appearance-none border bg-gray-100 rounded-md py-2 px-3 border-gray-300 focus:outline-none hover:outline-none focus:border-gray-400 hover:border-gray-400 w-full text-center font-bold "
+                className="appearance-none border bg-gray-100 rounded-xl py-2 px-3 border-gray-300 focus:outline-none hover:outline-none focus:border-gray-400 hover:border-gray-400 w-full text-center font-bold "
                 placeholder="8971654687687"
                 onChange={(e) => setTransactionNo(e.target.value)}
                 name="transactionNo"
@@ -177,7 +177,7 @@ const PayCartComp = ({
             <div className="mb-4 text-center">
               <input
                 type="text"
-                className="appearance-none border bg-gray-100 rounded-md py-2 px-3 border-gray-300 focus:outline-none hover:outline-none focus:border-gray-400 hover:border-gray-400 w-full text-center font-bold "
+                className="appearance-none border bg-gray-100 rounded-xl py-2 px-3 border-gray-300 focus:outline-none hover:outline-none focus:border-gray-400 hover:border-gray-400 w-full text-center font-bold "
                 placeholder="Nombre de Cliente"
                 onChange={(e) => setName(e.target.value)}
                 name="name"
@@ -187,7 +187,7 @@ const PayCartComp = ({
               <input
                 type="text"
                 value={phone}
-                className="appearance-none border bg-gray-100 rounded-md py-2 px-3 border-gray-300 focus:outline-none hover:outline-none focus:border-gray-400 hover:border-gray-400 w-full text-center font-bold "
+                className="appearance-none border bg-gray-100 rounded-xl py-2 px-3 border-gray-300 focus:outline-none hover:outline-none focus:border-gray-400 hover:border-gray-400 w-full text-center font-bold "
                 placeholder="353 123 4512"
                 onChange={handlePhoneChange}
                 name="phone"
@@ -196,7 +196,7 @@ const PayCartComp = ({
             <div className="mb-4 text-center">
               <input
                 type="text"
-                className="appearance-none border bg-gray-100 rounded-md py-2 px-3 border-gray-300 focus:outline-none hover:outline-none focus:border-gray-400 hover:border-gray-400 w-full text-center font-bold "
+                className="appearance-none border bg-gray-100 rounded-xl py-2 px-3 border-gray-300 focus:outline-none hover:outline-none focus:border-gray-400 hover:border-gray-400 w-full text-center font-bold "
                 placeholder="Email"
                 onChange={(e) => setEmail(e.target.value)}
                 name="email"
@@ -205,7 +205,7 @@ const PayCartComp = ({
             <div className="mb-4 text-center">
               <input
                 type="text"
-                className="appearance-none border bg-gray-100 rounded-md py-2 px-3 border-gray-300 focus:outline-none hover:outline-none focus:border-gray-400 hover:border-gray-400 w-full text-center font-bold "
+                className="appearance-none border bg-gray-100 rounded-xl py-2 px-3 border-gray-300 focus:outline-none hover:outline-none focus:border-gray-400 hover:border-gray-400 w-full text-center font-bold "
                 placeholder="Nota"
                 onChange={(e) => setNote(e.target.value)}
                 name="note"
@@ -217,7 +217,7 @@ const PayCartComp = ({
                 placeholder="$0.00"
                 value={amountReceived}
                 onChange={(e) => handleAmountReceived(e.target.value)}
-                className="text-5xl text-center outline-none w-full appearance-none border bg-gray-100 rounded-md py-2  border-gray-300 focus:outline-none focus:border-gray-400:outline-none focus:border-gray-400 hover:border-gray-400"
+                className="text-5xl text-center outline-none w-full appearance-none border bg-gray-100 rounded-xl py-2  border-gray-300 focus:outline-none focus:border-gray-400:outline-none focus:border-gray-400 hover:border-gray-400"
                 name="amount"
               />
               {validationError?.amount && (
@@ -230,14 +230,14 @@ const PayCartComp = ({
               <div className="flex flex-row flex-wrap items-center gap-3 w-full">
                 <div
                   onClick={() => setShowModal(false)}
-                  className="my-2 px-4 py-2 text-center text-white bg-red-700 border border-transparent rounded-md hover:bg-red-800 w-[45%] flex flex-row items-center justify-center gap-1 cursor-pointer"
+                  className="my-2 px-4 py-2 text-center text-white bg-red-700 border border-transparent rounded-xl hover:bg-red-800 w-[45%] flex flex-row items-center justify-center gap-1 cursor-pointer"
                 >
                   <FaCircleExclamation className="text-xl" />
                   Cancelar
                 </div>
                 <button
                   onClick={() => handleCheckout()}
-                  className="my-2 w-[45%] px-4 py-2 text-center text-white bg-emerald-700 border border-transparent rounded-md hover:bg-emerald-900 flex flex-row items-center justify-center gap-1"
+                  className="my-2 w-[45%] px-4 py-2 text-center text-white bg-emerald-700 border border-transparent rounded-xl hover:bg-emerald-900 flex flex-row items-center justify-center gap-1"
                 >
                   <FaCircleCheck className="text-xl" /> Procesar
                 </button>

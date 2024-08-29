@@ -151,7 +151,7 @@ const AllClientsComponent = ({
           {emailListData?.length > 0 && (
             <Link href={"/admin/correos"}>
               <div className="relative flex items-center justify-start ">
-                <div className="bg-black text-white flex items-center justify-center gap-3 pl-4 pr-6 py-3 rounded-md">
+                <div className="bg-black text-white flex items-center justify-center gap-3 pl-4 pr-6 py-3 rounded-xl">
                   Enviar Correo
                   <div className="relative">
                     <AiOutlineMail className="text-2xl absolute -top-2" />
@@ -225,7 +225,7 @@ const AllClientsComponent = ({
                     <div>
                       <Link
                         href={`/admin/cliente/${client._id}`}
-                        className="px-2 py-2 inline-block text-white hover:text-foreground bg-black shadow-sm border border-gray-200 rounded-md hover:bg-background cursor-pointer mr-2"
+                        className="px-2 py-2 inline-block text-white hover:text-foreground bg-black shadow-sm border border-gray-200 rounded-xl hover:bg-background cursor-pointer mr-2"
                       >
                         <FaPencilAlt className="" />
                       </Link>
@@ -236,7 +236,7 @@ const AllClientsComponent = ({
                           onClick={() =>
                             deactivateHandler(client._id, client?.active)
                           }
-                          className="px-2 py-2 inline-block text-white hover:text-foreground bg-slate-400 shadow-sm border border-gray-200 rounded-md hover:bg-background cursor-pointer mr-2"
+                          className="px-2 py-2 inline-block text-white hover:text-foreground bg-slate-400 shadow-sm border border-gray-200 rounded-xl hover:bg-background cursor-pointer mr-2"
                         >
                           <TiCancel className="" />
                         </button>
@@ -245,7 +245,7 @@ const AllClientsComponent = ({
                           onClick={() =>
                             deactivateHandler(client._id, client?.active)
                           }
-                          className="px-2 py-2 inline-block text-green-800 hover:text-foreground bg-slate-200 shadow-sm border border-gray-200 rounded-md hover:bg-background cursor-pointer mr-2"
+                          className="px-2 py-2 inline-block text-green-800 hover:text-foreground bg-slate-200 shadow-sm border border-gray-200 rounded-xl hover:bg-background cursor-pointer mr-2"
                         >
                           <FaCheck className="" />
                         </button>

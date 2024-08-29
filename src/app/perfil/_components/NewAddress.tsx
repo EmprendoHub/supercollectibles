@@ -78,7 +78,7 @@ const NewAddress = ({ searchParams }: { searchParams: any }) => {
           <div className="mb-4 md:col-span-2">
             <label className="block mb-1"> Calle* </label>
             <input
-              className="appearance-none border border-gray-200 bg-background rounded-md py-2 px-3 hover:border-gray-400 focus:outline-none focus:border-gray-400 w-full"
+              className="appearance-none border border-gray-200 bg-background rounded-xl py-2 px-3 hover:border-gray-400 focus:outline-none focus:border-gray-400 w-full"
               type="text"
               placeholder="Ingresa tu dirección"
               name="street"
@@ -94,7 +94,7 @@ const NewAddress = ({ searchParams }: { searchParams: any }) => {
             <div className="mb-4 md:col-span-1">
               <label className="block mb-1"> Ciudad </label>
               <input
-                className="appearance-none border border-gray-200 bg-background rounded-md py-2 px-3 hover:border-gray-400 focus:outline-none focus:border-gray-400 w-full"
+                className="appearance-none border border-gray-200 bg-background rounded-xl py-2 px-3 hover:border-gray-400 focus:outline-none focus:border-gray-400 w-full"
                 type="text"
                 placeholder="Ingresa tu Ciudad"
                 name="city"
@@ -109,7 +109,7 @@ const NewAddress = ({ searchParams }: { searchParams: any }) => {
             <div className="mb-4 maxmd:col-span-2">
               <label className="block mb-1"> Provincia </label>
               <select
-                className="appearance-none border border-gray-200 bg-background rounded-md py-2 px-3 hover:border-gray-400 focus:outline-none focus:border-gray-400 w-full"
+                className="appearance-none border border-gray-200 bg-background rounded-xl py-2 px-3 hover:border-gray-400 focus:outline-none focus:border-gray-400 w-full"
                 name="province"
               >
                 {provincias.map((province) => (
@@ -130,7 +130,7 @@ const NewAddress = ({ searchParams }: { searchParams: any }) => {
             <div className="mb-4 md:col-span-1">
               <label className="block mb-1"> Código Postal </label>
               <input
-                className="appearance-none border border-gray-200 bg-background rounded-md py-2 px-3 hover:border-gray-400 focus:outline-none focus:border-gray-400 w-full"
+                className="appearance-none border border-gray-200 bg-background rounded-xl py-2 px-3 hover:border-gray-400 focus:outline-none focus:border-gray-400 w-full"
                 type="number"
                 placeholder="Ingresa tu código postal"
                 name="zip_code"
@@ -145,7 +145,7 @@ const NewAddress = ({ searchParams }: { searchParams: any }) => {
             <div className="mb-4 md:col-span-1">
               <label className="block mb-1"> Teléfono </label>
               <input
-                className="appearance-none border border-gray-200 bg-background rounded-md py-2 px-3 hover:border-gray-400 focus:outline-none focus:border-gray-400 w-full"
+                className="appearance-none border border-gray-200 bg-background rounded-xl py-2 px-3 hover:border-gray-400 focus:outline-none focus:border-gray-400 w-full"
                 type="tel"
                 placeholder="Ingresa tu teléfono"
                 name="phone"
@@ -162,7 +162,7 @@ const NewAddress = ({ searchParams }: { searchParams: any }) => {
           <div className="mb-4 md:col-span-2 ">
             <label className="block mb-1"> País </label>
             <select
-              className=" appearance-none border border-gray-200 bg-background rounded-md py-2 px-3 hover:border-gray-400 focus:outline-none focus:border-gray-400 w-full "
+              className=" appearance-none border border-gray-200 bg-background rounded-xl py-2 px-3 hover:border-gray-400 focus:outline-none focus:border-gray-400 w-full "
               name="country"
             >
               {countriesList.map((country) => (
@@ -180,7 +180,7 @@ const NewAddress = ({ searchParams }: { searchParams: any }) => {
 
           <button
             type="submit"
-            className="my-2 px-4 py-2 text-center w-full inline-block text-white bg-blue-600 border border-transparent rounded-md hover:bg-blue-700"
+            className="my-2 px-4 py-2 text-center w-full inline-block text-white bg-blue-600 border border-transparent rounded-xl hover:bg-blue-700"
           >
             Agregar Domicilio
           </button>

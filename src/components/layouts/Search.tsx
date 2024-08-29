@@ -21,7 +21,7 @@ const Search = ({ SetIsActive }: { SetIsActive?: any }) => {
       className="flex flex-col gap-3 items-center w-auto "
     >
       <input
-        className="flex-grow text-foreground text-sm appearance-none border border-gray-200 bg-input rounded-md mr-2 py-2 px-3 hover:border-gray-400 focus:outline-none focus:border-gray-400 w-[95%]"
+        className="flex-grow text-foreground text-sm appearance-none border border-gray-200 bg-input rounded-xl mr-2 py-2 px-3 hover:border-gray-400 focus:outline-none focus:border-gray-400 w-[95%]"
         type="text"
         placeholder="Palabra clave"
         value={keyword}

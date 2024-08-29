@@ -81,7 +81,7 @@ const PayOrderComp = ({
                   <label className="block mb-1"> Numero de Transacción </label>
                   <input
                     type="text"
-                    className="appearance-none border bg-background rounded-md py-2 px-3 border-gray-300 focus:outline-none focus:border-gray-400 w-full"
+                    className="appearance-none border bg-background rounded-xl py-2 px-3 border-gray-300 focus:outline-none focus:border-gray-400 w-full"
                     placeholder="No de Transacción"
                     onChange={(e) => setTransactionNo(e.target.value)}
                     name="transactionNo"
@@ -93,7 +93,7 @@ const PayOrderComp = ({
                   <label className="block mb-1"> Cantidad </label>
                   <input
                     type="text"
-                    className="appearance-none border bg-background rounded-md py-2 px-3 border-gray-300 focus:outline-none focus:border-gray-400 w-full"
+                    className="appearance-none border bg-background rounded-xl py-2 px-3 border-gray-300 focus:outline-none focus:border-gray-400 w-full"
                     placeholder="0.00"
                     value={amount}
                     onChange={(e: any) => setAmount(e.target.value)}
@@ -106,7 +106,7 @@ const PayOrderComp = ({
                   <label className="block mb-1"> Nota </label>
                   <input
                     type="text"
-                    className="appearance-none border bg-background rounded-md py-2 px-3 border-gray-300 focus:outline-none focus:border-gray-400 w-full"
+                    className="appearance-none border bg-background rounded-xl py-2 px-3 border-gray-300 focus:outline-none focus:border-gray-400 w-full"
                     placeholder="Nota"
                     value={note}
                     onChange={(e) => setNote(e.target.value)}
@@ -121,14 +121,14 @@ const PayOrderComp = ({
               <div className="flex flex-row items-center justify-between w-full gap-2">
                 <div
                   onClick={() => setShowModal(false)}
-                  className="my-2 px-4 py-2 text-center text-white bg-red-700 border border-transparent rounded-md hover:bg-red-800 w-full flex flex-row items-center justify-center gap-1 cursor-pointer"
+                  className="my-2 px-4 py-2 text-center text-white bg-red-700 border border-transparent rounded-xl hover:bg-red-800 w-full flex flex-row items-center justify-center gap-1 cursor-pointer"
                 >
                   <FaCircleExclamation className="text-xl" />
                   Cancelar
                 </div>
                 <button
                   type="submit"
-                  className="my-2 px-4 py-2 text-center text-white bg-emerald-700 border border-transparent rounded-md hover:bg-emerald-900 w-full flex flex-row items-center justify-center gap-1"
+                  className="my-2 px-4 py-2 text-center text-white bg-emerald-700 border border-transparent rounded-xl hover:bg-emerald-900 w-full flex flex-row items-center justify-center gap-1"
                 >
                   <FaCircleCheck className="text-xl" /> Aceptar
                 </button>

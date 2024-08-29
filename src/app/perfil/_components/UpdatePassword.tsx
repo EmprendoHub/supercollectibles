@@ -2,36 +2,19 @@
 import React, { useState } from "react";
 import { updateClientPassword } from "@/app/_actions";
 import { cstDateTimeClient } from "@/backend/helpers";
-import { getSession } from "next-auth/react";
+import { useSession } from "next-auth/react";
 import { toast } from "sonner";
 import { ValidationError } from "@/types";
 
 const UpdatePassword = () => {
-  const session: any = getSession();
-  const user = session?.data.user;
+  const session: any = useSession();
+  const user = session?.data?.user;
   const [loading, setLoading] = useState(false);
   const [currentPassword, setCurrentPassword] = useState("");
   const [newPassword, setNewPassword] = useState("");
   const [updatedAt, setUpdatedAt] = useState(cstDateTimeClient());
   const [validationError, setValidationError] =
     useState<ValidationError | null>(null);
-
-  const handlePhoneChange = (e: any) => {
-    const inputPhone = e.target.value.replace(/\D/g, ""); // Remove non-numeric characters
-    let formattedPhone = "";
-
-    if (inputPhone.length <= 10) {
-      formattedPhone = inputPhone.replace(
-        /(\d{3})(\d{0,3})(\d{0,4})/,
-        "$1 $2 $3"
-      );
-    } else {
-      // If the phone number exceeds 10 digits, truncate it
-      formattedPhone = inputPhone
-        .slice(0, 10)
-        .replace(/(\d{3})(\d{0,3})(\d{0,4})/, "$1 $2 $3");
-    }
-  };
 
   const submitHandler = async (e: any) => {
     setLoading(true);
@@ -76,7 +59,7 @@ const UpdatePassword = () => {
               Contraseña Actual
             </label>
             <input
-              className="appearance-none border border-gray-200 bg-background rounded-md py-2 px-3 hover:border-gray-400 focus:outline-none focus:border-gray-400 w-full"
+              className="appearance-none border border-gray-200 bg-background rounded-xl py-2 px-3 hover:border-gray-400 focus:outline-none focus:border-gray-400 w-full"
               type="password"
               placeholder="Ingresa tu contraseña"
               required
@@ -94,7 +77,7 @@ const UpdatePassword = () => {
               Nueva contraseña
             </label>
             <input
-              className="appearance-none border border-gray-200 bg-background rounded-md py-2 px-3 hover:border-gray-400 focus:outline-none focus:border-gray-400 w-full"
+              className="appearance-none border border-gray-200 bg-background rounded-xl py-2 px-3 hover:border-gray-400 focus:outline-none focus:border-gray-400 w-full"
               type="password"
               placeholder="Ingresa tu nueva contraseña"
               minLength={8}
@@ -111,7 +94,7 @@ const UpdatePassword = () => {
 
           <button
             type="submit"
-            className="my-2 px-4 py-2 text-center w-full inline-block text-white bg-blue-600 border border-transparent rounded-md hover:bg-blue-700"
+            className="my-2 px-4 py-2 text-center w-full inline-block text-white bg-blue-600 border border-transparent rounded-xl hover:bg-blue-700"
             disabled={loading ? true : false}
           >
             {loading ? "Actualizando..." : "Actualizar"}

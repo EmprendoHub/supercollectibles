@@ -1,26 +1,26 @@
 "use client";
 import React, { useEffect, useState } from "react";
 import { countries } from "countries-list";
-import { MdCancel } from "react-icons/md";
 import Swal from "sweetalert2";
-import { getSession } from "next-auth/react";
+import { useSession } from "next-auth/react";
 import { deleteAddress, getOneAddress, updateAddress } from "@/app/_actions";
 
 const UpdateAddress = ({ id }: { id: string }) => {
-  const session: any = getSession();
-  const user = session?.data.user;
+  const session: any = useSession();
+  const user = session?.data?.user;
   const [address, setAddress] = useState<HTMLFormElement>();
 
   useEffect(() => {
     async function getAddress() {
       const addressGet: any = await getOneAddress(id);
-      setAddress(addressGet);
-      setStreet(addressGet.street);
-      setCity(addressGet.city);
-      setProvince(addressGet.province);
-      setCountry(addressGet.country);
-      setZipcode(addressGet.zip_code);
-      setPhone(addressGet.phone);
+      const currentAddress = JSON.parse(addressGet);
+      setAddress(currentAddress);
+      setStreet(currentAddress.street);
+      setCity(currentAddress.city);
+      setProvince(currentAddress.province);
+      setCountry(currentAddress.country);
+      setZipcode(currentAddress.zip_code);
+      setPhone(currentAddress.phone);
     }
     getAddress();
     // eslint-disable-next-line
@@ -86,7 +86,7 @@ const UpdateAddress = ({ id }: { id: string }) => {
           <div className="mb-4 md:col-span-2">
             <label className="block mb-1"> Calle* </label>
             <input
-              className="appearance-none border border-gray-200 bg-background rounded-md py-2 px-3 hover:border-gray-400 focus:outline-none focus:border-gray-400 w-full"
+              className="appearance-none border border-gray-200 bg-background rounded-xl py-2 px-3 hover:border-gray-400 focus:outline-none focus:border-gray-400 w-full"
               type="text"
               placeholder="Ingresa tu domicilio"
               value={street}
@@ -98,7 +98,7 @@ const UpdateAddress = ({ id }: { id: string }) => {
             <div className="mb-4 md:col-span-1">
               <label className="block mb-1"> Ciudad </label>
               <input
-                className="appearance-none border border-gray-200 bg-background rounded-md py-2 px-3 hover:border-gray-400 focus:outline-none focus:border-gray-400 w-full"
+                className="appearance-none border border-gray-200 bg-background rounded-xl py-2 px-3 hover:border-gray-400 focus:outline-none focus:border-gray-400 w-full"
                 type="text"
                 placeholder="Ingresa tu Ciudad"
                 value={city}
@@ -109,7 +109,7 @@ const UpdateAddress = ({ id }: { id: string }) => {
             <div className="mb-4 md:col-span-1">
               <label className="block mb-1"> Estado </label>
               <input
-                className="appearance-none border border-gray-200 bg-background rounded-md py-2 px-3 hover:border-gray-400 focus:outline-none focus:border-gray-400 w-full"
+                className="appearance-none border border-gray-200 bg-background rounded-xl py-2 px-3 hover:border-gray-400 focus:outline-none focus:border-gray-400 w-full"
                 type="text"
                 placeholder="Ingresa tu Estado"
                 value={province}
@@ -122,7 +122,7 @@ const UpdateAddress = ({ id }: { id: string }) => {
             <div className="mb-4 md:col-span-1">
               <label className="block mb-1"> Código Postal </label>
               <input
-                className="appearance-none border border-gray-200 bg-background rounded-md py-2 px-3 hover:border-gray-400 focus:outline-none focus:border-gray-400 w-full"
+                className="appearance-none border border-gray-200 bg-background rounded-xl py-2 px-3 hover:border-gray-400 focus:outline-none focus:border-gray-400 w-full"
                 type="number"
                 placeholder="Ingresa tu código postal"
                 value={zipcode}
@@ -133,7 +133,7 @@ const UpdateAddress = ({ id }: { id: string }) => {
             <div className="mb-4 md:col-span-1">
               <label className="block mb-1"> Teléfono </label>
               <input
-                className="appearance-none border border-gray-200 bg-background rounded-md py-2 px-3 hover:border-gray-400 focus:outline-none focus:border-gray-400 w-full"
+                className="appearance-none border border-gray-200 bg-background rounded-xl py-2 px-3 hover:border-gray-400 focus:outline-none focus:border-gray-400 w-full"
                 type="tel"
                 placeholder="Ingresa tu teléfono"
                 value={phone}
@@ -145,7 +145,7 @@ const UpdateAddress = ({ id }: { id: string }) => {
           <div className="mb-4 md:col-span-2">
             <label className="block mb-1"> País </label>
             <select
-              className="appearance-none border border-gray-200 bg-background rounded-md py-2 px-3 hover:border-gray-400 focus:outline-none focus:border-gray-400 w-full"
+              className="appearance-none border border-gray-200 bg-background rounded-xl py-2 px-3 hover:border-gray-400 focus:outline-none focus:border-gray-400 w-full"
               value={country}
               onChange={(e) => setCountry(e.target.value)}
             >
@@ -159,13 +159,13 @@ const UpdateAddress = ({ id }: { id: string }) => {
           <div className="flex flex-row justify-between items-center gap-x-6">
             <button
               type="submit"
-              className="my-2 px-4 py-2 text-center w-full inline-block text-white bg-blue-600 border border-transparent rounded-md hover:bg-blue-700"
+              className="my-2 px-4 py-2 text-center w-full inline-block text-white bg-secondary border border-transparent rounded-xl hover:bg-secondary/50"
             >
               Actualizar
             </button>
             <button
               onClick={deleteHandler}
-              className="my-2 px-4 py-2 text-center w-full inline-block text-white bg-red-600 border border-transparent rounded-md hover:bg-red-700"
+              className="my-2 px-4 py-2 text-center w-full inline-block text-white bg-red-600 border border-transparent rounded-xl hover:bg-red-700"
             >
               Borrar
             </button>
