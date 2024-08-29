@@ -22,7 +22,7 @@ const POSModal = ({
     <AnimatePresence mode="wait">
       {showModal && (
         <motion.div
-          className="backdrop fixed top-0 left-0 w-full h-full bg-black  bg-opacity-40 z-[555]"
+          className="backdrop fixed  top-0 left-0 w-full h-full bg-black  bg-opacity-40 z-[555]"
           variants={backdropVariants}
           transition={{ duration: 0.35, ease: "easeInOut" }}
           initial="initial"
