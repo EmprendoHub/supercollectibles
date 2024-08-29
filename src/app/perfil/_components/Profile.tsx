@@ -6,7 +6,8 @@ import { useSession } from "next-auth/react";
 
 const Profile = () => {
   const session: any = useSession();
-  const user = session?.data.user;
+
+  const user = session?.data?.user;
   return (
     <>
       <figure className="flex maxsm:flex-col items-start sm:items-center text-foreground">
