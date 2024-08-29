@@ -9,10 +9,18 @@ export async function GET(request: Request) {
 
   // Extract the user agent string from the browser
   const header = headers();
-  const { device } = userAgent({ headers: request.headers });
+  const { device } = userAgent(request);
   const viewport = device.type === "mobile" ? "mobile" : "desktop";
-  const ip = (header.get("x-forwarded-for") ?? "127.0.0.1").split(",")[0];
-  console.log(ip, "userip");
+
+  // Get the client IP address
+  const forwardedFor = header.get("x-forwarded-for");
+  const clientIp = forwardedFor
+    ? forwardedFor.split(",")[0].trim()
+    : header.get("x-real-ip") ||
+      request.headers.get("x-real-ip") ||
+      "127.0.0.1";
+
+  console.log(clientIp, "userip");
   console.log(viewport, "viewport");
 
   if (!session) {
