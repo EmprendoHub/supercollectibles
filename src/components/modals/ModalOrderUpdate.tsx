@@ -1,7 +1,7 @@
 "use client";
 import React from "react";
 import { AnimatePresence, motion } from "framer-motion";
-import UpdateOrderComp from "../orders/UpdateOrderComp";
+import UpdateOrderComp from "./UpdateOrderComp";
 
 const backdropVariants = {
   animate: { opacity: 1, scale: 1 },

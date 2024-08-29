@@ -1,7 +1,7 @@
 "use client";
 import React, { useState } from "react";
 import { AnimatePresence, motion } from "framer-motion";
-import ModalProductCard from "../products/ModalProductCard";
+import ModalProductCard from "@/app/producto/_components/ModalProductCard";
 
 const backdropVariants = {
   animate: { opacity: 1, scale: 1 },

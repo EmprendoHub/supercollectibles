@@ -1,7 +1,7 @@
 "use client";
 import React from "react";
 import { AnimatePresence, motion } from "framer-motion";
-import PayCartComp from "../admin/PayCartComp";
+import PayCartComp from "./PayCartComp";
 
 const backdropVariants = {
   animate: { opacity: 1, scale: 1 },
