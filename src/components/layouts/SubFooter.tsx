@@ -7,7 +7,7 @@ const SubFooter = () => {
     <div className="w-full h-full  relative flex flex-row  maxsm:flex-col-reverse justify-center items-end px-40 maxlg:px-10 maxsm:pt-10">
       <div className="w-full  h-full relative z-[1] flex justify-end pr-20 maxmd:pr-5">
         <Image
-          src={"/images/footer_image.png"}
+          src={"/images/footer_image.webp"}
           width={700}
           height={700}
           alt="Centro de Especialidades"

@@ -8,7 +8,7 @@ export const metadata = {
 const TerminosPage = () => {
   return (
     <div className="p-6 px-20 md:px-10">
-      <section className="hero mb-10 bg-gray-100 text-center py-20 border border-slate-400 drop-shadow-md">
+      <section className="hero mb-10 bg-background text-center py-20 border border-slate-400 drop-shadow-md">
         <div className="container mx-auto">
           <h1 className="text-4xl font-EB_Garamond font-extrabold font-playfair-display text-foreground">
             Términos de servicio
@@ -24,7 +24,7 @@ const TerminosPage = () => {
           </p>
         </div>
       </section>
-      <div className=" p-6 px-20 md:px-10 bg-gray-100  py-20 border border-slate-400 drop-shadow-md">
+      <div className=" p-6 px-20 md:px-10 bg-background  py-20 border border-slate-400 drop-shadow-md">
         <section className="mb-4 ">
           <h2 className="text-2xl font-semibold font-EB_Garamond">
             DESCRIPCIÓN GENERAL

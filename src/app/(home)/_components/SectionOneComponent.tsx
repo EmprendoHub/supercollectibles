@@ -6,19 +6,22 @@ import React from "react";
 
 const serviciosMedicos = [
   {
-    title: "Servicio de Cardióloga",
-    imgUrl: "/servicios",
-    imgSrc: "/images/Hospital_de_Especialidades_Cardiologo.webp",
+    title: "Compra de Tarjetas Únicas",
+    text: "Le encontramos un nuevo hogar a tus coleccionables mas especiales",
+    imgUrl: "/contacto",
+    imgSrc: "/images/Main_cover_image02.jpeg",
   },
   {
-    title: "Servicio de Ginecología",
-    imgUrl: "/servicios",
-    imgSrc: "/images/Hospital_de_Especialidades_Ginecologia.webp",
+    title: "Garantía de Autenticidad",
+    text: "Cada artículo es verificado para garantizar que estás adquiriendo piezas genuinas.",
+    imgUrl: "/tienda",
+    imgSrc: "/images/OIG_02.jpeg",
   },
   {
-    title: "Servicio de Medicina General",
+    title: "Compras Seguras y Fáciles",
+    text: "Nuestro proceso de compra es sencillo, seguro y rápido, permitiéndote adquirir lo que necesitas sin complicaciones.",
     imgUrl: "/servicios",
-    imgSrc: "/images/doctor-talking-with-patients-2.png",
+    imgSrc: "/images/placeholder_02.jpeg",
   },
 ];
 
@@ -33,11 +36,11 @@ const SectionOneComponent = () => {
         <div className=" pt-40 w-[80%] maxsm:w-full mx-auto text-center pb-20">
           <HeroColTextComponent
             className={"text-center"}
-            pretitle={"Central Medica de Especialidades"}
-            title={"Especialistas Médicos de "}
-            word={"Excelencia"}
+            pretitle={"Amplia Selección"}
+            title={"¿Por Qué  "}
+            word={"Elegirnos?"}
             subtitle={
-              "Descubre un equipo de especialistas médicos altamente calificados, comprometidos con tu salud y bienestar."
+              "Disponemos de un catálogo extenso con tarjetas y artículos coleccionables cuidadosamente seleccionados, asegurando calidad y autenticidad en cada producto."
             }
           />
           <div className="flex flex-row maxmd:flex-col gap-6 maxmd:gap-24 justify-center items-center mt-10">
@@ -52,16 +55,17 @@ const SectionOneComponent = () => {
                 imgAlt="Servicio Medico"
                 imgClassName="object-cover w-full h-full rounded-2xl"
                 title={servicio?.title}
+                text={servicio?.text}
                 divDuration={1}
               />
             ))}
           </div>
         </div>
         <Link
-          href={"/especialidades"}
+          href={"/tienda"}
           className="border-b border-b-gray-400 mt-20 tracking-widest font-raleway font-black"
         >
-          Explorar Especialidades Medicas
+          Explorar La Tienda
         </Link>
       </SectionLayoutComponet>
     </>

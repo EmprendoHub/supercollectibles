@@ -12,7 +12,7 @@ const SectionFourComponent = () => {
         <div className="grid grid-cols-2 maxmd:grid-cols-1 items-center">
           <div className="maxmd:order-2 relative flex justify-center items-center w-full h-full">
             <Image
-              src={"/images/cirujano-operacion.png"}
+              src={"/images/OIG1.jpeg"}
               width={2000}
               height={2000}
               alt="Servicios Medicos"
@@ -26,7 +26,7 @@ const SectionFourComponent = () => {
               className="absolute z-20"
             />
           </div>
-          <div className="bg-blue-950 h-full p-20 maxmd:p-10 text-white">
+          <div className="bg-card h-full p-20 maxmd:p-10 text-white">
             {" "}
             <ColTextColorComponent
               pretitle={"Información de"}

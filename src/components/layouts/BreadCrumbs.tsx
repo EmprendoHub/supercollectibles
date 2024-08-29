@@ -17,7 +17,7 @@ const BreadCrumbs = ({ breadCrumbs }: { breadCrumbs: any }) => {
                   {crumb?.name}
                 </Link>
                 {breadCrumbs?.length - 1 !== index && (
-                  <ChevronRight className="ml-3 text-gray-800" />
+                  <ChevronRight className="ml-3 " />
                 )}
               </li>
             ))}

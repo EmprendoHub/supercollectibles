@@ -2,6 +2,7 @@
 import Link from "next/link";
 import React from "react";
 import { motion } from "framer-motion";
+import { Button } from "../ui/button";
 
 const ColTextComponent = ({
   pretitle,
@@ -38,7 +39,7 @@ const ColTextComponent = ({
         initial={{ y: 30, opacity: 0 }}
         whileInView={{ y: 0, opacity: 1 }}
         transition={{ duration: 0.8 }}
-        className="text-lg  maxmd:text-sm pt-3 tracking-widest text-gray-700"
+        className="text-sm  maxmd:text-sm pt-3 tracking-widest text-white"
       >
         {subtitle}
       </motion.p>
@@ -48,11 +49,8 @@ const ColTextComponent = ({
         transition={{ duration: 0.9 }}
         className="py-10"
       >
-        <Link
-          href={btnUrl}
-          className="pt-3 uppercase text-lg rounded-full px-6 py-3 bg-background drop-shadow-sm text-white duration-300"
-        >
-          {btnText}
+        <Link href={btnUrl}>
+          <Button>{btnText}</Button>
         </Link>
       </motion.div>
     </div>
