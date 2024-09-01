@@ -504,6 +504,7 @@ const EditVariationProduct = ({
               try {
                 const parsed = JSON.parse(url);
                 url = parsed.url;
+                console.log("file, url", file, url);
                 await compressAndOptimizeSecondaryImage(file, url, index);
                 resolve();
               } catch (error) {
