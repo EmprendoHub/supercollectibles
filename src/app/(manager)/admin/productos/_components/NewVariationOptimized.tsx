@@ -16,6 +16,16 @@ import { toast } from "@/components/ui/use-toast";
 import { ValidationError } from "@/types";
 import { Loader } from "@/components/loader";
 
+// Modify the extractImageName function to handle potential errors
+function extractImageName(url: string | undefined): string {
+  if (!url || typeof url !== "string") {
+    console.error("Invalid URL provided to extractImageName:", url);
+    return "unknown_image";
+  }
+  const lastSlashIndex = url.lastIndexOf("/");
+  return lastSlashIndex !== -1 ? url.substring(lastSlashIndex + 1) : url;
+}
+
 const NewVariationOptimized = ({
   currentCookies,
 }: {
@@ -115,34 +125,6 @@ const NewVariationOptimized = ({
     }
   };
 
-  const handleColorChange = (
-    index: number,
-    newColor: string,
-    hex: string | null,
-    hexTwo: string | null,
-    hexThree: string | null
-  ) => {
-    const size = variations[index].size;
-    if (newColor && isCombinationUnique(size, newColor, index)) {
-      const newVariations: any = [...variations];
-      newVariations[index].color = newColor;
-      newVariations[index].colorHex = hex;
-      newVariations[index].colorHexTwo = hexTwo;
-      newVariations[index].colorHexThree = hexThree;
-      setVariations(newVariations);
-    } else {
-      // Reset the color if the combination is not unique
-      const newVariations = [...variations];
-      newVariations[index].color = ""; // Reset to empty
-      setVariations(newVariations);
-      toast({
-        variant: "destructive",
-        title: "Esta combinación de tamaño y color ya existe. ",
-        description: "Por favor, elija otro color o talla.",
-      });
-    }
-  };
-
   const handlePriceChange = (index: number, newPrice: string | number) => {
     const newVariations: any = [...variations];
     newVariations[index].price = newPrice;
@@ -178,44 +160,41 @@ const NewVariationOptimized = ({
       for (var i = 0; i < files?.length; i++) {
         var file = files[i];
         try {
-          // const noBgResponse = await removeImageBackground(file);
+          const noBgResponse = await removeImageBackground(file);
 
-          // if (!noBgResponse || !noBgResponse.url) {
-          //   throw new Error("Background removal failed or no URL provided");
-          // }
+          if (!noBgResponse || !noBgResponse.url) {
+            throw new Error("Background removal failed or no URL provided");
+          }
 
-          // const imageName = extractImageName(noBgResponse.url);
-          // const noBgImageUrl = noBgResponse.url;
+          const imageName = extractImageName(noBgResponse.url);
+          const noBgImageUrl = noBgResponse.url;
 
-          // console.log("noBgImageUrl", noBgImageUrl);
+          console.log("noBgImageUrl", noBgImageUrl);
 
-          // const endpoint = `/api/bgremover/`;
-          // const response = await fetch(endpoint, {
-          //   method: "GET",
-          //   headers: { noBgImageUrl: noBgImageUrl },
-          // });
+          const endpoint = `/api/bgremover/`;
+          const response = await fetch(endpoint, {
+            method: "GET",
+            headers: { noBgImageUrl: noBgImageUrl },
+          });
 
-          // if (!response.ok) {
-          //   throw new Error(`HTTP error! status: ${response.status}`);
-          // }
+          if (!response.ok) {
+            throw new Error(`HTTP error! status: ${response.status}`);
+          }
 
-          // const blob = await response.blob();
-          // console.log("response get blob", blob);
+          const blob = await response.blob();
 
-          // const noBgFile = new File([blob], `nobg_${imageName}`, {
-          //   type: blob.type || "image/png",
-          // });
+          const noBgFile = new File([blob], `nobg_${imageName}`, {
+            type: blob.type || "image/png",
+          });
 
-          // console.log("noBgFile", noBgFile);
-
-          // // Validate file
-          // if (noBgFile.size === 0) {
-          //   throw new Error("Background removed file is empty");
-          // }
+          // Validate file
+          if (noBgFile.size === 0) {
+            throw new Error("Background removed file is empty");
+          }
 
           // Retrieve a URL from our server and process the image
           await new Promise<void>((resolve, reject) => {
-            retrieveNewURL(file, async (file, url) => {
+            retrieveNewURL(noBgFile, async (file, url) => {
               try {
                 const parsed = JSON.parse(url);
                 url = parsed.url;
@@ -279,44 +258,44 @@ const NewVariationOptimized = ({
       for (var i = 0; i < files?.length; i++) {
         var file = files[i];
         try {
-          // const noBgResponse = await removeImageBackground(file);
+          const noBgResponse = await removeImageBackground(file);
 
-          // if (!noBgResponse || !noBgResponse.url) {
-          //   throw new Error("Background removal failed or no URL provided");
-          // }
+          if (!noBgResponse || !noBgResponse.url) {
+            throw new Error("Background removal failed or no URL provided");
+          }
 
-          // const imageName = extractImageName(noBgResponse.url);
-          // const noBgImageUrl = noBgResponse.url;
+          const imageName = extractImageName(noBgResponse.url);
+          const noBgImageUrl = noBgResponse.url;
 
-          // console.log("noBgImageUrl", noBgImageUrl);
+          console.log("noBgImageUrl", noBgImageUrl);
 
-          // const endpoint = `/api/bgremover/`;
-          // const response = await fetch(endpoint, {
-          //   method: "GET",
-          //   headers: { noBgImageUrl: noBgImageUrl },
-          // });
+          const endpoint = `/api/bgremover/`;
+          const response = await fetch(endpoint, {
+            method: "GET",
+            headers: { noBgImageUrl: noBgImageUrl },
+          });
 
-          // if (!response.ok) {
-          //   throw new Error(`HTTP error! status: ${response.status}`);
-          // }
+          if (!response.ok) {
+            throw new Error(`HTTP error! status: ${response.status}`);
+          }
 
-          // const blob = await response.blob();
-          // console.log("response get blob", blob);
+          const blob = await response.blob();
+          console.log("response get blob", blob);
 
-          // const noBgFile = new File([blob], `nobg_${imageName}`, {
-          //   type: blob.type || "image/png",
-          // });
+          const noBgFile = new File([blob], `nobg_${imageName}`, {
+            type: blob.type || "image/png",
+          });
 
-          // console.log("noBgFile", noBgFile);
+          console.log("noBgFile", noBgFile);
 
-          // // Validate file
-          // if (noBgFile.size === 0) {
-          //   throw new Error("Background removed file is empty");
-          // }
+          // Validate file
+          if (noBgFile.size === 0) {
+            throw new Error("Background removed file is empty");
+          }
 
           // Retrieve a URL from our server and process the image
           await new Promise<void>((resolve, reject) => {
-            retrieveNewURL(file, async (file, url) => {
+            retrieveNewURL(noBgFile, async (file, url) => {
               try {
                 const parsed = JSON.parse(url);
                 url = parsed.url;
@@ -473,39 +452,39 @@ const NewVariationOptimized = ({
 
         try {
           setIsProcessing(true);
-          // const noBgResponse = await removeImageBackground(file);
+          const noBgResponse = await removeImageBackground(file);
 
-          // if (!noBgResponse || !noBgResponse.url) {
-          //   throw new Error("Background removal failed or no URL provided");
-          // }
+          if (!noBgResponse || !noBgResponse.url) {
+            throw new Error("Background removal failed or no URL provided");
+          }
 
-          // const imageName = extractImageName(noBgResponse.url);
-          // const noBgImageUrl = noBgResponse.url;
+          const imageName = extractImageName(noBgResponse.url);
+          const noBgImageUrl = noBgResponse.url;
 
-          // const endpoint = `/api/bgremover/`;
-          // const response = await fetch(endpoint, {
-          //   method: "GET",
-          //   headers: { noBgImageUrl: noBgImageUrl },
-          // });
+          const endpoint = `/api/bgremover/`;
+          const response = await fetch(endpoint, {
+            method: "GET",
+            headers: { noBgImageUrl: noBgImageUrl },
+          });
 
-          // if (!response.ok) {
-          //   throw new Error(`HTTP error! status: ${response.status}`);
-          // }
+          if (!response.ok) {
+            throw new Error(`HTTP error! status: ${response.status}`);
+          }
 
-          // const blob = await response.blob();
+          const blob = await response.blob();
 
-          // const noBgFile = new File([blob], `nobg_${imageName}`, {
-          //   type: blob.type || "image/png",
-          // });
+          const noBgFile = new File([blob], `nobg_${imageName}`, {
+            type: blob.type || "image/png",
+          });
 
-          // // Validate file
-          // if (noBgFile.size === 0) {
-          //   throw new Error("Background removed file is empty");
-          // }
+          // Validate file
+          if (noBgFile.size === 0) {
+            throw new Error("Background removed file is empty");
+          }
 
           // Retrieve a URL from our server and process the image
           await new Promise<void>((resolve, reject) => {
-            retrieveNewURL(file, async (file, url) => {
+            retrieveNewURL(noBgFile, async (file, url) => {
               try {
                 const parsed = JSON.parse(url);
                 url = parsed.url;
