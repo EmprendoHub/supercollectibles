@@ -31,6 +31,7 @@ const config = {
         secondary: {
           DEFAULT: "var(--secondary)",
           foreground: "var(--secondary-foreground)",
+          opacity: "var(--secondary-opacity)",
         },
         destructive: {
           DEFAULT: "var(--destructive)",

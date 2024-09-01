@@ -123,3 +123,9 @@ export type PostProps = {
   mainTitle: string;
   createdAt: string;
 };
+
+export type ImageInfo = {
+  error: boolean;
+  note: string;
+  url: string;
+};

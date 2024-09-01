@@ -6,7 +6,8 @@ import { useRouter } from "next/navigation";
 import WhiteLogoComponent from "./WhiteLogoComponent";
 import { useGoogleReCaptcha } from "react-google-recaptcha-v3";
 import { isValidEmail, isValidPhone } from "@/backend/helpers";
-import { toast } from "sonner";
+import { toast } from "../ui/use-toast";
+import { title } from "process";
 
 const RegisterFormComponent = ({ cookie }: { cookie: any }) => {
   const [notification, setNotification] = useState("");
@@ -31,32 +32,51 @@ const RegisterFormComponent = ({ cookie }: { cookie: any }) => {
     e.preventDefault();
 
     if (username === "") {
-      toast("Por favor complete el nombre de usuario para registrarse.");
+      toast({
+        variant: "destructive",
+        duration: 3000,
+        title: "Por favor complete el nombre de usuario para registrarse.",
+      });
       return;
     }
 
     if (email === "") {
-      toast("Por favor agregue su correo electrónico para registrarse.");
+      toast({
+        variant: "destructive",
+        duration: 3000,
+        title: "Por favor agregue su correo electrónico para registrarse.",
+      });
       return;
     }
 
     if (!isValidEmail(email)) {
-      toast("Utilice un correo electrónico válido.");
+      toast({
+        variant: "destructive",
+        duration: 3000,
+        title: "Utilice un correo electrónico válido",
+      });
       return;
     }
 
     if (!isValidPhone(phone)) {
-      toast("Utilice un teléfono válido.");
+      toast({
+        variant: "destructive",
+        duration: 3000,
+        title: "Utilice un teléfono válido.",
+      });
       return;
     }
 
     if (!password || password.length < 8) {
-      toast("La contraseña debe tener al menos 8 caracteres");
+      toast({
+        variant: "destructive",
+        duration: 3000,
+        title: "La contraseña debe tener al menos 8 caracteres",
+      });
       return;
     }
 
     if (!executeRecaptcha) {
-      console.log("Execute recaptcha not available yet");
       setNotification(
         "Execute recaptcha not available yet likely meaning key not recaptcha key not set"
       );
@@ -88,13 +108,28 @@ const RegisterFormComponent = ({ cookie }: { cookie: any }) => {
         }
 
         if (res.status === 400) {
-          toast("Este correo electrónico y/o el teléfono ya esta en uso");
+          toast({
+            variant: "destructive",
+            duration: 3000,
+            title: "Este correo electrónico y/o el teléfono ya esta en uso",
+          });
           setError("Este correo electrónico y/o el teléfono ya esta en uso");
         }
         if (res.ok) {
-          toast("Se registró exitosamente al usuario");
+          toast({
+            duration: 3000,
+            title: "Se registró exitosamente al usuario",
+          });
           signIn();
           return;
+        }
+        if (!res.ok) {
+          const error = await res.json();
+          toast({
+            variant: "destructive",
+            duration: 3000,
+            title: `${error.message}`,
+          });
         }
       } catch (error) {
         console.log(error);
@@ -123,9 +158,9 @@ const RegisterFormComponent = ({ cookie }: { cookie: any }) => {
 
   return (
     <main className="flex min-h-screen maxsm:min-h-[70vh] flex-col items-center justify-center">
-      <div className="w-fit flex flex-col items-center bg-slate-200 maxsm:p-8 p-20 shadow-xl text-center mx-auto">
+      <div className="w-fit flex flex-col items-center bg-card maxsm:p-8 p-20 shadow-xl text-center mx-auto">
         {/* <LogoComponent /> */}
-        <WhiteLogoComponent />
+        <WhiteLogoComponent className="w-[150px]" />
         <h2 className="my-4 text-foreground font-bold font-EB_Garamond text-2xl">
           Registro Nuevo
         </h2>

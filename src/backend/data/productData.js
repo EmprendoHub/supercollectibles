@@ -193,8 +193,13 @@ export const set_colors = [
   { value: "Vino", label: "Vino", hex: "#5E2129", hexTwo: "", hexThree: "" },
 ];
 
+export const cat_tarjetas = [
+  { value: "Pokemon", label: "Pokemon" },
+  { value: "Yu-Gi-Oh", label: "Yu-Gi-Oh" },
+  { value: "Magic", label: "Magic" },
+];
+
 export const sizes_prendas = [
-  { value: "", label: "" },
   { value: "XCH", label: "XCH" },
   { value: "CH", label: "CH" },
   { value: "M", label: "M" },
@@ -204,7 +209,6 @@ export const sizes_prendas = [
 ];
 
 export const sizes_shoes_men = [
-  { value: "", label: "" },
   { value: "26", label: "26" },
   { value: "27", label: "27" },
   { value: "28", label: "28" },
@@ -229,15 +233,14 @@ export const sizes_shoes_woman = [
 ];
 
 export const product_categories = [
-  { es: "Accesorios", en: "Accessories" },
-  { es: "Belleza", en: "Beauty" },
-  { es: "Bolsas", en: "Bags" },
-  { es: "Calzado", en: "Footwear" },
-  { es: "Joyeria", en: "Jewelry" },
+  { es: "Tarjetas", en: "Cards" },
+  { es: "Figuras", en: "Figura" },
   { es: "Prendas", en: "Clothes" },
+  { es: "Calzado", en: "Footwear" },
 ];
+
 export const genders = [
-  { es: "Damas", en: "Ladies" },
-  { es: "Caballeros", en: "Gentlemen" },
+  { es: "Personajes", en: "Characters" },
+  { es: "Deportes", en: "Sports" },
   { es: "Otro", en: "Other" },
 ];

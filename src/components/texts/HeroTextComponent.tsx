@@ -40,7 +40,7 @@ const HeroTextComponent = ({
             className="flex gap-x-4 mt-2 justify-center"
           >
             <Link href={btnUrl}>
-              <p className="py-3 px-8 rounded-full bg-greenLight text-white hover:bg-nackground hover: duration-700 text-sm uppercase font-semibold w-full">
+              <p className="py-3 px-8 rounded-full bg-background hover:text-black hover:bg-foreground hover: duration-700 text-sm uppercase font-semibold w-full">
                 {btnText}
               </p>
             </Link>

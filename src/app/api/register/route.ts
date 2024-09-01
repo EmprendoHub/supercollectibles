@@ -57,7 +57,10 @@ export async function POST(request: any) {
         $or: [{ email: email }, { phone: phone }],
       });
       if (isExistingUser || isExistingCustomer) {
-        return new Response("User is already registered", { status: 400 });
+        return NextResponse.json(
+          { message: "El email o teléfono ya esta registrado" },
+          { status: 400 }
+        );
       }
       const name = username;
       // Generate a random 64-byte token

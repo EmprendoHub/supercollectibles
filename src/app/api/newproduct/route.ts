@@ -17,17 +17,14 @@ export async function POST(request: any, res: any) {
       title,
       description,
       category,
-      tags,
       featured,
-      branchAvailability,
-      instagramAvailability,
       onlineAvailability,
       mainImage,
       brand,
+      grade,
       gender,
       variations,
-      salePrice,
-      salePriceEndDate,
+      secondaryImages,
       createdAt,
     } = Object.fromEntries(payload);
 
@@ -70,10 +67,15 @@ export async function POST(request: any, res: any) {
       return value; // Return unchanged for other types of values
     });
 
-    tags = JSON.parse(tags);
-    const sale_price = Number(salePrice);
-    const sale_price_end_date = salePriceEndDate;
+    secondaryImages = JSON.parse(secondaryImages);
+    const rating = Number(grade);
     const images = [{ url: mainImage }];
+
+    secondaryImages.forEach((img: any) => {
+      if (!img.url.includes("placeholder")) {
+        images.push({ url: img.url });
+      }
+    });
 
     // calculate product stock
     const stock = variations.reduce(
@@ -84,8 +86,6 @@ export async function POST(request: any, res: any) {
     createdAt = newCSTDate();
 
     const availability = {
-      instagram: instagramAvailability,
-      branch: branchAvailability,
       online: onlineAvailability,
     };
 
@@ -97,15 +97,12 @@ export async function POST(request: any, res: any) {
       featured,
       availability,
       brand,
+      rating,
       gender,
       category,
-      tags,
       images,
-      colors,
       variations,
       stock,
-      sale_price,
-      sale_price_end_date,
       createdAt,
       user,
     });
@@ -151,17 +148,14 @@ export async function PUT(request: any, res: any) {
       title,
       description,
       category,
-      tags,
       featured,
-      branchAvailability,
-      instagramAvailability,
       onlineAvailability,
       mainImage,
       brand,
+      grade,
       gender,
       variations,
-      salePrice,
-      salePriceEndDate,
+      secondaryImages,
       updatedAt,
       _id,
     } = Object.fromEntries(payload);
@@ -208,10 +202,15 @@ export async function PUT(request: any, res: any) {
       return value; // Return unchanged for other types of values
     });
 
-    tags = JSON.parse(tags);
-    const sale_price = Number(salePrice);
-    const sale_price_end_date = salePriceEndDate;
+    secondaryImages = JSON.parse(secondaryImages);
+    const rating = Number(grade);
     const images = [{ url: mainImage }];
+
+    secondaryImages.forEach((img: any) => {
+      if (!img.url.includes("placeholder")) {
+        images.push({ url: img.url });
+      }
+    });
 
     // calculate product stock
     const stock = variations.reduce(
@@ -222,8 +221,6 @@ export async function PUT(request: any, res: any) {
     updatedAt = new Date(updatedAt);
 
     const availability = {
-      instagram: instagramAvailability,
-      branch: branchAvailability,
       online: onlineAvailability,
     };
 
@@ -238,15 +235,13 @@ export async function PUT(request: any, res: any) {
         featured,
         availability,
         brand,
+        rating,
         gender,
         category,
-        tags,
         images,
         colors,
         variations,
         stock,
-        sale_price,
-        sale_price_end_date,
         updatedAt,
         user,
       }

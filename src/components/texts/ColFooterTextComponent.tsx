@@ -22,7 +22,7 @@ const ColFooterTextComponent = ({
         initial={{ y: 30, opacity: 0 }}
         whileInView={{ y: 0, opacity: 1 }}
         transition={{ duration: 0.6 }}
-        className="text-lg  maxsm:text-sm tracking-normal uppercase"
+        className="text-xs tracking-normal uppercase"
       >
         {pretitle}
       </motion.p>
@@ -39,7 +39,7 @@ const ColFooterTextComponent = ({
           initial={{ y: 30, opacity: 0 }}
           whileInView={{ y: 0, opacity: 1 }}
           transition={{ duration: 0.8 }}
-          className="text-lg maxmd:text-sm pt-2 tracking-widest text-gray-500"
+          className="text-sm pt-2 tracking-widest text-gray-500"
         >
           {subtitle}
         </motion.p>
@@ -52,7 +52,7 @@ const ColFooterTextComponent = ({
       >
         <Link
           href={btnUrl}
-          className="pt-3 uppercase text-lg rounded-full px-6 py-3 bg-greenLight drop-shadow-sm text-white duration-300"
+          className="pt-3 uppercase text-lg rounded-full px-6 py-3 bg-primary drop-shadow-sm text-white hover:bg-foreground dark:hover:bg-background ease-linear duration-300"
         >
           {btnText}
         </Link>

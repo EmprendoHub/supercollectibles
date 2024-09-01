@@ -8,12 +8,11 @@ const SectionTwoComponent = () => {
   return (
     <>
       <SectionLayoutComponet
-        className={"bg-secondary flex justify-center   min-h-screen w-full "}
+        className={"bg-primary flex justify-center  min-h-full w-full "}
       >
-        <div className="w-full px-40 maxmd:px-10 mx-auto relative">
-          <div className="grid grid-cols-2 maxmd:grid-cols-1  items-center">
+        <div className="w-full px-20 maxmd:px-10 mx-auto relative">
+          <div className="grid grid-cols-2 maxmd:grid-cols-1 items-center">
             <div className=" maxmd:my-20 maxsm:my-5 pr-10">
-              {" "}
               <ColTextComponent
                 pretitle={"Amplia Selección"}
                 title={"¡Comienza Ahora! "}
@@ -29,8 +28,8 @@ const SectionTwoComponent = () => {
                 src={"/images/square_collection_image.webp"}
                 width={1000}
                 height={1000}
-                alt="Servicios Medicos"
-                className="z-10 relative"
+                alt="Vende tus coleccionables"
+                className="z-10 relative rounded-xl"
               />
               <SvgRightMotion />
             </div>

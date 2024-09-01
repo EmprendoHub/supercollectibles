@@ -6,98 +6,89 @@ import WhiteLogoComponent from "./WhiteLogoComponent";
 
 const FooterMenu = () => {
   return (
-    <div className="w-full bg-gradient-to-b from-blue-900 to-blue-950 text-gray-100 px-20 maxmd:px-5 py-24 grid xsm:grid-cols-1 maxmd:grid-cols-2 grid-cols-4 gap-10">
+    <div className="w-full bg-background px-20 maxmd:px-5 py-24 grid xsm:grid-cols-1 maxmd:grid-cols-2 grid-cols-4 gap-10">
       <div className=" flex flex-col justify-start">
-        <p className="text-lg">{"Central Médica de Especialidades"}</p>
-        <strong>Ubicación:</strong>
-        <span className="flex flex-row items-center  text-sm">
+        <WhiteLogoComponent className="w-[100px]" />
+        <p className="text-xs mt-1">{"Super Collectibles Mx"}</p>
+        <span className="flex flex-row items-center  text-xs">
           <p className="">{" Carretera Nacional Sur SN, Centro Uno"}</p>
         </span>
-        <span className=" text-sm mt-1">
+        <span className=" text-xs mt-1">
           <p className="">{" 59000 Sahuayo de Morelos, Mich."}</p>
         </span>
-        <strong className="mt-2">Teléfonos:</strong>
-        <Link
-          href={"tel:3535322847"}
-          className="flex flex-row items-center text-sm "
-        >
-          <p className="tracking-widest">{"353 532 2847"}</p>
-        </Link>
-        <Link
-          href={"tel:3535323443"}
-          className="flex flex-row items-center text-sm mt-1"
-        >
-          <p className="tracking-widest">{"353 532 3443"}</p>
-        </Link>
-        <Link
-          href={"tel:3535324691"}
-          className="flex flex-row items-center text-sm mt-1"
-        >
-          <p className=" tracking-widest">{"353 532 4691"}</p>
-        </Link>
-        <strong className="mt-2">Fax:</strong>
-        <span className="flex flex-row items-center text-sm">
-          <p className="text-sm tracking-widest">{"353 532 3443"}</p>
-        </span>
-        <strong className="mt-2">Farmacia:</strong>
-        <Link
-          href={"tel:3535323421"}
-          className="flex flex-row items-center text-sm "
-        >
-          <p className=" tracking-widest">{"353 532 3421"}</p>
-        </Link>
+        <div className="flex item-center justify-start text-[12px] gap-x-1 mt-1">
+          {" "}
+          <Link
+            href={"tel:3535322847"}
+            className="flex flex-row items-center  "
+          >
+            <p>{"353 532 2847"}</p>
+          </Link>
+          <span>/</span>
+          <Link
+            href={"tel:3535323443"}
+            className="flex flex-row items-center  "
+          >
+            <p>{"353 532 3443"}</p>
+          </Link>
+        </div>
       </div>
-      <div>
-        <p className="text-lg">{"Atención al paciente"}</p>
-        <ul className="text-base font-light mt-2 flex flex-col gap-y-2">
-          <Link href={`/`}>
+      <div className="column-1 mt-10">
+        <p className="text-sm">{"Atención al cliente"}</p>
+        <ul className="text-xs font-light mt-2 flex flex-col gap-y-2 ">
+          <Link href={`/contacto`}>
             <motion.li
               whileHover={{ y: -4 }}
               whileTap={{ y: 1 }}
               transition={{ duration: 0.15 }}
-              className="hover:text-greenLight cursor-pointer duration-200"
+              className="hover:text-primary cursor-pointer duration-200"
             >
-              {"Encuentra un Medico"}
+              {"Solicita una cita"}
             </motion.li>
           </Link>
-          <Link href={`/`}>
+          <Link href={`/contacto`}>
             <motion.li
               whileHover={{ y: -4 }}
               whileTap={{ y: 1 }}
               transition={{ duration: 0.15 }}
-              className="hover:text-greenLight cursor-pointer duration-200"
+              className="hover:text-primary cursor-pointer duration-200"
             >
-              {"Procedimientos Medicos"}
+              {"Contacto"}
             </motion.li>
           </Link>
-          <Link href={`/`}>
+          <Link href={`/testimonios`}>
             <motion.li
               whileHover={{ y: -4 }}
               whileTap={{ y: 1 }}
               transition={{ duration: 0.15 }}
-              className="hover:text-greenLight cursor-pointer duration-200"
+              className="hover:text-primary cursor-pointer duration-200"
             >
-              {"Testimonios de Pacientes"}
+              {"Testimonios de Clientes"}
             </motion.li>
           </Link>
-          <Link href={`/`}>
+          <Link href={`/contacto`}>
             <motion.li
               whileHover={{ y: -4 }}
               whileTap={{ y: 1 }}
               transition={{ duration: 0.15 }}
-              className="hover:text-greenLight cursor-pointer duration-200"
+              className="hover:text-primary cursor-pointer duration-200"
             >
               {"Ubicación"}
             </motion.li>
           </Link>
-          <Link href={`/`}>
+        </ul>
+      </div>
+      <div className="column-2 mt-10">
+        <p className="text-sm">{"Servicios"}</p>
+        <ul className="text-xs font-light mt-2 flex flex-col gap-y-2">
+          <Link href={`/tienda`}>
             <motion.li
               whileHover={{ y: -4 }}
               whileTap={{ y: 1 }}
               transition={{ duration: 0.15 }}
-              className="hover:text-greenLight cursor-pointer duration-200"
+              className="hover:text-primary cursor-pointer duration-200"
             >
-              {"Area de Pediatría"}
+              {"Tienda en Linea"}
             </motion.li>
           </Link>
           <Link href={`/`}>
@@ -105,107 +96,43 @@ const FooterMenu = () => {
               whileHover={{ y: -4 }}
               whileTap={{ y: 1 }}
               transition={{ duration: 0.15 }}
-              className="hover:text-greenLight cursor-pointer duration-200"
+              className="hover:text-primary  cursor-pointer duration-200"
             >
-              {"Area de Neonatología"}
+              {"Compra de Tarjetas"}
+            </motion.li>
+          </Link>
+          <Link href={`/`}>
+            <motion.li
+              whileHover={{ y: -4 }}
+              whileTap={{ y: 1 }}
+              transition={{ duration: 0.15 }}
+              className="hover:text-primary  cursor-pointer duration-200"
+            >
+              {"Compra de Colecciones"}
+            </motion.li>
+          </Link>
+
+          <Link href={`/`}>
+            <motion.li
+              whileHover={{ y: -4 }}
+              whileTap={{ y: 1 }}
+              transition={{ duration: 0.15 }}
+              className="hover:text-primary  cursor-pointer duration-200"
+            >
+              {"Servicio de Autentificación"}
             </motion.li>
           </Link>
         </ul>
       </div>
-      <div>
-        <p className="text-lg">{"Servicios Medicos"}</p>
-        <ul className="text-base font-light mt-2 flex flex-col gap-y-2">
-          <Link href={`/`}>
-            <motion.li
-              whileHover={{ y: -4 }}
-              whileTap={{ y: 1 }}
-              transition={{ duration: 0.15 }}
-              className="hover:text-greenLight cursor-pointer duration-200"
-            >
-              {"Hospitalización"}
-            </motion.li>
-          </Link>
-          <Link href={`/`}>
-            <motion.li
-              whileHover={{ y: -4 }}
-              whileTap={{ y: 1 }}
-              transition={{ duration: 0.15 }}
-              className="hover:text-greenLight  cursor-pointer duration-200"
-            >
-              {"Endoscopia"}
-            </motion.li>
-          </Link>
-          <Link href={`/`}>
-            <motion.li
-              whileHover={{ y: -4 }}
-              whileTap={{ y: 1 }}
-              transition={{ duration: 0.15 }}
-              className="hover:text-greenLight  cursor-pointer duration-200"
-            >
-              {"Tomografía"}
-            </motion.li>
-          </Link>
-          <Link href={`/`}>
-            <motion.li
-              whileHover={{ y: -4 }}
-              whileTap={{ y: 1 }}
-              transition={{ duration: 0.15 }}
-              className="hover:text-greenLight  cursor-pointer duration-200"
-            >
-              {"Estudios de Rayos X"}
-            </motion.li>
-          </Link>
-          <Link href={`/`}>
-            <motion.li
-              whileHover={{ y: -4 }}
-              whileTap={{ y: 1 }}
-              transition={{ duration: 0.15 }}
-              className="hover:text-greenLight  cursor-pointer duration-200"
-            >
-              {"Ultrasonido"}
-            </motion.li>
-          </Link>
-          <Link href={`/`}>
-            <motion.li
-              whileHover={{ y: -4 }}
-              whileTap={{ y: 1 }}
-              transition={{ duration: 0.15 }}
-              className="hover:text-greenLight  cursor-pointer duration-200"
-            >
-              {"Urgencias"}
-            </motion.li>
-          </Link>
-          <Link href={`/`}>
-            <motion.li
-              whileHover={{ y: -4 }}
-              whileTap={{ y: 1 }}
-              transition={{ duration: 0.15 }}
-              className="hover:text-greenLight  cursor-pointer duration-200"
-            >
-              {"Hemodiálisis"}
-            </motion.li>
-          </Link>
-          <Link href={`/`}>
-            <motion.li
-              whileHover={{ y: -4 }}
-              whileTap={{ y: 1 }}
-              transition={{ duration: 0.15 }}
-              className="hover:text-greenLight  cursor-pointer duration-200"
-            >
-              {"Laboratorio"}
-            </motion.li>
-          </Link>
-        </ul>
-      </div>
-      <div>
-        <p className="text-lg mb-2"> {"Corporativo"}</p>
-        <ul className="text-base font-light mt-2 flex flex-col gap-y-2">
+      <div className="column-3 mt-10">
+        <p className="text-sm mb-2"> {"Corporativo"}</p>
+        <ul className="text-xs font-light mt-2 flex flex-col gap-y-2">
           <Link href={`/terminos`}>
             <motion.li
               whileHover={{ y: -4 }}
               whileTap={{ y: 1 }}
               transition={{ duration: 0.15 }}
-              className="hover:text-greenLight  cursor-pointer duration-200"
+              className="hover:text-primary  cursor-pointer duration-200"
             >
               {"Términos de Uso"}
             </motion.li>
@@ -215,29 +142,19 @@ const FooterMenu = () => {
               whileHover={{ y: -4 }}
               whileTap={{ y: 1 }}
               transition={{ duration: 0.15 }}
-              className="hover:text-greenLight cursor-pointer duration-200"
+              className="hover:text-primary cursor-pointer duration-200"
             >
               {"Política de Privacidad"}
             </motion.li>
           </Link>
-          <Link href={`/vision`}>
+          <Link href={`/`}>
             <motion.li
               whileHover={{ y: -4 }}
               whileTap={{ y: 1 }}
               transition={{ duration: 0.15 }}
-              className="hover:text-greenLight cursor-pointer duration-200"
+              className="hover:text-primary cursor-pointer duration-200"
             >
-              {"Vision General"}
-            </motion.li>
-          </Link>
-          <Link href={`/contacto`}>
-            <motion.li
-              whileHover={{ y: -4 }}
-              whileTap={{ y: 1 }}
-              transition={{ duration: 0.15 }}
-              className="hover:text-greenLight cursor-pointer duration-200"
-            >
-              {"Contacto"}
+              {"Póliza de Envíos"}
             </motion.li>
           </Link>
           <Link href={`/acerca`}>
@@ -245,12 +162,11 @@ const FooterMenu = () => {
               whileHover={{ y: -4 }}
               whileTap={{ y: 1 }}
               transition={{ duration: 0.15 }}
-              className="hover:text-greenLight cursor-pointer duration-200"
+              className="hover:text-primary cursor-pointer duration-200"
             >
               {"Acerca de"}
             </motion.li>
           </Link>
-          <WhiteLogoComponent />
         </ul>
       </div>
     </div>

@@ -18,7 +18,7 @@ const SectionEspecialidadesComponent = () => {
                 pretitle={"Recursos Humanos"}
                 title={"Central Medica de Especialidades"}
                 subtitle={
-                  "El personal que labora en esta institución esta capacitado y seleccionado para que desarrolle sus mejores cualidades, logrando de esta manera dar el mejor servicio, atendiendo de manera humana y profesional a nuestros pacientes y visitantes. Todos los que laboramos en Central Médica de Especialidades estamos comprometidos con su salud, trabajamos para la obtención de logros y asi obtener la misión de esta institución, obteniendo un ambiente que favorezca la calidad de los servicios que aquí se ofrecen a los pacientes y médicos."
+                  "El personal que labora en esta institución esta capacitado y seleccionado para que desarrolle sus mejores cualidades, logrando de esta manera dar el mejor servicio, atendiendo de manera humana y profesional a nuestros pacientes y visitantes. Todos los que laboramos en Super Collectibles Mx estamos comprometidos con su salud, trabajamos para la obtención de logros y asi obtener la misión de esta institución, obteniendo un ambiente que favorezca la calidad de los servicios que aquí se ofrecen a los pacientes y médicos."
                 }
                 btnUrl={`/acerca`}
                 btnText={"Saber Mas"}

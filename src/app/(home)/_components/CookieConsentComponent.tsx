@@ -27,7 +27,7 @@ export default function CookieConsentComponent() {
           <Link href={"/politica-privacidad"}>Más información...</Link>
         </p>
         <button
-          className="w-[200px] maxsm:w-[100px] py-2 bg-primary rounded-lg flex justify-center items-center cursor-pointer"
+          className="w-[200px] maxsm:w-[100px] py-2 bg-primary rounded-xl flex justify-center items-center cursor-pointer"
           onClick={() => giveCookieConsent()}
         >
           Aceptar

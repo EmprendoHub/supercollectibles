@@ -92,7 +92,7 @@ const LoginComponent = ({ cookie }: { cookie: any }) => {
             />
           </div>
           <div className="w-1/2 bg-background h-screen p-20 maxsm:p-8 shadow-xl text-center text-pr[imary mx-auto flex flex-col items-center justify-center z-[1]">
-            <WhiteLogoComponent />
+            <WhiteLogoComponent className="w-[150px]" />
             <h2 className="flex justify-center py-5 text-foreground">
               Iniciar Session
             </h2>

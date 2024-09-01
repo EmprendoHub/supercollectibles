@@ -9,11 +9,9 @@ import { AiFillPhone } from "react-icons/ai";
 
 const navLinks = [
   { title: "Inicio", url: "/" },
-  { title: "Medicos", url: "/medicos" },
-  { title: "Especialidades", url: "/especialidades" },
-  { title: "Servicios", url: "/servicios" },
-  { title: "Acerca", url: "/acerca" },
+  { title: "Nosotros", url: "/acerca" },
   { title: "Contacto", url: "/contacto" },
+  { title: "Tienda", url: "/tienda" },
 ];
 
 const MobileMenuComponent = () => {
@@ -82,7 +80,7 @@ const MobileMenuComponent = () => {
           >
             <div className="flex h-full flex-col">
               <div className="flex  h-full justify-between items-center pb-5">
-                <WhiteLogoComponent />
+                <WhiteLogoComponent className="w-[80px]" />
                 <p
                   onClick={toggleMobileMenu}
                   className="cursor-pointer text-md text-white"

@@ -1,7 +1,7 @@
 "use client";
 import React from "react";
 import { AnimatePresence, motion } from "framer-motion";
-import PayOrderComp from "@/app/admin/_components/PayOrderComp";
+import PayOrderComp from "@/app/(manager)/admin/_components/PayOrderComp";
 
 // Define variants without the duration property directly
 const backdropVariants = {

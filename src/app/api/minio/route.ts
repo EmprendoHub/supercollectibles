@@ -71,7 +71,7 @@ export async function PUT(request: any, res: any) {
     (token && token.user.role === "manager") ||
     token.user.role === "instagram"
   ) {
-    const url = await mc.presignedPutObject("uploads", name, 900);
+    const url = await mc.presignedPutObject("supercollectibles", name, 900);
     console.log(url);
     const response = NextResponse.json({
       message: "Las imágenes se subieron con éxito.",
