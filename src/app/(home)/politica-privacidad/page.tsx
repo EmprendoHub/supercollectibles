@@ -85,10 +85,7 @@ const PoliticaPage = () => {
         </p>
         <ul className="list-disc pl-8">
           <li>Teléfono: +52 (333) 218 9963</li>
-          <li>
-            Dirección: Carretera Nacional Sur SN, Centro Uno, 59000 Sahuayo de
-            Morelos, Mich.
-          </li>
+          <li>Guadalajara Jal</li>
           <li>Correo Electrónico: supercollectiblesmx@gmail.com</li>
         </ul>
       </div>
