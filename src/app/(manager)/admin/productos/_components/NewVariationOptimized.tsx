@@ -171,7 +171,7 @@ const NewVariationOptimized = ({
 
           console.log("noBgImageUrl", noBgImageUrl);
 
-          const endpoint = `/api/bgremover/`;
+          const endpoint = `${process.env.NEXT_PUBLIC_NEXTAUTH_URL}/api/bgremover/`;
           const response = await fetch(endpoint, {
             method: "GET",
             headers: { noBgImageUrl: noBgImageUrl },
