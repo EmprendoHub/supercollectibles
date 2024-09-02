@@ -40,8 +40,9 @@ const NewVariationOptimized = ({
   const [grade, setGrade] = useState(0);
   const [onlineAvailability, setOnlineAvailability] = useState(true);
   const [description, setDescription] = useState("");
-  const [category, setCategory] = useState("Tarjetas");
-  const [gender, setGender] = useState("Personajes");
+  const [category, setCategory] = useState("Tarjetas Coleccionables");
+  const [gender, setGender] = useState("Nintendo");
+  const [franquicia, setFranquicia] = useState("Nintendo");
   const [featured, setFeatured] = useState(false);
   const [createdAt, setCreatedAt] = useState(
     cstDateTimeClient().toLocaleString()
@@ -618,7 +619,7 @@ const NewVariationOptimized = ({
       setSizeSelectionLabel("Talla");
     }
 
-    if (e === "Tarjetas" || e === "Figuras") {
+    if (e === "Tarjetas Coleccionables" || e === "Figuras Coleccionables") {
       setSizeSelection(cat_tarjetas);
       setSizeSelectionLabel("Colección");
     }
@@ -636,7 +637,10 @@ const NewVariationOptimized = ({
       setSizeSelectionLabel("Talla");
     }
 
-    if (category === "Tarjetas" || category === "Figuras") {
+    if (
+      category === "Tarjetas Coleccionables" ||
+      category === "Figuras Coleccionables"
+    ) {
       setSizeSelection(cat_tarjetas);
       setSizeSelectionLabel("Colección");
     }
@@ -933,7 +937,7 @@ const NewVariationOptimized = ({
                   </div>
                   <div className="mb-1 w-full">
                     <label className="block mb-1 font-EB_Garamond  text-xs">
-                      Tipo
+                      Fabricante
                     </label>
                     <div className="relative">
                       <select

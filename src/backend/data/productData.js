@@ -197,6 +197,7 @@ export const cat_tarjetas = [
   { value: "Pokemon", label: "Pokemon" },
   { value: "Yu-Gi-Oh", label: "Yu-Gi-Oh" },
   { value: "Magic", label: "Magic" },
+  { value: "No Aplica", label: "No Aplica" },
 ];
 
 export const sizes_prendas = [
@@ -233,14 +234,19 @@ export const sizes_shoes_woman = [
 ];
 
 export const product_categories = [
-  { es: "Tarjetas", en: "Cards" },
-  { es: "Figuras", en: "Figura" },
-  { es: "Prendas", en: "Clothes" },
-  { es: "Calzado", en: "Footwear" },
+  { es: "Tarjetas Coleccionables", en: "Cards Coleccionables" },
+  { es: "Figuras Coleccionables", en: "Figura Coleccionables" },
+  { es: "Prendas Autografiadas", en: "Clothes Autografiadas" },
+  { es: "Tarjetas de Juego", en: "Tarjetas de Juego" },
 ];
 
 export const genders = [
-  { es: "Personajes", en: "Characters" },
-  { es: "Deportes", en: "Sports" },
-  { es: "Otro", en: "Other" },
+  { es: "Nintendo", en: "Nintendo" },
+  { es: "Tomy", en: "Tomy" },
+  { es: "Bandai", en: "Bandai" },
+  { es: "Namco", en: "Namco" },
+  { es: "Konami", en: "Konami" },
+  { es: "Mattel", en: "Mattel" },
+  { es: "Disney", en: "Disney" },
+  { es: "Hasbro", en: "Hasbro" },
 ];
