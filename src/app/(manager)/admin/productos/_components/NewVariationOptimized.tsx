@@ -280,13 +280,10 @@ const NewVariationOptimized = ({
           }
 
           const blob = await response.blob();
-          console.log("response get blob", blob);
 
           const noBgFile = new File([blob], `nobg_${imageName}`, {
             type: blob.type || "image/png",
           });
-
-          console.log("noBgFile", noBgFile);
 
           // Validate file
           if (noBgFile.size === 0) {

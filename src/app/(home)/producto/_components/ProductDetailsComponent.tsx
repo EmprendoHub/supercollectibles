@@ -33,6 +33,7 @@ const ProductDetailsComponent = ({
   const { productsData } = useSelector((state: any) => state?.compras);
   const router = useRouter();
   const [images, setImages] = useState(product?.images);
+  const [mainImage, setMainImage] = useState(product?.images[0].url);
   const slideRef = useRef<HTMLDivElement | null>(null);
   const [sizes, setSizes] = useState(initialSizes);
   const [colors, setColors] = useState(product?.colors);
@@ -71,19 +72,8 @@ const ProductDetailsComponent = ({
     // eslint-disable-next-line
   }, [productsData]);
 
-  const clickImage = (imageId: any) => {
-    const lists: any = slideRef.current?.children;
-
-    // Find the clicked item using imageId
-    const clickedItem: any = Array.from(lists).find((item: any) => {
-      const itemId = item.getAttribute("data-image-id");
-      return itemId === imageId;
-    });
-
-    if (clickedItem && lists.length > 1) {
-      // Reorder the items in the list
-      slideRef.current?.insertBefore(clickedItem, slideRef.current.firstChild);
-    }
+  const clickImage = (imageUrl: any) => {
+    setMainImage(imageUrl);
   };
 
   const handleClick = () => {
@@ -179,7 +169,12 @@ const ProductDetailsComponent = ({
                 transition={{ duration: 0.7 }}
                 className="p-2 w-full relative h-full"
               >
-                <div
+                <motion.div
+                  key={mainImage} // This key prop forces the div to re-render when the mainImage changes
+                  initial={{ opacity: 0, scale: 0.95 }}
+                  animate={{ opacity: 1, scale: 1 }}
+                  exit={{ opacity: 0, scale: 0.95 }}
+                  transition={{ duration: 0.5 }} // Adjust the duration to control the speed of the transition
                   className="relative h-auto"
                   onMouseEnter={() => setShowZoom(true)}
                   onMouseLeave={() => setShowZoom(false)}
@@ -188,10 +183,11 @@ const ProductDetailsComponent = ({
                   style={{ cursor: "none" }}
                 >
                   <Image
-                    src={images[0].url}
+                    src={mainImage}
                     alt="product image"
                     width={450}
                     height={450}
+                    priority
                   />
 
                   {showZoom && (
@@ -211,21 +207,23 @@ const ProductDetailsComponent = ({
                         style={{
                           width: `${imageDimensions.width * zoomFactor}px`,
                           height: `${imageDimensions.height * zoomFactor}px`,
-                          backgroundImage: `url(${images[0].url})`,
+                          backgroundImage: `url(${mainImage})`,
                           backgroundSize: `${
                             imageDimensions.width * zoomFactor
                           }px ${imageDimensions.height * zoomFactor}px`,
                           backgroundRepeat: "no-repeat",
                           transform: `translate(
-                    -${mousePosition.x * zoomFactor - zoomSize / 2}px,
-                    -${mousePosition.y * zoomFactor - zoomSize / 2}px
-                  )`,
+            -${mousePosition.x * zoomFactor - zoomSize / 2}px,
+            -${mousePosition.y * zoomFactor - zoomSize / 2}px
+          )`,
                         }}
                       />
                     </motion.div>
                   )}
-                </div>
-                <div className="relative h-20 w-20 flex items-center justify-center gap-2">
+                </motion.div>
+              </motion.div>
+              <div className="w-full">
+                <div className=" h-20 w-20 flex items-center justify-start gap-2 ">
                   {images.map((image: any) => (
                     <Image
                       key={image._id}
@@ -233,10 +231,12 @@ const ProductDetailsComponent = ({
                       alt="product image"
                       width={250}
                       height={250}
+                      onClick={() => clickImage(image.url)}
+                      className="cursor-pointer hover:scale-105 transition-all duration-300"
                     />
                   ))}
                 </div>
-              </motion.div>
+              </div>
             </div>
             {/* Right PAnel */}
             <div className="description-class w-1/2 maxsm:w-full h-full ">
@@ -441,7 +441,7 @@ const ProductDetailsComponent = ({
           <p className="text-3xl maxsm:text-4xl font-EB_Garamond pb-5 font-semibold">
             {"Productos destacados"}
           </p>
-          <div className="grid maxxsm:grid-cols-1 maxmd:grid-cols-2 grid-cols-4 gap-4 mt-2">
+          <div className="grid maxsm:grid-cols-2 maxmd:grid-cols-4 grid-cols-4 gap-4 mt-2">
             {trendingProducts?.map((product: any) => (
               <ProductCard key={product._id} item={product} />
             ))}

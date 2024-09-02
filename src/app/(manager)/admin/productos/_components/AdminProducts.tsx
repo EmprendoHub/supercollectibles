@@ -1,7 +1,12 @@
 "use client";
 import Link from "next/link";
 import Image from "next/image";
-import { FaPencilAlt, FaStar, FaExclamationCircle } from "react-icons/fa";
+import {
+  FaPencilAlt,
+  FaStar,
+  FaExclamationCircle,
+  FaEye,
+} from "react-icons/fa";
 import FormattedPrice from "@/backend/helpers/FormattedPrice";
 import Swal, { SweetAlertIcon } from "sweetalert2";
 import SearchProducts from "@/app/(manager)/admin/productos/search";
@@ -275,6 +280,12 @@ const AdminProducts = ({
 
                 <td className="w-full px-1 py-0 ">{product?.stock}</td>
                 <td className="w-full px-1 py-0 flex flex-row items-center gap-x-1">
+                  <Link
+                    href={`/${pathname}/productos/ver/${product?.slug}?&callback=${currentPage}`}
+                    className="p-2 inline-block text-foreground hover:text-card-foreground bg-background shadow-sm border border-gray-200 rounded-xl hover:bg-background cursor-pointer "
+                  >
+                    <FaEye className="maxsm:text-[10px]" />
+                  </Link>
                   <Link
                     href={`/${pathname}/productos/variacion/${product?.slug}?&callback=${currentPage}`}
                     className="p-2 inline-block text-foreground hover:text-card-foreground bg-background shadow-sm border border-gray-200 rounded-xl hover:bg-background cursor-pointer "

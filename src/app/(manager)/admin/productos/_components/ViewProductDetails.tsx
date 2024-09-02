@@ -5,10 +5,6 @@ import { IoMdCart } from "react-icons/io";
 import FormattedPrice from "@/backend/helpers/FormattedPrice";
 import { motion } from "framer-motion";
 import { calculatePercentage } from "@/backend/helpers";
-import { useDispatch, useSelector } from "react-redux";
-import { addToCart } from "@/redux/shoppingSlice";
-import { useRouter } from "next/navigation";
-import { toast } from "sonner";
 import Image from "next/image";
 
 const ViewProductDetails = ({
@@ -27,15 +23,11 @@ const ViewProductDetails = ({
       (variation: any) => variation.color === product?.variations[0].color
     )
     .map((variation: any) => variation.size);
-  const dispatch = useDispatch();
-  const { productsData } = useSelector((state: any) => state?.compras);
-  const router = useRouter();
   const [images, setImages] = useState(product?.images);
+  const [mainImage, setMainImage] = useState(product?.images[0].url);
   const slideRef = useRef<HTMLDivElement | null>(null);
   const [sizes, setSizes] = useState(initialSizes);
-  const [colors, setColors] = useState(product?.colors);
   const [alreadyCart, setAlreadyCart] = useState(false);
-  const [color, setColor] = useState(product?.variations[0].color);
   const [size, setSize] = useState(product?.variations[0].size);
   const [variation, setVariation]: any = useState({
     _id: product?.variations[0]._id || "",
@@ -54,93 +46,8 @@ const ViewProductDetails = ({
     height: 0,
   });
 
-  useEffect(() => {
-    // Find matches based on _id property
-    const existingProduct = productsData.find((item1: any) =>
-      product.variations.some((item2: any) => item1._id === item2._id)
-    );
-    const existingVariation = product.variations.find((item1: any) =>
-      productsData.some((item2: any) => item1._id === item2._id)
-    );
-
-    if (existingProduct?.quantity >= existingVariation?.stock) {
-      setAlreadyCart(true);
-    }
-    // eslint-disable-next-line
-  }, [productsData]);
-
-  const clickImage = (imageId: any) => {
-    const lists: any = slideRef.current?.children;
-
-    // Find the clicked item using imageId
-    const clickedItem: any = Array.from(lists).find((item: any) => {
-      const itemId = item.getAttribute("data-image-id");
-      return itemId === imageId;
-    });
-
-    if (clickedItem && lists.length > 1) {
-      // Reorder the items in the list
-      slideRef.current?.insertBefore(clickedItem, slideRef.current.firstChild);
-    }
-  };
-
-  const handleClick = () => {
-    variation.product = product._id;
-    variation.variation = variation._id;
-    variation.title = product.title;
-    variation.image = [{ url: variation.image }];
-    variation.quantity = 1;
-    variation.brand = product.brand;
-    dispatch(addToCart(variation));
-    toast(`${product?.title.substring(0, 15)}... se agrego al carrito`);
-    router.push("/carrito");
-  };
-
-  const handleColorSelection = (e: any) => {
-    e.preventDefault();
-    const valueToCheck = e.target.value;
-    setColor(valueToCheck);
-
-    const pickedVariationByColor = product.variations.find(
-      (variation: any) => variation.color === valueToCheck
-    );
-
-    const existingProduct = productsData.find(
-      (variation: any) => variation._id === pickedVariationByColor._id
-    );
-    if (existingProduct) {
-      setAlreadyCart(true);
-    } else {
-      setAlreadyCart(false);
-    }
-    setSize(pickedVariationByColor.size);
-    setVariation(pickedVariationByColor);
-    const newImage = [
-      { url: pickedVariationByColor.image, _id: pickedVariationByColor._id },
-    ];
-
-    setImages(newImage);
-
-    const currentSizes: any[] = [];
-    product?.variations.forEach((variation: any) => {
-      const exists = variation.color === valueToCheck;
-
-      if (exists) {
-        currentSizes.push(variation.size);
-      }
-    });
-    setSizes(currentSizes);
-  };
-
-  const handleSizeSelection = (e: any) => {
-    e.preventDefault();
-    const valueToCheck = e.target.value;
-    const pickedSizeVariation = product.variations.find(
-      (variation: any) =>
-        variation.size === valueToCheck && variation.color === color
-    );
-    setVariation(pickedSizeVariation);
-    setSize(valueToCheck);
+  const clickImage = (imageUrl: any) => {
+    setMainImage(imageUrl);
   };
 
   useEffect(() => {
@@ -150,7 +57,7 @@ const ViewProductDetails = ({
         height: imageRef.current.offsetHeight,
       });
     }
-  }, []);
+  }, [mainImage]);
 
   const handleMouseMove = (e: any) => {
     if (imageRef.current) {
@@ -177,7 +84,12 @@ const ViewProductDetails = ({
                 transition={{ duration: 0.7 }}
                 className="p-2 w-full relative h-full"
               >
-                <div
+                <motion.div
+                  key={mainImage} // This key prop forces the div to re-render when the mainImage changes
+                  initial={{ opacity: 0, scale: 0.95 }}
+                  animate={{ opacity: 1, scale: 1 }}
+                  exit={{ opacity: 0, scale: 0.95 }}
+                  transition={{ duration: 0.5 }} // Adjust the duration to control the speed of the transition
                   className="relative h-auto"
                   onMouseEnter={() => setShowZoom(true)}
                   onMouseLeave={() => setShowZoom(false)}
@@ -186,10 +98,11 @@ const ViewProductDetails = ({
                   style={{ cursor: "none" }}
                 >
                   <Image
-                    src={images[0].url}
+                    src={mainImage}
                     alt="product image"
                     width={450}
                     height={450}
+                    priority
                   />
 
                   {showZoom && (
@@ -209,21 +122,21 @@ const ViewProductDetails = ({
                         style={{
                           width: `${imageDimensions.width * zoomFactor}px`,
                           height: `${imageDimensions.height * zoomFactor}px`,
-                          backgroundImage: `url(${images[0].url})`,
+                          backgroundImage: `url(${mainImage})`,
                           backgroundSize: `${
                             imageDimensions.width * zoomFactor
                           }px ${imageDimensions.height * zoomFactor}px`,
                           backgroundRepeat: "no-repeat",
                           transform: `translate(
-                    -${mousePosition.x * zoomFactor - zoomSize / 2}px,
-                    -${mousePosition.y * zoomFactor - zoomSize / 2}px
-                  )`,
+            -${mousePosition.x * zoomFactor - zoomSize / 2}px,
+            -${mousePosition.y * zoomFactor - zoomSize / 2}px
+          )`,
                         }}
                       />
                     </motion.div>
                   )}
-                </div>
-                <div className="relative h-20 w-20 flex items-center justify-center gap-2">
+                </motion.div>
+                <div className="relative h-20 w-20 flex items-center justify-center gap-2 cursor-pointer">
                   {images.map((image: any) => (
                     <Image
                       key={image._id}
@@ -231,6 +144,7 @@ const ViewProductDetails = ({
                       alt="product image"
                       width={250}
                       height={250}
+                      onClick={() => clickImage(image.url)}
                     />
                   ))}
                 </div>
@@ -309,42 +223,6 @@ const ViewProductDetails = ({
                       initial={{ y: 50, opacity: 0 }}
                       whileInView={{ y: 0, opacity: 1 }}
                       transition={{ duration: 0.7 }}
-                      className="text-xs text-lightText flex flex-col"
-                    >
-                      {product?.variations.length > 0 && (
-                        <span className="text-foreground flex flex-row items-center gap-5">
-                          {colorList?.map((c: any, index: number) => (
-                            <div
-                              key={index}
-                              className="flex-col justify-center items-center"
-                            >
-                              <button
-                                style={
-                                  c.value === "Multicolor" ||
-                                  c.value === "Multicolor Dos"
-                                    ? { margin: `0px` }
-                                    : { backgroundColor: `${c.colorHex}` }
-                                }
-                                value={c.value}
-                                key={index}
-                                onClick={handleColorSelection}
-                                className={`${
-                                  c.value === "Multicolor"
-                                    ? "dynamic-gradient"
-                                    : c.value === "Multicolor Dos"
-                                    ? "dynamic-gradient-two"
-                                    : "rounded-full"
-                                } flex shadow-md cursor-pointer p-2  text-white `}
-                              ></button>
-                            </div>
-                          ))}
-                        </span>
-                      )}
-                    </motion.div>
-                    <motion.div
-                      initial={{ y: 50, opacity: 0 }}
-                      whileInView={{ y: 0, opacity: 1 }}
-                      transition={{ duration: 0.7 }}
                       className="text-sm text-lightText flex flex-col items-center justify-center"
                     >
                       {product?.variations.length > 1 ? (
@@ -352,7 +230,6 @@ const ViewProductDetails = ({
                           {sizes?.map((s: any, index: number) => (
                             <button
                               key={index}
-                              onClick={handleSizeSelection}
                               value={s}
                               className={`rounded-full border border-slate-400 flex items-center justify-center px-2 py-1 ${
                                 size === s
@@ -392,15 +269,14 @@ const ViewProductDetails = ({
                     </span>
                   ) : (
                     <motion.button
-                      disabled={variation?.stock <= 0}
+                      disabled={true}
                       whileHover={{ scale: 1.07 }}
                       whileTap={{ scale: 0.9 }}
-                      className={`${
-                        variation?.stock <= 0
-                          ? "bg-slate-300 grayscale-0 text-foreground border-slate-300"
+                      className={` cursor-not-allowed ${
+                        true
+                          ? "bg-muted grayscale-0 text-foreground border-slate-300"
                           : "text-white border-black"
-                      } border  drop-shadow-md flex flex-row items-center justify-between px-6 py-2  gap-x-4 text-xs bg-primary rounded-xl  ease-in-out  duration-300 w-auto uppercase tracking-wider cursor-pointer `}
-                      onClick={handleClick}
+                      } border  drop-shadow-md flex flex-row items-center justify-between px-6 py-2  gap-x-4 text-xs bg-primary rounded-xl  ease-in-out  duration-300 w-auto uppercase tracking-wider `}
                     >
                       {variation?.stock <= 0
                         ? "Out of Stock"
