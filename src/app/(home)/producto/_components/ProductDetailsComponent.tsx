@@ -12,6 +12,7 @@ import { addToCart } from "@/redux/shoppingSlice";
 import { useRouter } from "next/navigation";
 import { toast } from "sonner";
 import Image from "next/image";
+import Link from "next/link";
 
 const ProductDetailsComponent = ({
   product,
@@ -389,9 +390,11 @@ const ProductDetailsComponent = ({
                       SIN EXISTENCIAS
                     </span>
                   ) : alreadyCart ? (
-                    <span className="  border-[1px] border-black text-sm py-1 px-3 rounded-xl bg-primary text-slate-100">
-                      TODAS LAS EXISTENCIAS ESTÁN EN CARRITO
-                    </span>
+                    <Link href="/carrito">
+                      <span className="  border-[1px] border-black text-xs py-1 px-3 rounded-xl bg-primary text-slate-100">
+                        TODAS LAS EXISTENCIAS ESTÁN EN CARRITO
+                      </span>
+                    </Link>
                   ) : (
                     <motion.button
                       disabled={variation?.stock <= 0}

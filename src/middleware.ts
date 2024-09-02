@@ -1,4 +1,4 @@
-import { NextResponse } from "next/server";
+import { NextRequest, NextResponse } from "next/server";
 import { getToken } from "next-auth/jwt";
 
 const protectedPaths = [
@@ -9,12 +9,11 @@ const protectedPaths = [
   "/carrito/envio",
 ];
 
-export async function middleware(request: any) {
+export async function middleware(request: NextRequest) {
   const token: any = await getToken({ req: request });
-  request.nextauth = request.nextauth || {};
-  request.nextauth.token = token;
   const pathname = request.nextUrl.pathname;
   let signInUrl;
+  const nextUrl = request.nextUrl;
 
   if (token?.user) {
     // if (token?.user?.role === "instagram" && !pathname.includes("instagram")) {
@@ -34,6 +33,18 @@ export async function middleware(request: any) {
       signInUrl = new URL("/admin", request.url);
       return NextResponse.redirect(signInUrl);
     }
+    if (
+      token?.user?.role === "cliente" &&
+      !nextUrl.pathname.includes("perfil")
+    ) {
+      const callbackUrl = nextUrl.searchParams.get("callbackUrl");
+
+      if (callbackUrl) {
+        const callbackUrlString = callbackUrl?.toString();
+        // Redirect to the callbackUrl
+        return NextResponse.redirect(new URL(callbackUrlString, request.url));
+      }
+    }
   }
 
   if (pathname.includes("admin")) {
@@ -45,6 +56,20 @@ export async function middleware(request: any) {
     }
 
     if (token?.user?.role !== "manager") {
+      signInUrl = new URL("/no-autorizado", request.url);
+      return NextResponse.redirect(signInUrl);
+    }
+  }
+
+  if (pathname.includes("perfil")) {
+    //if admin user is not logged in
+    if (!token) {
+      signInUrl = new URL("/api/auth/signin", request.url);
+      signInUrl.searchParams.set("callbackUrl", pathname);
+      return NextResponse.redirect(signInUrl);
+    }
+
+    if (token?.user?.role !== "cliente") {
       signInUrl = new URL("/no-autorizado", request.url);
       return NextResponse.redirect(signInUrl);
     }

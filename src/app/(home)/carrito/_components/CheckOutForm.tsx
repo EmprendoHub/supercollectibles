@@ -75,7 +75,7 @@ const CheckOutForm = () => {
             {/** Login/Register */}
             {!session && (
               <>
-                <Link href={"/iniciar"}>
+                <Link href={`/iniciar?callbackUrl=/carrito`}>
                   <div className=" w-full bg-emerald-800 text-slate-100 mb-3 rounded-xl py-3 px-6 hover:bg-emerald-900 duration-500 cursor-pointer">
                     <div className="flex flex-row justify-center items-center gap-x-3 ">
                       <p className="text-xs font-base">Iniciar/Registro</p>
