@@ -193,13 +193,6 @@ export const set_colors = [
   { value: "Vino", label: "Vino", hex: "#5E2129", hexTwo: "", hexThree: "" },
 ];
 
-export const cat_tarjetas = [
-  { value: "Pokemon", label: "Pokemon" },
-  { value: "Yu-Gi-Oh", label: "Yu-Gi-Oh" },
-  { value: "Magic", label: "Magic" },
-  { value: "No Aplica", label: "No Aplica" },
-];
-
 export const sizes_prendas = [
   { value: "XCH", label: "XCH" },
   { value: "CH", label: "CH" },
@@ -234,11 +227,35 @@ export const sizes_shoes_woman = [
 ];
 
 export const product_categories = [
-  { es: "Tarjetas Coleccionables", en: "Cards Coleccionables" },
-  { es: "Figuras Coleccionables", en: "Figura Coleccionables" },
-  { es: "Prendas Autografiadas", en: "Clothes Autografiadas" },
-  { es: "Tarjetas de Juego", en: "Tarjetas de Juego" },
+  { es: "Cartas de Pokemon", en: "Cartas de Pokemon" },
+  { es: "Cartas de Yu-Gi-Oh", en: "Cartas de Yu-Gi-Oh" },
+  { es: "Cartas de Digimon", en: "Cartas de Digimon" },
+  { es: "Cartas de One Piece", en: "Cartas de One Piece" },
+  { es: "Cartas de Deportes", en: "Cartas de Deportes" },
+  { es: "Paquetes de Cartas", en: "Paquetes de Cartas" },
+  { es: "Hot Wheels", en: "Hot Wheels" },
+  { es: "Relojes de Colección", en: "Relojes de Colección" },
+  { es: "Jerseys Autografiadas", en: "Jerseys Autografiadas" },
+  { es: "Ropa de Colección", en: "Ropa de Colección" },
+  { es: "Memorabilia Deportiva", en: "Memorabilia Deportiva" },
+  { es: "Figuras Pokemon", en: "Figuras Pokemon" },
+  { es: "Artículos de Cuidado", en: "Artículos de Cuidado" },
+  { es: "Organizadores y Estuches", en: "Organizadores y Estuches" },
 ];
+
+export const cat_tarjetas = [
+  { value: "Nuevas", label: "Nuevas" },
+  { value: "Graduadas", label: "Graduadas" },
+  { value: "No Aplica", label: "No Aplica" },
+];
+
+export const cat_articulos = [
+  { value: "Cerrado", label: "Cerrado" },
+  { value: "Nuevo", label: "Nuevo" },
+  { value: "No Aplica", label: "No Aplica" },
+];
+
+export const cat_misc = [{ value: "No Aplica", label: "No Aplica" }];
 
 export const genders = [
   { es: "Nintendo", en: "Nintendo" },

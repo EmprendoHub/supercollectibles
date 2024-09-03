@@ -6,6 +6,8 @@ import { updateRevalidateProduct } from "@/app/_actions";
 import { usePathname, useRouter } from "next/navigation";
 import {
   cat_tarjetas,
+  cat_articulos,
+  cat_misc,
   sizes_shoes_men,
   sizes_prendas,
   product_categories,
@@ -614,19 +616,29 @@ const NewVariationOptimized = ({
 
   const handleCategoryChange = async (e: any) => {
     setCategory(e);
-    if (e === "Calzado") {
-      setSizeSelection(sizes_shoes_men);
-      setSizeSelectionLabel("Talla");
-    }
-
-    if (e === "Tarjetas Coleccionables" || e === "Figuras Coleccionables") {
+    if (e.includes("Cartas")) {
       setSizeSelection(cat_tarjetas);
-      setSizeSelectionLabel("Colección");
+      setSizeSelectionLabel("Condición");
     }
 
-    if (e === "Prendas") {
+    if (e === "Jerseys Autografiadas" || e === "Ropa de Colección") {
       setSizeSelection(sizes_prendas);
       setSizeSelectionLabel("Talla");
+    }
+
+    if (
+      e === "Hot Wheels" ||
+      e === "Figuras Pokemon" ||
+      e === "Memorabilia Deportiva" ||
+      e === "Relojes de Colección"
+    ) {
+      setSizeSelection(cat_articulos);
+      setSizeSelectionLabel("Condición");
+    }
+
+    if (e === "Artículos de Cuidado" || e === "Organizadores y Estuches") {
+      setSizeSelection(cat_misc);
+      setSizeSelectionLabel("Detalle");
     }
   };
 
@@ -641,8 +653,8 @@ const NewVariationOptimized = ({
       category === "Tarjetas Coleccionables" ||
       category === "Figuras Coleccionables"
     ) {
-      setSizeSelection(cat_tarjetas);
-      setSizeSelectionLabel("Colección");
+      setSizeSelection(cat_articulos);
+      setSizeSelectionLabel("Condición");
     }
 
     if (category === "Prendas") {
@@ -974,8 +986,7 @@ const NewVariationOptimized = ({
                 <div className=" flex flex-row gap-1 items-center">
                   <div className="mb-1 w-full">
                     <label className="block mb-1 font-EB_Garamond  text-xs">
-                      {" "}
-                      Categoría{" "}
+                      Tipo
                     </label>
                     <div className="relative">
                       <select
