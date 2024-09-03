@@ -9,7 +9,7 @@ const UnderConstruction = () => {
       {/* overlay */}
       <div className="h-full flex flex-wrap bg-black bg-opacity-85 w-full absolute bottom-0 right-0 z-[1]" />
       <div className="absolute flex flex-col items-center justify-center z-20 w-full">
-        <LogoComponent className="w-[100px]" />
+        <LogoComponent className="w-[200px]" />
         <p className="text-4xl text-white font-black">¡Muy Pronto!</p>
       </div>
 
