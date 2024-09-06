@@ -5,7 +5,6 @@ import SectionFourComponent from "./_components/SectionFourComponent";
 import MainHeroComponent from "./_components/MainHeroComponent";
 import TestimonialComponent from "./_components/TestimonialComponent";
 import HomeHeader from "./_components/HomeHeader";
-import EditorsPickProducts from "./_components/EditorsPickProducts";
 import { getHomeProductsData } from "../_actions";
 import TrendingNewProducts from "./_components/TrendingNewProducts";
 import HeaderProducts from "./_components/HeaderProducts";
@@ -19,7 +18,6 @@ const HomeComponent = async () => {
       <HomeHeader />
       <HeaderProducts editorsProducts={editorsProducts} />
       <MainHeroComponent />
-
       <TrendingNewProducts trendProducts={trendProducts} />
       <SectionTwoComponent />
       <TestimonialComponent />
