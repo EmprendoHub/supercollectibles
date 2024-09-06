@@ -15,17 +15,28 @@ const ProductCard = ({ item }: { item: any }) => {
       initial={{ y: 30, opacity: 0 }}
       whileInView={{ y: 0, opacity: 1 }}
       transition={{ duration: 1.0 }}
-      className="border-[1px] rounded-xl max-w-[350px] maxmd:max-w-[100%] overflow-hidden relative"
+      className="border-[1px] border-muted  shadow-md shadow-slate-400  bg-background  max-w-[150px] maxsm:max-w-[130px]  relative "
     >
       <Link href={`/producto/${item.slug}`}>
-        <div className="w-full h-[300px]  group overflow-hidden relative">
+        <div className="h-[120px] w-full  maxsm:h-[80px] maxsm:w-[80px]  group  relative">
           <Image
             src={item?.images[0].url}
             alt="product image"
-            className=" ease-in-out duration-500 w-full h-full object-cover group-hover:scale-110 rounded-t-sm"
+            className=" ease-in-out duration-500 w-full h-full object-cover group-hover:scale-110"
             width={450}
             height={450}
           />
+          <div className="absolute top-2 right-2  maxsm:right-2 ">
+            {/* add to favorites button */}
+            <motion.button
+              whileHover={{ scale: 1.07 }}
+              whileTap={{ scale: 0.9 }}
+              className="bg-black h-5 w-5 text-sm flex flex-row rounded-full justify-center gap-x-2 items-center tracking-wide text-slate-100 hover:bg-primary hover:text-white duration-500"
+              onClick={() => dispatch(addToFavorites(item))}
+            >
+              <IoMdHeart size={14} />
+            </motion.button>
+          </div>
 
           {item?.sale_price && (
             <span className="absolute top-2 right-2  border-[1px] border-black font-medium text-xs py-1 px-3 rounded-sm bg-black text-slate-100 group-hover:bg-slate-100 group-hover:text-foreground duration-200">
@@ -33,8 +44,8 @@ const ProductCard = ({ item }: { item: any }) => {
             </span>
           )}
           {item?.stock <= 0 && (
-            <span className="absolute rotate-12 top-1/2 right-1/4  border-[1px] border-black font-medium text-xl py-1 px-3 rounded-sm bg-black text-slate-100 group-hover:bg-primary group-hover:text-foreground duration-200">
-              SOLD OUT
+            <span className="absolute -rotate-12 top-1/2 right-4  border-[1px] border-primary font-medium text-xs py-1 px-3 rounded-sm bg-black text-slate-100 group-hover:bg-primary group-hover:text-foreground duration-200">
+              VENDIDO
             </span>
           )}
           {item?.sale_price ? (
@@ -50,22 +61,11 @@ const ProductCard = ({ item }: { item: any }) => {
           )}
         </div>
       </Link>
-      <div className=" px-4 py-4 flex flex-col border-card rounded-b-sm">
+      <div className=" px-4 pb-4 flex flex-col border-card rounded-b-sm">
         <div className="flex items-center justify-between gap-x-1">
-          <p className="text-foreground tracking-wide font-EB_Garamond text-sm">
-            {item?.title.substring(0, 25) + "..."}
+          <p className=" tracking-wide font-EB_Garamond text-[12px]">
+            {item?.title.substring(0, 23) + "..."}
           </p>
-          <div className="flex items-center justify-between my-5">
-            {/* add to favorites button */}
-            <motion.button
-              whileHover={{ scale: 1.07 }}
-              whileTap={{ scale: 0.9 }}
-              className="bg-black h-7 w-7 text-sm flex flex-row rounded-full justify-center gap-x-2 items-center tracking-wide text-slate-100 hover:bg-black hover:text-white duration-500"
-              onClick={() => dispatch(addToFavorites(item))}
-            >
-              <IoMdHeart className="" />
-            </motion.button>
-          </div>
         </div>
 
         <div className="pricing-class flex fle-row items-center gap-x-2">
@@ -93,8 +93,7 @@ const ProductCard = ({ item }: { item: any }) => {
           )}
         </div>
         <div className="">
-          <p className="text-[12px] text-foreground">Llevatelo por solo: </p>
-          <p className="font-semibold text-foreground tracking-wider">
+          <p className="font-semibold  tracking-wide">
             <FormattedPrice
               amount={
                 item?.variations[0]?.price > 0

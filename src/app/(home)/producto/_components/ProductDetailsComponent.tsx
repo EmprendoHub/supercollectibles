@@ -160,7 +160,7 @@ const ProductDetailsComponent = ({
   return (
     <div className="container-class maxsm:py-8 ">
       <main className="bg-background flex flex-col items-center justify-between">
-        <div className="w-full mx-auto wrapper-class gap-3 bg-background text-foreground  rounded-xl">
+        <div className="w-full mx-auto wrapper-class gap-3 bg-background text-foreground  ">
           <div className="flex flex-row maxsm:flex-col items-start justify-start gap-x-5 px-20 py-8 maxmd:py-4  maxmd:px-3">
             {/* Left Panel */}
             <div className="w-1/2 maxsm:w-full flex flex-col items-center justify-center">
@@ -294,7 +294,7 @@ const ProductDetailsComponent = ({
                   initial={{ y: 50, opacity: 0 }}
                   whileInView={{ y: 0, opacity: 1 }}
                   transition={{ duration: 0.6 }}
-                  className="text-muted text-xs description-class tracking-wider"
+                  className="text-gray-500 text-xs description-class tracking-wider"
                 >
                   {product?.description ? product?.description : ""}
                 </motion.div>
@@ -386,12 +386,12 @@ const ProductDetailsComponent = ({
                 >
                   {/* add to cart button */}
                   {variation?.stock <= 0 ? (
-                    <span className="text-[12px] border-[1px] border-black font-medium py-1 px-3 rounded-xl bg-primary text-slate-100">
+                    <span className="text-[12px] border-[1px] border-black font-medium py-1 px-3  bg-primary text-slate-100">
                       SIN EXISTENCIAS
                     </span>
                   ) : alreadyCart ? (
                     <Link href="/carrito">
-                      <span className="  border-[1px] border-black text-xs py-1 px-3 rounded-xl bg-primary text-slate-100">
+                      <span className="  border-[1px] border-black text-xs py-1 px-3  bg-primary text-slate-100">
                         TODAS LAS EXISTENCIAS ESTÁN EN CARRITO
                       </span>
                     </Link>
@@ -404,7 +404,7 @@ const ProductDetailsComponent = ({
                         variation?.stock <= 0
                           ? "bg-slate-300 grayscale-0 text-foreground border-slate-300"
                           : "text-white border-black"
-                      } border  drop-shadow-md flex flex-row items-center justify-between px-6 py-2  gap-x-4 text-xs bg-primary rounded-xl  ease-in-out  duration-300 w-auto uppercase tracking-wider cursor-pointer `}
+                      } border  drop-shadow-md flex flex-row items-center justify-between px-6 py-2  gap-x-4 text-xs bg-primary   ease-in-out  duration-300 w-auto uppercase tracking-wider cursor-pointer `}
                       onClick={handleClick}
                     >
                       {variation?.stock <= 0

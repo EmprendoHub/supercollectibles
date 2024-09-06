@@ -8,7 +8,7 @@ const BlogLayoutThree = ({ blog }: { blog: any }) => {
     <div className="group flex flex-col items-center text-dark dark:text-light">
       <Link
         href={`/blog/publicacion/${blog?.slug}`}
-        className="h-full rounded-xl overflow-hidden"
+        className="h-full  overflow-hidden"
       >
         <Image
           src={blog?.mainImage || "/images/next.svg"}

@@ -7,7 +7,7 @@ const BlogLayoutTwo = ({ blog }: { blog: any }) => {
     <div className="group flex flex-row maxmd:flex-col gap-4 items-center text-dark dark:text-light">
       <Link
         href={`/blog/publicacion/${blog?.slug}` || "/"}
-        className="w-full  h-full rounded-xl overflow-hidden"
+        className="w-full  h-full  overflow-hidden"
       >
         <Image
           src={blog?.mainImage || "/images/next.svg"}

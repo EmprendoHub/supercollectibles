@@ -1,6 +1,9 @@
 import React from "react";
 import Link from "next/link";
 import MobileMenuComponent from "./MobileMenuComponent";
+import { useSelector } from "react-redux";
+import { ShoppingCart, MapPin } from "lucide-react";
+import GlobalSearch from "../layouts/GlobalSearch";
 
 const CustomLink = ({
   href,
@@ -29,22 +32,43 @@ const CustomLink = ({
 };
 
 const MainMenuComponent = ({ className }: { className: string }) => {
+  const { productsData, favoritesData } = useSelector(
+    (state: any) => state.compras
+  );
   return (
-    <nav className={`${className} menu-class bg-primary`}>
-      {/*Mobile Navigation*/}
-      <MobileMenuComponent />
-      {/* Navigation*/}
-      <nav className="maxsm:hidden m-0 flex flex-row px-5 items-center justify-center gap-x-16 maxmd:gap-x-5 text-xs font-ubuntu font-light tracking-[4px] maxmd:tracking-wide text-white no-underline uppercase">
-        <CustomLink href={`/`} title={"Inicio"} className={""} />
-
-        <CustomLink href={`/tienda`} title={"Tienda"} className={""} />
-        <CustomLink
-          href={`/acerca`}
-          title={"nosotros"}
-          className="uppercase  "
-        />
-        <CustomLink href={`/contacto`} title={"contacto"} className={""} />
-      </nav>
+    <nav
+      className={`${className} relative self-stretch flex flex-row items-center maxmd:items-start justify-center p-3 mx-auto menu-class bg-primary maxmd:flex maxmd:flex-col-reverse `}
+    >
+      <div className="flex items-center gap-2 pr-5 cursor-pointer">
+        <MapPin size={20} />{" "}
+        <span className="text-[13px]">Ingresa tu domicilio</span>
+      </div>
+      <div className="relative flex items-center justify-between gap-3">
+        {/*Mobile Navigation*/}
+        <MobileMenuComponent />
+        {/* Navigation*/}
+        <nav className="maxsm:hidden m-0 flex flex-row px-5 items-center justify-center gap-x-3 text-[13px] font-light tracking-wide text-white no-underline capitalize pr-8">
+          <CustomLink href={`/tienda`} title={"Tienda"} className={""} />
+          <CustomLink href={`/acerca`} title={"nosotros"} className={""} />
+          <CustomLink href={`/contacto`} title={"contacto"} className={""} />
+          <CustomLink href={`/contacto`} title={"vender"} className={""} />
+          <CustomLink href={`/contacto`} title={"ayuda"} className={""} />
+        </nav>
+        <GlobalSearch className="minmd:hidden" />
+        {/* Cart Button */}
+        <div className="flex items-center gap-x-3">
+          <span className="text-[13px] maxmd:hidden">Crea tu Cuenta</span>
+          <span className="text-[13px] maxmd:hidden">Mis Compras</span>
+          <Link href={"/carrito"}>
+            <div className="rounded-full text-salte-100  flex items-center justify-center  cursor-pointer">
+              <ShoppingCart size={20} />
+              <span className=" text-white rounded-full text-[10px] relative right-1  -top-2 flex items-center justify-center w-4 h-4 shadow-xl p-0">
+                {productsData ? productsData?.length : 0}
+              </span>
+            </div>
+          </Link>
+        </div>
+      </div>
     </nav>
   );
 };

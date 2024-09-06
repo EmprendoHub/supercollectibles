@@ -48,13 +48,13 @@ const AboutUsComponent = () => {
           </p>
 
           <div className="flex maxmd:flex-col items-center justify-center gap-4 mt-5">
-            <div className="w-full bg-card rounded-xl px-3 py-4 shadow-md">
+            <div className="w-full bg-card  px-3 py-4 shadow-md">
               <Image
                 src={"/images/OIG_02.jpeg"}
                 width={800}
                 height={800}
                 alt="Icon"
-                className="mx-auto mb-4 w-40 h-40 rounded-xl "
+                className="mx-auto mb-4 w-40 h-40  "
               />
 
               <CardTextComponent
@@ -69,13 +69,13 @@ const AboutUsComponent = () => {
               <div className="mt-10" />
             </div>
 
-            <div className="w-full bg-card  rounded-xl px-3 py-4  shadow-md">
+            <div className="w-full bg-card   px-3 py-4  shadow-md">
               <Image
                 src={"/images/OIG_02.jpeg"}
                 width={800}
                 height={800}
                 alt="Icon"
-                className="mx-auto mb-4 w-40 h-40 rounded-xl"
+                className="mx-auto mb-4 w-40 h-40 "
               />
 
               <CardTextComponent
@@ -90,13 +90,13 @@ const AboutUsComponent = () => {
               <div className="mt-10" />
             </div>
 
-            <div className="w-full bg-card  rounded-xl  px-3 py-4  shadow-md">
+            <div className="w-full bg-card    px-3 py-4  shadow-md">
               <Image
                 src={"/images/OIG_02.jpeg"}
                 width={800}
                 height={800}
                 alt="Icon"
-                className="mx-auto mb-4 w-40 h-40 rounded-xl"
+                className="mx-auto mb-4 w-40 h-40 "
               />
 
               <CardTextComponent
@@ -138,13 +138,13 @@ const AboutUsComponent = () => {
             transition={{ duration: 1.2 }}
             className="flex gap-x-4 mt-2 justify-center"
           >
-            <div className="bg-background rounded-xl p-4 shadow-md">
+            <div className="bg-background  p-4 shadow-md">
               <Image
                 src={"/images/OIG_02.jpeg"}
                 width={1080}
                 height={1080}
                 alt="Super Collectibles MX"
-                className="mx-auto mb-4 w-full h-full rounded-xl"
+                className="mx-auto mb-4 w-full h-full "
               />
             </div>
           </motion.div>

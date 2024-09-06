@@ -111,7 +111,7 @@ const DashComponent = ({ data }: { data: any }) => {
     <div className="p-3 md:mx-auto  text-card-foreground">
       <div className="flex-row maxsm:flex-col flex gap-4 justify-start w-full">
         <div className="w-full flex flex-row maxmd:flex-col gap-4 justify-start items-start">
-          <div className="flex flex-col p-3 bg-card shadow-lg gap-4 w-full rounded-xl">
+          <div className="flex flex-col p-3 bg-card shadow-lg gap-4 w-full ">
             <div className="flex justify-between ">
               <div className="">
                 <h3 className="text-card-foreground text-md uppercase">
@@ -131,7 +131,7 @@ const DashComponent = ({ data }: { data: any }) => {
               <div className="text-card-foreground">Dia Anterior</div>
             </div>
           </div>
-          <div className="flex flex-col p-3 bg-card shadow-lg dark:bg-card gap-4 w-full rounded-xl">
+          <div className="flex flex-col p-3 bg-card shadow-lg dark:bg-card gap-4 w-full ">
             <div className="flex justify-between">
               <div className="">
                 <h3 className="text-card-foreground text-md uppercase">
@@ -154,7 +154,7 @@ const DashComponent = ({ data }: { data: any }) => {
         </div>
 
         <div className="w-full flex flex-row maxmd:flex-col gap-4 justify-start items-start">
-          <div className="flex flex-col p-3 bg-card shadow-lg dark:bg-card gap-4 w-full rounded-xl ">
+          <div className="flex flex-col p-3 bg-card shadow-lg dark:bg-card gap-4 w-full  ">
             <div className="flex justify-between">
               <div className="">
                 <h3 className="text-card-foreground text-md uppercase">
@@ -174,7 +174,7 @@ const DashComponent = ({ data }: { data: any }) => {
               <div className="text-card-foreground">Mes Anterior</div>
             </div>
           </div>
-          <div className="flex flex-col p-3 bg-card shadow-lg dark:bg-card gap-4 w-full rounded-xl ">
+          <div className="flex flex-col p-3 bg-card shadow-lg dark:bg-card gap-4 w-full  ">
             <div className="flex justify-between">
               <div className="">
                 <h3 className="text-card-foreground text-md uppercase">
@@ -205,7 +205,7 @@ const DashComponent = ({ data }: { data: any }) => {
       </div>
       <div className="flex-row maxsm:flex-col flex gap-4 justify-start w-full mt-4">
         <div className="w-full flex flex-row maxmd:flex-col gap-4 justify-start items-start">
-          <div className="flex flex-col p-3 dark:bg-card gap-4 w-full rounded-xl shadow-lg bg-card">
+          <div className="flex flex-col p-3 dark:bg-card gap-4 w-full  shadow-lg bg-card">
             <div className="flex justify-between">
               <div className="">
                 <h3 className="text-card-foreground text-md uppercase">
@@ -222,7 +222,7 @@ const DashComponent = ({ data }: { data: any }) => {
               <div className="text-card-foreground">Explorar Clientes</div>
             </Link>
           </div>
-          <div className="flex flex-col p-3 dark:bg-card gap-4 w-full rounded-xl shadow-lg bg-card">
+          <div className="flex flex-col p-3 dark:bg-card gap-4 w-full  shadow-lg bg-card">
             <div className="flex justify-between">
               <div className="">
                 <h3 className="text-card-foreground text-md uppercase">
@@ -243,7 +243,7 @@ const DashComponent = ({ data }: { data: any }) => {
         </div>
 
         <div className="w-full flex flex-row maxmd:flex-col gap-4 justify-start items-start">
-          <div className="flex flex-col p-3 dark:bg-card gap-4 w-full rounded-xl shadow-lg bg-card">
+          <div className="flex flex-col p-3 dark:bg-card gap-4 w-full  shadow-lg bg-card">
             <div className="flex justify-between">
               <div className="">
                 <h3 className="text-card-foreground text-md uppercase">
@@ -261,7 +261,7 @@ const DashComponent = ({ data }: { data: any }) => {
               <div className="text-card-foreground">Mes Anterior</div>
             </div>
           </div>
-          <div className="flex flex-col p-3 dark:bg-card gap-4 w-full rounded-xl shadow-lg bg-card">
+          <div className="flex flex-col p-3 dark:bg-card gap-4 w-full  shadow-lg bg-card">
             <div className="flex justify-between">
               <div className="">
                 <h3 className="text-card-foreground text-md uppercase">
@@ -283,7 +283,7 @@ const DashComponent = ({ data }: { data: any }) => {
       </div>
       <div className="flex flex-row maxsm:flex-col gap-4 py-3 mx-auto justify-start">
         <div className="w-full flex flex-row maxmd:flex-col gap-4 justify-start items-start">
-          <div className="flex flex-col w-full shadow-md p-5 rounded-xl bg-card">
+          <div className="flex flex-col w-full shadow-md p-5  bg-card">
             <div className="flex justify-between py-3 text-base font-black font-EB_Garamond">
               <h1>Clientes Recientes</h1>
               <button>
@@ -326,7 +326,7 @@ const DashComponent = ({ data }: { data: any }) => {
                 ))}
             </table>
           </div>
-          <div className="flex flex-col w-full shadow-md p-5 rounded-xl bg-card">
+          <div className="flex flex-col w-full shadow-md p-5  bg-card">
             <div className="flex justify-between py-3 text-base font-black font-EB_Garamond">
               <h1>Pedidos recientes</h1>
               <button>
@@ -370,7 +370,7 @@ const DashComponent = ({ data }: { data: any }) => {
         </div>
 
         <div className="w-full flex flex-row maxmd:flex-col gap-4 justify-start items-start">
-          <div className="flex flex-col w-full shadow-md p-5 rounded-xl bg-card">
+          <div className="flex flex-col w-full shadow-md p-5  bg-card">
             <div className="flex justify-between py-3 text-base font-black font-EB_Garamond">
               <h1>Productos Recientes</h1>
               <button>
@@ -398,7 +398,7 @@ const DashComponent = ({ data }: { data: any }) => {
                           alt="producto"
                           width={400}
                           height={400}
-                          className="w-5 h-5 rounded-xl bg-gray-500"
+                          className="w-5 h-5  bg-gray-500"
                         />
                       </td>
                       <td>
@@ -416,7 +416,7 @@ const DashComponent = ({ data }: { data: any }) => {
                 ))}
             </table>
           </div>
-          <div className="flex flex-col w-full shadow-md p-5 rounded-xl bg-card">
+          <div className="flex flex-col w-full shadow-md p-5  bg-card">
             <div className="flex justify-between py-3 text-base font-black font-EB_Garamond">
               <h1>Publicaciones recientes</h1>
               <button>
@@ -441,7 +441,7 @@ const DashComponent = ({ data }: { data: any }) => {
                           alt="user"
                           width={400}
                           height={400}
-                          className="w-5 h-5 rounded-xl bg-gray-500"
+                          className="w-5 h-5  bg-gray-500"
                         />
                       </td>
                       <td>{post.mainTitle.substring(0, 20)}...</td>

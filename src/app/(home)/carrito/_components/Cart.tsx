@@ -123,7 +123,7 @@ const Cart = () => {
                               onClick={() =>
                                 dispatch(deleteProduct(cartItem?._id))
                               }
-                              className="text.lg hover:text-red-600 cursor-pointer duration-300"
+                              className="text-lg hover:text-red-600 cursor-pointer duration-300"
                             >
                               <AiOutlineClose />
                             </span>

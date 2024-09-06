@@ -18,7 +18,7 @@ const ColTextComponent = ({
   btnUrl: string;
 }) => {
   return (
-    <div className="p-20 maxsm:p-1">
+    <div className="p-20 maxsm:p-1 text-white ">
       <motion.p
         initial={{ y: 30, opacity: 0 }}
         whileInView={{ y: 0, opacity: 1 }}
@@ -31,7 +31,7 @@ const ColTextComponent = ({
         initial={{ y: 30, opacity: 0 }}
         whileInView={{ y: 0, opacity: 1 }}
         transition={{ duration: 0.7 }}
-        className="text-5xl text-greenLight maxsm:text-2xl font-raleway font-black tracking-normal uppercase"
+        className="text-4xl maxsm:text-2xl font-raleway font-black tracking-normal uppercase"
       >
         {title}{" "}
       </motion.h2>
@@ -39,7 +39,7 @@ const ColTextComponent = ({
         initial={{ y: 30, opacity: 0 }}
         whileInView={{ y: 0, opacity: 1 }}
         transition={{ duration: 0.8 }}
-        className="text-sm  maxmd:text-sm pt-3 tracking-widest text-white"
+        className="text-sm  maxmd:text-sm pt-3 tracking-widest "
       >
         {subtitle}
       </motion.p>
@@ -47,10 +47,10 @@ const ColTextComponent = ({
         initial={{ y: 30, opacity: 0 }}
         whileInView={{ y: 0, opacity: 1 }}
         transition={{ duration: 0.9 }}
-        className="py-10"
+        className="py-10 "
       >
         <Link href={btnUrl}>
-          <Button>{btnText}</Button>
+          <Button variant={"secondary"}>{btnText}</Button>
         </Link>
       </motion.div>
     </div>

@@ -297,7 +297,7 @@ const BlogPublishedComponent = ({ post }: { post: any }) => {
         <div className="mx-auto max-w-[900px] w-full flex flex-row items-start justify-start mb-10 ">
           <div className="relative w-96">
             <select
-              className="block appearance-none border border-gray-300 bg-background rounded-xl py-2 px-3 focus:outline-none focus:border-gray-400 w-full"
+              className="block appearance-none border border-gray-300 bg-background  py-2 px-3 focus:outline-none focus:border-gray-400 w-full"
               name="category"
               onChange={(e) => handleCategoryChange(e.target.value)}
             >
@@ -441,7 +441,7 @@ const BlogPublishedComponent = ({ post }: { post: any }) => {
                           className="cursor-pointer"
                         >
                           <Image
-                            className="rounded-xl object-cover"
+                            className=" object-cover"
                             src={sectionThreeImage}
                             fill={true}
                             sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
@@ -575,7 +575,7 @@ const BlogPublishedComponent = ({ post }: { post: any }) => {
                         >
                           <Image
                             id="sectionFourImage"
-                            className="rounded-xl object-cover"
+                            className=" object-cover"
                             src={sectionFourImage}
                             fill={true}
                             sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
@@ -636,7 +636,7 @@ const BlogPublishedComponent = ({ post }: { post: any }) => {
                           >
                             <Image
                               id="sectionFiveImage"
-                              className="rounded-xl object-cover"
+                              className=" object-cover"
                               src={sectionFiveImage}
                               fill={true}
                               sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
@@ -709,7 +709,7 @@ const BlogPublishedComponent = ({ post }: { post: any }) => {
                         >
                           <Image
                             id="sectionSixColOneImage"
-                            className="rounded-xl object-cover h-40"
+                            className=" object-cover h-40"
                             src={sectionSixColOneImage}
                             width={500}
                             height={500}
@@ -754,7 +754,7 @@ const BlogPublishedComponent = ({ post }: { post: any }) => {
                         >
                           <Image
                             id="sectionSixColTwoImage"
-                            className="rounded-xl object-cover h-40"
+                            className=" object-cover h-40"
                             src={sectionSixColTwoImage}
                             width={500}
                             height={500}
@@ -798,7 +798,7 @@ const BlogPublishedComponent = ({ post }: { post: any }) => {
                         >
                           <Image
                             id="sectionSixColThreeImage"
-                            className="rounded-xl object-cover h-40"
+                            className=" object-cover h-40"
                             src={sectionSixColThreeImage}
                             width={500}
                             height={500}
@@ -871,7 +871,7 @@ const BlogPublishedComponent = ({ post }: { post: any }) => {
                       >
                         <Image
                           id="sectionSevenImage"
-                          className="rounded-xl object-cover"
+                          className=" object-cover"
                           src={sectionSevenImage}
                           fill={true}
                           sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"

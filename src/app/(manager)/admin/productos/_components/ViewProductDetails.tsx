@@ -205,7 +205,7 @@ const ViewProductDetails = ({
                   initial={{ y: 50, opacity: 0 }}
                   whileInView={{ y: 0, opacity: 1 }}
                   transition={{ duration: 0.6 }}
-                  className="text-muted text-xs description-class tracking-wider"
+                  className="text-gray-500 text-xs description-class tracking-wider"
                 >
                   {product?.description ? product?.description : ""}
                 </motion.div>

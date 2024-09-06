@@ -32,20 +32,16 @@ const ListProducts = ({
   }, [session?.user?.role]);
 
   return (
-    <section className="flex w-full flex-col justify-center items-center maxlg:px-20 maxmd:px-5  px-32 gap-8 maxsm:gap-4 ">
+    <section className="flex w-[780px] flex-col justify-center items-center gap-8 maxsm:gap-4 maxmd:w-[95%] ">
       <MobileFilterComponet
         allBrands={allBrands}
         allCategories={allCategories}
       />
-      <div className=" mx-auto flex justify-center items-center w-full">
-        <div className="flex maxmd:flex-col flex-row  w-full">
-          <div className=" maxmd:w-full justify-center items-center gap-x-5">
-            <main className=" grid grid-cols-4 maxlg:grid-cols-3 maxmd:grid-cols-2 maxsm:grid-cols-2 gap-8 maxsm:gap-4">
-              {products?.map((product: any, index: number) => (
-                <ProductCard item={product} key={index} />
-              ))}
-            </main>
-          </div>
+      <div className="relative w-[800px] maxmd:w-[95%] mx-auto">
+        <div className=" grid grid-cols-5 maxlg:grid-cols-5 maxmd:grid-cols-4 maxsm:grid-cols-3 gap-8 maxsm:gap-4">
+          {products?.map((product: any, index: number) => (
+            <ProductCard item={product} key={index} />
+          ))}
         </div>
       </div>
     </section>

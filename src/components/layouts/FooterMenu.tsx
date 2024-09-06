@@ -6,30 +6,30 @@ import WhiteLogoComponent from "./WhiteLogoComponent";
 
 const FooterMenu = () => {
   return (
-    <div className="w-full bg-background px-20 maxmd:px-5 py-24 grid xsm:grid-cols-1 maxmd:grid-cols-2 grid-cols-4 gap-10">
+    <div className="w-full bg-background  px-20 maxmd:px-5 py-24 grid xsm:grid-cols-1 maxmd:grid-cols-2 grid-cols-4 gap-10">
       <div className=" flex flex-col justify-start">
         <WhiteLogoComponent className="w-[100px]" />
         <p className="text-xs mt-1">{"Super Collectibles Mx"}</p>
         <span className="flex flex-row items-center  text-xs">
-          <p className="">{" Carretera Nacional Sur SN, Centro Uno"}</p>
+          <p className="">{" Plaza Patria"}</p>
         </span>
         <span className=" text-xs mt-1">
-          <p className="">{" 59000 Sahuayo de Morelos, Mich."}</p>
+          <p className="">{"Zapopan, Jalisco 4950"}</p>
         </span>
         <div className="flex item-center justify-start text-[12px] gap-x-1 mt-1">
           {" "}
           <Link
-            href={"tel:3535322847"}
+            href={"tel:3335322847"}
             className="flex flex-row items-center  "
           >
-            <p>{"353 532 2847"}</p>
+            <p>{"333 532 2847"}</p>
           </Link>
           <span>/</span>
           <Link
-            href={"tel:3535323443"}
+            href={"tel:3335323443"}
             className="flex flex-row items-center  "
           >
-            <p>{"353 532 3443"}</p>
+            <p>{"333 532 3443"}</p>
           </Link>
         </div>
       </div>

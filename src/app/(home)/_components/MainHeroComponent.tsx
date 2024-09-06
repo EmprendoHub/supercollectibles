@@ -27,7 +27,7 @@ const MainHeroComponent = () => {
       <div className="absolute inset-0 z-0">
         <Image
           alt="Super Collectibles Mx"
-          src="/covers/Main_cover_image_01.jpeg"
+          src="/covers/Cover_Pokemon_dos.jpg"
           fill
           style={{ objectFit: "cover", objectPosition: "center" }}
           quality={100}

@@ -40,7 +40,7 @@ const ViewPostDetails = ({
             <section>
               <div className="mx-auto max-w-[1200px] w-full">
                 {/* Section 1 - Title, Image */}
-                <div className="relative aspect-video bg-background border-2 border-muted rounded-xl">
+                <div className="relative aspect-video bg-background border-2 border-muted ">
                   <Image
                     alt={post?.sectionTwoTitle}
                     src={post?.mainImage}
@@ -76,7 +76,7 @@ const ViewPostDetails = ({
                         <div className="my-5 w-full flex flex-row items-center gap-5">
                           <div className=" w-full h-80 relative  my-2 ">
                             <Image
-                              className="rounded-xl object-cover"
+                              className=" object-cover"
                               src={post?.sectionThreeImage}
                               fill={true}
                               sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
@@ -128,7 +128,7 @@ const ViewPostDetails = ({
                           </div>
                           <div className=" w-full h-80 relative  my-2 ">
                             <Image
-                              className="rounded-xl object-cover"
+                              className=" object-cover"
                               src={post?.sectionFourImage}
                               fill={true}
                               sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
@@ -153,7 +153,7 @@ const ViewPostDetails = ({
                           <div className="items-center justify-center">
                             <div className=" w-full h-80 relative  my-2 ">
                               <Image
-                                className="rounded-xl object-cover"
+                                className=" object-cover"
                                 src={post?.sectionFiveImage}
                                 fill={true}
                                 sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
@@ -182,7 +182,7 @@ const ViewPostDetails = ({
                             </div>
 
                             <Image
-                              className="rounded-xl object-cover h-40"
+                              className=" object-cover h-40"
                               src={post?.sectionSixColOneImage}
                               width={500}
                               height={500}
@@ -200,7 +200,7 @@ const ViewPostDetails = ({
                             </div>
 
                             <Image
-                              className="rounded-xl object-cover h-40"
+                              className=" object-cover h-40"
                               src={post?.sectionSixColTwoImage}
                               width={500}
                               height={500}
@@ -218,7 +218,7 @@ const ViewPostDetails = ({
                             </div>
 
                             <Image
-                              className="rounded-xl object-cover h-40"
+                              className=" object-cover h-40"
                               src={post?.sectionSixColThreeImage}
                               width={500}
                               height={500}
@@ -247,7 +247,7 @@ const ViewPostDetails = ({
                           </div>
 
                           <Image
-                            className="rounded-xl object-cover"
+                            className=" object-cover"
                             src={post?.sectionSevenImage}
                             fill={true}
                             sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"

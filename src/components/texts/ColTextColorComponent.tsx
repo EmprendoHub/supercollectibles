@@ -30,7 +30,7 @@ const ColTextColorComponent = ({
         initial={{ y: 30, opacity: 0 }}
         whileInView={{ y: 0, opacity: 1 }}
         transition={{ duration: 0.6 }}
-        className="text-xl text-white maxsm:text-md tracking-widest uppercase"
+        className="text-sm maxsm:text-md tracking-widest uppercase"
       >
         {pretitle}
       </motion.p>
@@ -38,7 +38,7 @@ const ColTextColorComponent = ({
         initial={{ y: 30, opacity: 0 }}
         whileInView={{ y: 0, opacity: 1 }}
         transition={{ duration: 0.7 }}
-        className="text-6xl text-blueLight maxsm:text-4xl font-raleway font-black tracking-normal uppercase"
+        className="text-2xl font-raleway font-black tracking-normal uppercase"
       >
         {title}{" "}
       </motion.h2>
@@ -46,7 +46,7 @@ const ColTextColorComponent = ({
         initial={{ y: 30, opacity: 0 }}
         whileInView={{ y: 0, opacity: 1 }}
         transition={{ duration: 0.8 }}
-        className="text-md maxmd:text-sm pt-3 tracking-widest "
+        className="text-sm  tracking-widest "
       >
         {subtitle}
       </motion.p>
@@ -54,7 +54,8 @@ const ColTextColorComponent = ({
         initial={{ y: 30, opacity: 0 }}
         whileInView={{ y: 0, opacity: 1 }}
         transition={{ duration: 0.9 }}
-        className="text-lg  maxmd:text-md maxsm:text-sm pt-3 tracking-widest "
+        className="
+        text-sm tracking-widest "
       >
         <li>{addressOne}</li>
         <li>{addressTwo}</li>
@@ -66,11 +67,11 @@ const ColTextColorComponent = ({
           initial={{ y: 30, opacity: 0 }}
           whileInView={{ y: 0, opacity: 1 }}
           transition={{ duration: 1 }}
-          className="py-10"
+          className="mt-5"
         >
           <Link
             href={btnUrl}
-            className="pt-3 uppercase text-lg rounded-full px-6 py-3 bg-greenLight drop-shadow-sm text-white duration-300"
+            className="pt-3 uppercase text-sm rounded-full px-6 py-3 bg-primary drop-shadow-sm text-white duration-300"
           >
             {btnText}
           </Link>

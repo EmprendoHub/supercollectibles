@@ -56,24 +56,22 @@ const TestimonialComponent = () => {
     ],
   };
   return (
-    <div className="testimonial-class my-40 maxmd:my-10">
-      <h2>
-        <SectionTextColorComponent
-          className="mb-10 text-center"
-          pretitle={"Que dicen nuestros pacientes"}
-          title={"Testimonios"}
-          subtitle={
-            "Nos enorgullese saber que pudimos ayudar a cada uno de nuestros pacientes."
-          }
-          btnText={""}
-          btnUrl={""}
-        />
-      </h2>
+    <div className="testimonial-class my-10 maxmd:my-10 px-5">
+      <SectionTextColorComponent
+        className="mb-10 text-center"
+        pretitle={"Que dicen nuestros pacientes"}
+        title={"Testimonios"}
+        subtitle={
+          "Nos enorgullese saber que pudimos ayudar a cada uno de nuestros pacientes."
+        }
+        btnText={""}
+        btnUrl={""}
+      />
       <Slider {...settings} className="">
         {testimonials.map((testimonial, index) => {
           return (
             <div key={index} className="px-2">
-              <div className="p-5 flex flex-col relative top-[30.34px] drop-shadow-md rounded-lgi bg-nackground text-muted w-[90%] maxmd:w-[100%]  h-[300px] maxmd:h-[350px] maxsm:h-[380px] text-dimgray-200">
+              <div className="p-5 flex flex-col relative top-[30.34px] drop-shadow-md rounded-lgi bg-nackground text-gray-500 w-[90%] maxmd:w-[100%] h-[380px] maxsm:max-h-[380px] text-dimgray-200">
                 <div className="rate flex-row">
                   <div className="stars flex items-center gap-x-1">
                     {starRating(testimonial.rating)}
@@ -83,17 +81,17 @@ const TestimonialComponent = () => {
                   </div>
                 </div>
                 <div className="max-w-full">
-                  <p className="m-0 p-3 text-sm maxsm:text-xs leading-[118%] font-normal   flex">
+                  <p className="m-0 p-3 text-xs maxsm:text-xs leading-[118%] font-normal   flex">
                     {testimonial.message}
                   </p>
                 </div>
 
-                <div className="author flex flex-row">
+                <div className="author flex flex-row pl-3 ">
                   <Image
                     width={60}
                     height={60}
                     quality={100}
-                    className="flex flex-row pl-3  object-cover mr-4"
+                    className="flex flex-row mr-4 rounded-full w-8 h-8"
                     alt="avatar"
                     src={testimonial.image}
                   />

@@ -2,8 +2,9 @@
 import { useRouter } from "next/navigation";
 import React, { useState } from "react";
 import { Button } from "../ui/button";
+import { Search } from "lucide-react";
 
-const Search = ({ SetIsActive }: { SetIsActive?: any }) => {
+const ProductSearch = ({ SetIsActive }: { SetIsActive?: any }) => {
   const [keyword, setKeyword] = useState("");
   const router = useRouter();
   const submitHandler = (e: any) => {
@@ -30,9 +31,10 @@ const Search = ({ SetIsActive }: { SetIsActive?: any }) => {
       />
       <Button variant="outline" onClick={submitHandler}>
         Buscar
+        <Search />
       </Button>
     </form>
   );
 };
 
-export default Search;
+export default ProductSearch;

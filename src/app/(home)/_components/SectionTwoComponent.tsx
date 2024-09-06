@@ -10,7 +10,7 @@ const SectionTwoComponent = () => {
       <SectionLayoutComponet
         className={"bg-primary flex justify-center  min-h-full w-full "}
       >
-        <div className="w-full px-20 maxmd:px-10 mx-auto relative">
+        <div className="w-full px-20 maxlg:px-10 maxmd:px-5 mx-auto relative py-10">
           <div className="grid grid-cols-2 maxmd:grid-cols-1 items-center">
             <div className=" maxmd:my-20 maxsm:my-5 pr-10">
               <ColTextComponent
@@ -25,11 +25,11 @@ const SectionTwoComponent = () => {
             </div>
             <div className="relative">
               <Image
-                src={"/images/square_collection_image.webp"}
+                src={"/covers/Cover_Pokemon_dos.jpg"}
                 width={1000}
                 height={1000}
                 alt="Vende tus coleccionables"
-                className="z-10 relative rounded-xl"
+                className="z-10 relative "
               />
               <SvgRightMotion />
             </div>

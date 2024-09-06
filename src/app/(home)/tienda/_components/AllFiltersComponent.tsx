@@ -3,7 +3,7 @@ import { useRouter } from "next/navigation";
 import { AiOutlineClose } from "react-icons/ai";
 import styles from "./boxfilterstyle.module.css";
 import { getPriceQueryParams } from "@/backend/helpers";
-import Search from "@/components/layouts/Search";
+import ProductSearch from "@/components/layouts/Search";
 
 const AllFiltersComponent = ({
   allBrands,
@@ -93,7 +93,7 @@ const AllFiltersComponent = ({
         </div>
         {/* Search Filter */}
 
-        <Search SetIsActive={SetIsActive} />
+        <ProductSearch SetIsActive={SetIsActive} />
         {/* Price Filter */}
 
         <div className="flex flex-col w-full p-4 border border-muted bg-background rounded shadow-sm my-3">

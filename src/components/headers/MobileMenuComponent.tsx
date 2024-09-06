@@ -9,9 +9,11 @@ import { AiFillPhone } from "react-icons/ai";
 
 const navLinks = [
   { title: "Inicio", url: "/" },
+  { title: "Tienda", url: "/tienda" },
   { title: "Nosotros", url: "/acerca" },
   { title: "Contacto", url: "/contacto" },
-  { title: "Tienda", url: "/tienda" },
+  { title: "Vender", url: "/vender" },
+  { title: "Ayuda", url: "/ayuda" },
 ];
 
 const MobileMenuComponent = () => {
@@ -63,10 +65,9 @@ const MobileMenuComponent = () => {
         {/*Mobile Navigation*/}
         <div
           onClick={toggleMobileMenu}
-          className="hidden maxsm:flex maxsm:flex-row items-center justify-center gap-x-2 text-white cursor-pointer text-sm"
+          className="hidden maxmd:flex maxmd:flex-row items-center justify-center gap-x-2 text-white cursor-pointer text-sm"
         >
-          Menu
-          <AiOutlineMenu />
+          <AiOutlineMenu size={18} />
         </div>
       </nav>
       <AnimatePresence>
@@ -76,7 +77,7 @@ const MobileMenuComponent = () => {
             initial="initial"
             animate="animate"
             exit="exit"
-            className="fixed left-0 top-0 w-full min-h-screen bg-background text-white p-10  origin-top"
+            className="fixed z-[999] left-0 top-0 w-full min-h-screen bg-background text-white p-10  origin-top"
           >
             <div className="flex h-full flex-col">
               <div className="flex  h-full justify-between items-center pb-5">
@@ -93,7 +94,7 @@ const MobileMenuComponent = () => {
                 initial="initial"
                 animate="open"
                 exit="initial"
-                className="flex flex-col h-full justify-center font-raleway font-black tracking-wider items-center gap-y-6"
+                className="flex flex-col h-full justify-center font-raleway font-black tracking-wider items-center gap-y-10"
               >
                 {navLinks?.map((link, index) => {
                   return (
@@ -143,7 +144,7 @@ const MobileMenuComponent = () => {
                   target="_blank"
                 >
                   <span className="socialLink">
-                    <BsFacebook className="text-2xl maxsm:text-base" />
+                    <BsFacebook className="text-xl maxsm:text-base" />
                   </span>
                 </motion.a>
               </div>

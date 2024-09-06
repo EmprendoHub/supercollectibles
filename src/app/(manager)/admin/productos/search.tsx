@@ -35,18 +35,15 @@ const SearchProducts = ({ search }: { search: any }) => {
   }, [query]);
 
   return (
-    <div className="relative rounded-xl shadow-sm w-full">
+    <div className="relative  shadow-sm w-full">
       <div className="pointer-events-none absolute inset-y-0 left-0 flex items-center pl-3">
-        <FaMagnifyingGlass
-          className="h-5 w-5 text-gray-400"
-          aria-hidden="true"
-        />
+        <FaMagnifyingGlass className="h-5 w-5 text-gray-400" />
       </div>
       <input
         value={text}
         placeholder="Buscar productos..."
         onChange={(e) => setText(e.target.value)}
-        className="block w-full rounded-xl border-0 py-1.5 pl-10 maxsm:pl-1 text-gray-900 ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-sky-600 sm:text-sm sm:leading-6"
+        className="block w-full  border-0 py-1.5 pl-10 maxsm:pl-1 text-gray-900 ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-sky-600 sm:text-sm sm:leading-6"
       />
     </div>
   );

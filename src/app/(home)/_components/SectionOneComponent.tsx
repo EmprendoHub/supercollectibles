@@ -63,7 +63,7 @@ const SectionOneComponent = () => {
         </div>
         <Link
           href={"/tienda"}
-          className="border-b border-b-gray-400 mt-20 tracking-widest font-raleway font-black"
+          className="border-b bg-primary px-6 py-3 rounded-full text-white border-b-gray-400 mt-20 tracking-wide font-raleway uppercase"
         >
           Explorar La Tienda
         </Link>

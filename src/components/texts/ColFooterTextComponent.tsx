@@ -22,7 +22,7 @@ const ColFooterTextComponent = ({
         initial={{ y: 30, opacity: 0 }}
         whileInView={{ y: 0, opacity: 1 }}
         transition={{ duration: 0.6 }}
-        className="text-xs tracking-normal uppercase"
+        className="text-xs tracking-normal uppercase text-white"
       >
         {pretitle}
       </motion.p>
@@ -30,7 +30,7 @@ const ColFooterTextComponent = ({
         initial={{ y: 30, opacity: 0 }}
         whileInView={{ y: 0, opacity: 1 }}
         transition={{ duration: 0.7 }}
-        className="text-2xl text-greenLight maxsm:text-xl tracking-normal uppercase"
+        className="text-2xl text-primary maxsm:text-xl tracking-normal uppercase"
       >
         {title}{" "}
       </motion.h2>
@@ -39,7 +39,7 @@ const ColFooterTextComponent = ({
           initial={{ y: 30, opacity: 0 }}
           whileInView={{ y: 0, opacity: 1 }}
           transition={{ duration: 0.8 }}
-          className="text-sm pt-2 tracking-widest text-gray-500"
+          className="text-xs pt-2 tracking-wide text-white"
         >
           {subtitle}
         </motion.p>

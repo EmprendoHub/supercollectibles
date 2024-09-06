@@ -48,7 +48,7 @@ const AdminSidebar = ({ children }: { children: any }) => {
             />
             <button
               onClick={() => setExpandSidebar((currentState) => !currentState)}
-              className="p-1.5 rounded-xl text-foreground"
+              className="p-1.5  text-foreground"
             >
               {expandSidebar ? (
                 <BsChevronBarLeft size={20} />
@@ -89,7 +89,7 @@ const AdminSidebar = ({ children }: { children: any }) => {
                     {user?.name.substring(0, 12)}
                   </h4>
                   <div
-                    className=" text-red-800 hover:bg-foreground hover:text-white-500 rounded-xl cursor-pointer"
+                    className=" text-red-800 hover:bg-foreground hover:text-white-500  cursor-pointer"
                     onClick={() => signOut()}
                   >
                     <div
@@ -147,7 +147,7 @@ export function SideBarItem({
 
   return (
     <li
-      className={`relative flex flex-col items-center font-medium rounded-xl cursor-pointer py-2 px-2 text-[14px] ${
+      className={`relative flex flex-col items-center font-medium  cursor-pointer py-2 px-2 text-[14px] ${
         active === "true"
           ? " text-primary bg-foreground"
           : "hover:text-primary hover:bg-foreground text-muted"
@@ -169,7 +169,7 @@ export function SideBarItem({
 
       {/* Conditional rendering for main item hover text */}
       {!expandSidebar && hoveredIndex === "main" && (
-        <div className="absolute z-50 left-full rounded-xl px-2 py-1 ml-0 bg-indigo-100 text-primary text-xs opacity-100 min-w-[250px]">
+        <div className="absolute z-50 left-full  px-2 py-1 ml-0 bg-indigo-100 text-primary text-xs opacity-100 min-w-[250px]">
           {text}
         </div>
       )}
@@ -184,7 +184,7 @@ export function SideBarItem({
             transition={{ duration: 0.2 }}
             initial="initial"
             animate="animate"
-            className="absolute z-50 top-6 flex flex-col gap-1 mt-1 rounded-xl bg-foreground"
+            className="absolute z-50 top-6 flex flex-col gap-1 mt-1  bg-foreground"
           >
             {dropdownItems.map(
               (
@@ -198,7 +198,7 @@ export function SideBarItem({
               ) => (
                 <Link href={item.url} key={index} className="min-w-full">
                   <li
-                    className={`p-2 cursor-pointer flex items-center justify-center rounded-xl ${
+                    className={`p-2 cursor-pointer flex items-center justify-center  ${
                       item.active === "true"
                         ? "bg-foreground text-primary"
                         : "hover:bg-indigo-50 hover:text-primary text-muted"
@@ -218,7 +218,7 @@ export function SideBarItem({
                     </span>
                     {/* Conditional rendering for dropdown item hover text */}
                     {!expandSidebar && hoveredIndex === index.toString() && (
-                      <div className="absolute z-50 left-full rounded-xl px-2 py-1 ml-0 bg-indigo-100 text-primary text-xs opacity-100 min-w-[250px]">
+                      <div className="absolute z-50 left-full  px-2 py-1 ml-0 bg-indigo-100 text-primary text-xs opacity-100 min-w-[250px]">
                         {item.text}
                       </div>
                     )}

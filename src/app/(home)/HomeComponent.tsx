@@ -4,17 +4,27 @@ import SectionTwoComponent from "./_components/SectionTwoComponent";
 import SectionFourComponent from "./_components/SectionFourComponent";
 import MainHeroComponent from "./_components/MainHeroComponent";
 import TestimonialComponent from "./_components/TestimonialComponent";
+import HomeHeader from "./_components/HomeHeader";
+import EditorsPickProducts from "./_components/EditorsPickProducts";
+import { getHomeProductsData } from "../_actions";
+import TrendingNewProducts from "./_components/TrendingNewProducts";
+import HeaderProducts from "./_components/HeaderProducts";
 
-const HomeComponent = () => {
+const HomeComponent = async () => {
+  const data = await getHomeProductsData();
+  const trendProducts = JSON.parse(data.trendingProducts);
+  const editorsProducts = JSON.parse(data.editorsProducts);
   return (
     <div className="w-full ">
-      <div className="w-full">
-        <MainHeroComponent />
-      </div>
-      <SectionOneComponent />
+      <HomeHeader />
+      <HeaderProducts editorsProducts={editorsProducts} />
+      <MainHeroComponent />
+
+      <TrendingNewProducts trendProducts={trendProducts} />
       <SectionTwoComponent />
       <TestimonialComponent />
       <SectionFourComponent />
+      <SectionOneComponent />
     </div>
   );
 };

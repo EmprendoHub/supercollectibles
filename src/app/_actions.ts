@@ -2537,7 +2537,7 @@ export async function getHomeProductsData() {
     await dbConnect();
     // Extract tag values from post.tags array
     let trendingProducts: any = await Product.find({}).limit(100);
-    let editorsProducts: any = await Product.find({}).limit(10);
+    let editorsProducts: any = await Product.find({}).limit(20);
 
     trendingProducts = JSON.stringify(trendingProducts);
     editorsProducts = JSON.stringify(editorsProducts);

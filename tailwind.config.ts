@@ -74,11 +74,17 @@ const config = {
         "accordion-up": "accordion-up 0.2s ease-out",
       },
       screens: {
+        max2xl: {
+          max: "1600px",
+        },
         maxxlg: {
           max: "1400px",
         },
         maxlg: {
           max: "1200px",
+        },
+        maxbase: {
+          max: "1100px",
         },
         maxmd: {
           max: "960px",
@@ -95,11 +101,17 @@ const config = {
         maxxxs: {
           max: "374px",
         },
+        min2xl: {
+          max: "1600px",
+        },
         minxlg: {
           min: "1400px",
         },
         minlg: {
           min: "1200px",
+        },
+        minbase: {
+          max: "1100px",
         },
         minmd: {
           min: "960px",

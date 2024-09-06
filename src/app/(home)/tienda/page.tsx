@@ -2,7 +2,11 @@ import ListProducts from "./_components/ListProducts";
 import { getCookiesName, removeUndefinedAndPageKeys } from "@/backend/helpers";
 import { cookies } from "next/headers";
 import ServerPagination from "@/components/layouts/ServerPagination";
-import StoreMainHero from "./_components/StoreMainHero";
+import { SLIDER_IMAGES } from "@/backend/data/constants";
+import { EmblaOptionsType } from "embla-carousel";
+import EmblaCarousel from "../_components/EmblaCarousel";
+
+const OPTIONS: EmblaOptionsType = { loop: true };
 
 export const metadata = {
   title: "Tienda Super Collectibles MX",
@@ -85,7 +89,7 @@ const TiendaPage = async ({ searchParams }: { searchParams: any }) => {
 
   return (
     <div className="flex flex-col items-center justify-center gap-5 pb-10">
-      <StoreMainHero />
+      <EmblaCarousel slides={SLIDER_IMAGES} options={OPTIONS} />
       <ListProducts
         products={products}
         allBrands={allBrands}
