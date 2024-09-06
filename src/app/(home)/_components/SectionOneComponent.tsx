@@ -7,21 +7,21 @@ import React from "react";
 const serviciosMedicos = [
   {
     title: "Compra de Tarjetas Únicas",
-    text: "Le encontramos un nuevo hogar a tus coleccionables mas especiales",
+    text: "¿Tienes una colección unica? Le encontramos el hogar ideal a tus coleccionables mas preciados",
     imgUrl: "/contacto",
-    imgSrc: "/images/Main_cover_image02.jpeg",
+    imgSrc: "/images/Supecollectibles_Unique_Cards.webp",
   },
   {
     title: "Garantía de Autenticidad",
-    text: "Cada artículo es verificado para garantizar que estás adquiriendo piezas genuinas.",
+    text: "Cada artículo o tarjeta es verificado para garantizar que estás adquiriendo piezas genuinas.",
     imgUrl: "/tienda",
-    imgSrc: "/images/OIG_02.jpeg",
+    imgSrc: "/images/Supecollectibles_PSA_Certification.webp",
   },
   {
     title: "Compras Seguras y Fáciles",
-    text: "Nuestro proceso de compra es sencillo, seguro y rápido, permitiéndote adquirir lo que necesitas sin complicaciones.",
+    text: "Proceso de compra es sencillo, seguro y rápido, adquiere lo que necesitas sin complicaciones.",
     imgUrl: "/servicios",
-    imgSrc: "/images/placeholder_02.jpeg",
+    imgSrc: "/images/card_security_PSA_3.webp",
   },
 ];
 
@@ -48,12 +48,12 @@ const SectionOneComponent = () => {
               <DivUpMotion
                 key={index}
                 divIndex={index}
-                divClassName={`relative flex justify-center bg-gray-300 h-[350px] w-[500px] maxsm:w-full rounded-2xl`}
+                divClassName={`relative flex justify-center bg-gray-300 h-[350px] w-[500px] maxsm:w-full r`}
                 imgSrc={servicio?.imgSrc}
                 imgWidth={1000}
                 imgHeight={1000}
-                imgAlt="Servicio Medico"
-                imgClassName="object-cover w-full h-full rounded-2xl"
+                imgAlt="Super Collectibles Mx"
+                imgClassName="object-cover w-full h-full"
                 title={servicio?.title}
                 text={servicio?.text}
                 divDuration={1}

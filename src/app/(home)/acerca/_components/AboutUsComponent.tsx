@@ -30,11 +30,13 @@ const AboutUsComponent = () => {
           <InnerSectionTextComponent
             title={"Experiencia Personalizada"}
             paraOne={
-              "En Super Collectibles MX, nos especializamos en crear sillas, bancos y mesas que personifican la elegancia minimalista, combinando funcionalidad pura con un estilo sofisticado. Cada pieza es una obra de arte, diseñada para enriquecer tu espacio con líneas limpias y una estética atemporal."
+              "En Super Collectibles MX somos más que una tienda de tarjetas y artículos coleccionables. Somos un equipo de entusiastas y coleccionistas apasionados por conectar a personas con los productos que aman. "
             }
-            paraTwo={""}
-            btnText={""}
-            btnUrl={""}
+            paraTwo={
+              "Desde nuestros inicios, hemos trabajado para ser un referente en la compra y venta de tarjetas de Pokémon, béisbol, Magic: The Gathering, y otros artículos coleccionables de alta calidad."
+            }
+            btnText={"Platica con un asesor"}
+            btnUrl={"/contacto"}
           />
         </div>
       </section>
@@ -43,24 +45,26 @@ const AboutUsComponent = () => {
           <h3 className="text-4xl maxmd:text-2xl font-semibold font-raleway  mb-5">
             {"¿Por Qué Elegir Super Collectibles MX?"}
           </h3>
-          <p className="text-muted font-raleway ">
-            {"En Super Collectibles MX nos dedicamos a brindar:"}
+          <p className="text-gray-500 font-raleway ">
+            {
+              "En Super Collectibles MX utilizamos nuestra experiencia colectiva para brindarte:"
+            }
           </p>
 
           <div className="flex maxmd:flex-col items-center justify-center gap-4 mt-5">
-            <div className="w-full bg-card  px-3 py-4 shadow-md">
+            <div className="w-full bg-background  px-3 py-4 shadow-md">
               <Image
-                src={"/images/OIG_02.jpeg"}
-                width={800}
-                height={800}
+                src={"/images/Expertos_en_collecionables.webp"}
+                width={500}
+                height={500}
                 alt="Icon"
-                className="mx-auto mb-4 w-40 h-40  "
+                className="mx-auto mb-4 object-cover  w-40 h-40"
               />
 
               <CardTextComponent
-                title={"Diseño Minimalista"}
+                title={"Expertos en Coleccionables"}
                 paraOne={
-                  "Nuestros productos están diseñados con un enfoque minimalista, asegurando que cada pieza no solo sea funcional sino también estéticamente agradable. Con Super Collectibles MX, menos es definitivamente más."
+                  "Somos apasionados coleccionistas con décadas de experiencia que entienden el nicho del coleccionables y tus necesidades."
                 }
                 paraTwo={""}
                 btnText={""}
@@ -69,11 +73,32 @@ const AboutUsComponent = () => {
               <div className="mt-10" />
             </div>
 
-            <div className="w-full bg-card   px-3 py-4  shadow-md">
+            <div className="w-full bg-background   px-3 py-4  shadow-md">
               <Image
-                src={"/images/OIG_02.jpeg"}
-                width={800}
-                height={800}
+                src={"/images/Autenticidad_garantizada.webp"}
+                width={500}
+                height={500}
+                alt="Icon"
+                className="mx-auto mb-4 w-40 h-40 "
+              />
+
+              <CardTextComponent
+                title={"Autenticidad Garantizada"}
+                paraOne={
+                  "Cada artículo que vendemos o compramos pasa por un riguroso proceso de verificación."
+                }
+                paraTwo={""}
+                btnText={""}
+                btnUrl={""}
+              />
+              <div className="mt-10" />
+            </div>
+
+            <div className="w-full bg-background px-3 py-4  shadow-md">
+              <Image
+                src={"/images/atencion_personalizada_james.webp"}
+                width={500}
+                height={500}
                 alt="Icon"
                 className="mx-auto mb-4 w-40 h-40 "
               />
@@ -81,28 +106,7 @@ const AboutUsComponent = () => {
               <CardTextComponent
                 title={"Atención Personalizada"}
                 paraOne={
-                  "Entendemos que cada espacio es único. Por eso, estamos aquí para ayudarte a seleccionar los muebles perfectos que se adapten a tu estilo. Nuestro equipo está dedicado a brindarte una experiencia inigualable."
-                }
-                paraTwo={""}
-                btnText={""}
-                btnUrl={""}
-              />
-              <div className="mt-10" />
-            </div>
-
-            <div className="w-full bg-card    px-3 py-4  shadow-md">
-              <Image
-                src={"/images/OIG_02.jpeg"}
-                width={800}
-                height={800}
-                alt="Icon"
-                className="mx-auto mb-4 w-40 h-40 "
-              />
-
-              <CardTextComponent
-                title={"Calidad Superior"}
-                paraOne={
-                  "Comprometidos con la excelencia, cada artículo de nuestro catálogo está fabricado con materiales de alta calidad, asegurando durabilidad y resistencia. Nuestros muebles están construidos para durar."
+                  "Estamos aquí para ayudarte en cada paso del camino, ya sea que estés buscando una tarjeta específica o desees vender tu colección."
                 }
                 paraTwo={""}
                 btnText={""}
@@ -119,10 +123,10 @@ const AboutUsComponent = () => {
             <SectionTextComponent
               title={"Nuestra Misión"}
               paraOne={
-                "Nuestra misión en Super Collectibles MX es simple: transformar espacios con muebles minimistas que inspiren serenidad y belleza."
+                "Nuestra misión es brindar una experiencia única a los coleccionistas, ofreciendo un servicio confiable, productos auténticos y precios justos."
               }
               paraTwo={
-                "Creemos en el poder del diseño minimalista para crear ambientes que reflejen tranquilidad y simplicidad elegante."
+                "Nos esforzamos por proporcionar una plataforma segura donde puedas comprar y vender tus artículos con total tranquilidad."
               }
               btnText={"Contactar"}
               btnUrl={`/contacto`}
@@ -140,9 +144,9 @@ const AboutUsComponent = () => {
           >
             <div className="bg-background  p-4 shadow-md">
               <Image
-                src={"/images/OIG_02.jpeg"}
-                width={1080}
-                height={1080}
+                src={"/images/PWCCsm2.jpg"}
+                width={550}
+                height={550}
                 alt="Super Collectibles MX"
                 className="mx-auto mb-4 w-full h-full "
               />

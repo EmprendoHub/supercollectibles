@@ -20,7 +20,7 @@ const HeroColTextComponent = ({
         initial={{ y: 30, opacity: 0 }}
         whileInView={{ y: 0, opacity: 1 }}
         transition={{ duration: 0.6 }}
-        className="text-[12px] uppercase pb-2 tracking-widest"
+        className="text-[12px] uppercase pb-2 tracking-wide"
       >
         {pretitle}
       </motion.p>
@@ -28,7 +28,7 @@ const HeroColTextComponent = ({
         initial={{ y: 30, opacity: 0 }}
         whileInView={{ y: 0, opacity: 1 }}
         transition={{ duration: 0.7 }}
-        className="text-6xl maxmd:text-4xl font-raleway font-bold tracking-normal"
+        className="text-4xl maxmd:text-2xl font-raleway font-bold tracking-normal"
       >
         {title} <span className=" text-greenLight font-black">{word} </span>
       </motion.h2>
@@ -36,7 +36,7 @@ const HeroColTextComponent = ({
         initial={{ y: 30, opacity: 0 }}
         whileInView={{ y: 0, opacity: 1 }}
         transition={{ duration: 0.8 }}
-        className="text-lg maxmd:text-sm pt-3 tracking-widest font-ubuntu"
+        className="text-xs pt-3 tracking-wide font-ubuntu"
       >
         {subtitle}
       </motion.p>

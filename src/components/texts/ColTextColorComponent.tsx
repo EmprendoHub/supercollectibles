@@ -25,7 +25,7 @@ const ColTextColorComponent = ({
   email: string;
 }) => {
   return (
-    <div>
+    <div className="h-auto">
       <motion.p
         initial={{ y: 30, opacity: 0 }}
         whileInView={{ y: 0, opacity: 1 }}
@@ -46,7 +46,7 @@ const ColTextColorComponent = ({
         initial={{ y: 30, opacity: 0 }}
         whileInView={{ y: 0, opacity: 1 }}
         transition={{ duration: 0.8 }}
-        className="text-sm  tracking-widest "
+        className="text-xs  tracking-wide "
       >
         {subtitle}
       </motion.p>
@@ -55,7 +55,7 @@ const ColTextColorComponent = ({
         whileInView={{ y: 0, opacity: 1 }}
         transition={{ duration: 0.9 }}
         className="
-        text-sm tracking-widest "
+        text-xs tracking-wide "
       >
         <li>{addressOne}</li>
         <li>{addressTwo}</li>

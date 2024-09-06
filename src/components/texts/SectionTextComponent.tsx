@@ -1,6 +1,7 @@
 "use client";
 import { motion } from "framer-motion";
 import Link from "next/link";
+import { Button } from "@/components/ui/button";
 
 const SectionTextComponent = ({
   title,
@@ -22,7 +23,7 @@ const SectionTextComponent = ({
           initial={{ y: 30, opacity: 0 }}
           whileInView={{ y: 0, opacity: 1 }}
           transition={{ duration: 0.5 }}
-          className="text-5xl lg:text-2xl font-bold font-raleway text-blueDark uppercase tracking-widest "
+          className="text-4xl lg:text-2xl font-bold font-raleway uppercase tracking-wide "
         >
           {title}
         </motion.h2>
@@ -30,7 +31,7 @@ const SectionTextComponent = ({
           initial={{ y: 40, opacity: 0 }}
           whileInView={{ y: 0, opacity: 1 }}
           transition={{ duration: 0.6 }}
-          className="text-base font-poppins text-gray-700"
+          className="text-xs font-poppins text-gray-500"
         >
           {paraOne}
         </motion.p>
@@ -38,7 +39,7 @@ const SectionTextComponent = ({
           initial={{ y: 40, opacity: 0 }}
           whileInView={{ y: 0, opacity: 1 }}
           transition={{ duration: 0.7 }}
-          className="text-base font-poppins text-gray-700"
+          className="text-xs font-poppins text-gray-500"
         >
           {paraTwo}
         </motion.p>
@@ -50,9 +51,7 @@ const SectionTextComponent = ({
           className="flex gap-x-4 mt-2 justify-center"
         >
           <Link href={btnUrl}>
-            <p className="py-3 px-8 rounded-full bg-greenLight text-white hover:bg-background hover:text-white duration-700 text-sm uppercase font-semibold w-full">
-              {btnText}
-            </p>
+            <Button variant="default">{btnText}</Button>
           </Link>
         </motion.div>
       </div>

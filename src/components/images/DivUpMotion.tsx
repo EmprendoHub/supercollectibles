@@ -41,9 +41,9 @@ const DivUpMotion = ({
         alt={imgAlt}
         className={imgClassName}
       />
-      <div className="flex flex-col justify-center items-center gap-2 bg-background rounded-[12px] p-2 w-[80%] absolute -bottom-[20px] text-center py-4 drop-shadow-md">
-        <span className="text-xl text-blueDark">{title}</span>{" "}
-        <span className="text-sm text-blueDark">{text}</span>{" "}
+      <div className="flex flex-col justify-center items-center gap-2 bg-background p-2 w-[80%] absolute -bottom-[20px] text-center py-4 drop-shadow-md">
+        <span className="text-base ">{title}</span>{" "}
+        <span className="text-xs">{text}</span>{" "}
       </div>
     </motion.div>
   );
