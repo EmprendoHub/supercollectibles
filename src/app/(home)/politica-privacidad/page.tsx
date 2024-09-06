@@ -3,7 +3,7 @@ import React from "react";
 const PoliticaPage = () => {
   return (
     <div className="w-[80%] mx-auto py-10 ">
-      <div className="mx-auto bg-gray-200 p-10 rounded-xl shadow-lg">
+      <div className="mx-auto bg-gray-200 text-stone-700 p-10 shadow-lg">
         <h1 className="text-2xl font-bold mb-4">Política de Privacidad</h1>
 
         <p className="mb-4">

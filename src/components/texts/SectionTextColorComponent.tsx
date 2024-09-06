@@ -24,7 +24,7 @@ const SectionTextColorComponent = ({
         initial={{ y: 30, opacity: 0 }}
         whileInView={{ y: 0, opacity: 1 }}
         transition={{ duration: 0.6 }}
-        className="text-base text-greenLight maxsm:text-sm tracking-widest uppercase"
+        className="text-xs tracking-widest uppercase"
       >
         {pretitle}
       </motion.p>
@@ -32,7 +32,7 @@ const SectionTextColorComponent = ({
         initial={{ y: 30, opacity: 0 }}
         whileInView={{ y: 0, opacity: 1 }}
         transition={{ duration: 0.7 }}
-        className="text-6xl text-blueDark maxmd:text-4xl font-raleway font-black tracking-normal uppercase"
+        className="text-4xl text-blueDark maxmd:text-4xl font-raleway font-black tracking-normal uppercase"
       >
         {title}{" "}
       </motion.h2>
@@ -40,7 +40,7 @@ const SectionTextColorComponent = ({
         initial={{ y: 30, opacity: 0 }}
         whileInView={{ y: 0, opacity: 1 }}
         transition={{ duration: 0.8 }}
-        className="text-lg maxmd:text-sm pt-3 tracking-widest text-blueDark"
+        className="text-xs maxmd:text-sm pt-3 tracking-widest text-gray-500"
       >
         {subtitle}
       </motion.p>

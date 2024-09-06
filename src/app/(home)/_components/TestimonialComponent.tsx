@@ -59,10 +59,10 @@ const TestimonialComponent = () => {
     <div className="testimonial-class my-10 maxmd:my-10 px-5">
       <SectionTextColorComponent
         className="mb-10 text-center"
-        pretitle={"Que dicen nuestros pacientes"}
+        pretitle={"Que dicen nuestros clientes"}
         title={"Testimonios"}
         subtitle={
-          "Nos enorgullese saber que pudimos ayudar a cada uno de nuestros pacientes."
+          "Nos enorgullese saber que pudimos ayudar a cada uno nuestros clientes."
         }
         btnText={""}
         btnUrl={""}
