@@ -130,7 +130,7 @@ const MobileMenuComponent = () => {
                 <motion.a
                   whileHover={{ scale: 1.3 }}
                   whileTap={{ scale: 0.9 }}
-                  href="https://www.instagram.com/cme.shy/"
+                  href="https://www.instagram.com/supercars_jewelry"
                   target="_blank"
                 >
                   <span className="socialLink">
@@ -140,7 +140,7 @@ const MobileMenuComponent = () => {
                 <motion.a
                   whileHover={{ scale: 1.3 }}
                   whileTap={{ scale: 0.9 }}
-                  href="https://www.facebook.com/Hospital-Central-Medica-De-Especialidades-100067982783316/"
+                  href="https://www.facebook.com/MxSuperCollectibles"
                   target="_blank"
                 >
                   <span className="socialLink">

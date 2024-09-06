@@ -39,7 +39,7 @@ const MotionHeaderComponent = () => {
             <motion.a
               whileHover={{ scale: 1.3 }}
               whileTap={{ scale: 0.9 }}
-              href="https://www.instagram.com/supercollectiblesmx"
+              href="https://www.instagram.com/supercars_jewelry"
               target="_blank"
             >
               <span className="socialLink">
@@ -49,7 +49,7 @@ const MotionHeaderComponent = () => {
             <motion.a
               whileHover={{ scale: 1.3 }}
               whileTap={{ scale: 0.9 }}
-              href="https://www.facebook.com/supercollectiblesmx"
+              href="https://www.facebook.com/MxSuperCollectibles"
               target="_blank"
             >
               <span className="socialLink">
