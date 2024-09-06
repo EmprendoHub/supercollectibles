@@ -84,9 +84,12 @@ const PoliticaPage = () => {
           Privacidad, por favor contáctenos en:
         </p>
         <ul className="list-disc pl-8">
-          <li>Teléfono: +52 (333) 218 9963</li>
-          <li>Guadalajara Jal</li>
-          <li>Correo Electrónico: supercollectiblesmx@gmail.com</li>
+          <li>Teléfono: +52 (332)-218-9963</li>
+          <li>
+            Av Arcos de Guadalupe 604, R-04 , Arcos de Guadalupe, Zapopan Jal
+            45037
+          </li>
+          <li>Correo Electrónico: mxsupercollectibles@gmail.com</li>
         </ul>
       </div>
     </div>

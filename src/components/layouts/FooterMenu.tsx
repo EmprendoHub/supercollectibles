@@ -14,22 +14,26 @@ const FooterMenu = () => {
           <p className="">{" Plaza Patria"}</p>
         </span>
         <span className=" text-xs mt-1">
-          <p className="">{"Zapopan, Jalisco 4950"}</p>
+          <p className="">
+            {
+              "Av Arcos de Guadalupe 604, R-04 , Arcos de Guadalupe, Zapopan Jal 45037"
+            }
+          </p>
         </span>
         <div className="flex item-center justify-start text-[12px] gap-x-1 mt-1">
           {" "}
           <Link
-            href={"tel:3335322847"}
+            href={"tel:332-218-9963"}
             className="flex flex-row items-center  "
           >
-            <p>{"333 532 2847"}</p>
+            <p>{"332-218-9963"}</p>
           </Link>
           <span>/</span>
           <Link
-            href={"tel:3335323443"}
+            href={"tel:332-218-9963"}
             className="flex flex-row items-center  "
           >
-            <p>{"333 532 3443"}</p>
+            <p>{"332-218-9963"}</p>
           </Link>
         </div>
       </div>

@@ -59,7 +59,7 @@ const MotionHeaderComponent = () => {
             <motion.a
               whileHover={{ scale: 1.3 }}
               whileTap={{ scale: 0.9 }}
-              href="tel:3333514548"
+              href="tel:332-218-9963"
               target="_blank"
             >
               <span className="socialLink">

@@ -188,7 +188,7 @@ const PayCartComp = ({
                 type="text"
                 value={phone}
                 className="appearance-none border bg-gray-100 rounded-xl py-2 px-3 border-gray-300 focus:outline-none hover:outline-none focus:border-gray-400 hover:border-gray-400 w-full text-center font-bold "
-                placeholder="353 123 4512"
+                placeholder="333 123 4567"
                 onChange={handlePhoneChange}
                 name="phone"
               />

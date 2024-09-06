@@ -31,14 +31,14 @@ const ContactComponent = () => {
                 textTitleThree={"Sucursal Sahuayo"}
                 textTwo={"Escríbenos tus dudas"}
                 textThree={"Platiquemos en persona"}
-                phoneLinkOne={"tel:3532464146"}
-                phoneLinkTextOne={"(+52)353-246-4146"}
+                phoneLinkOne={"tel:3322189963"}
+                phoneLinkTextOne={"(+52)332-218-9963"}
                 linkTwo={"mailto:mxsupercollectibles@gmail.com"}
                 linkThree={"https://maps.app.goo.gl/8122sB7xggByVweT8"}
                 linkTwoText={"mxsupercollectibles@gmail.com"}
-                textAddressThree={"Calle Via Láctea 715"}
-                textAddressBThree={"Col. La Gloria del Colli"}
-                textAddressCThree={"Zapopan, Jalisco  45010"}
+                textAddressThree={"Av Arcos de Guadalupe 604, R-04"}
+                textAddressBThree={"Col. Arcos de Guadalupe"}
+                textAddressCThree={"Zapopan Jal 45037"}
                 linkThreeText={"Ver en mapa"}
               />
             </div>

@@ -112,19 +112,19 @@ const MobileMenuComponent = () => {
             {/* Contact Links */}
             <div className="flex fle-row items-center justify-center gap-x-4 pt-10">
               <Link
-                href={"tel:3535322847"}
+                href={"tel:3322189963"}
                 className=" flex flex-row justify-between items-center gap-x-2 cursor-pointer"
               >
                 <span>
                   <AiFillPhone className="text-2xl maxsm:text-base text-greenLight border border-white rounded-full p-1 h-8 maxsm:h-5 w-8 maxsm:w-5 " />{" "}
                 </span>
-                <span className="text-base maxsm:text-sm">353-532-2847</span>
+                <span className="text-base maxsm:text-sm">332-218-9963</span>
               </Link>
               <Link
-                href={"tel:3535323421"}
+                href={"tel:3322189963"}
                 className="maxmd:hidden flex flex-row justify-between items-center gap-x-2 cursor-pointer"
               >
-                <span className="text-base">353-532-3421</span>
+                <span className="text-base">332-218-9963</span>
               </Link>
               <div className="flex items-center gap-x-4">
                 <motion.a

@@ -33,8 +33,10 @@ const SectionFourComponent = () => {
               title={"Contacto"}
               subtitle={""}
               addressOne={"Plaza Patria"}
-              addressTwo={"Zapopan, Jalisco, 44950"}
-              tel={"333-532-2847"}
+              addressTwo={
+                "Av Arcos de Guadalupe 604, R-04 , Arcos de Guadalupe, Zapopan Jal 45037"
+              }
+              tel={"332-218-9963"}
               email={"mxsupercollectibles@gmail.com"}
               btnUrl="/contacto"
               btnText={"Contactar"}
