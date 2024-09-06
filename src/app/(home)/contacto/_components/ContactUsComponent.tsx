@@ -19,12 +19,12 @@ const ContactUsComponent = ({
   const nextAuthSessionToken = nextCookies.get(cookieName);
   const cookie = `${cookieName}=${nextAuthSessionToken?.value}`;
   return (
-    <div className="flex flex-row maxmd:flex-col py-20 w-[90%] justify-center items-center mx-auto">
-      <div className="w-full maxmd:w-full z-10  maxmd:px-5 maxsm:px-1">
+    <div className="flex gap-y-5 flex-row maxmd:flex-col-reverse py-20 w-[90%] justify-center items-center mx-auto">
+      <div className="w-1/2 maxmd:w-full z-10  maxmd:px-5 maxsm:px-1">
         <div className=" pb-20 w-full">
           <h2>
             <BoxesSectionTitle
-              className="mb-5 text-xl text-black"
+              className="pb-5 border-b-4 border-primary "
               title={contactTitle}
               subtitle={contactSubTitle}
             />
@@ -36,7 +36,7 @@ const ContactUsComponent = ({
       </div>
       <div className="w-1/2 maxmd:w-full z-10 justify-center mx-auto items-center flex">
         <Image
-          src={"/images/OIG_02.jpeg"}
+          src={"/images/sample-certificate-v2.webp"}
           width={800}
           height={800}
           alt="Contactar al equipo de Global Stoel"

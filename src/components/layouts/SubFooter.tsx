@@ -4,7 +4,7 @@ import Image from "next/image";
 
 const SubFooter = () => {
   return (
-    <div className="w-full h-full  relative flex flex-row  maxsm:flex-col-reverse justify-center items-end px-40 maxlg:px-10 maxsm:pt-10 bg-background">
+    <div className="w-full h-full  relative flex flex-row  maxmd:flex-col-reverse justify-center items-end px-40 maxlg:px-10 maxmd:pt-10 bg-background">
       <div className="w-full  h-full relative z-[1] flex justify-end pr-20 maxmd:pr-5">
         <Image
           src={"/images/footer_image.webp"}

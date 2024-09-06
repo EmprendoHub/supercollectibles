@@ -7,7 +7,7 @@ const ContactComponent = () => {
   return (
     <>
       <div>
-        <section className="relative min-h-[700px] flex flex-row maxsm:flex-col justify-center items-center  bg-background text-foreground">
+        <section className="relative min-h-[400px] flex flex-row maxsm:flex-col justify-center items-center  bg-background text-foreground">
           <div className="relative container mx-auto flex justify-center items-center text-center p-5 sm:py-20 z-10">
             <HeroColTextComponent
               pretitle={"CONTACTO"}
@@ -18,12 +18,12 @@ const ContactComponent = () => {
             />
           </div>
           {/* overlay */}
-          <div className="min-h-[100%] absolute z-[1] min-w-[100%] top-0 left-0 bg-black bg-opacity-40" />
+          <div className="min-h-[100%] absolute z-[1] min-w-[100%] top-0 left-0 bg-primary" />
         </section>
 
-        <section className="bg-card py-12 px-10 maxmd:px-5 ">
+        <section className="bg-background py-12 px-10 maxmd:px-5 ">
           <div className="w-full flex flex-row maxmd:flex-col justify-center items-start">
-            <div className="w-1/2 maxmd:w-full  text-lg text-muted ">
+            <div className="w-1/2 maxmd:w-full  text-lg text-gray-600 dark:text-gray-300  ">
               <IconListSectionComponent
                 mainTitle={"Información de Contacto"}
                 textTitleOne={"Números"}

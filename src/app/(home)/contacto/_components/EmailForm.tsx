@@ -138,7 +138,10 @@ const EmailForm = ({ cookie }: { cookie: any }) => {
   return (
     <div className="relative flex fle-col py-7  pr-7 m-auto w-full rounded-xl z-10">
       {!formStatus ? (
-        <form onSubmit={handleSubmit} className="flex flex-col w-full gap-y-4">
+        <form
+          onSubmit={handleSubmit}
+          className="flex text-xs flex-col w-full gap-y-4"
+        >
           <input
             type="text"
             placeholder={"Tu nombre aquí"}
@@ -172,10 +175,10 @@ const EmailForm = ({ cookie }: { cookie: any }) => {
             placeholder="Mensaje"
             value={message}
             onChange={(e) => setMessage(e.target.value)}
-            className="p-2 border-black border-b font-playfair-display bg-white bg-opacity-0"
+            className="p-2 border-black border-b font-playfair-display bg-white bg-opacity-0 "
           ></textarea>
           <button type="submit" className="mt-5" disabled={activeButton}>
-            <p className=" bg-fourth  text-white py-3">{"Enviar Mensaje"}</p>
+            <p className=" bg-primary  text-white py-3">{"Enviar Mensaje"}</p>
           </button>
         </form>
       ) : (

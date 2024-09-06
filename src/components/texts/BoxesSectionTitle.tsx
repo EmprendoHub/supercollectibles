@@ -16,7 +16,7 @@ const BoxesSectionTitle = ({
         initial={{ y: 50, opacity: 0 }}
         whileInView={{ y: 0, opacity: 1 }}
         transition={{ duration: 0.5 }}
-        className=" mb-2"
+        className="text-2xl mb-2"
       >
         {title}
       </motion.h2>
@@ -24,7 +24,7 @@ const BoxesSectionTitle = ({
         initial={{ y: 50, opacity: 0 }}
         whileInView={{ y: 0, opacity: 1 }}
         transition={{ duration: 0.7 }}
-        className="text-sm"
+        className="text-xs"
       >
         {subtitle}
       </motion.p>
