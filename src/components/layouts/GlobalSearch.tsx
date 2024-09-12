@@ -1,7 +1,6 @@
 "use client";
 import { useRouter } from "next/navigation";
 import React, { useState } from "react";
-import { Button } from "../ui/button";
 import { Search } from "lucide-react";
 
 const GlobalSearch = ({
@@ -23,10 +22,10 @@ const GlobalSearch = ({
   return (
     <form
       onSubmit={submitHandler}
-      className={`${className} relative flex flex-col gap-3 items-center w-[500px] maxmd:w-[380px] `}
+      className={`${className} relative flex flex-col gap-3 items-center w-[500px] maxmd:w-[380px] maxsm:min-w-fit `}
     >
       <input
-        className="flex-grow text-foreground text-sm appearance-none border border-gray-200 bg-slate-100  mr-2 py-2 px-3 hover:border-gray-400 focus:outline-none focus:border-gray-400 w-[95%]"
+        className="flex-grow text-xs text-black appearance-none maxmd:rounded-full border border-gray-200 bg-slate-100  mr-2 py-2 px-3 hover:border-gray-400 focus:outline-none focus:border-gray-400 w-[95%]"
         type="text"
         placeholder="Buscar productos, marcas..."
         value={keyword}
