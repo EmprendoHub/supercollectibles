@@ -5,6 +5,23 @@ import React, { useEffect, useState } from "react";
 
 export default function CookieConsentComponent() {
   const [showConsent, setShowConsent] = useState(true);
+  const [ipAddress, setIpAddress] = useState("");
+
+  // get user IP address
+  useEffect(() => {
+    const fetchIp = async () => {
+      try {
+        const response = await fetch("https://api.ipify.org?format=json");
+        const data = await response.json();
+        setIpAddress(data.ip);
+        console.log(data.ip);
+      } catch (error) {
+        console.error(error);
+      }
+    };
+    fetchIp();
+  }, []);
+
   useEffect(() => {
     setShowConsent(hasCookie("localConsent"));
   }, []);

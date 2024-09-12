@@ -21,14 +21,6 @@ const FooterMenu = () => {
           </p>
         </span>
         <div className="flex item-center justify-start text-[12px] gap-x-1 mt-1">
-          {" "}
-          <Link
-            href={"tel:332-218-9963"}
-            className="flex flex-row items-center  "
-          >
-            <p>{"332-218-9963"}</p>
-          </Link>
-          <span>/</span>
           <Link
             href={"tel:332-218-9963"}
             className="flex flex-row items-center  "

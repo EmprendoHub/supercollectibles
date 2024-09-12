@@ -4,6 +4,7 @@ import MobileMenuComponent from "./MobileMenuComponent";
 import { useSelector } from "react-redux";
 import { ShoppingCart, MapPin } from "lucide-react";
 import GlobalSearch from "../layouts/GlobalSearch";
+import LocationConcent from "./LocationConcent";
 
 const CustomLink = ({
   href,
@@ -39,15 +40,13 @@ const MainMenuComponent = ({ className }: { className: string }) => {
     <nav
       className={`${className} relative self-stretch flex flex-row items-center maxmd:items-start justify-center p-3 mx-auto menu-class bg-primary maxmd:flex maxmd:flex-col-reverse `}
     >
-      <div className="flex items-center gap-2 pr-5 cursor-pointer">
-        <MapPin size={20} />{" "}
-        <span className="text-[13px]">Ingresa tu domicilio</span>
-      </div>
+      <LocationConcent />
+
       <div className="relative flex items-center justify-between gap-3">
         {/*Mobile Navigation*/}
         <MobileMenuComponent />
         {/* Navigation*/}
-        <nav className="maxsm:hidden m-0 flex flex-row px-5 items-center justify-center gap-x-3 text-[13px] font-light tracking-wide text-white no-underline capitalize pr-8">
+        <nav className="maxmd:hidden m-0 flex flex-row px-5 items-center justify-center gap-x-3 text-[13px] font-light tracking-wide text-white no-underline capitalize pr-8">
           <CustomLink href={`/tienda`} title={"Tienda"} className={""} />
           <CustomLink href={`/acerca`} title={"nosotros"} className={""} />
           <CustomLink href={`/contacto`} title={"contacto"} className={""} />

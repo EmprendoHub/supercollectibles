@@ -4,6 +4,20 @@
   --slide-spacing: 0rem;
   --slide-size: 100%;
 }
+
+@media (max-width: 640px) {
+  .embla {
+    max-width: 97%;
+    margin: auto;
+    --slide-spacing: 5rem;
+    --slide-size: 100%;
+  }
+
+  .embla__slide__number img {
+    border-radius: 0.3rem;
+  }
+}
+
 .embla__viewport {
   overflow: hidden;
 }

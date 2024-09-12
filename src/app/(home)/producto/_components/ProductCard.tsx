@@ -39,12 +39,12 @@ const ProductCard = ({ item }: { item: any }) => {
           </div>
 
           {item?.sale_price && (
-            <span className="absolute top-2 right-2  border-[1px] border-black font-medium text-xs py-1 px-3 rounded-sm bg-black text-slate-100 group-hover:bg-slate-100 group-hover:text-foreground duration-200">
+            <span className="absolute top-2 right-2  border-[1px] border-black font-medium text-[12px] py-1 px-3 rounded-sm bg-black text-slate-100 group-hover:bg-slate-100 group-hover:text-foreground duration-200">
               Oferta
             </span>
           )}
           {item?.stock <= 0 && (
-            <span className="absolute -rotate-12 top-1/2 right-4  border-[1px] border-primary font-medium text-xs py-1 px-3 rounded-sm bg-black text-slate-100 group-hover:bg-primary group-hover:text-foreground duration-200">
+            <span className="absolute -rotate-12 top-1/2 right-4 maxsm:-right-4 border-[1px] border-primary font-medium text-[12px] py-1 px-3 rounded-sm bg-black text-slate-100 group-hover:bg-primary group-hover:text-foreground duration-200">
               VENDIDO
             </span>
           )}

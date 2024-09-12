@@ -7,6 +7,7 @@ import FooterComponent from "@/components/layouts/FooterComponent";
 import { GoogleAnalytics } from "@next/third-parties/google";
 import CustomSessionProvider from "../SessionProvider";
 import { Toaster } from "@/components/ui/toaster";
+import CookieConsentComponent from "./_components/CookieConsentComponent";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -35,7 +36,7 @@ export default function RootLayout({
             <HeaderComponent />
             {children}
             <FooterComponent />
-            {/* <CookieConsentComponent /> */}
+            <CookieConsentComponent />
             <Toaster />
           </ThemeProvider>
         </CustomSessionProvider>

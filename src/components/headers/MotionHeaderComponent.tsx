@@ -11,14 +11,14 @@ const MotionHeaderComponent = () => {
   const [hidden, setHidden] = useState(true);
   const { scrollY } = useScroll();
 
-  useMotionValueEvent(scrollY, "change", (latest) => {
-    const previous: any = scrollY.getPrevious();
-    if (latest > previous && latest > 300) {
-      setHidden(false);
-    } else {
-      setHidden(true);
-    }
-  });
+  // useMotionValueEvent(scrollY, "change", (latest) => {
+  //   const previous: any = scrollY.getPrevious();
+  //   if (latest > previous && latest > 300) {
+  //     setHidden(false);
+  //   } else {
+  //     setHidden(true);
+  //   }
+  // });
 
   return (
     <motion.div

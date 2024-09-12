@@ -33,6 +33,7 @@ const initialState = {
   productsPOS: [],
   favoritesData: [],
   userInfo: null,
+  locationInfo: null,
   shippingInfo: null,
   orderData: [],
   affiliateInfo: null,
@@ -140,9 +141,16 @@ export const shoppingSlice = createSlice({
     resetFavorites: (state) => {
       state.favoritesData = [];
     },
+    addLocation: (state, action) => {
+      state.locationInfo = action.payload;
+    },
+    deleteLocation: (state) => {
+      state.locationInfo = null;
+    },
     addUser: (state, action) => {
       state.userInfo = action.payload;
     },
+
     addAffiliate: (state, action) => {
       state.affiliateInfo = action.payload;
     },
@@ -244,6 +252,8 @@ export const {
   saveQRToPrint,
   removeQRToPrint,
   resetQRToPrint,
+  addLocation,
+  deleteLocation,
 } = shoppingSlice.actions;
 
 export default shoppingSlice.reducer;

@@ -15,10 +15,10 @@ const MiniProductCard = ({ item }: { item: any }) => {
       initial={{ y: 30, opacity: 0 }}
       whileInView={{ y: 0, opacity: 1 }}
       transition={{ duration: 1.0 }}
-      className="border-[1px]  shadow-md shadow-slate-500  bg-background bg-opacity-50  max-w-[150px] maxsm:max-w-[130px]  relative py-2"
+      className="bg-white rounded-[2px] shadow-[0_1px_2px_0_rgba(0,0,0,0.12)] max-w-[150px] maxsm:max-w-[130px]  relative py-2"
     >
       <Link href={`/producto/${item.slug}`}>
-        <div className="h-[120px] w-[120px]  maxsm:h-[80px] maxsm:w-[80px]  group  relative">
+        <div className="h-[120px] w-[120px]   group  relative">
           <Image
             src={item?.images[0].url}
             alt="product image"
@@ -28,12 +28,12 @@ const MiniProductCard = ({ item }: { item: any }) => {
           />
 
           {item?.sale_price && (
-            <span className="absolute top-2 right-2  border-[1px] border-black font-medium text-xs py-1 px-3 rounded-sm bg-black text-slate-100 group-hover:bg-slate-100 group-hover:text-foreground duration-200">
+            <span className="absolute top-2 right-2  border-[1px] border-black font-medium text-[12px] py-1 px-3 rounded-sm bg-black text-slate-100 group-hover:bg-slate-100 group-hover:text-foreground duration-200">
               Oferta
             </span>
           )}
           {item?.stock <= 0 && (
-            <span className="absolute rotate-12 top-1/2 right-1/4  border-[1px] border-black font-medium text-xl py-1 px-3 rounded-sm bg-black text-slate-100 group-hover:bg-primary group-hover:text-foreground duration-200">
+            <span className="absolute rotate-12 top-1/2 right-4  maxsm:-right-4  border-[1px] border-black font-medium text-[12px] py-1 px-3 rounded-sm bg-black text-slate-100 group-hover:bg-primary group-hover:text-foreground duration-200">
               VENDIDO
             </span>
           )}
@@ -50,9 +50,9 @@ const MiniProductCard = ({ item }: { item: any }) => {
           <IoMdHeart />
         </motion.button>
       </div>
-      <div className=" px-4 pb-4 flex flex-col border-card rounded-b-sm">
+      <div className=" px-2 pb-2 flex flex-col border-card rounded-b-sm text-black">
         <div className="flex items-center justify-between gap-x-1">
-          <p className="tracking-wide font-EB_Garamond text-[12px]">
+          <p className="tracking-wide text-[12px]">
             {item?.title.substring(0, 20) + "..."}
           </p>
         </div>

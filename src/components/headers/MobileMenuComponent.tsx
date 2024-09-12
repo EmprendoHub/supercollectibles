@@ -1,11 +1,9 @@
 "use client";
 import React, { useState } from "react";
-import { AiOutlineMenu, AiOutlineClose } from "react-icons/ai";
+import { AiOutlineMenu } from "react-icons/ai";
 import { AnimatePresence, motion } from "framer-motion";
 import Link from "next/link";
 import WhiteLogoComponent from "../layouts/WhiteLogoComponent";
-import { BsFacebook, BsInstagram } from "react-icons/bs";
-import { AiFillPhone } from "react-icons/ai";
 
 const navLinks = [
   { title: "Inicio", url: "/" },
@@ -24,19 +22,18 @@ const MobileMenuComponent = () => {
 
   const menuVariants = {
     initial: {
-      scaleY: 0,
+      x: "-100%",
     },
     animate: {
-      scaleY: 1,
+      x: "-10%",
       transition: {
         duration: 0.5,
         ease: [0.12, 0, 0.39, 0],
       },
     },
     exit: {
-      scaleY: 0,
+      x: "-100%",
       transition: {
-        delay: 0.5,
         duration: 0.5,
         ease: [0.22, 1, 0.36, 1],
       },
@@ -72,84 +69,50 @@ const MobileMenuComponent = () => {
       </nav>
       <AnimatePresence>
         {open && (
-          <motion.div
-            variants={menuVariants}
-            initial="initial"
-            animate="animate"
-            exit="exit"
-            className="fixed z-[999] left-0 top-0 w-full min-h-screen bg-background text-white p-10  origin-top"
-          >
-            <div className="flex h-full flex-col">
-              <div className="flex  h-full justify-between items-center pb-5">
-                <WhiteLogoComponent className="w-[80px]" />
-                <p
-                  onClick={toggleMobileMenu}
-                  className="cursor-pointer text-md text-white"
+          <>
+            {/* Blurred Overlay */}
+            <motion.div
+              onClick={toggleMobileMenu}
+              className="fixed inset-0 z-[998] bg-black bg-opacity-50 backdrop-blur-md"
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              exit={{ opacity: 0 }}
+              transition={{ duration: 0.4 }}
+            />
+            <motion.div
+              variants={menuVariants}
+              initial="initial"
+              animate="animate"
+              exit="exit"
+              className="fixed z-[999] left-0 top-0 w-full min-h-screen bg-background text-white p-10  origin-top"
+            >
+              <div className="flex h-full flex-col place-items-center ">
+                <div onClick={toggleMobileMenu}>
+                  <WhiteLogoComponent className="w-[100px] mb-5" />
+                </div>
+
+                <motion.div
+                  variants={containerVariants}
+                  initial="initial"
+                  animate="open"
+                  exit="initial"
+                  className="flex flex-col h-full justify-center font-raleway font-black tracking-wider items-center gap-y-10"
                 >
-                  <AiOutlineClose />
-                </p>
+                  {navLinks?.map((link, index) => {
+                    return (
+                      <div key={index} className="overflow-hidden">
+                        <MobileNavLink
+                          title={link.title}
+                          href={link.url}
+                          toggleMobileMenu={toggleMobileMenu}
+                        />
+                      </div>
+                    );
+                  })}
+                </motion.div>
               </div>
-              <motion.div
-                variants={containerVariants}
-                initial="initial"
-                animate="open"
-                exit="initial"
-                className="flex flex-col h-full justify-center font-raleway font-black tracking-wider items-center gap-y-10"
-              >
-                {navLinks?.map((link, index) => {
-                  return (
-                    <div key={index} className="overflow-hidden">
-                      <MobileNavLink
-                        title={link.title}
-                        href={link.url}
-                        toggleMobileMenu={toggleMobileMenu}
-                      />
-                    </div>
-                  );
-                })}
-              </motion.div>
-            </div>
-            {/* Contact Links */}
-            <div className="flex fle-row items-center justify-center gap-x-4 pt-10">
-              <Link
-                href={"tel:3322189963"}
-                className=" flex flex-row justify-between items-center gap-x-2 cursor-pointer"
-              >
-                <span>
-                  <AiFillPhone className="text-2xl maxsm:text-base text-greenLight border border-white rounded-full p-1 h-8 maxsm:h-5 w-8 maxsm:w-5 " />{" "}
-                </span>
-                <span className="text-base maxsm:text-sm">332-218-9963</span>
-              </Link>
-              <Link
-                href={"tel:3322189963"}
-                className="maxmd:hidden flex flex-row justify-between items-center gap-x-2 cursor-pointer"
-              >
-                <span className="text-base">332-218-9963</span>
-              </Link>
-              <div className="flex items-center gap-x-4">
-                <motion.a
-                  whileHover={{ scale: 1.3 }}
-                  whileTap={{ scale: 0.9 }}
-                  href="https://www.instagram.com/supercars_jewelry"
-                  target="_blank"
-                >
-                  <span className="socialLink">
-                    <BsInstagram className="text-2xl maxsm:text-base" />
-                  </span>
-                </motion.a>
-                <motion.a
-                  whileHover={{ scale: 1.3 }}
-                  whileTap={{ scale: 0.9 }}
-                  href="https://www.facebook.com/MxSuperCollectibles"
-                  target="_blank"
-                >
-                  <span className="socialLink">
-                    <BsFacebook className="text-xl maxsm:text-base" />
-                  </span>
-                </motion.a>
-              </div>
-            </div>
-          </motion.div>
+            </motion.div>
+          </>
         )}
       </AnimatePresence>
     </>
@@ -160,14 +123,14 @@ export default MobileMenuComponent;
 
 const mobileNavLinksVariants = {
   initial: {
-    y: "30vh",
+    x: "-100%",
     transition: {
       duration: 0.5,
       ease: [0.37, 0, 0.63, 1],
     },
   },
   open: {
-    y: 0,
+    x: 0,
     transition: {
       duration: 0.7,
       ease: [0, 0.35, 0.45, 1],
@@ -187,7 +150,7 @@ const MobileNavLink = ({
   return (
     <motion.div
       variants={mobileNavLinksVariants}
-      className="text-4xl uppercase"
+      className="text-2xl uppercase text-foreground"
     >
       <Link href={href} onClick={toggleMobileMenu}>
         {title}
