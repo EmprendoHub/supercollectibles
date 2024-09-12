@@ -77,7 +77,7 @@ export default function LocationConcent() {
 
   return (
     <div className="flex items-start maxmd:justify-between maxmd:mt-2 maxmd:w-full ">
-      <span className="w-full flex flex-row gap-x-1 items-center cursor-pointer text-[13px]">
+      <span className="w-full maxsm:w-fit flex flex-row gap-x-1 items-center cursor-pointer text-[13px]">
         <MapPin size={20} />
         {userLocation ? userLocation.postal : "Ingresa tu ubicacion"}
       </span>
