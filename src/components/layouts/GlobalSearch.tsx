@@ -22,7 +22,7 @@ const GlobalSearch = ({
   return (
     <form
       onSubmit={submitHandler}
-      className={`${className} relative flex flex-col gap-3 items-center w-[500px] maxmd:w-[380px] maxsm:w-[200px] `}
+      className={`${className} relative flex flex-col gap-3 items-center w-[500px] maxmd:w-[380px] maxsm:w-[250px] `}
     >
       <input
         className="flex-grow text-xs maxsm:text-[12px] text-black appearance-none maxmd:rounded-full border border-gray-200 bg-slate-100  mr-2 py-2 px-3 hover:border-gray-400 focus:outline-none focus:border-gray-400 w-[95%]"
