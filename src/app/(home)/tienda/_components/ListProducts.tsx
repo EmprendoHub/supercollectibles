@@ -40,7 +40,7 @@ const ListProducts = ({
       <div className="relative w-[800px] maxmd:w-[95%] mx-auto">
         <div className=" grid grid-cols-5 maxlg:grid-cols-5 maxmd:grid-cols-4 maxsm:grid-cols-3 gap-8 maxsm:gap-4">
           {products?.map((product: any, index: number) => (
-            <ProductCard item={product} key={index} />
+            <ProductCard item={product} key={index} index={index} />
           ))}
         </div>
       </div>

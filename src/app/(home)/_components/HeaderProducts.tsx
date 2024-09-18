@@ -119,6 +119,7 @@ const HeaderProducts = ({
                   animate={{ opacity: 1 }}
                   exit={{ opacity: 0 }}
                   transition={{ duration: 0.5 }}
+                  className="basis-1/5 maxmd:basis-1/4 maxsm:basis-1/3 my-10 mx-auto "
                 >
                   <ProductCard item={product} index={index} />
                 </motion.div>

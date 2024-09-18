@@ -57,7 +57,7 @@ const ProductCard = ({ item, index }: { item: any; index: number }) => {
       initial={{ y: 50, opacity: 0.5 }}
       whileInView={{ y: 0, opacity: 1 }}
       transition={{ duration: `${index / 5}` }}
-      className=" max-w-[150px] maxsm:max-w-[130px]  relative "
+      className=" max-w-[150px] maxsm:max-w-[130px]  relative  overflow-hidden"
     >
       <Link href={`/producto/${item.slug}`}>
         <div className="h-[250px] w-full  maxsm:h-[180px] maxsm:w-[180px]  group  relative">
@@ -103,7 +103,7 @@ const ProductCard = ({ item, index }: { item: any; index: number }) => {
           )}
         </div>
       </Link>
-      <div className=" px-4 pb-4 flex flex-col border-card rounded-b-sm">
+      <div className=" px-0.5 pb-4 flex flex-col border-card rounded-b-sm">
         <div className="flex items-center justify-between gap-x-1">
           <p className=" tracking-wide font-EB_Garamond text-[12px]">
             {item?.title.substring(0, 23) + "..."}
@@ -153,13 +153,9 @@ const ProductCard = ({ item, index }: { item: any; index: number }) => {
           transition={{ duration: 0.8 }}
           className="flex items-center group"
         >
-          {item?.stock <= 0 ? (
-            <span className="text-[12px] border-[1px] border-black font-medium py-1 px-3  bg-primary text-slate-100">
-              SIN EXISTENCIAS
-            </span>
-          ) : alreadyCart ? (
+          {alreadyCart ? (
             <Link href="/carrito">
-              <span className="  border-[1px] border-black text-[12px] py-1 px-3  bg-primary text-slate-100">
+              <span className="  border-black text-[12px] text-slate-100 rounded-full border  drop-shadow-md flex flex-row items-center justify-between px-6 py-2  gap-x-4 bg-primary ease-in-out  duration-300 w-auto tracking-wider cursor-not-allowed ">
                 {"En Carrito"}
               </span>
             </Link>
@@ -170,22 +166,24 @@ const ProductCard = ({ item, index }: { item: any; index: number }) => {
               whileTap={{ scale: 0.9 }}
               className={`${
                 item?.stock <= 0
-                  ? "bg-slate-300 grayscale-0 text-foreground border-slate-300"
-                  : "text-white border-black"
-              } rounded-full border  drop-shadow-md flex flex-row items-center justify-between px-6 py-2  gap-x-4 text-xs bg-primary ease-in-out  duration-300 w-auto uppercase tracking-wider cursor-pointer `}
-              onClick={handleClick}
+                  ? "bg-slate-500  bg-opacity-50 text-foreground border-slate-300 cursor-not-allowed"
+                  : "text-white border-black cursor-pointer "
+              } rounded-full border  drop-shadow-md flex flex-row items-center justify-between px-6 py-2  gap-x-4 text-[12px] bg-primary ease-in-out  duration-300 w-auto uppercase tracking-wider `}
+              onClick={item?.stock <= 0 ? handleClick : () => {}}
             >
-              {item?.stock <= 0 ? "" : ""}
-
-              <span
-                className={`text-white ${
-                  item?.stock <= 0
-                    ? "bg-slate-300 grayscale-0 text-foreground"
-                    : "group-hover:bg-black group-hover:text-white duration-200 "
-                } text-xl text-foreground w-12 flex items-center justify-center  rounded-full py-2`}
-              >
-                <IoMdCart size={18} />
-              </span>
+              {item?.stock <= 0 ? (
+                "Vendido"
+              ) : (
+                <span
+                  className={`text-white ${
+                    item?.stock <= 0
+                      ? "bg-slate-500 bg-opacity-50 text-foreground "
+                      : "group-hover:bg-black group-hover:text-white duration-200 "
+                  } text-xl text-foreground w-12 flex items-center justify-center  rounded-full py-2`}
+                >
+                  <IoMdCart size={18} />
+                </span>
+              )}
             </motion.button>
           )}
         </motion.div>
