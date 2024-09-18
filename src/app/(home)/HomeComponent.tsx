@@ -16,9 +16,11 @@ const HomeComponent = async () => {
   return (
     <div className="w-full ">
       <HomeHeader />
-      <HeaderProducts editorsProducts={editorsProducts} />
+      <HeaderProducts
+        editorsProducts={editorsProducts}
+        trendProducts={trendProducts}
+      />
       <MainHeroComponent />
-      <TrendingNewProducts trendProducts={trendProducts} />
       <SectionTwoComponent />
       <TestimonialComponent />
       <SectionFourComponent />

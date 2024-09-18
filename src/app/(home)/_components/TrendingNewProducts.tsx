@@ -3,6 +3,7 @@ import BoxesSectionTitle from "@/components/texts/BoxesSectionTitle";
 import { motion, AnimatePresence } from "framer-motion";
 import React, { useState } from "react";
 import ProductCard from "../producto/_components/ProductCard";
+import Image from "next/image";
 
 function shuffleArray(array: any) {
   let i = array.length - 1;
@@ -43,12 +44,17 @@ const TrendingNewProducts = ({ trendProducts }: { trendProducts: any }) => {
 
   return (
     <div className="flex flex-col justify-center items-center px-20 maxmd:px-5 my-20">
+      <div className="absolute w-full h-full flex -z-[1]">
+        <Image
+          src={"/covers/duela_bg.webp"}
+          alt="Invierte tu dinero en coleccionables"
+          fill
+        />
+      </div>
       <BoxesSectionTitle
         className="pb-10 text-5xl maxmd:text-3xl text-center"
         title={"Explora la Colección"}
-        subtitle={
-          "Te invitamos a explorar nuestra selecta gama de productos, cada uno representando lo mejor del diseño minimalista. Desde sillas que combinan estética y confort, hasta mesas que son verdaderas obras de arte funcional, y bancos que añaden un toque de estilo y practicidad a cualquier espacio."
-        }
+        subtitle={"Varios productos"}
       />
 
       <ul className="grid grid-cols-3 gap-4 my-2 px-10 maxmd:gap-2 maxmd:px-2">

@@ -1,6 +1,5 @@
 "use client";
-import * as React from "react";
-
+import React, { useState } from "react";
 import {
   Carousel,
   CarouselContent,
@@ -8,13 +7,59 @@ import {
   CarouselNext,
   CarouselPrevious,
 } from "@/components/ui/carousel";
-import MiniProductCard from "./MiniProductCard";
+import Image from "next/image";
+import BoxesSectionTitle from "@/components/texts/BoxesSectionTitle";
+import { motion, AnimatePresence } from "framer-motion";
 
-const HeaderProducts = ({ editorsProducts }: { editorsProducts: any }) => {
+import ProductCard from "../producto/_components/ProductCard";
+import { shuffleArray } from "@/lib/utils";
+
+const HeaderProducts = ({
+  editorsProducts,
+  trendProducts,
+}: {
+  editorsProducts: any;
+  trendProducts: any;
+}) => {
+  const cat_title = [
+    { id: 1, category: "Tarjetas Coleccionables" },
+    { id: 2, category: "Articulos Autografiados" },
+    { id: 3, category: "Sets de Batalla" },
+  ];
+  const [allProducts, setAllProducts] = useState(shuffleArray(trendProducts));
+  const [trendingProducts, setTrendingProducts] = useState(trendProducts);
+  const [activeTab, setActiveTab] = useState("All");
+
+  const activatedTab = (category: string) => {
+    setActiveTab(category);
+
+    const productsArray = Object.values(allProducts);
+    const randommized = shuffleArray(productsArray);
+
+    const filteredProductData = productsArray.filter(
+      (prod: any) => prod.category === category
+    );
+    if (category === "All") {
+      setTrendingProducts(randommized);
+    } else {
+      setTrendingProducts(filteredProductData);
+    }
+  };
+
   return (
-    <div className="relative  h-full pb-20 pt-5 group">
+    <div className="relative  h-full pb-20 pt-5">
+      <div className="w-full h-20 absolute z-0 -top-10 bg-gradient-to-t from-black via-black to-black/30 blur-sm" />
+      <div className="w-full h-20 absolute z-0 -top-5 bg-gradient-to-b from-black via-black to-black/30 blur-sm" />
+      <div className="">
+        <Image
+          src={"/covers/duela_bg.webp"}
+          alt="Invierte tu dinero en coleccionables"
+          fill
+          className="-z-[1] fixed w-full"
+        />
+      </div>
       <Carousel
-        className="w-[800px] maxmd:w-[95%] mx-auto "
+        className="w-[800px] maxmd:w-[95%] mx-auto mt-10 "
         opts={{
           align: "center",
           slidesToScroll: 3,
@@ -27,13 +72,61 @@ const HeaderProducts = ({ editorsProducts }: { editorsProducts: any }) => {
               key={index}
               className="pl-1 basis-1/5 maxmd:basis-1/4 maxsm:basis-1/3"
             >
-              <MiniProductCard item={product} />
+              <ProductCard item={product} index={index} />
             </CarouselItem>
           ))}
         </CarouselContent>
         <CarouselPrevious />
         <CarouselNext />
       </Carousel>
+
+      {/* Multi select animation */}
+      <div className="flex flex-col justify-center items-center px-20 maxmd:px-5 my-20">
+        <BoxesSectionTitle
+          className="pb-10 text-5xl maxmd:text-3xl text-center"
+          title={"Explora la Colección"}
+          subtitle={"Varios productos"}
+        />
+
+        <ul className="grid grid-cols-3 gap-4 my-2 px-10 maxmd:gap-2 maxmd:px-2">
+          {cat_title.map((item, index) => {
+            return (
+              <li
+                key={index}
+                className={`${
+                  activeTab == item.category
+                    ? "active"
+                    : "border-b border-gray-500"
+                } cursor-pointer text-center  py-2 px-6 maxsm:px-2 text-sm maxsm:text-[12px] uppercase font-playfair-display`}
+                onClick={() => activatedTab(item.category)}
+              >
+                {item.category}
+              </li>
+            );
+          })}
+        </ul>
+        <motion.div
+          className="w-full flex flex-row maxmd:flex-wrap gap-4 my-10 mx-auto justify-center items-center object-fill"
+          layout
+        >
+          {trendingProducts.slice(0, 5).map((product: any, index: number) => {
+            return (
+              <AnimatePresence key={index}>
+                <motion.div
+                  key={product._id}
+                  layout
+                  initial={{ opacity: 0 }}
+                  animate={{ opacity: 1 }}
+                  exit={{ opacity: 0 }}
+                  transition={{ duration: 0.5 }}
+                >
+                  <ProductCard item={product} index={index} />
+                </motion.div>
+              </AnimatePresence>
+            );
+          })}
+        </motion.div>
+      </div>
     </div>
   );
 };

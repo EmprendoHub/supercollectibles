@@ -4,24 +4,66 @@ import FormattedPrice from "@/backend/helpers/FormattedPrice";
 import { motion } from "framer-motion";
 import Link from "next/link";
 import { addToFavorites } from "@/redux/shoppingSlice";
-import { useDispatch } from "react-redux";
-import { IoMdHeart } from "react-icons/io";
+import { useDispatch, useSelector } from "react-redux";
+import { IoMdCart, IoMdHeart } from "react-icons/io";
 import { calculatePercentage } from "@/backend/helpers";
+import { toast } from "sonner";
+import { useEffect, useState } from "react";
+import { addToCart } from "@/redux/shoppingSlice";
+import { useRouter } from "next/navigation";
 
-const ProductCard = ({ item }: { item: any }) => {
+const ProductCard = ({ item, index }: { item: any; index: number }) => {
   const dispatch = useDispatch();
+  const { productsData } = useSelector((state: any) => state?.compras);
+  const [alreadyCart, setAlreadyCart] = useState(false);
+  const [variation, setVariation]: any = useState({
+    _id: item?.variations[0]._id || "",
+    size: item?.variations[0].size || "",
+    color: item?.variations[0].color || "",
+    colorHex: item?.variations[0].colorHex || "",
+    price: item?.variations[0].price || "",
+    stock: item?.variations[0].stock || "",
+    image: item?.variations[0].image || "",
+  });
+
+  const handleClick = () => {
+    variation.item = item._id;
+    variation.variation = variation._id;
+    variation.title = item.title;
+    variation.image = [{ url: variation.image }];
+    variation.quantity = 1;
+    variation.brand = item.brand;
+    dispatch(addToCart(variation));
+    toast(`${item?.title.substring(0, 15)}... se agrego al carrito`);
+  };
+
+  useEffect(() => {
+    // Find matches based on _id property
+    const existingProduct = productsData.find((item1: any) =>
+      item.variations.some((item2: any) => item1._id === item2._id)
+    );
+    const existingVariation = item.variations.find((item1: any) =>
+      productsData.some((item2: any) => item1._id === item2._id)
+    );
+
+    if (existingProduct?.quantity >= existingVariation?.stock) {
+      setAlreadyCart(true);
+    }
+    // eslint-disable-next-line
+  }, [productsData]);
+
   return (
     <motion.div
-      initial={{ y: 30, opacity: 0 }}
+      initial={{ y: 50, opacity: 0.5 }}
       whileInView={{ y: 0, opacity: 1 }}
-      transition={{ duration: 1.0 }}
-      className="border-[1px] border-muted  shadow-md shadow-slate-400  bg-background  max-w-[150px] maxsm:max-w-[130px]  relative "
+      transition={{ duration: `${index / 5}` }}
+      className=" max-w-[150px] maxsm:max-w-[130px]  relative "
     >
       <Link href={`/producto/${item.slug}`}>
-        <div className="h-[120px] w-full  maxsm:h-[80px] maxsm:w-[80px]  group  relative">
+        <div className="h-[250px] w-full  maxsm:h-[180px] maxsm:w-[180px]  group  relative">
           <Image
             src={item?.images[0].url}
-            alt="product image"
+            alt="item image"
             className=" ease-in-out duration-500 w-full h-full object-cover group-hover:scale-110"
             width={450}
             height={450}
@@ -104,6 +146,49 @@ const ProductCard = ({ item }: { item: any }) => {
             {item?.sale_price > 0 ? "(30%)" : ""}
           </p>
         </div>
+        {/* add to cart button */}
+        <motion.div
+          initial={{ y: 50, opacity: 0 }}
+          whileInView={{ y: 0, opacity: 1 }}
+          transition={{ duration: 0.8 }}
+          className="flex items-center group"
+        >
+          {item?.stock <= 0 ? (
+            <span className="text-[12px] border-[1px] border-black font-medium py-1 px-3  bg-primary text-slate-100">
+              SIN EXISTENCIAS
+            </span>
+          ) : alreadyCart ? (
+            <Link href="/carrito">
+              <span className="  border-[1px] border-black text-[12px] py-1 px-3  bg-primary text-slate-100">
+                {"En Carrito"}
+              </span>
+            </Link>
+          ) : (
+            <motion.button
+              disabled={item?.stock <= 0}
+              whileHover={{ scale: 1.07 }}
+              whileTap={{ scale: 0.9 }}
+              className={`${
+                item?.stock <= 0
+                  ? "bg-slate-300 grayscale-0 text-foreground border-slate-300"
+                  : "text-white border-black"
+              } rounded-full border  drop-shadow-md flex flex-row items-center justify-between px-6 py-2  gap-x-4 text-xs bg-primary ease-in-out  duration-300 w-auto uppercase tracking-wider cursor-pointer `}
+              onClick={handleClick}
+            >
+              {item?.stock <= 0 ? "" : ""}
+
+              <span
+                className={`text-white ${
+                  item?.stock <= 0
+                    ? "bg-slate-300 grayscale-0 text-foreground"
+                    : "group-hover:bg-black group-hover:text-white duration-200 "
+                } text-xl text-foreground w-12 flex items-center justify-center  rounded-full py-2`}
+              >
+                <IoMdCart size={18} />
+              </span>
+            </motion.button>
+          )}
+        </motion.div>
       </div>
     </motion.div>
   );

@@ -15,10 +15,10 @@ const MiniProductCard = ({ item }: { item: any }) => {
       initial={{ y: 30, opacity: 0 }}
       whileInView={{ y: 0, opacity: 1 }}
       transition={{ duration: 1.0 }}
-      className="bg-white rounded-[2px] shadow-[0_1px_2px_0_rgba(0,0,0,0.12)] max-w-[150px] maxsm:max-w-[130px]  relative py-2"
+      className=" relative py-2"
     >
       <Link href={`/producto/${item.slug}`}>
-        <div className="h-[120px] w-[120px]   group  relative">
+        <div className="h-[200px] w-[200px]  relative">
           <Image
             src={item?.images[0].url}
             alt="product image"

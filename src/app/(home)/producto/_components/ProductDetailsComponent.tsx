@@ -159,11 +159,17 @@ const ProductDetailsComponent = ({
 
   return (
     <div className="container-class maxsm:py-8 ">
-      <main className="bg-background flex flex-col items-center justify-between">
-        <div className="w-full mx-auto wrapper-class gap-3 bg-background text-foreground  ">
-          <div className="flex flex-row maxsm:flex-col items-start justify-start gap-x-5 px-20 py-8 maxmd:py-4  maxmd:px-3">
+      <div className="flex flex-col items-center justify-between">
+        <div className="w-full mx-auto wrapper-class gap-3 text-foreground  ">
+          <div className="flex flex-row maxsm:flex-col items-center justify-center gap-x-5 px-20 py-8 maxmd:py-4  maxmd:px-3">
             {/* Left Panel */}
-            <div className="w-1/2 maxsm:w-full flex flex-col items-center justify-center">
+            <div className="relative w-auto maxsm:w-full flex flex-col items-center justify-center">
+              <Image
+                src={"/covers/duela_bg.webp"}
+                alt="Invierte tu dinero en coleccionables"
+                fill
+                className="-z-[1] absolute w-full rounded-lg"
+              />
               <motion.div
                 initial={{ x: -50, opacity: 0 }}
                 whileInView={{ x: 0, opacity: 1 }}
@@ -176,7 +182,7 @@ const ProductDetailsComponent = ({
                   animate={{ opacity: 1, scale: 1 }}
                   exit={{ opacity: 0, scale: 0.95 }}
                   transition={{ duration: 0.5 }} // Adjust the duration to control the speed of the transition
-                  className="relative h-auto"
+                  className="relative flex h-auto w-auto"
                   onMouseEnter={() => setShowZoom(true)}
                   onMouseLeave={() => setShowZoom(false)}
                   onMouseMove={handleMouseMove}
@@ -240,7 +246,7 @@ const ProductDetailsComponent = ({
               </div>
             </div>
             {/* Right PAnel */}
-            <div className="description-class w-1/2 maxsm:w-full h-full ">
+            <div className="description-class w-auto maxsm:w-full h-full ">
               <div className="flex flex-col items-start justify-start pt-1 maxsm:pt-2 gap-y-3 w-[90%] maxmd:w-full p-5 pb-10">
                 <motion.div
                   initial={{ x: 50, opacity: 0 }}
@@ -377,14 +383,13 @@ const ProductDetailsComponent = ({
                     </motion.div>
                   </div>
                 )}
-
+                {/* add to cart button */}
                 <motion.div
                   initial={{ y: 50, opacity: 0 }}
                   whileInView={{ y: 0, opacity: 1 }}
                   transition={{ duration: 0.8 }}
                   className="flex items-center group"
                 >
-                  {/* add to cart button */}
                   {variation?.stock <= 0 ? (
                     <span className="text-[12px] border-[1px] border-black font-medium py-1 px-3  bg-primary text-slate-100">
                       SIN EXISTENCIAS
@@ -440,17 +445,17 @@ const ProductDetailsComponent = ({
           </div>
         </div>
 
-        <div className=" maxsm:px-4 mb-10 mt-10 w-[90%] mx-auto h-full">
+        <div className=" maxsm:px-4 mb-10 mt-10 w-[50%] maxxlg:w-[75%] maxlg:w-[80%] maxmd:w-[95%] mx-auto h-full">
           <p className="text-3xl maxsm:text-4xl font-EB_Garamond pb-5 font-semibold">
-            {"Productos destacados"}
+            {"También te puede gustar"}
           </p>
           <div className="grid maxsm:grid-cols-2 maxmd:grid-cols-4 grid-cols-4 gap-4 mt-2">
-            {trendingProducts?.map((product: any) => (
-              <ProductCard key={product._id} item={product} />
+            {trendingProducts?.map((product: any, index: number) => (
+              <ProductCard key={product._id} item={product} index={index} />
             ))}
           </div>
         </div>
-      </main>
+      </div>
     </div>
   );
 };
