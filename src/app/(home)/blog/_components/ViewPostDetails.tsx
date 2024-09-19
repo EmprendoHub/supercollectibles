@@ -19,8 +19,8 @@ const ViewPostDetails = ({
         <div className="w-full mx-auto ">
           <p className="text-xl py-1 mb-2">{"Productos destacados"}</p>
           <div className="w-full relative ">
-            {trendingProducts?.map((product: any) => (
-              <ProductCard key={product._id} item={product} />
+            {trendingProducts?.map((product: any, index: number) => (
+              <ProductCard key={product._id} item={product} index={index} />
             ))}
           </div>
         </div>
