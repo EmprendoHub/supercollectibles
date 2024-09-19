@@ -11,7 +11,7 @@ const OPTIONS: EmblaOptionsType = { loop: true };
 export const metadata = {
   title: "Tienda Super Collectibles MX",
   description:
-    "Ven y explora nuestra tienda en lineas y descubre modelos exclusivos de marcas de alta gama.",
+    "Ven y explora nuestra tienda en linea y descubre modelos exclusivos de marcas de alta gama.",
 };
 
 const getAllProducts = async (
