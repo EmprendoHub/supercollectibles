@@ -89,7 +89,7 @@ const TrendingNewProducts = ({ trendProducts }: { trendProducts: any }) => {
                 exit={{ opacity: 0 }}
                 transition={{ duration: 0.5 }}
               >
-                <ProductCard item={product} />
+                <ProductCard item={product} index={index} />
               </motion.div>
             </AnimatePresence>
           );
