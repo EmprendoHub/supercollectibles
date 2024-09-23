@@ -6,20 +6,19 @@ import MainHeroComponent from "./_components/MainHeroComponent";
 import TestimonialComponent from "./_components/TestimonialComponent";
 import HomeHeader from "./_components/HomeHeader";
 import { getHomeProductsData } from "../_actions";
-import TrendingNewProducts from "./_components/TrendingNewProducts";
+// import TrendingNewProducts from "./_components/TrendingNewProducts";
 import HeaderProducts from "./_components/HeaderProducts";
+import CategoryStack from "./_components/CategoryStack";
 
 const HomeComponent = async () => {
   const data = await getHomeProductsData();
-  const trendProducts = JSON.parse(data.trendingProducts);
+  // const trendProducts = JSON.parse(data.trendingProducts);
   const editorsProducts = JSON.parse(data.editorsProducts);
   return (
-    <div className="w-full ">
+    <div className="w-full">
       <HomeHeader />
-      <HeaderProducts
-        editorsProducts={editorsProducts}
-        trendProducts={trendProducts}
-      />
+      <CategoryStack />
+      <HeaderProducts editorsProducts={editorsProducts} />
       <MainHeroComponent />
       <SectionTwoComponent />
       <TestimonialComponent />

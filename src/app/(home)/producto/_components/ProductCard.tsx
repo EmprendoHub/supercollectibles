@@ -60,7 +60,7 @@ const ProductCard = ({ item, index }: { item: any; index: number }) => {
       className=" max-w-[150px] maxsm:max-w-[130px]  relative  overflow-hidden"
     >
       <Link href={`/producto/${item.slug}`}>
-        <div className="h-[250px] w-full  maxsm:h-[180px] maxsm:w-[180px]  group  relative">
+        <div className="h-[250px] w-full  group  relative">
           <Image
             src={item?.images[0].url}
             alt="item image"

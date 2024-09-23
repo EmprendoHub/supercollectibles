@@ -8,43 +8,14 @@ import {
   CarouselPrevious,
 } from "@/components/ui/carousel";
 import Image from "next/image";
-import BoxesSectionTitle from "@/components/texts/BoxesSectionTitle";
-import { motion, AnimatePresence } from "framer-motion";
-
 import ProductCard from "../producto/_components/ProductCard";
-import { shuffleArray } from "@/lib/utils";
 
-const HeaderProducts = ({
-  editorsProducts,
-  trendProducts,
-}: {
-  editorsProducts: any;
-  trendProducts: any;
-}) => {
+const HeaderProducts = ({ editorsProducts }: { editorsProducts: any }) => {
   const cat_title = [
     { id: 1, category: "Tarjetas Coleccionables" },
     { id: 2, category: "Articulos Autografiados" },
     { id: 3, category: "Sets de Batalla" },
   ];
-  const [allProducts, setAllProducts] = useState(shuffleArray(trendProducts));
-  const [trendingProducts, setTrendingProducts] = useState(trendProducts);
-  const [activeTab, setActiveTab] = useState("All");
-
-  const activatedTab = (category: string) => {
-    setActiveTab(category);
-
-    const productsArray = Object.values(allProducts);
-    const randommized = shuffleArray(productsArray);
-
-    const filteredProductData = productsArray.filter(
-      (prod: any) => prod.category === category
-    );
-    if (category === "All") {
-      setTrendingProducts(randommized);
-    } else {
-      setTrendingProducts(filteredProductData);
-    }
-  };
 
   return (
     <div className="relative  h-full pb-20 pt-5">
@@ -81,7 +52,7 @@ const HeaderProducts = ({
       </Carousel>
 
       {/* Multi select animation */}
-      <div className="flex flex-col justify-center items-center px-20 maxmd:px-5 my-20">
+      {/* <div className="flex flex-col justify-center items-center px-20 maxmd:px-5 my-20">
         <BoxesSectionTitle
           className="pb-10 text-5xl maxmd:text-3xl text-center"
           title={"Explora la Colección"}
@@ -127,7 +98,9 @@ const HeaderProducts = ({
             );
           })}
         </motion.div>
-      </div>
+      </div> */}
+      <div className="w-full h-20 absolute z-0 -bottom-10 bg-gradient-to-b from-black via-black to-black/30 blur-sm" />
+      <div className="w-full h-20 absolute z-0 -bottom-5 bg-gradient-to-t from-black via-black to-black/30 blur-sm" />
     </div>
   );
 };

@@ -18,12 +18,12 @@ const ColTextComponent = ({
   btnUrl: string;
 }) => {
   return (
-    <div className="p-20 maxsm:p-1 text-white ">
+    <div className="p-20 maxmd:p-3 text-white ">
       <motion.p
         initial={{ y: 30, opacity: 0 }}
         whileInView={{ y: 0, opacity: 1 }}
         transition={{ duration: 0.6 }}
-        className="text-xl maxsm:text-lg mb-2 tracking-normal uppercase"
+        className="text-xl maxsm:text-lg tracking-normal uppercase"
       >
         {pretitle}
       </motion.p>

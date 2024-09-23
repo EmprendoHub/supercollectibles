@@ -91,14 +91,14 @@ const LoginComponent = ({ cookie }: { cookie: any }) => {
               quality={100}
             />
           </div>
-          <div className="w-1/2 bg-background h-screen p-20 maxsm:p-8 shadow-xl text-center text-pr[imary mx-auto flex flex-col items-center justify-center z-[1]">
+          <div className="w-1/2 maxmd:w-full bg-background h-screen p-20 maxsm:p-8 shadow-xl text-center text-primary mx-auto flex flex-col items-center justify-center z-[1]">
             <WhiteLogoComponent className="w-[150px]" />
             <h2 className="flex justify-center py-5 text-foreground">
               Iniciar Session
             </h2>
 
             <button
-              className="w-full hover:text-foreground hover:bg-slate-300 duration-500 ease-in-out text-foreground text-xs bg-black mb-4 flex flex-row gap-4 items-center py-4 justify-center"
+              className="w-full hover:text-black hover:bg-slate-300 duration-500 ease-in-out text-foreground text-xs bg-black mb-4 flex flex-row gap-4 items-center py-4 justify-center"
               onClick={() => {
                 signIn("google");
               }}
