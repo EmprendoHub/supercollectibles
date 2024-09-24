@@ -20,7 +20,7 @@ const CategoryStack = () => {
         >
           <Image
             alt="Super Collectibles Mx"
-            src="/covers/Group3.png"
+            src="/covers/Group3.webp"
             width={1920}
             height={400}
             className="object-cover rounded-[5px]"
@@ -36,7 +36,7 @@ const CategoryStack = () => {
           >
             <Image
               alt="Super Collectibles Mx"
-              src="/covers/Group1.png"
+              src="/covers/Group1.webp"
               width={1920}
               height={400}
               className="object-cover rounded-[5px]"
@@ -50,7 +50,7 @@ const CategoryStack = () => {
           >
             <Image
               alt="Super Collectibles Mx"
-              src="/covers/Group2.png"
+              src="/covers/Group2.webp"
               width={1920}
               height={400}
               className="object-cover rounded-[5px]"
@@ -66,7 +66,7 @@ const CategoryStack = () => {
           >
             <Image
               alt="Super Collectibles Mx"
-              src="/covers/Group4.png"
+              src="/covers/Group4.webp"
               width={1920}
               height={400}
               className="object-cover rounded-[5px]"
@@ -80,7 +80,7 @@ const CategoryStack = () => {
           >
             <Image
               alt="Super Collectibles Mx"
-              src="/covers/Group5.png"
+              src="/covers/Group5.webp"
               width={1920}
               height={400}
               className="object-cover rounded-[5px]"
@@ -96,7 +96,7 @@ const CategoryStack = () => {
           >
             <Image
               alt="Super Collectibles Mx"
-              src="/covers/Group6.png"
+              src="/covers/Group6.webp"
               width={1920}
               height={400}
               quality={100}
@@ -111,7 +111,7 @@ const CategoryStack = () => {
           >
             <Image
               alt="Super Collectibles Mx"
-              src="/covers/Group7.png"
+              src="/covers/Group7.webp"
               width={1920}
               height={400}
               quality={100}

@@ -132,7 +132,7 @@ const AboutUsComponent = () => {
       </section>
       <div className="flex flex-row w-[80%] maxmd:w-full maxmd:flex-col items-center mx-auto my-20 px-1">
         <section className="text-center w-1/2 maxmd:w-full">
-          <div className="container mx-auto px-6 maxsm:px-3">
+          <div className=" mx-auto px-6 maxsm:px-3">
             <SectionTextComponent
               title={"Nuestra Misión"}
               paraOne={
