@@ -5,6 +5,8 @@ import { useSelector } from "react-redux";
 import { ShoppingCart, MapPin } from "lucide-react";
 import GlobalSearch from "../layouts/GlobalSearch";
 import LocationConcent from "./LocationConcent";
+import { FiLogOut } from "react-icons/fi";
+import { signOut, useSession } from "next-auth/react";
 
 const CustomLink = ({
   href,
@@ -32,10 +34,17 @@ const CustomLink = ({
   );
 };
 
-const MainMenuComponent = ({ className }: { className: string }) => {
+const MainMenuComponent = ({
+  className,
+  session,
+}: {
+  className: string;
+  session: any;
+}) => {
   const { productsData, favoritesData } = useSelector(
     (state: any) => state.compras
   );
+
   return (
     <nav
       className={`${className} relative self-stretch flex flex-row items-center maxmd:items-start justify-center p-3 mx-auto menu-class bg-primary maxmd:flex maxmd:flex-col-reverse `}
@@ -56,7 +65,18 @@ const MainMenuComponent = ({ className }: { className: string }) => {
         <GlobalSearch className="minmd:hidden" />
         {/* Cart Button */}
         <div className="flex items-center gap-x-3">
-          <span className="text-[13px] maxmd:hidden">Crea tu Cuenta</span>
+          {session ? (
+            <div
+              className=" text-white  cursor-pointer text-[13px] flex items-center gap-x-1"
+              onClick={() => signOut()}
+            >
+              <FiLogOut />
+              Cerrar Session!
+            </div>
+          ) : (
+            <span className="text-[13px] maxmd:hidden">Crea tu Cuenta</span>
+          )}
+
           <span className="text-[13px] maxmd:hidden">Mis Compras</span>
           <Link href={"/carrito"}>
             <div className="rounded-full text-salte-100  flex items-center justify-center  cursor-pointer">

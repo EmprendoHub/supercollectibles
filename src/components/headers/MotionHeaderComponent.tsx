@@ -7,7 +7,7 @@ import { BsFacebook, BsInstagram, BsWhatsapp } from "react-icons/bs";
 import { ModeToggle } from "../ui/mode-toggle";
 import GlobalSearch from "../layouts/GlobalSearch";
 
-const MotionHeaderComponent = () => {
+const MotionHeaderComponent = ({ session }: { session: any }) => {
   const [hidden, setHidden] = useState(true);
   const { scrollY } = useScroll();
 
@@ -69,7 +69,7 @@ const MotionHeaderComponent = () => {
           </div>
         </div>
       </div>
-      <MainMenuComponent className={""} />
+      <MainMenuComponent className={""} session={session} />
     </motion.div>
   );
 };
