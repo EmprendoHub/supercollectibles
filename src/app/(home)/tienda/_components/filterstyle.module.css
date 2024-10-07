@@ -19,7 +19,7 @@
       height: 1px;
       width: 40%;
       margin: auto;
-      background-color: var(--primary);
+      background-color: white;
       position: relative;
       transition: transform 0.3s;
     }

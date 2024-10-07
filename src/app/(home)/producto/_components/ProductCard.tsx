@@ -70,14 +70,14 @@ const ProductCard = ({ item, index }: { item: any; index: number }) => {
           />
           <div className="absolute top-2 right-2  maxsm:right-2 ">
             {/* add to favorites button */}
-            <motion.button
+            {/* <motion.button
               whileHover={{ scale: 1.07 }}
               whileTap={{ scale: 0.9 }}
               className="bg-black h-5 w-5 text-sm flex flex-row rounded-full justify-center gap-x-2 items-center tracking-wide text-slate-100 hover:bg-primary hover:text-white duration-500"
               onClick={() => dispatch(addToFavorites(item))}
             >
               <IoMdHeart size={14} />
-            </motion.button>
+            </motion.button> */}
           </div>
 
           {item?.sale_price && (
@@ -86,7 +86,7 @@ const ProductCard = ({ item, index }: { item: any; index: number }) => {
             </span>
           )}
           {item?.stock <= 0 && (
-            <span className="absolute -rotate-12 top-1/2 right-4 maxsm:-right-4 border-[1px] border-primary font-medium text-[12px] py-1 px-3 rounded-sm bg-black text-slate-100 group-hover:bg-primary group-hover:text-foreground duration-200">
+            <span className="absolute -rotate-12 top-1/2 right-4 maxsm:right-[10%] border-[1px] border-primary font-medium text-[12px] py-1 px-3 rounded-sm bg-black text-slate-100 group-hover:bg-primary group-hover:text-foreground duration-200">
               VENDIDO
             </span>
           )}

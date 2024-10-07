@@ -318,42 +318,6 @@ const ProductDetailsComponent = ({
                       initial={{ y: 50, opacity: 0 }}
                       whileInView={{ y: 0, opacity: 1 }}
                       transition={{ duration: 0.7 }}
-                      className="text-xs text-lightText flex flex-col"
-                    >
-                      {product?.variations.length > 0 && (
-                        <span className="text-foreground flex flex-row items-center gap-5">
-                          {colorList?.map((c: any, index: number) => (
-                            <div
-                              key={index}
-                              className="flex-col justify-center items-center"
-                            >
-                              <button
-                                style={
-                                  c.value === "Multicolor" ||
-                                  c.value === "Multicolor Dos"
-                                    ? { margin: `0px` }
-                                    : { backgroundColor: `${c.colorHex}` }
-                                }
-                                value={c.value}
-                                key={index}
-                                onClick={handleColorSelection}
-                                className={`${
-                                  c.value === "Multicolor"
-                                    ? "dynamic-gradient"
-                                    : c.value === "Multicolor Dos"
-                                    ? "dynamic-gradient-two"
-                                    : "rounded-full"
-                                } flex shadow-md cursor-pointer p-2  text-white `}
-                              ></button>
-                            </div>
-                          ))}
-                        </span>
-                      )}
-                    </motion.div>
-                    <motion.div
-                      initial={{ y: 50, opacity: 0 }}
-                      whileInView={{ y: 0, opacity: 1 }}
-                      transition={{ duration: 0.7 }}
                       className="text-sm text-lightText flex flex-col items-center justify-center"
                     >
                       {product?.variations.length > 1 ? (

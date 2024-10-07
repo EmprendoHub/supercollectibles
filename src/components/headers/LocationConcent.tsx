@@ -13,7 +13,7 @@ export default function LocationConcent() {
 
   const [userLocation, setUserLocation] = useState<string | any>(null);
   const [ipAddress, setIpAddress] = useState("");
-  console.log(userLocation);
+  // console.log(userLocation);
   const getLocation = async () => {
     const location = await axios.get("https://ipapi.co/json");
     setUserLocation(location.data);
@@ -26,7 +26,7 @@ export default function LocationConcent() {
       const response = await fetch("https://api.ipify.org?format=json");
       const data = await response.json();
       setIpAddress(data.ip);
-      console.log(data.ip);
+      // console.log(data.ip);
     } catch (error) {
       console.error(error);
     }
@@ -40,10 +40,10 @@ export default function LocationConcent() {
 
   function success(pos: any) {
     var crd = pos.coords;
-    console.log("Your current position is:");
-    console.log(`Latitude : ${crd.latitude}`);
-    console.log(`Longitude: ${crd.longitude}`);
-    console.log(`More or less ${crd.accuracy} meters.`);
+    // console.log("Your current position is:");
+    // console.log(`Latitude : ${crd.latitude}`);
+    // console.log(`Longitude: ${crd.longitude}`);
+    // console.log(`More or less ${crd.accuracy} meters.`);
 
     getIpAddress();
     getLocation();

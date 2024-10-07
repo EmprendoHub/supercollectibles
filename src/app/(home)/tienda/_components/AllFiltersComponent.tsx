@@ -4,6 +4,8 @@ import { AiOutlineClose } from "react-icons/ai";
 import styles from "./boxfilterstyle.module.css";
 import { getPriceQueryParams } from "@/backend/helpers";
 import ProductSearch from "@/components/layouts/Search";
+import { Button } from "@/components/ui/button";
+import { Search } from "lucide-react";
 
 const AllFiltersComponent = ({
   allBrands,
@@ -83,9 +85,9 @@ const AllFiltersComponent = ({
             onClick={() => {
               SetIsActive(!isActive);
             }}
-            className={"button-class"}
+            className={"button-class text-slate-400"}
           >
-            <AiOutlineClose />
+            <AiOutlineClose size={30} />
           </div>
         </div>
         <div className=" mb-2  w-full text-start  py-2 inline-block text-sm text-foreground   ">
@@ -125,18 +127,15 @@ const AllFiltersComponent = ({
             </div>
 
             <div className="mb-4">
-              <button
-                className="px-1 py-2 text-center text-xs w-full inline-block text-white bg-black border border-transparent rounded-xl hover:bg-slate-700 hover:text-foreground"
-                onClick={handlePriceButtonClick}
-              >
-                Filtrar
-              </button>
+              <Button variant="outline" onClick={handlePriceButtonClick}>
+                <Search />
+              </Button>
             </div>
           </div>
         </div>
         {/* Category Filter */}
         <div className="p-5 pt-4  mb-3 sm:p-1 border border-muted bg-background rounded shadow-sm">
-          <h3 className="font-semibold mb-2 text-foreground text-xs">
+          <h3 className="font-semibold mb-2 text-slate-300 text-xs">
             Categoría
           </h3>
           <ul className="space-y-1 text-sm">
@@ -162,7 +161,7 @@ const AllFiltersComponent = ({
                       <span className={`on ${styles.on}`}>I</span>
                       <span className={`off ${styles.off}`}>O</span>
                     </span>
-                    <span className="brandName ml-2 text-muted capitalize">
+                    <span className="brandName ml-2 text-slate-300 capitalize">
                       {" "}
                       {category}{" "}
                     </span>
@@ -198,7 +197,7 @@ const AllFiltersComponent = ({
                       <span className={`on ${styles.on}`}>I</span>
                       <span className={`off ${styles.off}`}>O</span>
                     </span>
-                    <span className="brandName ml-2 text-gray-500 capitalize">
+                    <span className="brandName ml-2 text-slate-300 capitalize">
                       {" "}
                       {brand}{" "}
                     </span>

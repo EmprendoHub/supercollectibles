@@ -6,6 +6,7 @@ import { usePathname } from "next/navigation";
 import FilterMenuComponent from "./FilterMenuComponent";
 import { CiShare2 } from "react-icons/ci";
 import { toast } from "@/components/ui/use-toast";
+import { Search } from "lucide-react";
 
 const MobileFilterComponet = ({
   allBrands,
@@ -44,7 +45,7 @@ const MobileFilterComponet = ({
             className="flex flex-row items-center gap-x-2 cursor-pointer"
             onClick={copyToClipboard}
           >
-            <CiShare2 className="text-base text-primary" />
+            <CiShare2 className="text-base text-white" />
           </div>
           <div
             onClick={() => {
@@ -52,7 +53,7 @@ const MobileFilterComponet = ({
             }}
             className={`${styles.button} text-xs`}
           >
-            Filtrar
+            <Search className="text-white" />
             <div
               className={`${styles.burger} ${
                 isActive ? styles.burgerActive : ""

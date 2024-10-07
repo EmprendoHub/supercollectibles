@@ -504,7 +504,7 @@ const EditVariationProduct = ({
               try {
                 const parsed = JSON.parse(url);
                 url = parsed.url;
-                console.log("file, url", file, url);
+                console.log("file, url", file, url, index);
                 await compressAndOptimizeSecondaryImage(file, url, index);
                 resolve();
               } catch (error) {
@@ -757,7 +757,7 @@ const EditVariationProduct = ({
                 <div
                   className={`relative aspect-video ${
                     isProcessing ? "opacity-10 " : "hover:opacity-80 "
-                  } bg-background border-4 border-gray-300`}
+                  } bg-background border-2 border-gray-300`}
                 >
                   <label
                     htmlFor="selectorMain"
@@ -790,12 +790,12 @@ const EditVariationProduct = ({
                   </label>
                 </div>
                 <div className="flex flex-row gap-2 items-center justify-start w-full">
-                  {secondaryImages.slice(1).map((image: any) => (
+                  {secondaryImages.map((image: any, index: number) => (
                     <div
-                      key={image.id}
+                      key={index}
                       className={`relative aspect-video h-32 w-32 ${
                         isProcessing ? "opacity-10 " : "hover:opacity-80 "
-                      } bg-background border-4 border-gray-300`}
+                      } bg-background border-2 border-gray-300`}
                     >
                       <label
                         htmlFor="selectorMainTwo"
@@ -815,7 +815,7 @@ const EditVariationProduct = ({
                           accept=".png, .jpg, .jpeg, .webp"
                           hidden
                           onChange={(e) =>
-                            handleMainSecondaryImagesChange(e, image.id)
+                            handleMainSecondaryImagesChange(e, index)
                           }
                           disabled={isProcessing}
                         />
