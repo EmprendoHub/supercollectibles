@@ -118,7 +118,6 @@ export const POST = async (request: any) => {
     };
 
     const order_items = await getCartItems(items);
-    console.log(items);
     const line_items = await items.map((item: any) => {
       return {
         price_data: {
@@ -139,8 +138,6 @@ export const POST = async (request: any) => {
         quantity: item.quantity,
       };
     });
-
-    console.log(line_items[0].price_data.product_data);
 
     const orderData = {
       user: user._id,

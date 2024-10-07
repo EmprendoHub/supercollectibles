@@ -24,13 +24,13 @@ const CheckOutForm = () => {
     <section className="p-2 maxsm:py-7 ">
       <div className=" max-w-screen-xl mx-auto bg-background flex flex-col justify-between p-2">
         <ul className="mb-5 text-xs">
-          <li className="flex justify-between text-gray-500  mb-1">
+          <li className="flex justify-between text-muted  mb-1">
             <span>Sub-Total:</span>
             <span>
               <FormattedPrice amount={amountTotal} />
             </span>
           </li>
-          <li className="flex justify-between text-gray-500  mb-1">
+          <li className="flex justify-between text-muted  mb-1">
             <span className="text-xs">Artículos:</span>
             <span className=" text-[11px]">
               {productsData?.reduce(
@@ -40,7 +40,7 @@ const CheckOutForm = () => {
               (Artículos)
             </span>
           </li>
-          <li className="flex justify-between text-gray-500  mb-1">
+          <li className="flex justify-between text-muted  mb-1">
             <span>Envió:</span>
             <span>
               <FormattedPrice amount={shipAmount} />
@@ -58,7 +58,7 @@ const CheckOutForm = () => {
           <div className="flex flex-col items-center gap-1">
             <Link
               href="/carrito/envio"
-              className="text-slate-100 text-center bg-black mt-4 py-3 px-6 hover:bg-card hover:text-foreground duration-300 ease-in-out cursor-pointer w-full rounded-xl"
+              className="text-slate-100 text-center bg-emerald-700 mt-4 py-3 px-6 hover:bg-card hover:text-foreground duration-300 ease-in-out cursor-pointer w-full rounded-xl"
             >
               Continuar
             </Link>

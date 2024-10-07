@@ -25,7 +25,6 @@ const AddressSchema = new mongoose.Schema(
     phone: {
       type: String,
       require: true,
-      unique: true,
     },
     user: {
       type: mongoose.Schema.Types.ObjectId,
