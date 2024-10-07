@@ -74,7 +74,12 @@ const MainMenuComponent = ({
               Cerrar Session!
             </div>
           ) : (
-            <span className="text-[13px] maxmd:hidden">Crea tu Cuenta</span>
+            <Link
+              href={"/iniciar"}
+              className="text-[13px] maxmd:hidden cursor-pointer"
+            >
+              Crea tu Cuenta
+            </Link>
           )}
 
           <span className="text-[13px] maxmd:hidden">Mis Compras</span>

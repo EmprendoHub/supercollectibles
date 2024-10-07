@@ -232,6 +232,7 @@ export const product_categories = [
   { es: "Cartas de Digimon", en: "Cartas de Digimon" },
   { es: "Cartas de One Piece", en: "Cartas de One Piece" },
   { es: "Cartas de Deportes", en: "Cartas de Deportes" },
+  { es: "Cartas de Magic", en: "Cartas de Magic" },
   { es: "Paquetes de Cartas", en: "Paquetes de Cartas" },
   { es: "Hot Wheels", en: "Hot Wheels" },
   { es: "Relojes de Colección", en: "Relojes de Colección" },
@@ -258,12 +259,13 @@ export const cat_articulos = [
 export const cat_misc = [{ value: "No Aplica", label: "No Aplica" }];
 
 export const genders = [
-  { es: "Nintendo", en: "Nintendo" },
-  { es: "Tomy", en: "Tomy" },
   { es: "Bandai", en: "Bandai" },
-  { es: "Namco", en: "Namco" },
-  { es: "Konami", en: "Konami" },
-  { es: "Mattel", en: "Mattel" },
   { es: "Disney", en: "Disney" },
   { es: "Hasbro", en: "Hasbro" },
+  { es: "Konami", en: "Konami" },
+  { es: "Mattel", en: "Mattel" },
+  { es: "Namco", en: "Namco" },
+  { es: "Nintendo", en: "Nintendo" },
+  { es: "Tomy", en: "Tomy" },
+  { es: "Wizards of the Coast", en: "Wizards of the Coast" },
 ];
