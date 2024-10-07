@@ -122,7 +122,6 @@ const PayCartComp = ({
     } else {
       const data = await result.json();
       const order = JSON.parse(data.newOrder);
-      console.log(order);
       setValidationError(null);
       dispatch(savePOSOrder({ order: order }));
       dispatch(resetPOSCart());

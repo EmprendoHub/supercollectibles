@@ -1,27 +1,9 @@
 import dbConnect from "@/lib/db";
 import Address from "@/backend/models/Address";
-import { headers } from "next/headers";
-import { userAgent } from "next/server";
 
 export async function GET(request: Request) {
   const sessionRaw = request.headers.get("session");
   const session = sessionRaw ? JSON.parse(sessionRaw) : null;
-
-  // Extract the user agent string from the browser
-  const header = headers();
-  const { device } = userAgent(request);
-  const viewport = device.type === "mobile" ? "mobile" : "desktop";
-
-  // Get the client IP address
-  const forwardedFor = header.get("x-forwarded-for");
-  const clientIp = forwardedFor
-    ? forwardedFor.split(",")[0].trim()
-    : header.get("x-real-ip") ||
-      request.headers.get("x-real-ip") ||
-      "127.0.0.1";
-
-  console.log(clientIp, "userip");
-  console.log(viewport, "viewport");
 
   if (!session) {
     // Not Signed in

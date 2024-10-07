@@ -202,7 +202,7 @@ const EditVariationProduct = ({
               try {
                 const parsed = JSON.parse(url);
                 url = parsed.url;
-                console.log("file, url", file, url);
+                // console.log("file, url", file, url);
                 await compressAndOptimizeImage(file, url, index);
                 resolve();
               } catch (error) {
