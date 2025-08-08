@@ -59,10 +59,10 @@ export default function UnderConstruction() {
         {/* Countdown Timer */}
         <div className="mt-8 grid grid-cols-4 gap-4">
           {[
-            { label: "Days", value: timeLeft.days },
-            { label: "Hours", value: timeLeft.hours },
-            { label: "Minutes", value: timeLeft.minutes },
-            { label: "Seconds", value: timeLeft.seconds },
+            { label: "Dias", value: timeLeft.days },
+            { label: "Horas", value: timeLeft.hours },
+            { label: "Minutos", value: timeLeft.minutes },
+            { label: "Segundos", value: timeLeft.seconds },
           ].map((item, index) => (
             <motion.div
               key={index}
