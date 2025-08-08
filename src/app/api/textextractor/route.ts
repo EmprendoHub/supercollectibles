@@ -14,9 +14,7 @@ export async function POST(request: any) {
     apiKey: process.env.OPEN_AI_KEY,
   });
 
-  const { imageUrl } = await request.json();
-
-  console.log("imageUrl", imageUrl);
+  const { imageText } = await request.json();
 
   try {
     const chatCompletion = await openai.chat.completions.create({
@@ -25,11 +23,11 @@ export async function POST(request: any) {
       messages: [
         {
           role: "system",
-          content: `You are a helpful assistant that extracts text from images and generates an SEO-optimized title and description for a product based on that text.`,
+          content: `You are a Search Engine Optimization expert that writes engaging copy and generates an SEO-optimized title and description for a product based on that text.`,
         },
         {
           role: "user",
-          content: `Analyze this image: ${imageUrl} and generate a search engine optimized title and description for the product.`,
+          content: `Analyze this text: ${imageText} first unjumble and extract the known english words and then generate a search engine optimized title and description for the product.`,
         },
       ],
     });
@@ -37,13 +35,21 @@ export async function POST(request: any) {
     const { content }: any = chatCompletion.choices[0].message;
     console.log("content", content);
 
-    const [title, description] = content
-      .split("\n")
-      .map((line: string) => line.trim());
+    let title = content.match(/Title:\s*(.*)/)?.[1];
+    let description = content.match(/Description:\s*(.*)/)?.[1];
+    if (title && description) {
+      // Use a regular expression with the global flag to replace all occurrences of "
+      title = title.replace(/"/g, "");
+      description = description.replace(/"/g, "");
+      title = title.replace(/:/g, "");
+      description = description.replace(/:/g, "");
+    } else {
+      title = "No se encontró el titulo";
+      description = "No se genero descripción";
+    }
 
     return NextResponse.json(
       {
-        message: "Email no verificado",
         title: title,
         description: description,
       },

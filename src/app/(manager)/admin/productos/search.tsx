@@ -32,6 +32,7 @@ const SearchProducts = ({ search }: { search: any }) => {
     } else {
       router.push(`/${pathname}/productos?keyword=${query}`);
     }
+    //eslint-disable-next-line
   }, [query]);
 
   return (

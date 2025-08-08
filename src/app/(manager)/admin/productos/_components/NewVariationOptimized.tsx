@@ -17,6 +17,7 @@ import ToggleSwitch from "@/components/layouts/ToggleSwitch";
 import { toast } from "@/components/ui/use-toast";
 import { ValidationError } from "@/types";
 import { Loader } from "@/components/loader";
+import convertor from "@/lib/convertor";
 
 // Modify the extractImageName function to handle potential errors
 function extractImageName(url: string | undefined): string {
@@ -38,6 +39,7 @@ const NewVariationOptimized = ({
   const [title, setTitle] = useState("");
   const [isSending, setIsSending] = useState(false);
   const [isProcessing, setIsProcessing] = useState(false);
+  const [imageText, setImageText] = useState<Array<string>>([]);
   const [brand, setBrand] = useState("");
   const [grade, setGrade] = useState(0);
   const [onlineAvailability, setOnlineAvailability] = useState(true);
@@ -140,22 +142,6 @@ const NewVariationOptimized = ({
     setVariations(newVariations);
   };
 
-  async function removeImageBackground(file: File) {
-    const endpoint = `/api/bgremover/`;
-
-    // Create a FormData object and append the file
-    const formData = new FormData();
-    formData.append("image", file);
-
-    const newNoBgFile = await fetch(endpoint, {
-      method: "POST",
-      body: formData, // Send the form data
-    });
-
-    const response = await newNoBgFile.json();
-    return response.images;
-  }
-
   // Handle image variations change
   const handleVariationImageChange = async (e: any, index: number) => {
     let files = e?.target.files;
@@ -163,38 +149,6 @@ const NewVariationOptimized = ({
       for (var i = 0; i < files?.length; i++) {
         var file = files[i];
         try {
-          // const noBgResponse = await removeImageBackground(file);
-
-          // if (!noBgResponse || !noBgResponse.url) {
-          //   throw new Error("Background removal failed or no URL provided");
-          // }
-
-          // const imageName = extractImageName(noBgResponse.url);
-          // const noBgImageUrl = noBgResponse.url;
-
-          // console.log("noBgImageUrl", noBgImageUrl);
-
-          // const endpoint = `${process.env.NEXT_PUBLIC_NEXTAUTH_URL}/api/bgremover/`;
-          // const response = await fetch(endpoint, {
-          //   method: "GET",
-          //   headers: { noBgImageUrl: noBgImageUrl },
-          // });
-
-          // if (!response.ok) {
-          //   throw new Error(`HTTP error! status: ${response.status}`);
-          // }
-
-          // const blob = await response.blob();
-
-          // const noBgFile = new File([blob], `nobg_${imageName}`, {
-          //   type: blob.type || "image/png",
-          // });
-
-          // // Validate file
-          // if (noBgFile.size === 0) {
-          //   throw new Error("Background removed file is empty");
-          // }
-
           // Retrieve a URL from our server and process the image
           await new Promise<void>((resolve, reject) => {
             retrieveNewURL(file, async (file, url) => {
@@ -261,38 +215,6 @@ const NewVariationOptimized = ({
       for (var i = 0; i < files?.length; i++) {
         var file = files[i];
         try {
-          // const noBgResponse = await removeImageBackground(file);
-
-          // if (!noBgResponse || !noBgResponse.url) {
-          //   throw new Error("Background removal failed or no URL provided");
-          // }
-
-          // const imageName = extractImageName(noBgResponse.url);
-          // const noBgImageUrl = noBgResponse.url;
-
-          // console.log("noBgImageUrl", noBgImageUrl);
-
-          // const endpoint = `/api/bgremover/`;
-          // const response = await fetch(endpoint, {
-          //   method: "GET",
-          //   headers: { noBgImageUrl: noBgImageUrl },
-          // });
-
-          // if (!response.ok) {
-          //   throw new Error(`HTTP error! status: ${response.status}`);
-          // }
-
-          // const blob = await response.blob();
-
-          // const noBgFile = new File([blob], `nobg_${imageName}`, {
-          //   type: blob.type || "image/png",
-          // });
-
-          // // Validate file
-          // if (noBgFile.size === 0) {
-          //   throw new Error("Background removed file is empty");
-          // }
-
           // Retrieve a URL from our server and process the image
           await new Promise<void>((resolve, reject) => {
             retrieveNewURL(file, async (file, url) => {
@@ -427,60 +349,9 @@ const NewVariationOptimized = ({
     if (files) {
       for (var i = 0; i < files?.length; i++) {
         var file = files[i];
-        // const reader = new FileReader();
-        // reader.readAsDataURL(file);
-        // reader.onload = async () => {
-        //   if (typeof reader.result === "string") {
-        //     const seoResponse = await fetch("/api/textextractor", {
-        //       method: "POST",
-        //       headers: {
-        //         "Content-Type": "application/json",
-        //       },
-        //       body: JSON.stringify({ imageUrl: reader.result }),
-        //     });
-
-        //     if (!seoResponse.ok) {
-        //       throw new Error("Failed to generate SEO content");
-        //     }
-
-        //     const { title, description } = await seoResponse.json();
-        //     console.log("title, descripction", title, description);
-        //     setDescription(description);
-        //     setTitle(title);
-        //   }
-        // };
 
         try {
           setIsProcessing(true);
-          // const noBgResponse = await removeImageBackground(file);
-
-          // if (!noBgResponse || !noBgResponse.url) {
-          //   throw new Error("Background removal failed or no URL provided");
-          // }
-
-          // const imageName = extractImageName(noBgResponse.url);
-          // const noBgImageUrl = noBgResponse.url;
-
-          // const endpoint = `/api/bgremover/`;
-          // const response = await fetch(endpoint, {
-          //   method: "GET",
-          //   headers: { noBgImageUrl: noBgImageUrl },
-          // });
-
-          // if (!response.ok) {
-          //   throw new Error(`HTTP error! status: ${response.status}`);
-          // }
-
-          // const blob = await response.blob();
-
-          // const noBgFile = new File([blob], `nobg_${imageName}`, {
-          //   type: blob.type || "image/png",
-          // });
-
-          // // Validate file
-          // if (noBgFile.size === 0) {
-          //   throw new Error("Background removed file is empty");
-          // }
 
           // Retrieve a URL from our server and process the image
           await new Promise<void>((resolve, reject) => {
@@ -496,7 +367,6 @@ const NewVariationOptimized = ({
               }
             });
           });
-          setIsProcessing(false);
         } catch (error) {
           console.error("Error during upload:", error);
           setIsProcessing(false);
@@ -523,6 +393,8 @@ const NewVariationOptimized = ({
     const imageUrl = URL.createObjectURL(file);
     const img = await loadImage(imageUrl);
 
+    await convert(imageUrl);
+
     // Create a canvas element
     const canvas = document.createElement("canvas");
     const ctx = canvas.getContext("2d");
@@ -533,7 +405,7 @@ const NewVariationOptimized = ({
 
     let width = img.width;
     let height = img.height;
-    const maxDimension = 1024;
+    const maxDimension = 1080;
 
     if (width > height && width > maxDimension) {
       height = Math.round((height * maxDimension) / width);
@@ -555,6 +427,16 @@ const NewVariationOptimized = ({
     uploadFile(blobData, url, section);
   }
 
+  const convert = async (url: string) => {
+    if (url.length) {
+      await convertor(url).then((txt: string) => {
+        let copyTexts: Array<string> = imageText;
+        copyTexts.push(txt);
+        setImageText(copyTexts);
+      });
+    }
+  };
+
   // to upload this file to S3 at `https://minio.salvawebpro.com:9000` using the URL:
   async function uploadFile(
     blobData: Blob,
@@ -572,23 +454,26 @@ const NewVariationOptimized = ({
         // ).innerHTML += `<br>Uploaded ${file.name}.`;
         const newUrl = url.split("?");
         const imageUrl = newUrl[0];
+
         // Call the new API route to generate SEO content
         // const seoResponse = await fetch("/api/textextractor", {
         //   method: "POST",
         //   headers: {
         //     "Content-Type": "application/json",
         //   },
-        //   body: JSON.stringify({ imageUrl }),
+        //   body: JSON.stringify({ imageText }),
         // });
 
         // if (!seoResponse.ok) {
+        //   setIsProcessing(false);
+
         //   throw new Error("Failed to generate SEO content");
         // }
 
         // const { title, description } = await seoResponse.json();
-        // console.log("title, descripction", title, description);
         // setDescription(description);
         // setTitle(title);
+
         if (section === "selectorMain") {
           setMainImage(newUrl[0]);
           setVariations([
@@ -608,6 +493,7 @@ const NewVariationOptimized = ({
         if (section === "selectorVarOne") {
           setMainVariation(newUrl[0]);
         }
+        setIsProcessing(false);
       })
       .catch((e) => {
         console.error(e);
@@ -754,9 +640,7 @@ const NewVariationOptimized = ({
       setValidationError(null);
 
       await updateRevalidateProduct();
-      if (pathname.includes("instagram")) {
-        router.push("/instagram/productos");
-      } else if (pathname.includes("admin")) {
+      if (pathname.includes("admin")) {
         router.push("/admin/productos");
       }
     }

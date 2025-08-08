@@ -155,7 +155,7 @@ const ProductCard = ({ item, index }: { item: any; index: number }) => {
         >
           {alreadyCart ? (
             <Link href="/carrito">
-              <span className="  border-black text-[12px] text-slate-100 rounded-full border  drop-shadow-md flex flex-row items-center justify-between px-6 py-2  gap-x-4 bg-primary ease-in-out  duration-300 w-auto tracking-wider cursor-not-allowed ">
+              <span className="  border-black text-[12px] text-slate-100 rounded-full border  drop-shadow-md flex flex-row items-center justify-between   gap-x-4 bg-primary ease-in-out  duration-300 w-auto tracking-wider cursor-not-allowed ">
                 {"En Carrito"}
               </span>
             </Link>
@@ -168,20 +168,20 @@ const ProductCard = ({ item, index }: { item: any; index: number }) => {
                 item?.stock <= 0
                   ? "bg-slate-500  bg-opacity-50 text-foreground border-slate-300 cursor-not-allowed"
                   : "text-white border-black cursor-pointer "
-              } rounded-full border  drop-shadow-md flex flex-row items-center justify-between px-6 py-2  gap-x-4 text-[12px] bg-primary ease-in-out  duration-300 w-auto uppercase tracking-wider `}
+              } rounded-full border  drop-shadow-md flex flex-row items-center justify-between gap-x-4 text-[12px] bg-primary ease-in-out  duration-300 w-auto uppercase tracking-wider `}
               onClick={item?.stock <= 0 ? handleClick : () => {}}
             >
               {item?.stock <= 0 ? (
-                "Vendido"
+                <span className="py-2 px-2 ">Vendido</span>
               ) : (
                 <span
                   className={`text-white ${
                     item?.stock <= 0
                       ? "bg-slate-500 bg-opacity-50 text-foreground "
                       : "group-hover:bg-black group-hover:text-white duration-200 "
-                  } text-xl text-foreground w-12 flex items-center justify-center  rounded-full py-2`}
+                  }  text-foreground w-auto text-[11px] px-2 flex items-center justify-center  rounded-full py-2`}
                 >
-                  <IoMdCart size={18} />
+                  +<IoMdCart size={18} /> Agregar
                 </span>
               )}
             </motion.button>

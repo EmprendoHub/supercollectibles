@@ -42,6 +42,7 @@ import Customer from "@/backend/models/Customer";
 import { getToken } from "next-auth/jwt";
 import TestUser from "@/backend/models/TestUser";
 import { NextResponse } from "next/server";
+import OpenAI from "openai";
 
 // Function to get the document count for all from the previous month
 const getDocumentCountPreviousMonth = async (model: any) => {
@@ -3459,29 +3460,9 @@ export async function addNewPost(data: any) {
     sectionThreeImage,
     sectionThreeParagraphFooter,
     sectionFourTitle,
-    sectionFourOptionOne,
-    sectionFourOptionTwo,
-    sectionFourOptionThree,
-    sectionFourParagraphOne,
     sectionFourImage,
-    sectionFourParagraphFooter,
-    sectionFiveTitle,
-    sectionFiveImage,
-    sectionFiveParagraphOne,
-    sectionFiveParagraphTwo,
-    sectionSixColOneTitle,
-    sectionSixColOneParagraph,
-    sectionSixColOneImage,
-    sectionSixColTwoTitle,
-    sectionSixColTwoParagraph,
-    sectionSixColTwoImage,
-    sectionSixColThreeTitle,
-    sectionSixColThreeParagraph,
-    sectionSixColThreeImage,
-    sectionSixColOneParagraphFooter,
-    sectionSevenTitle,
-    sectionSevenImage,
-    sectionSevenParagraph,
+    sectionFourParagraphOne,
+    sectionFourParagraphTwo,
     createdAt,
   } = Object.fromEntries(data);
 
@@ -3523,29 +3504,9 @@ export async function addNewPost(data: any) {
     sectionThreeImage,
     sectionThreeParagraphFooter,
     sectionFourTitle,
-    sectionFourOptionOne,
-    sectionFourOptionTwo,
-    sectionFourOptionThree,
-    sectionFourParagraphOne,
     sectionFourImage,
-    sectionFourParagraphFooter,
-    sectionFiveTitle,
-    sectionFiveImage,
-    sectionFiveParagraphOne,
-    sectionFiveParagraphTwo,
-    sectionSixColOneTitle,
-    sectionSixColOneParagraph,
-    sectionSixColOneImage,
-    sectionSixColTwoTitle,
-    sectionSixColTwoParagraph,
-    sectionSixColTwoImage,
-    sectionSixColThreeTitle,
-    sectionSixColThreeParagraph,
-    sectionSixColThreeImage,
-    sectionSixColOneParagraphFooter,
-    sectionSevenTitle,
-    sectionSevenImage,
-    sectionSevenParagraph,
+    sectionFourParagraphOne,
+    sectionFourParagraphTwo,
     createdAt,
     published: true,
     authorId: { _id: session?.user._id },
@@ -3581,19 +3542,6 @@ export async function updatePost(data: any) {
     sectionFiveImage,
     sectionFiveParagraphOne,
     sectionFiveParagraphTwo,
-    sectionSixColOneTitle,
-    sectionSixColOneParagraph,
-    sectionSixColOneImage,
-    sectionSixColTwoTitle,
-    sectionSixColTwoParagraph,
-    sectionSixColTwoImage,
-    sectionSixColThreeTitle,
-    sectionSixColThreeParagraph,
-    sectionSixColThreeImage,
-    sectionSixColOneParagraphFooter,
-    sectionSevenTitle,
-    sectionSevenImage,
-    sectionSevenParagraph,
     updatedAt,
   } = Object.fromEntries(data);
 
@@ -3646,19 +3594,6 @@ export async function updatePost(data: any) {
       sectionFiveImage,
       sectionFiveParagraphOne,
       sectionFiveParagraphTwo,
-      sectionSixColOneTitle,
-      sectionSixColOneParagraph,
-      sectionSixColOneImage,
-      sectionSixColTwoTitle,
-      sectionSixColTwoParagraph,
-      sectionSixColTwoImage,
-      sectionSixColThreeTitle,
-      sectionSixColThreeParagraph,
-      sectionSixColThreeImage,
-      sectionSixColOneParagraphFooter,
-      sectionSevenTitle,
-      sectionSevenImage,
-      sectionSevenParagraph,
       updatedAt,
       published: true,
       authorId: { _id: session?.user._id },
@@ -4234,5 +4169,269 @@ export async function resetAccountEmail(data: any) {
         email: { _errors: [`Failed Google Captcha Score: ${res.data?.score}`] },
       },
     };
+  }
+}
+
+function delay(milliseconds = 5000) {
+  return new Promise((resolve) => setTimeout(resolve, milliseconds));
+}
+
+export async function createFBPost(pageId: string, prompt: string) {
+  const openai = new OpenAI({
+    apiKey: process.env.OPEN_AI_KEY,
+  });
+
+  const aiPromptRequest = await openai.chat.completions.create({
+    messages: [
+      {
+        role: "system",
+        content: `You are an expert in Search Engine Optimization and engaging copywriting. Your task is to generate SEO-optimized content for a blog called Super Collectibles MX, which sells sports memorabilia, cartoons like Pokémon, Yu-Gi-Oh, and card games like Magic. Always output the response in the same structured JSON format.`,
+      },
+      {
+        role: "user",
+        content: `Generate an SEO-optimized title, description, social_media_post, and midjourney_image_prompt for the blog using the following concept: ${prompt}. The title, description, and social_media_post should be in Spanish, while the midjourney_image_prompt should be in English. Always return the response as JSON with these exact field names: "title", "description", "social_media_post", "midjourney_image_prompt".`,
+      },
+    ],
+    model: "gpt-3.5-turbo-0125",
+  });
+
+  if (aiPromptRequest.choices[0].message.content) {
+    await aiPromptRequest.choices[0].message.content.replace("```", "").trim();
+    await aiPromptRequest.choices[0].message.content.replace("json", "").trim();
+
+    const responseContent = JSON.parse(
+      aiPromptRequest.choices[0].message.content
+    );
+
+    // Parse the content manually
+    // const extractContent = async (content: string) => {
+    //   const lines = content.split("\n").filter((line) => line.trim() !== "");
+    //   const result: any = {};
+
+    //   lines.forEach((line) => {
+    //     if (line.startsWith("Title:")) {
+    //       result.title = line.replace("Title:", "").trim();
+    //     } else if (line.startsWith("Description:")) {
+    //       result.description = line.replace("Description:", "").trim();
+    //     } else if (line.startsWith("Social Media Post:")) {
+    //       result.social_summary = line.replace("Social Media Post:", "").trim();
+    //     } else if (line.startsWith("Midjourney Image Prompt:")) {
+    //       result.midjourney_prompt = line
+    //         .replace("Midjourney Image Prompt:", "")
+    //         .trim();
+    //     }
+    //   });
+
+    //   return result;
+    // };
+
+    //const parsedResponse = await extractContent(responseContent);
+    console.log("Parsed Response:", responseContent);
+
+    const message = responseContent.social_media_post;
+    const prompt = responseContent.midjourney_image_prompt;
+
+    if (prompt) {
+      const headers = {
+        Authorization: `Bearer ${process.env.FB_API_TOKEN}`,
+      };
+
+      try {
+        // Generate post image with MidJourney
+
+        const midJourneyUrl = "https://api.goapi.ai/api/v1/task";
+
+        const dataMidjourneyImagine = JSON.stringify({
+          model: "midjourney",
+          task_type: "imagine",
+          input: {
+            prompt: prompt,
+            aspect_ratio: "1:1",
+            process_mode: "fast",
+            skip_prompt_check: false,
+            bot_id: 0,
+          },
+          config: {
+            service_mode: "",
+            webhook_config: {
+              endpoint: "",
+              secret: "",
+            },
+          },
+        });
+
+        const configImagine = {
+          method: "post",
+          url: midJourneyUrl,
+          headers: {
+            "x-api-key": `${process.env.GO_API_AI_KEY}`,
+            "Content-Type": "application/json",
+          },
+          data: dataMidjourneyImagine,
+        };
+
+        const responseMidJourney = await axios(configImagine);
+        if (responseMidJourney.status === 200) {
+          await delay(45000); // Default 10 seconds
+
+          const dataMidjourneyUpscale = JSON.stringify({
+            model: "midjourney",
+            task_type: "upscale",
+            input: {
+              origin_task_id: responseMidJourney.data.data.task_id,
+              index: "3",
+            },
+            config: {
+              service_mode: "",
+              webhook_config: {
+                endpoint: "",
+                secret: "",
+              },
+            },
+          });
+          const configUpscale = {
+            method: "post",
+            url: midJourneyUrl,
+            headers: {
+              "X-API-Key": `${process.env.GO_API_AI_KEY}`,
+              "Content-Type": "application/json",
+            },
+            data: dataMidjourneyUpscale,
+          };
+
+          const responseMidJourneyUpscale = await axios(configUpscale);
+          if (responseMidJourneyUpscale.status === 200) {
+            await delay(45000); // Default 10 seconds
+            const getImageConfig = {
+              method: "get",
+              url: `${midJourneyUrl}/${responseMidJourneyUpscale.data.data.task_id}`,
+              headers: {
+                "x-api-key": `${process.env.GO_API_AI_KEY}`,
+              },
+            };
+
+            const responseMidJourneyGetImage = await axios(getImageConfig);
+
+            if (
+              responseMidJourneyGetImage.status === 200 &&
+              responseMidJourneyGetImage.data.data.output.image_url !== ""
+            ) {
+              console.log("Successfully created MidJourney Image:");
+
+              const postImage =
+                responseMidJourneyGetImage.data.data.output.image_url;
+
+              const data = {
+                message: message,
+                published: true,
+                url: postImage,
+              };
+              const baseUrl = `https://graph.facebook.com/v21.0/${pageId}/photos`;
+              const createFBPostResponse = await axios.post(baseUrl, data, {
+                headers,
+              });
+
+              if (createFBPostResponse.status === 200) {
+                console.log("Successfully created Facebook post:");
+                const instagramId = "17841435543056975";
+                const instagramBaseUrl = `https://graph.facebook.com/v21.0/${instagramId}/media`;
+                const instagramData = {
+                  caption: message,
+                  image_url: postImage,
+                };
+
+                const instagramResponse = await axios.post(
+                  instagramBaseUrl,
+                  instagramData,
+                  { headers }
+                );
+
+                if (instagramResponse.status === 200) {
+                  console.log(
+                    "Successfully created Instagram post:",
+                    instagramResponse.data.id
+                  );
+
+                  const mediaPublishData = {
+                    creation_id: instagramResponse.data.id,
+                  };
+                  const publishToInstagramUrl = `https://graph.facebook.com/v21.0/${instagramId}/media_publish`;
+
+                  const instagramPublishResponse = await axios.post(
+                    publishToInstagramUrl,
+                    mediaPublishData,
+                    { headers }
+                  );
+
+                  console.log("Instagram Publish Response");
+
+                  return { status: 200, data: instagramPublishResponse.data };
+                }
+              } else {
+                console.error(
+                  "Unexpected response status:",
+                  createFBPostResponse.status
+                );
+                return {
+                  status: createFBPostResponse.status,
+                  data: createFBPostResponse.data,
+                };
+              }
+            }
+          }
+        }
+        console.log(JSON.stringify(responseMidJourney.data));
+      } catch (error: any) {
+        console.error(
+          "Failed to respond to Facebook post:",
+          error.response?.data || error.message
+        );
+        return { status: 400, error: error.response?.data || error.message };
+      }
+    }
+  }
+}
+
+export async function subscribeToFbApp(pageId: string) {
+  const fbPage = pageId || "107551511895797";
+
+  // Expanded fields to get more user information
+  const baseUrl = `https://graph.facebook.com/v21.0/${fbPage}/subscribed_apps?subscribed_fields=feed`;
+
+  const headers = {
+    Authorization: `Bearer ${process.env.FB_API_TOKEN}`,
+  };
+  const config: any = {
+    method: "post",
+    url: baseUrl,
+    headers,
+  };
+
+  try {
+    // console.log("Initial API Call URL:", nextPageUrl);
+
+    const response: any = await axios(config);
+
+    if (response && response.status === 200) {
+      const subscribeResponse = response;
+      console.log(subscribeResponse.data);
+
+      return {
+        status: 200,
+        response: JSON.stringify(subscribeResponse.data),
+      };
+    }
+
+    if (response && response.error) {
+      /* handle the result */
+      console.log(response.error);
+      return {
+        status: 400,
+        response: JSON.stringify(response.error),
+      };
+    }
+  } catch (error) {
+    console.error("Catastrophic error in subscribing to Facebook page:", error);
+    return { status: 400 };
   }
 }

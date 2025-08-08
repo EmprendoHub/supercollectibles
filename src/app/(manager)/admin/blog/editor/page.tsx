@@ -1,7 +1,7 @@
-import BlogEditorComponent from "../_components/BlogEditorComponent";
+import CreatePostComponent from "../_components/CreatePostComponent";
 
 const BlogEditorPage = () => {
-  return <BlogEditorComponent />;
+  return <CreatePostComponent />;
 };
 
 export default BlogEditorPage;

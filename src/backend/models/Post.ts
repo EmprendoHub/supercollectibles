@@ -1,4 +1,4 @@
-import mongoose from 'mongoose';
+import mongoose from "mongoose";
 
 const PostSchema = new mongoose.Schema({
   category: {
@@ -20,7 +20,6 @@ const PostSchema = new mongoose.Schema({
   metaTitle: {
     type: String,
   },
-
   summary: {
     type: String,
   },
@@ -48,73 +47,13 @@ const PostSchema = new mongoose.Schema({
   sectionFourTitle: {
     type: String,
   },
-  sectionFourOptionOne: {
-    type: String,
-  },
-  sectionFourOptionTwo: {
-    type: String,
-  },
-  sectionFourOptionThree: {
+  sectionFourImage: {
     type: String,
   },
   sectionFourParagraphOne: {
     type: String,
   },
-  sectionFourImage: {
-    type: String,
-  },
-  sectionFourParagraphFooter: {
-    type: String,
-  },
-  sectionFiveTitle: {
-    type: String,
-  },
-  sectionFiveImage: {
-    type: String,
-  },
-  sectionFiveParagraphOne: {
-    type: String,
-  },
-  sectionFiveParagraphTwo: {
-    type: String,
-  },
-  sectionSixColOneTitle: {
-    type: String,
-  },
-  sectionSixColOneParagraph: {
-    type: String,
-  },
-  sectionSixColOneImage: {
-    type: String,
-  },
-  sectionSixColTwoTitle: {
-    type: String,
-  },
-  sectionSixColTwoParagraph: {
-    type: String,
-  },
-  sectionSixColTwoImage: {
-    type: String,
-  },
-  sectionSixColThreeTitle: {
-    type: String,
-  },
-  sectionSixColThreeParagraph: {
-    type: String,
-  },
-  sectionSixColThreeImage: {
-    type: String,
-  },
-  sectionSixColOneParagraphFooter: {
-    type: String,
-  },
-  sectionSevenTitle: {
-    type: String,
-  },
-  sectionSevenImage: {
-    type: String,
-  },
-  sectionSevenParagraph: {
+  sectionFourParagraphTwo: {
     type: String,
   },
   published: {
@@ -123,7 +62,7 @@ const PostSchema = new mongoose.Schema({
   },
   authorId: {
     type: mongoose.Schema.Types.ObjectId,
-    ref: 'User',
+    ref: "User",
   },
   createdAt: {
     type: Date,
@@ -133,4 +72,4 @@ const PostSchema = new mongoose.Schema({
   },
 });
 
-export default mongoose?.models?.Post || mongoose.model('Post', PostSchema);
+export default mongoose?.models?.Post || mongoose.model("Post", PostSchema);

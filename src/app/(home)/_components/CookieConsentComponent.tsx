@@ -1,13 +1,13 @@
 "use client";
 import Link from "next/link";
-import { hasCookie, setCookie } from "cookies-next";
+import Cookies from "js-cookie";
 import React, { useEffect, useState } from "react";
 
 export default function CookieConsentComponent() {
   const [showConsent, setShowConsent] = useState(true);
   const [ipAddress, setIpAddress] = useState("");
 
-  // get user IP address
+  // Get user IP address
   useEffect(() => {
     const fetchIp = async () => {
       try {
@@ -23,15 +23,16 @@ export default function CookieConsentComponent() {
   }, []);
 
   useEffect(() => {
-    setShowConsent(hasCookie("localConsent"));
+    // Check if the cookie exists
+    setShowConsent(Cookies.get("localConsent") !== "true");
   }, []);
 
   const giveCookieConsent = () => {
-    setShowConsent(true);
-    setCookie("localConsent", "true", {});
+    setShowConsent(false);
+    Cookies.set("localConsent", "true", { expires: 365 }); // Set cookie to expire in 1 year
   };
 
-  if (showConsent) {
+  if (!showConsent) {
     return null;
   }
 
@@ -47,7 +48,7 @@ export default function CookieConsentComponent() {
         </p>
         <button
           className="w-[200px] maxsm:w-[100px] py-2 bg-primary text-white flex justify-center items-center cursor-pointer"
-          onClick={() => giveCookieConsent()}
+          onClick={giveCookieConsent}
         >
           Aceptar
         </button>

@@ -20,19 +20,19 @@ export default function UserLayout({ children }: { children: any }) {
           <SideBarItem
             icon={<TfiDashboard size={20} />}
             text={"Tablero"}
-            active={pathname === "/admin" ?? true}
+            active={pathname === "/perfil" ? true : false}
             url={"/perfil"}
           />
           <SideBarItem
             icon={<TbDeviceIpadDollar size={20} />}
             text={"Pedidos"}
-            active={pathname === "/perfil/pedidos" ?? true}
+            active={pathname === "/perfil/pedidos" ? true : false}
             url={"/perfil/pedidos"}
           />
           <SideBarItem
             icon={<FaHeart size={20} />}
             text={"Favoritos"}
-            active={pathname === "/perfil/favoritos" ?? true}
+            active={pathname === "/perfil/favoritos" ? true : false}
             url={"/perfil/favoritos"}
           />
           <SideBarItem
@@ -48,13 +48,13 @@ export default function UserLayout({ children }: { children: any }) {
               {
                 text: "Todas",
                 url: "/perfil/direcciones",
-                active: pathname === "/perfil/direcciones" ?? true,
+                active: pathname === "/perfil/direcciones" ? true : false,
                 icon: <FaRegAddressCard size={20} />,
               },
               {
                 text: "Nueva Dirección",
                 url: "/perfil/direcciones/nueva",
-                active: pathname === "/perfil/direcciones/nueva" ?? true,
+                active: pathname === "/perfil/direcciones/nueva" ? true : false,
                 icon: <MdOutlineAddHomeWork size={20} />,
               },
               // Add more dropdown items as needed
@@ -66,13 +66,13 @@ export default function UserLayout({ children }: { children: any }) {
           <SideBarItem
             icon={<FaUserEdit size={20} />}
             text={"Actualizar Perfil"}
-            active={pathname === "/perfil/actualizar" ?? true}
+            active={pathname === "/perfil/actualizar" ? true : false}
             url={"/perfil/actualizar"}
           />
           <SideBarItem
             icon={<RiLockPasswordLine size={20} />}
             text={"Actualizar Contraseña"}
-            active={pathname === "/perfil/actualizar_contrasena" ?? true}
+            active={pathname === "/perfil/actualizar_contrasena" ? true : false}
             url={"/perfil/actualizar_contrasena"}
           />
         </AdminSidebar>

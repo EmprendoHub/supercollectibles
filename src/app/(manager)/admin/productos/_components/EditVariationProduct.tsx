@@ -11,6 +11,8 @@ import {
   cat_tarjetas,
   product_categories,
   genders,
+  cat_articulos,
+  cat_misc,
 } from "@/backend/data/productData";
 import ToggleSwitch from "@/components/layouts/ToggleSwitch";
 import { StaticImport } from "next/dist/shared/lib/get-img-props";
@@ -138,22 +140,6 @@ const EditVariationProduct = ({
     setVariations(newVariations);
   };
 
-  async function removeImageBackground(file: File) {
-    const endpoint = `/api/bgremover/`;
-
-    // Create a FormData object and append the file
-    const formData = new FormData();
-    formData.append("image", file);
-
-    const newNoBgFile = await fetch(endpoint, {
-      method: "POST",
-      body: formData, // Send the form data
-    });
-
-    const response = await newNoBgFile.json();
-    return response.images;
-  }
-
   // Handle image variations change
   const handleVariationImageChange = async (e: any, index: number) => {
     let files = e?.target.files;
@@ -161,41 +147,6 @@ const EditVariationProduct = ({
       for (var i = 0; i < files?.length; i++) {
         var file = files[i];
         try {
-          // const noBgResponse = await removeImageBackground(file);
-
-          // if (!noBgResponse || !noBgResponse.url) {
-          //   throw new Error("Background removal failed or no URL provided");
-          // }
-
-          // const imageName = extractImageName(noBgResponse.url);
-          // const noBgImageUrl = noBgResponse.url;
-
-          // console.log("noBgImageUrl", noBgImageUrl);
-
-          // const endpoint = `/api/bgremover/`;
-          // const response = await fetch(endpoint, {
-          //   method: "GET",
-          //   headers: { noBgImageUrl: noBgImageUrl },
-          // });
-
-          // if (!response.ok) {
-          //   throw new Error(`HTTP error! status: ${response.status}`);
-          // }
-
-          // const blob = await response.blob();
-          // console.log("response get blob", blob);
-
-          // const noBgFile = new File([blob], `nobg_${imageName}`, {
-          //   type: blob.type || "image/png",
-          // });
-
-          // console.log("noBgFile", noBgFile);
-
-          // // Validate file
-          // if (noBgFile.size === 0) {
-          //   throw new Error("Background removed file is empty");
-          // }
-
           // Retrieve a URL from our server and process the image
           await new Promise<void>((resolve, reject) => {
             retrieveNewURL(file, async (file, url) => {
@@ -313,35 +264,6 @@ const EditVariationProduct = ({
 
         try {
           setIsProcessing(true);
-          // const noBgResponse = await removeImageBackground(file);
-
-          // if (!noBgResponse || !noBgResponse.url) {
-          //   throw new Error("Background removal failed or no URL provided");
-          // }
-
-          // const imageName = extractImageName(noBgResponse.url);
-          // const noBgImageUrl = noBgResponse.url;
-
-          // const endpoint = `/api/bgremover/`;
-          // const response = await fetch(endpoint, {
-          //   method: "GET",
-          //   headers: { noBgImageUrl: noBgImageUrl },
-          // });
-
-          // if (!response.ok) {
-          //   throw new Error(`HTTP error! status: ${response.status}`);
-          // }
-
-          // const blob = await response.blob();
-
-          // const noBgFile = new File([blob], `nobg_${imageName}`, {
-          //   type: blob.type || "image/png",
-          // });
-
-          // // Validate file
-          // if (noBgFile.size === 0) {
-          //   throw new Error("Background removed file is empty");
-          // }
 
           // Retrieve a URL from our server and process the image
           await new Promise<void>((resolve, reject) => {
@@ -463,41 +385,6 @@ const EditVariationProduct = ({
       for (var i = 0; i < files?.length; i++) {
         var file = files[i];
         try {
-          // const noBgResponse = await removeImageBackground(file);
-
-          // if (!noBgResponse || !noBgResponse.url) {
-          //   throw new Error("Background removal failed or no URL provided");
-          // }
-
-          // const imageName = extractImageName(noBgResponse.url);
-          // const noBgImageUrl = noBgResponse.url;
-
-          // console.log("noBgImageUrl", noBgImageUrl);
-
-          // const endpoint = `/api/bgremover/`;
-          // const response = await fetch(endpoint, {
-          //   method: "GET",
-          //   headers: { noBgImageUrl: noBgImageUrl },
-          // });
-
-          // if (!response.ok) {
-          //   throw new Error(`HTTP error! status: ${response.status}`);
-          // }
-
-          // const blob = await response.blob();
-          // console.log("response get blob", blob);
-
-          // const noBgFile = new File([blob], `nobg_${imageName}`, {
-          //   type: blob.type || "image/png",
-          // });
-
-          // console.log("noBgFile", noBgFile);
-
-          // // Validate file
-          // if (noBgFile.size === 0) {
-          //   throw new Error("Background removed file is empty");
-          // }
-
           // Retrieve a URL from our server and process the image
           await new Promise<void>((resolve, reject) => {
             retrieveNewURL(file, async (file, url) => {
@@ -580,19 +467,29 @@ const EditVariationProduct = ({
 
   const handleCategoryChange = async (e: any) => {
     setCategory(e);
-    if (e === "Calzado") {
-      setSizeSelection(sizes_shoes_men);
-      setSizeSelectionLabel("Talla");
-    }
-
-    if (e === "Tarjetas" || e === "Figuras") {
+    if (e.includes("Cartas")) {
       setSizeSelection(cat_tarjetas);
-      setSizeSelectionLabel("Colección");
+      setSizeSelectionLabel("Condición");
     }
 
-    if (e === "Prendas") {
+    if (e === "Jerseys Autografiadas" || e === "Ropa de Colección") {
       setSizeSelection(sizes_prendas);
       setSizeSelectionLabel("Talla");
+    }
+
+    if (
+      e === "Hot Wheels" ||
+      e === "Figuras Pokemon" ||
+      e === "Memorabilia Deportiva" ||
+      e === "Relojes de Colección"
+    ) {
+      setSizeSelection(cat_articulos);
+      setSizeSelectionLabel("Condición");
+    }
+
+    if (e === "Artículos de Cuidado" || e === "Organizadores y Estuches") {
+      setSizeSelection(cat_misc);
+      setSizeSelectionLabel("Detalle");
     }
   };
 
@@ -603,9 +500,12 @@ const EditVariationProduct = ({
       setSizeSelectionLabel("Talla");
     }
 
-    if (category === "Tarjetas" || category === "Figuras") {
-      setSizeSelection(cat_tarjetas);
-      setSizeSelectionLabel("Colección");
+    if (
+      category === "Tarjetas Coleccionables" ||
+      category === "Figuras Coleccionables"
+    ) {
+      setSizeSelection(cat_articulos);
+      setSizeSelectionLabel("Condición");
     }
 
     if (category === "Prendas") {
@@ -629,8 +529,41 @@ const EditVariationProduct = ({
       setSizeSelection(cat_tarjetas);
     }
 
+    console.log("category", category);
+
+    if (category.includes("Cartas") || category.includes("Tarjetas")) {
+      setSizeSelection(cat_tarjetas);
+      setSizeSelectionLabel("Condición");
+    }
+
+    if (
+      category === "Jerseys Autografiadas" ||
+      category === "Ropa de Colección"
+    ) {
+      setSizeSelection(sizes_prendas);
+      setSizeSelectionLabel("Talla");
+    }
+
+    if (
+      category === "Hot Wheels" ||
+      category === "Figuras Pokemon" ||
+      category === "Memorabilia Deportiva" ||
+      category === "Relojes de Colección"
+    ) {
+      setSizeSelection(cat_articulos);
+      setSizeSelectionLabel("Condición");
+    }
+
+    if (
+      category === "Artículos de Cuidado" ||
+      category === "Organizadores y Estuches"
+    ) {
+      setSizeSelection(cat_misc);
+      setSizeSelectionLabel("Detalle");
+    }
+
     // eslint-disable-next-line
-  }, []);
+  }, [category]);
 
   async function hanldeFormSubmit(e: any) {
     e.preventDefault();
@@ -654,13 +587,6 @@ const EditVariationProduct = ({
         description: { _errors: ["Se requiere descripción "] },
       };
       setValidationError(noDescriptionError);
-      return;
-    }
-    if (!brand) {
-      const noBrandError = {
-        brand: { _errors: ["Se requiere un Marca "] },
-      };
-      setValidationError(noBrandError);
       return;
     }
 
@@ -922,6 +848,7 @@ const EditVariationProduct = ({
                       <select
                         className="block appearance-none border border-gray-300 bg-card text-card-foreground rounded-xl py-2 px-3 cursor-pointer focus:outline-none focus:border-gray-400 w-full"
                         name="gender"
+                        value={gender}
                         onChange={(e) => handleGenderChange(e.target.value)}
                       >
                         {genders?.map((gender) => (
@@ -956,6 +883,7 @@ const EditVariationProduct = ({
                       <select
                         className="block appearance-none border border-gray-400 bg-card text-card-foreground rounded-xl pl-2 py-2 focus:outline-none focus:border-gray-400 w-full cursor-pointer"
                         name="category"
+                        value={category}
                         onChange={(e) => handleCategoryChange(e.target.value)}
                       >
                         {product_categories.map((category) => (

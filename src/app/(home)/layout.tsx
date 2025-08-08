@@ -33,9 +33,9 @@ export default function RootLayout({
             enableSystem
             disableTransitionOnChange
           >
-            <HeaderComponent />
+            {/* <HeaderComponent /> */}
             {children}
-            <FooterComponent />
+            {/* <FooterComponent /> */}
             <CookieConsentComponent />
             <Toaster />
           </ThemeProvider>
