@@ -30,7 +30,7 @@ const ColTextColorComponent = ({
         initial={{ y: 30, opacity: 0 }}
         whileInView={{ y: 0, opacity: 1 }}
         transition={{ duration: 0.6 }}
-        className="text-sm maxsm:text-md tracking-widest uppercase"
+        className="text-base maxsm:text-md tracking-widest uppercase"
       >
         {pretitle}
       </motion.p>
@@ -46,7 +46,7 @@ const ColTextColorComponent = ({
         initial={{ y: 30, opacity: 0 }}
         whileInView={{ y: 0, opacity: 1 }}
         transition={{ duration: 0.8 }}
-        className="text-xs  tracking-wide "
+        className="text-base  tracking-wide "
       >
         {subtitle}
       </motion.p>
@@ -55,7 +55,7 @@ const ColTextColorComponent = ({
         whileInView={{ y: 0, opacity: 1 }}
         transition={{ duration: 0.9 }}
         className="
-        text-xs tracking-wide "
+        text-base tracking-wide "
       >
         <li>{addressOne}</li>
         <li>{addressTwo}</li>

@@ -86,10 +86,9 @@ const PoliticaPage = () => {
         <ul className="list-disc pl-8">
           <li>Teléfono: +52 (332)-218-9963</li>
           <li>
-            Av Arcos de Guadalupe 604, R-04 , Arcos de Guadalupe, Zapopan Jal
-            45037
+            Av. Ignacio L Vallarta 2425, Arcos Vallarta, 44130 Guadalajara, Jal.
           </li>
-          <li>Correo Electrónico: mxsupercollectibles@gmail.com</li>
+          <li>Correo Electrónico: supercollectibles214@gmail.com</li>
         </ul>
       </div>
     </div>

@@ -13,7 +13,7 @@ import ProductCard from "../producto/_components/ProductCard";
 const HeaderProducts = ({ editorsProducts }: { editorsProducts: any }) => {
   const cat_title = [
     { id: 1, category: "Tarjetas Coleccionables" },
-    { id: 2, category: "Articulos Autografiados" },
+    { id: 2, category: "Artículos Autografiados" },
     { id: 3, category: "Sets de Batalla" },
   ];
 

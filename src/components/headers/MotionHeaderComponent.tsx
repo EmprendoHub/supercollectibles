@@ -6,6 +6,7 @@ import LogoComponent from "../layouts/LogoComponent";
 import { BsFacebook, BsInstagram, BsWhatsapp } from "react-icons/bs";
 import { ModeToggle } from "../ui/mode-toggle";
 import GlobalSearch from "../layouts/GlobalSearch";
+import { MdEmail } from "react-icons/md";
 
 const MotionHeaderComponent = ({ session }: { session: any }) => {
   const [hidden, setHidden] = useState(true);
@@ -39,7 +40,7 @@ const MotionHeaderComponent = ({ session }: { session: any }) => {
             <motion.a
               whileHover={{ scale: 1.3 }}
               whileTap={{ scale: 0.9 }}
-              href="https://www.instagram.com/supercars_jewelry"
+              href="https://www.instagram.com/supercollectibles_mx"
               target="_blank"
             >
               <span className="socialLink">
@@ -49,7 +50,7 @@ const MotionHeaderComponent = ({ session }: { session: any }) => {
             <motion.a
               whileHover={{ scale: 1.3 }}
               whileTap={{ scale: 0.9 }}
-              href="https://www.facebook.com/MxSuperCollectibles"
+              href="https://www.facebook.com/profile.php?id=61564208924734"
               target="_blank"
             >
               <span className="socialLink">
@@ -59,11 +60,11 @@ const MotionHeaderComponent = ({ session }: { session: any }) => {
             <motion.a
               whileHover={{ scale: 1.3 }}
               whileTap={{ scale: 0.9 }}
-              href="tel:332-218-9963"
+              href="mailto:supercollectibles214@gmail.com"
               target="_blank"
             >
               <span className="socialLink">
-                <BsWhatsapp className="text-base" />
+                <MdEmail className="text-base" />
               </span>
             </motion.a>
           </div>

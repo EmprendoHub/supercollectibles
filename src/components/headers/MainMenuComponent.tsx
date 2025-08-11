@@ -59,8 +59,6 @@ const MainMenuComponent = ({
           <CustomLink href={`/tienda`} title={"Tienda"} className={""} />
           <CustomLink href={`/acerca`} title={"nosotros"} className={""} />
           <CustomLink href={`/contacto`} title={"contacto"} className={""} />
-          <CustomLink href={`/contacto`} title={"vender"} className={""} />
-          <CustomLink href={`/contacto`} title={"ayuda"} className={""} />
         </nav>
         <GlobalSearch className="minmd:hidden" />
         {/* Cart Button */}

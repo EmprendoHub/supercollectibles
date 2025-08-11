@@ -1,10 +1,10 @@
-import FooterMenu from './FooterMenu';
-import SubFooter from './SubFooter';
+import FooterMenu from "./FooterMenu";
+// import SubFooter from "./SubFooter";
 
 const FooterComponent = async () => {
   return (
     <>
-      <SubFooter />
+      {/* <SubFooter /> */}
       <FooterMenu />
     </>
   );

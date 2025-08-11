@@ -12,7 +12,7 @@ const SectionFourComponent = () => {
         <div className="grid grid-cols-2 maxmd:grid-cols-1 items-center">
           <div className="maxmd:order-2 relative flex justify-center items-center w-full">
             <Image
-              src={"/images/Rolex_expensive.jpg"}
+              src={"/images/CentroMagno.webp"}
               width={1080}
               height={1080}
               alt="Servicios para coleccionistas"
@@ -31,12 +31,12 @@ const SectionFourComponent = () => {
               pretitle={"Información de"}
               title={"Contacto"}
               subtitle={""}
-              addressOne={"Plaza Patria"}
+              addressOne={"Centro Magno"}
               addressTwo={
-                "Av Arcos de Guadalupe 604, R-04 , Arcos de Guadalupe, Zapopan Jal 45037"
+                "Av. Ignacio L Vallarta 2425, Arcos Vallarta, 44130 Guadalajara, Jal."
               }
               tel={"332-218-9963"}
-              email={"mxsupercollectibles@gmail.com"}
+              email={"supercollectibles214@gmail.com"}
               btnUrl="/contacto"
               btnText={"Contactar"}
             />

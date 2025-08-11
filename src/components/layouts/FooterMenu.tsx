@@ -16,7 +16,7 @@ const FooterMenu = () => {
         <span className=" text-xs mt-1">
           <p className="">
             {
-              "Av Arcos de Guadalupe 604, R-04 , Arcos de Guadalupe, Zapopan Jal 45037"
+              "Av. Ignacio L Vallarta 2425, Arcos Vallarta, 44130 Guadalajara, Jal."
             }
           </p>
         </span>

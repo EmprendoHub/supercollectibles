@@ -28,16 +28,18 @@ const ContactComponent = () => {
                 mainTitle={"Información de Contacto"}
                 textTitleOne={"Números"}
                 textTitleTwo={"Manda un mensaje"}
-                textTitleThree={"Sucursal Sahuayo"}
+                textTitleThree={"Sucursal Centro Magno"}
                 textTwo={"Escríbenos tus dudas"}
                 textThree={"Platiquemos en persona"}
                 phoneLinkOne={"tel:3322189963"}
                 phoneLinkTextOne={"(+52)332-218-9963"}
-                linkTwo={"mailto:mxsupercollectibles@gmail.com"}
-                linkThree={"https://maps.app.goo.gl/1oD6A45sBwk3PEJS7"}
-                linkTwoText={"mxsupercollectibles@gmail.com"}
-                textAddressThree={"Av Arcos de Guadalupe 604, R-04"}
-                textAddressBThree={"Col. Arcos de Guadalupe"}
+                linkTwo={"mailto:supercollectibles214@gmail.com"}
+                linkThree={"https://maps.app.goo.gl/X6xZUphdFqacX4hz6"}
+                linkTwoText={"supercollectibles214@gmail.com"}
+                textAddressThree={
+                  "Av. Ignacio L Vallarta 2425, 44130 Guadalajara, Jal."
+                }
+                textAddressBThree={"Col. Arcos Vallarta"}
                 textAddressCThree={"Zapopan Jal 45037"}
                 linkThreeText={"Ver en mapa"}
               />
@@ -47,7 +49,7 @@ const ContactComponent = () => {
               <div className="w-[100%] px-3map-class pt-5">
                 <iframe
                   className="border-none  "
-                  src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d7463.898515534844!2d-103.3831342077016!3d20.712285023435697!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x8428afcb0e3bc80f%3A0x97765dad411eb4dc!2sPlaza%20Patria%2C%20Zapopan%2C%20Jal.!5e0!3m2!1ses-419!2smx!4v1725634818203!5m2!1ses-419!2smx"
+                  src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d4569.264265173158!2d-103.38106959546617!3d20.673818972093!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x8428af006fcde43d%3A0xf4f3d24df08cc36e!2sSuperCollectiblesMx!5e0!3m2!1ses-419!2smx!4v1754953383494!5m2!1ses-419!2smx"
                   width="100%"
                   height="450"
                   allowFullScreen={false}

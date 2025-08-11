@@ -16,7 +16,7 @@ export const GET = async (request: any, res: any) => {
   try {
     await dbConnect();
     let productQuery;
-    productQuery = Product.find();
+    productQuery = Product.find({ "availability.online": true });
 
     const resPerPage = Number(request.headers.get("perpage")) || 15;
     // Extract page and per_page from request URL
@@ -43,13 +43,6 @@ export const GET = async (request: any, res: any) => {
     apiProductFilters.pagination(resPerPage, page);
     productsData = await apiProductFilters.query.clone();
 
-    // If you want a new sorted array without modifying the original one, use slice
-    // const sortedObj1 = obj1
-    //   .slice()
-    //   .sort((a, b) => new Date(a.createdAt) - new Date(b.createdAt));
-
-    // descending order
-    // descending order
     const sortedProducts = productsData
       .slice()
       .sort(

@@ -10,7 +10,6 @@ const navLinks = [
   { title: "Tienda", url: "/tienda" },
   { title: "Nosotros", url: "/acerca" },
   { title: "Contacto", url: "/contacto" },
-  { title: "Vender", url: "/vender" },
   { title: "Ayuda", url: "/ayuda" },
 ];
 
