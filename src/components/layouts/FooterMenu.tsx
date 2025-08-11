@@ -87,6 +87,7 @@ const FooterMenu = () => {
               {"Tienda en Linea"}
             </motion.li>
           </Link>
+
           <Link href={`/`}>
             <motion.li
               whileHover={{ y: -4 }}
@@ -94,17 +95,7 @@ const FooterMenu = () => {
               transition={{ duration: 0.15 }}
               className="hover:text-primary  cursor-pointer duration-200"
             >
-              {"Compra de Tarjetas"}
-            </motion.li>
-          </Link>
-          <Link href={`/`}>
-            <motion.li
-              whileHover={{ y: -4 }}
-              whileTap={{ y: 1 }}
-              transition={{ duration: 0.15 }}
-              className="hover:text-primary  cursor-pointer duration-200"
-            >
-              {"Compra de Colecciones"}
+              {"Torneos de Pokemon"}
             </motion.li>
           </Link>
 
