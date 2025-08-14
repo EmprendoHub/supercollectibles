@@ -1,6 +1,7 @@
 "use client";
 import { motion } from "framer-motion";
 import Image from "next/image";
+import Link from "next/link";
 
 const CategoryStack = () => {
   return (
@@ -16,15 +17,23 @@ const CategoryStack = () => {
           initial={{ y: -50, opacity: 0 }}
           whileInView={{ y: 0, opacity: 1 }}
           transition={{ duration: 0.9 }}
+          whileHover={{
+            scale: 1.05,
+            rotate: 1,
+            boxShadow: "0px 8px 15px rgba(0, 0, 0, 0.3)",
+          }}
+          whileTap={{ scale: 0.98 }}
           className="relative w-full h-auto "
         >
-          <Image
-            alt="Super Collectibles Mx"
-            src="/covers/PokemonCategoryTemplate.webp"
-            width={1920}
-            height={400}
-            className="object-cover rounded-[5px]"
-          />
+          <Link href={"/tienda?category=Cartas+de+Pokemon"}>
+            <Image
+              alt="Super Collectibles Mx"
+              src="/covers/PokemonCategoryTemplate.webp"
+              width={1920}
+              height={400}
+              className="object-cover rounded-[5px]"
+            />
+          </Link>
         </motion.div>
         {/* Image Section 2 */}
         <div className="flex maxsm:flex-col relative gap-3 items-center justify-center w-full h-full">
@@ -32,20 +41,34 @@ const CategoryStack = () => {
             initial={{ x: -50, opacity: 0 }}
             whileInView={{ x: 0, opacity: 1 }}
             transition={{ duration: 0.5 }}
+            whileHover={{
+              scale: 1.05,
+              rotate: 1,
+              boxShadow: "0px 8px 15px rgba(0, 0, 0, 0.3)",
+            }}
+            whileTap={{ scale: 0.98 }}
             className="relative w-full h-auto "
           >
-            <Image
-              alt="Super Collectibles Mx"
-              src="/covers/Group1.webp"
-              width={1920}
-              height={400}
-              className="object-cover rounded-[5px]"
-            />
+            <Link href={"/tienda?category=Memorabilia+Anime"}>
+              <Image
+                alt="Super Collectibles Mx"
+                src="/covers/Group1.webp"
+                width={1920}
+                height={400}
+                className="object-cover rounded-[5px]"
+              />
+            </Link>
           </motion.div>
           <motion.div
             initial={{ x: 50, opacity: 0 }}
             whileInView={{ x: 0, opacity: 1 }}
             transition={{ duration: 0.5 }}
+            whileHover={{
+              scale: 1.05,
+              rotate: 1,
+              boxShadow: "0px 8px 15px rgba(0, 0, 0, 0.3)",
+            }}
+            whileTap={{ scale: 0.98 }}
             className="relative w-full h-auto"
           >
             <Image
@@ -63,29 +86,45 @@ const CategoryStack = () => {
             initial={{ x: -50, opacity: 0 }}
             whileInView={{ x: 0, opacity: 1 }}
             transition={{ duration: 0.7 }}
+            whileHover={{
+              scale: 1.05,
+              rotate: 1,
+              boxShadow: "0px 8px 15px rgba(0, 0, 0, 0.3)",
+            }}
+            whileTap={{ scale: 0.98 }}
             className="relative w-full h-30"
           >
-            <Image
-              alt="Super Collectibles Mx"
-              src="/covers/UFC_Category.webp"
-              width={1920}
-              height={400}
-              className="object-cover rounded-[5px]"
-            />
+            <Link href={"/tienda?category=Memorabilia+UFC"}>
+              <Image
+                alt="Super Collectibles Mx"
+                src="/covers/UFC_Category.webp"
+                width={1920}
+                height={400}
+                className="object-cover rounded-[5px]"
+              />
+            </Link>
           </motion.div>
           <motion.div
             initial={{ x: 50, opacity: 0 }}
             whileInView={{ x: 0, opacity: 1 }}
             transition={{ duration: 0.7 }}
+            whileHover={{
+              scale: 1.05,
+              rotate: 1,
+              boxShadow: "0px 8px 15px rgba(0, 0, 0, 0.3)",
+            }}
+            whileTap={{ scale: 0.98 }}
             className="relative w-full h-30"
           >
-            <Image
-              alt="Super Collectibles Mx"
-              src="/covers/Soccer_Category.webp"
-              width={1920}
-              height={400}
-              className="object-cover rounded-[5px]"
-            />
+            <Link href={"/tienda?category=Memorabilia+Futbol"}>
+              <Image
+                alt="Super Collectibles Mx"
+                src="/covers/Soccer_Category.webp"
+                width={1920}
+                height={400}
+                className="object-cover rounded-[5px]"
+              />
+            </Link>
           </motion.div>
         </div>
 
@@ -95,29 +134,45 @@ const CategoryStack = () => {
             initial={{ x: -50, opacity: 0 }}
             whileInView={{ x: 0, opacity: 1 }}
             transition={{ duration: 0.7 }}
+            whileHover={{
+              scale: 1.05,
+              rotate: 1,
+              boxShadow: "0px 8px 15px rgba(0, 0, 0, 0.3)",
+            }}
+            whileTap={{ scale: 0.98 }}
             className="relative w-full h-30"
           >
-            <Image
-              alt="Super Collectibles Mx"
-              src="/covers/NBA_Category.webp"
-              width={1920}
-              height={400}
-              className="object-cover rounded-[5px]"
-            />
+            <Link href={"/tienda?category=Memorabilia+NBA"}>
+              <Image
+                alt="Super Collectibles Mx"
+                src="/covers/NBA_Category.webp"
+                width={1920}
+                height={400}
+                className="object-cover rounded-[5px]"
+              />
+            </Link>
           </motion.div>
           <motion.div
             initial={{ x: 50, opacity: 0 }}
             whileInView={{ x: 0, opacity: 1 }}
             transition={{ duration: 0.7 }}
+            whileHover={{
+              scale: 1.05,
+              rotate: 1,
+              boxShadow: "0px 8px 15px rgba(0, 0, 0, 0.3)",
+            }}
+            whileTap={{ scale: 0.98 }}
             className="relative w-full h-30"
           >
-            <Image
-              alt="Super Collectibles Mx"
-              src="/covers/NFL_Category.webp"
-              width={1920}
-              height={400}
-              className="object-cover rounded-[5px]"
-            />
+            <Link href={"/tienda?category=Memorabilia+NFL"}>
+              <Image
+                alt="Super Collectibles Mx"
+                src="/covers/NFL_Category.webp"
+                width={1920}
+                height={400}
+                className="object-cover rounded-[5px]"
+              />
+            </Link>
           </motion.div>
         </div>
 
@@ -127,29 +182,45 @@ const CategoryStack = () => {
             initial={{ x: -50, opacity: 0 }}
             whileInView={{ x: 0, opacity: 1 }}
             transition={{ duration: 0.7 }}
+            whileHover={{
+              scale: 1.05,
+              rotate: 1,
+              boxShadow: "0px 8px 15px rgba(0, 0, 0, 0.3)",
+            }}
+            whileTap={{ scale: 0.98 }}
             className="relative w-full h-30"
           >
-            <Image
-              alt="Super Collectibles Mx"
-              src="/covers/MLB_Category.webp"
-              width={1920}
-              height={400}
-              className="object-cover rounded-[5px]"
-            />
+            <Link href={"/tienda?category=Memorabilia+Baseball"}>
+              <Image
+                alt="Super Collectibles Mx"
+                src="/covers/MLB_Category.webp"
+                width={1920}
+                height={400}
+                className="object-cover rounded-[5px]"
+              />
+            </Link>
           </motion.div>
           <motion.div
             initial={{ x: 50, opacity: 0 }}
             whileInView={{ x: 0, opacity: 1 }}
             transition={{ duration: 0.7 }}
+            whileHover={{
+              scale: 1.05,
+              rotate: 1,
+              boxShadow: "0px 8px 15px rgba(0, 0, 0, 0.3)",
+            }}
+            whileTap={{ scale: 0.98 }}
             className="relative w-full h-30"
           >
-            <Image
-              alt="Super Collectibles Mx"
-              src="/covers/Tenis_Category.webp"
-              width={1920}
-              height={400}
-              className="object-cover rounded-[5px]"
-            />
+            <Link href={"/tienda?category=Memorabilia+Tenis"}>
+              <Image
+                alt="Super Collectibles Mx"
+                src="/covers/Tenis_Category.webp"
+                width={1920}
+                height={400}
+                className="object-cover rounded-[5px]"
+              />
+            </Link>
           </motion.div>
         </div>
 
@@ -159,20 +230,34 @@ const CategoryStack = () => {
             initial={{ x: -50, opacity: 0 }}
             whileInView={{ x: 0, opacity: 1 }}
             transition={{ duration: 0.7 }}
+            whileHover={{
+              scale: 1.05,
+              rotate: 1,
+              boxShadow: "0px 8px 15px rgba(0, 0, 0, 0.3)",
+            }}
+            whileTap={{ scale: 0.98 }}
             className="relative w-full h-30"
           >
-            <Image
-              alt="Super Collectibles Mx"
-              src="/covers/Anime_Category.webp"
-              width={1920}
-              height={400}
-              className="object-cover rounded-[5px]"
-            />
+            <Link href={"/tienda?category=Memorabilia+Anime"}>
+              <Image
+                alt="Super Collectibles Mx"
+                src="/covers/Anime_Category.webp"
+                width={1920}
+                height={400}
+                className="object-cover rounded-[5px]"
+              />
+            </Link>
           </motion.div>
           <motion.div
             initial={{ x: 50, opacity: 0 }}
             whileInView={{ x: 0, opacity: 1 }}
             transition={{ duration: 0.7 }}
+            whileHover={{
+              scale: 1.05,
+              rotate: 1,
+              boxShadow: "0px 8px 15px rgba(0, 0, 0, 0.3)",
+            }}
+            whileTap={{ scale: 0.98 }}
             className="relative w-full h-30"
           >
             <Image
@@ -191,6 +276,12 @@ const CategoryStack = () => {
             initial={{ x: -50, opacity: 0 }}
             whileInView={{ x: 0, opacity: 1 }}
             transition={{ duration: 0.7 }}
+            whileHover={{
+              scale: 1.05,
+              rotate: 1,
+              boxShadow: "0px 8px 15px rgba(0, 0, 0, 0.3)",
+            }}
+            whileTap={{ scale: 0.98 }}
             className="relative w-full h-30"
           >
             <Image
@@ -205,6 +296,12 @@ const CategoryStack = () => {
             initial={{ x: 50, opacity: 0 }}
             whileInView={{ x: 0, opacity: 1 }}
             transition={{ duration: 0.7 }}
+            whileHover={{
+              scale: 1.05,
+              rotate: 1,
+              boxShadow: "0px 8px 15px rgba(0, 0, 0, 0.3)",
+            }}
+            whileTap={{ scale: 0.98 }}
             className="relative w-full h-30"
           >
             <Image
@@ -223,6 +320,12 @@ const CategoryStack = () => {
             initial={{ x: -50, opacity: 0 }}
             whileInView={{ x: 0, opacity: 1 }}
             transition={{ duration: 0.9 }}
+            whileHover={{
+              scale: 1.05,
+              rotate: 1,
+              boxShadow: "0px 8px 15px rgba(0, 0, 0, 0.3)",
+            }}
+            whileTap={{ scale: 0.98 }}
             className="relative w-full h-30"
           >
             <Image
@@ -238,6 +341,12 @@ const CategoryStack = () => {
             initial={{ x: 50, opacity: 0 }}
             whileInView={{ x: 0, opacity: 1 }}
             transition={{ duration: 0.9 }}
+            whileHover={{
+              scale: 1.05,
+              rotate: 1,
+              boxShadow: "0px 8px 15px rgba(0, 0, 0, 0.3)",
+            }}
+            whileTap={{ scale: 0.98 }}
             className="relative w-full h-30"
           >
             <Image

@@ -35,7 +35,7 @@ export default function RootLayout({
           >
             {/* <HeaderComponent /> */}
             {children}
-            {/* <FooterComponent /> */}
+            <FooterComponent />
             <CookieConsentComponent />
             <Toaster />
           </ThemeProvider>
