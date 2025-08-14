@@ -16,8 +16,8 @@ const HomeComponent = async () => {
   const editorsProducts = JSON.parse(data.editorsProducts);
   return (
     <div className="w-full">
-      <HomeHeader />
       <CategoryStack />
+      <HomeHeader />
       <HeaderProducts editorsProducts={editorsProducts} />
       <MainHeroComponent />
       <SectionTwoComponent />
