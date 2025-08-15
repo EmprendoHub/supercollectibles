@@ -11,7 +11,7 @@ const FooterMenu = () => {
         <WhiteLogoComponent className="w-[100px]" />
         <p className="text-xs mt-1">{"Super Collectibles Mx"}</p>
         <span className="flex flex-row items-center  text-xs">
-          <p className="">{" Plaza Patria"}</p>
+          <p className="">{" Centro Magno"}</p>
         </span>
         <span className=" text-xs mt-1">
           <p className="">
