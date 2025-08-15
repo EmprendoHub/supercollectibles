@@ -6,8 +6,8 @@ import React from "react";
 
 const serviciosMedicos = [
   {
-    title: "Compra de Tarjetas Únicas",
-    text: "¿Tienes una colección unica? Le encontramos el hogar ideal a tus coleccionables mas preciados",
+    title: "Gran Variedad de Coleccionables",
+    text: "Contamos con una gran variedad de coleccionables ubicas perfectas para expandir tu colección.",
     imgUrl: "/contacto",
     imgSrc: "/images/Supecollectibles_Unique_Cards.webp",
   },

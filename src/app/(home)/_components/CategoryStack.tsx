@@ -71,13 +71,15 @@ const CategoryStack = () => {
             whileTap={{ scale: 0.98 }}
             className="relative w-full h-auto"
           >
-            <Image
-              alt="Super Collectibles Mx"
-              src="/covers/Group2.webp"
-              width={1920}
-              height={400}
-              className="object-cover rounded-[5px]"
-            />
+            <Link href={"/tienda?category=Memorabilia+Anime"}>
+              <Image
+                alt="Super Collectibles Mx"
+                src="/covers/Group2.webp"
+                width={1920}
+                height={400}
+                className="object-cover rounded-[5px]"
+              />
+            </Link>
           </motion.div>
         </div>
         {/* Image Section 3 */}
@@ -260,13 +262,15 @@ const CategoryStack = () => {
             whileTap={{ scale: 0.98 }}
             className="relative w-full h-30"
           >
-            <Image
-              alt="Super Collectibles Mx"
-              src="/covers/Group3.webp"
-              width={1920}
-              height={400}
-              className="object-cover rounded-[5px]"
-            />
+            <Link href={"/tienda?category=Memorabilia+Anime"}>
+              <Image
+                alt="Super Collectibles Mx"
+                src="/covers/Group3.webp"
+                width={1920}
+                height={400}
+                className="object-cover rounded-[5px]"
+              />
+            </Link>
           </motion.div>
         </div>
 
@@ -284,13 +288,15 @@ const CategoryStack = () => {
             whileTap={{ scale: 0.98 }}
             className="relative w-full h-30"
           >
-            <Image
-              alt="Super Collectibles Mx"
-              src="/covers/Group4.webp"
-              width={1920}
-              height={400}
-              className="object-cover rounded-[5px]"
-            />
+            <Link href={"/tienda?category=Memorabilia+Anime"}>
+              <Image
+                alt="Super Collectibles Mx"
+                src="/covers/Group4.webp"
+                width={1920}
+                height={400}
+                className="object-cover rounded-[5px]"
+              />
+            </Link>
           </motion.div>
           <motion.div
             initial={{ x: 50, opacity: 0 }}
@@ -304,13 +310,15 @@ const CategoryStack = () => {
             whileTap={{ scale: 0.98 }}
             className="relative w-full h-30"
           >
-            <Image
-              alt="Super Collectibles Mx"
-              src="/covers/Group5.webp"
-              width={1920}
-              height={400}
-              className="object-cover rounded-[5px]"
-            />
+            <Link href={"/tienda?category=Memorabilia+Anime"}>
+              <Image
+                alt="Super Collectibles Mx"
+                src="/covers/Group5.webp"
+                width={1920}
+                height={400}
+                className="object-cover rounded-[5px]"
+              />
+            </Link>
           </motion.div>
         </div>
 
@@ -328,14 +336,16 @@ const CategoryStack = () => {
             whileTap={{ scale: 0.98 }}
             className="relative w-full h-30"
           >
-            <Image
-              alt="Super Collectibles Mx"
-              src="/covers/Group6.webp"
-              width={1920}
-              height={400}
-              quality={100}
-              className="object-cover  rounded-[5px]"
-            />
+            <Link href={"/tienda?category=Memorabilia+Anime"}>
+              <Image
+                alt="Super Collectibles Mx"
+                src="/covers/Group6.webp"
+                width={1920}
+                height={400}
+                quality={100}
+                className="object-cover  rounded-[5px]"
+              />
+            </Link>
           </motion.div>
           <motion.div
             initial={{ x: 50, opacity: 0 }}
@@ -349,14 +359,16 @@ const CategoryStack = () => {
             whileTap={{ scale: 0.98 }}
             className="relative w-full h-30"
           >
-            <Image
-              alt="Super Collectibles Mx"
-              src="/covers/Group7.webp"
-              width={1920}
-              height={400}
-              quality={100}
-              className="object-cover rounded-[5px]"
-            />
+            <Link href={"/tienda?category=Memorabilia+Anime"}>
+              <Image
+                alt="Super Collectibles Mx"
+                src="/covers/Group7.webp"
+                width={1920}
+                height={400}
+                quality={100}
+                className="object-cover rounded-[5px]"
+              />
+            </Link>
           </motion.div>
         </div>
       </div>

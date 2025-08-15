@@ -36,7 +36,7 @@ const HeaderProducts = ({ editorsProducts }: { editorsProducts: any }) => {
           slidesToScroll: 3,
         }}
       >
-        <h3 className="mb-3 text-semibold text-sm">Lo mas vendido</h3>
+        <h3 className="mb-3 text-semibold text-xl">Lo mas nuevo</h3>
         <CarouselContent className="-ml-1 ">
           {editorsProducts.slice(0, 20).map((product: any, index: any) => (
             <CarouselItem

@@ -9,7 +9,7 @@ const WhiteLogoComponent = ({ className }: { className: string }) => {
       <Image
         width={250}
         height={250}
-        src={"/logos/Super-Collectibles-Menu-logo.png"}
+        src={"/logos/Super-Collectibles-Icono-Del-Sitio.png"}
         alt="Super Collectibles Mx"
         className={`${className} max-w-[150px]`}
       />

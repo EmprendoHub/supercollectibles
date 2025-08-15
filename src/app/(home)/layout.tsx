@@ -33,7 +33,7 @@ export default function RootLayout({
             enableSystem
             disableTransitionOnChange
           >
-            {/* <HeaderComponent /> */}
+            <HeaderComponent />
             {children}
             <FooterComponent />
             <CookieConsentComponent />
