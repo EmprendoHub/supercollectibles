@@ -90,7 +90,7 @@ const MobileMenuComponent = () => {
             >
               <div className="flex h-full flex-col place-items-center ">
                 {/* Logo and Close  */}
-                <div className=" flex fle-row items-center justify-center gap-x-[250px] ml-3 mt-1 w-full">
+                <div className=" flex fle-row items-center justify-center gap-x-[200px] ml-3 mt-1 w-full">
                   <div onClick={toggleMobileMenu}>
                     <WhiteLogoComponent className="w-[80px] my-3" />
                   </div>
@@ -119,7 +119,7 @@ const MobileMenuComponent = () => {
                       boxShadow: "0px 8px 15px rgba(0, 0, 0, 0.3)",
                     }}
                     whileTap={{ scale: 0.98 }}
-                    className="relative w-[350px] h-auto "
+                    className="relative w-[320px] h-auto "
                   >
                     <Link
                       href={"/tienda?category=Cartas+de+Pokemon"}
@@ -136,7 +136,7 @@ const MobileMenuComponent = () => {
                   </motion.div>
 
                   {/* Image Section 2 */}
-                  <div className="flex flex-col relative gap-3 items-center justify-center w-[350px] h-full">
+                  <div className="flex flex-col relative gap-3 items-center justify-center w-[320px] h-full">
                     <motion.div
                       initial={{ x: -50, opacity: 0 }}
                       whileInView={{ x: 0, opacity: 1 }}
@@ -190,7 +190,7 @@ const MobileMenuComponent = () => {
                   </div>
 
                   {/* Image Section 3 */}
-                  <div className="flex relative gap-3 items-center justify-center w-[350px] h-full">
+                  <div className="flex relative gap-3 items-center justify-center w-[320px] h-full">
                     <motion.div
                       initial={{ x: -50, opacity: 0 }}
                       whileInView={{ x: 0, opacity: 1 }}
@@ -244,7 +244,7 @@ const MobileMenuComponent = () => {
                   </div>
 
                   {/* Image Section 5 */}
-                  <div className="flex relative gap-3 items-center justify-center w-[350px] h-full">
+                  <div className="flex relative gap-3 items-center justify-center w-[320px] h-full">
                     <motion.div
                       initial={{ x: -50, opacity: 0 }}
                       whileInView={{ x: 0, opacity: 1 }}
@@ -298,7 +298,7 @@ const MobileMenuComponent = () => {
                   </div>
 
                   {/* Image Section 6 */}
-                  <div className="flex relative gap-3 items-center justify-center w-[350px] h-full">
+                  <div className="flex relative gap-3 items-center justify-center w-[320px] h-full">
                     <motion.div
                       initial={{ x: -50, opacity: 0 }}
                       whileInView={{ x: 0, opacity: 1 }}
