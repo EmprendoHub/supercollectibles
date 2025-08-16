@@ -122,7 +122,7 @@ export default function LocationConcent() {
       <div className=" object-contain justify-center">
         <LogoComponent className="w-[70px] " />
       </div>
-      <ModeToggle />
+      {/* <ModeToggle /> */}
     </div>
   );
 }
