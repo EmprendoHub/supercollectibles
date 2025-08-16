@@ -7,6 +7,9 @@ import Link from "next/link";
 import axios from "axios";
 import { BsFacebook, BsInstagram } from "react-icons/bs";
 import { AiFillPhone } from "react-icons/ai";
+import { MdEmail } from "react-icons/md";
+import LogoComponent from "../layouts/LogoComponent";
+import { ModeToggle } from "../ui/mode-toggle";
 
 export default function LocationConcent() {
   const APIkey = "Enter-your-api-key";
@@ -76,54 +79,50 @@ export default function LocationConcent() {
   }, []);
 
   return (
-    <div className="flex items-start maxmd:justify-between maxmd:mt-2 maxmd:w-full ">
-      <span className="w-full maxsm:w-fit flex flex-row gap-x-1 items-center cursor-pointer text-[13px]">
-        <MapPin size={20} />
-        {userLocation ? userLocation.postal : ""}
-      </span>
+    <div className="flex items-center maxmd:justify-between  maxmd:w-full ">
+      {/* <span className="w-full maxsm:w-fit flex flex-row gap-x-1 items-center cursor-pointer text-[13px] font-bold">
+        {userLocation ? userLocation.postal : <MapPin size={18} />}
+      </span> */}
       {/* Contact Links */}
-      <div className="w-full flex fle-row items-center justify-end gap-x-2 text-[14px] minmd:hidden">
-        <Link
-          href={"tel:3322189963"}
-          className=" flex flex-row justify-between items-center gap-x-2 cursor-pointer"
-        >
-          <span>
-            <AiFillPhone
-              size={24}
-              className="border border-white rounded-full p-0.5"
-            />
-          </span>
-          <span>332-218-9963</span>
-        </Link>
-        <Link
-          href={"tel:3322189963"}
-          className="maxmd:hidden flex flex-row justify-between items-center gap-x-2 cursor-pointer"
-        >
-          <span>332-218-9963</span>
-        </Link>
-        <div className="flex items-center gap-x-4">
+      <div className="maxsm:hidden flex fle-row items-center justify-center gap-x-4 mx-3 mt-1">
+        <div className="flex items-center justify-center gap-x-4">
           <motion.a
             whileHover={{ scale: 1.3 }}
             whileTap={{ scale: 0.9 }}
-            href="https://www.instagram.com/supercars_jewelry"
+            href="https://www.instagram.com/supercollectibles_mx"
             target="_blank"
           >
             <span className="socialLink">
-              <BsInstagram size={20} />
+              <BsInstagram className="text-base" />
             </span>
           </motion.a>
           <motion.a
             whileHover={{ scale: 1.3 }}
             whileTap={{ scale: 0.9 }}
-            href="https://www.facebook.com/MxSuperCollectibles"
+            href="https://www.facebook.com/profile.php?id=61564208924734"
             target="_blank"
           >
             <span className="socialLink">
-              <BsFacebook size={20} />
+              <BsFacebook className="text-base" />
+            </span>
+          </motion.a>
+          <motion.a
+            whileHover={{ scale: 1.3 }}
+            whileTap={{ scale: 0.9 }}
+            href="mailto:supercollectibles214@gmail.com"
+            target="_blank"
+          >
+            <span className="socialLink">
+              <MdEmail className="text-base" />
             </span>
           </motion.a>
         </div>
       </div>
+      {/* Logo  */}
+      <div className=" object-contain justify-center">
+        <LogoComponent className="w-[70px] " />
+      </div>
+      <ModeToggle />
     </div>
   );
 }

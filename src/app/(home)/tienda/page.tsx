@@ -89,7 +89,7 @@ const TiendaPage = async ({ searchParams }: { searchParams: any }) => {
 
   return (
     <div className="flex flex-col items-center justify-center gap-5 pb-10">
-      <EmblaCarousel slides={SLIDER_IMAGES} options={OPTIONS} />
+      {/* <EmblaCarousel slides={SLIDER_IMAGES} options={OPTIONS} /> */}
       <ListProducts
         products={products}
         allBrands={allBrands}
