@@ -65,7 +65,7 @@ export const GET = async (request: any, res: any) => {
   } catch (error) {
     return NextResponse.json(
       {
-        error: "Products loading error",
+        error: "Products loading errors",
       },
       { status: 500 }
     );
