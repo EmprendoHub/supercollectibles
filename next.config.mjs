@@ -12,9 +12,7 @@ const nextConfig = {
       { protocol: "https", hostname: "http2.mlstatic.com" },
     ],
     minimumCacheTTL: 2678400,
-    remotePatterns: [
-      { protocol: "https", hostname: "supercollectibles.com.mx" },
-    ],
+    formats: ["image/webp"],
     deviceSizes: [640, 1080],
     imageSizes: [16, 32, 64],
   },
