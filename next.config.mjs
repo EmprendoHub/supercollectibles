@@ -13,7 +13,9 @@ const nextConfig = {
     ],
     minimumCacheTTL: 2678400,
     formats: ["image/webp"],
-    remotePatterns: [{ protocol: "https", hostname: "example.com" }],
+    remotePatterns: [
+      { protocol: "https", hostname: "supercollectibles.com.mx" },
+    ],
     deviceSizes: [640, 1080],
     imageSizes: [16, 32, 64],
   },
