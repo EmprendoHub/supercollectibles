@@ -11,6 +11,11 @@ const nextConfig = {
       { protocol: "https", hostname: "m.media-amazon.com" },
       { protocol: "https", hostname: "http2.mlstatic.com" },
     ],
+    minimumCacheTTL: 2678400,
+    formats: ["image/webp"],
+    remotePatterns: [{ protocol: "https", hostname: "example.com" }],
+    deviceSizes: [640, 1080],
+    imageSizes: [16, 32, 64],
   },
 };
 
