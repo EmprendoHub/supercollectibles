@@ -17,7 +17,7 @@ const SectionTextComponent = ({
   btnUrl: string;
 }) => {
   return (
-    <div className="mx-auto">
+    <div className="mx-[10%]">
       <div className="flex h-full flex-col gap-y-6 justify-center">
         <motion.h2
           initial={{ y: 30, opacity: 0 }}
@@ -31,7 +31,7 @@ const SectionTextComponent = ({
           initial={{ y: 40, opacity: 0 }}
           whileInView={{ y: 0, opacity: 1 }}
           transition={{ duration: 0.6 }}
-          className="text-xs font-poppins text-gray-500"
+          className="text-base text-white font-poppins"
         >
           {paraOne}
         </motion.p>
@@ -39,7 +39,7 @@ const SectionTextComponent = ({
           initial={{ y: 40, opacity: 0 }}
           whileInView={{ y: 0, opacity: 1 }}
           transition={{ duration: 0.7 }}
-          className="text-xs font-poppins text-gray-500"
+          className="text-base text-white font-poppins "
         >
           {paraTwo}
         </motion.p>

@@ -30,7 +30,7 @@ const CardTextComponent = ({
           initial={{ y: 40, opacity: 0 }}
           whileInView={{ y: 0, opacity: 1 }}
           transition={{ duration: 0.9 }}
-          className="text-xs text-gray-500"
+          className="text-base text-white"
         >
           {paraOne}
         </motion.p>
@@ -38,7 +38,7 @@ const CardTextComponent = ({
           initial={{ y: 40, opacity: 0 }}
           whileInView={{ y: 0, opacity: 1 }}
           transition={{ duration: 1.0 }}
-          className="text-xs text-gray-500"
+          className="text-base text-white"
         >
           {paraTwo}
         </motion.p>

@@ -31,7 +31,7 @@ const InnerSectionTextComponent = ({
           initial={{ y: 40, opacity: 0 }}
           whileInView={{ y: 0, opacity: 1 }}
           transition={{ duration: 0.9 }}
-          className="text-xs font-poppins text-gray-500"
+          className="text-base text-white font-poppins"
         >
           {paraOne}
         </motion.p>
@@ -39,7 +39,7 @@ const InnerSectionTextComponent = ({
           initial={{ y: 40, opacity: 0 }}
           whileInView={{ y: 0, opacity: 1 }}
           transition={{ duration: 1.0 }}
-          className="text-xs font-poppins text-gray-500"
+          className="text-base text-white font-poppins "
         >
           {paraTwo}
         </motion.p>

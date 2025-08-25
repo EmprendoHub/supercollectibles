@@ -11,14 +11,9 @@ export const SLIDER_IMAGES = [
     src: "/covers/main_pokemon_cover_image.webp",
     mobile: "/covers/mobile_pokemon_cover_image.webp",
   },
+
   {
     id: 3,
-    alt: "Change the Game",
-    src: "/covers/main_jordan_cover_image.webp",
-    mobile: "/covers/mobile_jordan_cover_image.webp",
-  },
-  {
-    id: 4,
     alt: "Productos",
     src: "/covers/main_envios_cover_image.webp",
     mobile: "/covers/mobile_envios_cover_image.webp",

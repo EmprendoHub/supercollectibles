@@ -12,14 +12,12 @@ import HeroColTextComponent from "@/components/texts/HeroColTextComponent";
 const AboutUsComponent = () => {
   return (
     <div>
-      <section className="min-h-[400px] flex flex-row maxsm:flex-col justify-center items-center relative overflow-hidden bg-primary">
+      <section className="min-h-[200px] flex flex-row maxsm:flex-col justify-center items-center relative overflow-hidden bg-primary">
         <div className="container mx-auto flex justify-center items-center text-center p-5 sm:py-20 z-10">
           <HeroColTextComponent
             pretitle={"CONOCE A"}
             title={"Super Collectibles MX"}
-            subtitle={
-              "Tu principal destino para muebles minimalistas de diseño excepcional imagen de producto"
-            }
+            subtitle={"Tu principal destino para coleccionables Y memorabilia "}
             word={""}
             className={""}
           />
@@ -31,7 +29,7 @@ const AboutUsComponent = () => {
           <h3 className="text-4xl maxmd:text-2xl font-semibold font-raleway  mb-5">
             {"¿Por Qué Elegir Super Collectibles MX?"}
           </h3>
-          <p className="text-gray-500 font-raleway text-xs">
+          <p className="text-white font-raleway text-base">
             {
               "En Super Collectibles MX utilizamos nuestra experiencia colectiva para brindarte:"
             }
@@ -44,7 +42,7 @@ const AboutUsComponent = () => {
                 width={500}
                 height={500}
                 alt="Icon"
-                className="mx-auto mb-4 object-cover  w-40 h-40"
+                className="mx-auto mb-4 object-cover  w-80 h-80"
               />
 
               <CardTextComponent
@@ -65,7 +63,7 @@ const AboutUsComponent = () => {
                 width={500}
                 height={500}
                 alt="Icon"
-                className="mx-auto mb-4 w-40 h-40 "
+                className="mx-auto mb-4 w-80 h-08 "
               />
 
               <CardTextComponent
@@ -86,7 +84,7 @@ const AboutUsComponent = () => {
                 width={500}
                 height={500}
                 alt="Icon"
-                className="mx-auto mb-4 w-40 h-40 "
+                className="mx-auto mb-4 w-80 h-80 "
               />
 
               <CardTextComponent

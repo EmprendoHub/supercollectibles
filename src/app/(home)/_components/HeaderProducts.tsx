@@ -41,7 +41,7 @@ const HeaderProducts = ({ editorsProducts }: { editorsProducts: any }) => {
           {editorsProducts.slice(0, 20).map((product: any, index: any) => (
             <CarouselItem
               key={index}
-              className="pl-1 basis-1/5 maxmd:basis-1/4 maxsm:basis-1/3"
+              className="pl-1 basis-1/5 maxmd:basis-1/4 maxsm:basis-1/2"
             >
               <ProductCard item={product} index={index} />
             </CarouselItem>
