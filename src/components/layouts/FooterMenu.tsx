@@ -88,7 +88,7 @@ const FooterMenu = () => {
             </motion.li>
           </Link>
 
-          <Link href={`/`}>
+          <Link href={`/torneos`}>
             <motion.li
               whileHover={{ y: -4 }}
               whileTap={{ y: 1 }}

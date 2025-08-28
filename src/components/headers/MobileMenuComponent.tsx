@@ -10,7 +10,7 @@ import Image from "next/image";
 import { X } from "lucide-react";
 
 const navLinks = [
-  { title: "Inicio", url: "/" },
+  { title: "Torneos", url: "/torneos" },
   { title: "Tienda", url: "/tienda" },
   { title: "Nosotros", url: "/acerca" },
   { title: "Contacto", url: "/contacto" },
