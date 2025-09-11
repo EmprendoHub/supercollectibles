@@ -127,7 +127,7 @@ export async function updateUserMercadoToken(tokenData: any) {
     const updatedUser = await User.updateOne(
       { _id: session?.user?._id }, // Query condition
       { $set: { mercado_token: tokenData } }, // Update operation
-      { new: true, runValidators: true } // Options
+      { runValidators: true } // Options
     );
   } catch (error: any) {
     console.log(error);

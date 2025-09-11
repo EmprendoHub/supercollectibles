@@ -48,15 +48,13 @@ const getClientCountPreviousMonth = async () => {
   const lastDayOfPreviousMonth = new Date(now.getFullYear(), now.getMonth(), 0);
 
   try {
-    const clientCount = await User.countDocuments(
-      {
-        createdAt: {
-          $gte: firstDayOfPreviousMonth,
-          $lte: lastDayOfPreviousMonth,
-        },
+    const clientCount = await User.countDocuments({
+      createdAt: {
+        $gte: firstDayOfPreviousMonth,
+        $lte: lastDayOfPreviousMonth,
       },
-      { role: "cliente" }
-    );
+      role: "cliente",
+    });
 
     return clientCount;
   } catch (error) {

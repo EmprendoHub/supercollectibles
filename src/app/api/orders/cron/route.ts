@@ -41,7 +41,7 @@ export async function GET(request: any) {
     await Order.updateMany(
       { orderStatus: "Pendiente", createdAt: { $lte: twoDaysAgo } },
       { $set: { orderStatus: "Cancelado" } },
-      { multi: true, upsert: true }
+      { upsert: true }
     );
 
     return NextResponse.json({

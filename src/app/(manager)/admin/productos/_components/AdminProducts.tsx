@@ -218,13 +218,20 @@ const AdminProducts = ({
                 Titulo
               </th>
               <th scope="col" className="w-full px-6 maxsm:px-0 py-3 ">
+                Categoría
+              </th>
+              <th scope="col" className="w-full px-6 maxsm:px-0 py-3 ">
                 Img
               </th>
-
+              <th scope="col" className="w-full px-6 maxsm:px-0 py-3 ">
+                Genero
+              </th>
+              <th scope="col" className="w-full px-6 maxsm:px-0 py-3 ">
+                Linea
+              </th>
               <th scope="col" className="w-full px-6 maxsm:px-0 py-3 ">
                 Precio
               </th>
-
               <th scope="col" className="w-full px-1 py-3 ">
                 Exst.
               </th>
@@ -248,7 +255,11 @@ const AdminProducts = ({
                 >
                   {product?.title?.substring(0, 30)}...
                 </td>
-
+                <td
+                  className={`w-full px-6 maxsm:px-0 py-0 font-bold maxsm:hidden text-[12px]`}
+                >
+                  {product?.category}
+                </td>
                 <td className="w-full px-6 maxsm:px-0 py-0 relative ">
                   <span className="relative flex items-center justify-center text-foreground w-20 h-20 maxsm:w-8 maxsm:h-8 shadow mt-2">
                     <Link
@@ -272,6 +283,8 @@ const AdminProducts = ({
                     )}
                   </span>
                 </td>
+                <td className="w-full px-1 py-0 ">{product?.gender}</td>
+                <td className="w-full px-1 py-0 ">{product?.line}</td>
                 <td className="w-full px-6 maxsm:px-0 py-0 ">
                   <b>
                     <FormattedPrice amount={product?.variations[0]?.price} />
