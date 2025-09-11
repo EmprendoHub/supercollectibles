@@ -122,7 +122,7 @@ const MobileMenuComponent = () => {
                     className="relative w-[320px] h-auto "
                   >
                     <Link
-                      href={"/tienda?category=Cartas+de+Pokemon"}
+                      href={"/tienda?category=Tarjetas&gender=POKEMON"}
                       onClick={toggleMobileMenu}
                     >
                       <Image
@@ -150,7 +150,7 @@ const MobileMenuComponent = () => {
                       className="relative w-full h-30"
                     >
                       <Link
-                        href={"/tienda?category=Memorabilia+UFC"}
+                        href={"/tienda?gender=UFC"}
                         onClick={toggleMobileMenu}
                       >
                         <Image
@@ -175,7 +175,7 @@ const MobileMenuComponent = () => {
                       className="relative w-full h-30"
                     >
                       <Link
-                        href={"/tienda?category=Memorabilia+Futbol"}
+                        href={"/tienda?gender=Futbol"}
                         onClick={toggleMobileMenu}
                       >
                         <Image
@@ -204,7 +204,7 @@ const MobileMenuComponent = () => {
                       className="relative w-full h-30"
                     >
                       <Link
-                        href={"/tienda?category=Memorabilia+NBA"}
+                        href={"/tienda?gender=Basketball"}
                         onClick={toggleMobileMenu}
                       >
                         <Image
@@ -229,7 +229,7 @@ const MobileMenuComponent = () => {
                       className="relative w-full h-30"
                     >
                       <Link
-                        href={"/tienda?category=Memorabilia+NFL"}
+                        href={"/tienda?gender=American+Football"}
                         onClick={toggleMobileMenu}
                       >
                         <Image
@@ -258,7 +258,7 @@ const MobileMenuComponent = () => {
                       className="relative w-full h-30"
                     >
                       <Link
-                        href={"/tienda?category=Memorabilia+Baseball"}
+                        href={"/tienda?gender=Baseball"}
                         onClick={toggleMobileMenu}
                       >
                         <Image
@@ -283,7 +283,7 @@ const MobileMenuComponent = () => {
                       className="relative w-full h-30"
                     >
                       <Link
-                        href={"/tienda?category=Memorabilia+Tenis"}
+                        href={"/tienda?gender=Tenis"}
                         onClick={toggleMobileMenu}
                       >
                         <Image
@@ -312,7 +312,7 @@ const MobileMenuComponent = () => {
                       className="relative w-full h-30"
                     >
                       <Link
-                        href={"/tienda?category=Memorabilia+Anime"}
+                        href={"/tienda?gender=Anime"}
                         onClick={toggleMobileMenu}
                       >
                         <Image
@@ -337,7 +337,7 @@ const MobileMenuComponent = () => {
                       className="relative w-full h-30"
                     >
                       <Link
-                        href={"/tienda?category=Memorabilia+Anime"}
+                        href={"/tienda?gender=Anime"}
                         onClick={toggleMobileMenu}
                       >
                         <Image

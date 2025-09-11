@@ -1,46 +1,32 @@
 "use client";
-import styles from "./menufilterstyle.module.css";
-import { motion } from "framer-motion";
-import { usePathname } from "next/navigation";
-import { filterMenuSlide } from "./anim";
-import { useSession } from "next-auth/react";
+import React from "react";
 import AllFiltersComponent from "./AllFiltersComponent";
 
 const FilterMenuComponent = ({
   allBrands,
   allCategories,
+  allGenders,
+  priceRange,
   SetIsActive,
   isActive,
 }: {
-  allBrands: any;
-  allCategories: any;
-  SetIsActive: any;
-  isActive: any;
+  allBrands: string[];
+  allCategories: string[];
+  allGenders: string[];
+  priceRange: { min: number; max: number };
+  SetIsActive: React.Dispatch<React.SetStateAction<boolean>>;
+  isActive: boolean;
 }) => {
-  const pathname = usePathname();
-
-  const { data: session } = useSession();
-  const isLoggedIn = Boolean(session?.user);
-
   return (
-    <motion.div
-      variants={filterMenuSlide}
-      initial="initial"
-      animate="enter"
-      exit="exit"
-      className={`${styles.menu} bg-transparent`}
-    >
-      <div
-        className={`${styles.body} bg-background max-w-[350px]  overflow-y-auto px-5 py-10`}
-      >
-        <AllFiltersComponent
-          allBrands={allBrands}
-          allCategories={allCategories}
-          SetIsActive={SetIsActive}
-          isActive={isActive}
-        />
-      </div>
-    </motion.div>
+    <div className="w-full">
+      <AllFiltersComponent
+        allBrands={allBrands}
+        allCategories={allCategories}
+        allGenders={allGenders}
+        priceRange={priceRange}
+        SetIsActive={SetIsActive}
+      />
+    </div>
   );
 };
 

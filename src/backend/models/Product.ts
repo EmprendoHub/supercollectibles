@@ -162,7 +162,7 @@ const ProductSchema = new mongoose.Schema(
       },
       online: {
         type: Boolean,
-        default: false,
+        default: true,
       },
     },
     stock: {

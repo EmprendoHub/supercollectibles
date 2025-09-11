@@ -205,7 +205,7 @@ const ViewProductDetails = ({
                   initial={{ y: 50, opacity: 0 }}
                   whileInView={{ y: 0, opacity: 1 }}
                   transition={{ duration: 0.6 }}
-                  className="text-gray-500 text-xs description-class tracking-wider"
+                  className="text-gray-500 text-base description-class tracking-wider"
                 >
                   {product?.description ? product?.description : ""}
                 </motion.div>
@@ -251,7 +251,7 @@ const ViewProductDetails = ({
                     </motion.div>
                   </div>
                 )}
-
+                {/* Cart Button */}
                 <motion.div
                   initial={{ y: 50, opacity: 0 }}
                   whileInView={{ y: 0, opacity: 1 }}

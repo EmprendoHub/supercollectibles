@@ -57,7 +57,7 @@ const ProductCard = ({ item, index }: { item: any; index: number }) => {
       initial={{ y: 50, opacity: 0.5 }}
       whileInView={{ y: 0, opacity: 1 }}
       transition={{ duration: `${index / 5}` }}
-      className=" max-w-[150px] maxsm:max-w-[130px]  relative  overflow-hidden"
+      className=" max-w-content relative  overflow-hidden"
     >
       <Link href={`/producto/${item.slug}`}>
         <div className="h-[250px] w-full  group  relative">
@@ -81,7 +81,7 @@ const ProductCard = ({ item, index }: { item: any; index: number }) => {
           </div>
 
           {item?.sale_price && (
-            <span className="absolute top-2 right-2  border-[1px] border-black font-medium text-[12px] py-1 px-3 rounded-sm bg-black text-slate-100 group-hover:bg-slate-100 group-hover:text-foreground duration-200">
+            <span className="absolute top-2 right-2  border-[1px] border-black font-medium text-xl py-1 px-3 rounded-sm bg-black text-slate-100 group-hover:bg-slate-100 group-hover:text-foreground duration-200">
               Oferta
             </span>
           )}
@@ -105,14 +105,14 @@ const ProductCard = ({ item, index }: { item: any; index: number }) => {
       </Link>
       <div className=" px-0.5 pb-4 flex flex-col border-card rounded-b-sm">
         <div className="flex items-center justify-between gap-x-1">
-          <p className=" tracking-wide font-EB_Garamond text-[12px]">
-            {item?.title.substring(0, 23) + "..."}
+          <p className=" tracking-wide font-EB_Garamond text-xl font-bold uppercase">
+            {item?.title.substring(0, 23)}
           </p>
         </div>
 
-        <div className="pricing-class flex fle-row items-center gap-x-2">
-          <div className="flex flex-col gap-y-1">
-            <p className="font-semibold text-foreground tracking-wider text-xl">
+        <div className="pricing-class flex fle-row items-center gap-x-2 text-center">
+          {/* <div className="flex flex-col gap-y-1">
+            <p className="font-semibold text-foreground tracking-wider text-4xl">
               {item?.sale_price > 0 ? (
                 <FormattedPrice amount={item?.sale_price} />
               ) : item?.price > 0 ? (
@@ -121,7 +121,7 @@ const ProductCard = ({ item, index }: { item: any; index: number }) => {
                 ""
               )}
             </p>
-          </div>
+          </div> */}
           {item?.sale_price ? (
             <div>
               <div className="flex items-center gap-x-2">
@@ -135,7 +135,7 @@ const ProductCard = ({ item, index }: { item: any; index: number }) => {
           )}
         </div>
         <div className="">
-          <p className="font-semibold  tracking-wide">
+          <p className="font-semibold  tracking-wide text-2xl">
             <FormattedPrice
               amount={
                 item?.variations[0]?.price > 0
@@ -143,7 +143,6 @@ const ProductCard = ({ item, index }: { item: any; index: number }) => {
                   : item?.sale_price ?? item?.sale_price
               }
             />
-            {item?.sale_price > 0 ? "(30%)" : ""}
           </p>
         </div>
         {/* add to cart button */}
@@ -155,7 +154,7 @@ const ProductCard = ({ item, index }: { item: any; index: number }) => {
         >
           {alreadyCart ? (
             <Link href="/carrito">
-              <span className="  border-black text-[12px] text-slate-100 rounded-full border  drop-shadow-md flex flex-row items-center justify-between   gap-x-4 bg-primary ease-in-out  duration-300 w-auto tracking-wider cursor-not-allowed ">
+              <span className="  border-black text-base text-slate-100 rounded-full border  drop-shadow-md flex flex-row items-center justify-between   gap-x-4 bg-primary ease-in-out  duration-300 w-auto tracking-wider cursor-not-allowed ">
                 {"En Carrito"}
               </span>
             </Link>
@@ -168,7 +167,7 @@ const ProductCard = ({ item, index }: { item: any; index: number }) => {
                 item?.stock <= 0
                   ? "bg-slate-500  bg-opacity-50 text-foreground border-slate-300 cursor-not-allowed"
                   : "text-white border-black cursor-pointer "
-              } rounded-full border  drop-shadow-md flex flex-row items-center justify-between gap-x-4 text-[12px] bg-primary ease-in-out  duration-300 w-auto uppercase tracking-wider `}
+              } rounded-full border  drop-shadow-md flex flex-row items-center justify-between gap-x-4 text-base bg-primary ease-in-out  duration-300 w-auto uppercase tracking-wider `}
               onClick={item?.stock <= 0 ? handleClick : () => {}}
             >
               {item?.stock <= 0 ? (
@@ -179,7 +178,7 @@ const ProductCard = ({ item, index }: { item: any; index: number }) => {
                     item?.stock <= 0
                       ? "bg-slate-500 bg-opacity-50 text-foreground "
                       : "group-hover:bg-black group-hover:text-white duration-200 "
-                  }  text-foreground w-auto text-[11px] px-2 flex items-center justify-center  rounded-full py-2`}
+                  }  text-foreground w-auto text-xl px-4 flex items-center justify-center  rounded-full py-2`}
                 >
                   +<IoMdCart size={18} /> Agregar
                 </span>

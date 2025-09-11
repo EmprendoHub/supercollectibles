@@ -1,112 +1,100 @@
-import ListProducts from "./_components/ListProducts";
-import { getCookiesName, removeUndefinedAndPageKeys } from "@/backend/helpers";
-import { cookies } from "next/headers";
-import ServerPagination from "@/components/layouts/ServerPagination";
-import { SLIDER_IMAGES } from "@/backend/data/constants";
-import { EmblaOptionsType } from "embla-carousel";
-import EmblaCarousel from "../_components/EmblaCarousel";
+import { Suspense } from "react";
+import dbConnect from "@/lib/db";
+import Product from "@/backend/models/Product";
 
-const OPTIONS: EmblaOptionsType = { loop: true };
+import ListProducts from "./_components/ListProducts";
 
 export const metadata = {
-  title: "Tienda Super Collectibles MX",
-  description:
-    "Ven y explora nuestra tienda en linea y descubre modelos exclusivos de marcas de alta gama.",
+  title: "Tienda - SuperCollectibles",
+  description: "Explora nuestra colección de cartas coleccionables",
 };
 
-const getAllProducts = async (
-  searchQuery: string,
-  currentCookies: string,
-  perPage: any
-) => {
-  try {
-    const URL = `${process.env.NEXTAUTH_URL}/api/products?${searchQuery}`;
-    const res = await fetch(URL, {
-      credentials: "include",
-      headers: {
-        "Content-Type": "application/json",
-        Cookie: currentCookies,
-        perPage: perPage,
-      },
-    });
-    const data = await res.json();
-    return data;
-  } catch (error) {
-    console.log(error);
-  }
-};
+async function getStoreData() {
+  await dbConnect();
 
-const TiendaPage = async ({ searchParams }: { searchParams: any }) => {
-  const nextCookies = cookies();
-  const cookieName = getCookiesName();
-  let nextAuthSessionToken: any = nextCookies.get(cookieName);
-  nextAuthSessionToken = nextAuthSessionToken?.value;
-  const currentCookies = `${cookieName}=${nextAuthSessionToken}`;
-  const urlParams = {
-    keyword: searchParams.keyword,
-    page: searchParams.page,
-    category: searchParams.category,
-    brand: searchParams.brand,
-    "rating[gte]": searchParams.rating,
-    "price[lte]": searchParams.max,
-    "price[gte]": searchParams.min,
-  };
-  // Filter out undefined values
-  const filteredUrlParams = Object.fromEntries(
-    Object.entries(urlParams).filter(([key, value]) => value !== undefined)
+  const products = await Product.find({
+    "availability.online": true,
+  })
+    .select("_id title slug price images category brand gender variations")
+    .lean();
+
+  // Get unique values for filters
+  const allCategories = Array.from(
+    new Set(products.map((p) => p.category).filter(Boolean))
+  );
+  const allBrands = Array.from(
+    new Set(products.map((p) => p.brand).filter(Boolean))
+  );
+  const allGenders = Array.from(
+    new Set(products.map((p) => p.gender).filter(Boolean))
   );
 
-  const searchQuery = new URLSearchParams(filteredUrlParams).toString();
-
-  const queryUrlParams = removeUndefinedAndPageKeys(urlParams);
-  const keywordQuery = new URLSearchParams(queryUrlParams).toString();
-
-  const per_page = 15;
-  const data = await getAllProducts(searchQuery, currentCookies, per_page);
-
-  //pagination
-  let page = parseInt(searchParams.page, 15);
-  page = !page || page < 1 ? 1 : page;
-  const perPage = 15;
-  const itemCount = data?.productsCount;
-  const totalPages = Math.ceil(data.filteredProductsCount / perPage);
-  const prevPage = page - 1 > 0 ? page - 1 : 1;
-  const nextPage = page + 1;
-  const isPageOutOfRange = page > totalPages;
-  const pageNumbers = [];
-  const offsetNumber = 2;
-  const products = data?.products.products;
-  const allBrands = data?.allBrands;
-  const allCategories = data?.allCategories;
-  const filteredProductsCount = data?.filteredProductsCount;
-  const search =
-    typeof searchParams.search === "string" ? searchParams.search : undefined;
-  for (let i = page - offsetNumber; i <= page + offsetNumber; i++) {
-    if (i >= 1 && i <= totalPages) {
-      pageNumbers.push(i);
-    }
+  // Get price range
+  interface ProductVariation {
+    price: number;
+    [key: string]: any;
   }
+
+  interface StoreProduct {
+    _id: string;
+    title: string;
+    slug: string;
+    price: number;
+    images: string[];
+    category?: string;
+    brand?: string;
+    gender?: string;
+    variations?: ProductVariation[];
+    [key: string]: any;
+  }
+
+  const productsTyped = products as unknown as StoreProduct[];
+
+  const prices: number[] = productsTyped.flatMap(
+    (p) =>
+      p.variations?.map((v) => v.price).filter((price) => price != null) || []
+  );
+  const minPrice = Math.min(...prices) || 0;
+  const maxPrice = Math.max(...prices) || 1000;
+
+  return {
+    products: JSON.parse(JSON.stringify(products)),
+    allCategories: allCategories.sort(),
+    allBrands: allBrands.sort(),
+    allGenders: allGenders.sort(),
+    priceRange: { min: minPrice, max: maxPrice },
+  };
+}
+
+export default async function TiendaPage({
+  searchParams,
+}: {
+  searchParams: {
+    page?: string;
+    search?: string;
+    category?: string;
+    brand?: string;
+    gender?: string;
+    minPrice?: string;
+    maxPrice?: string;
+  };
+}) {
+  const { products, allCategories, allBrands, allGenders, priceRange } =
+    await getStoreData();
 
   return (
-    <div className="flex flex-col items-center justify-center gap-5 pb-10">
-      {/* <EmblaCarousel slides={SLIDER_IMAGES} options={OPTIONS} /> */}
-      <ListProducts
-        products={products}
-        allBrands={allBrands}
-        allCategories={allCategories}
-        filteredProductsCount={filteredProductsCount}
-      />
-      <ServerPagination
-        isPageOutOfRange={isPageOutOfRange}
-        page={page}
-        pageNumbers={pageNumbers}
-        prevPage={prevPage}
-        nextPage={nextPage}
-        totalPages={totalPages}
-        searchParams={keywordQuery}
-      />
-    </div>
+    <main className="min-h-screen bg-background">
+      <Suspense fallback={<div>Cargando productos...</div>}>
+        <ListProducts
+          products={products}
+          allCategories={allCategories}
+          allBrands={allBrands}
+          allGenders={allGenders}
+          priceRange={priceRange}
+          searchParams={searchParams}
+          filteredProductsCount={products.length}
+        />
+      </Suspense>
+    </main>
   );
-};
-
-export default TiendaPage;
+}

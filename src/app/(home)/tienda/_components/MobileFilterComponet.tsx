@@ -1,79 +1,52 @@
 "use client";
-import styles from "./filterstyle.module.css";
-import { useEffect, useState } from "react";
-import { AnimatePresence } from "framer-motion";
-import { usePathname } from "next/navigation";
-import FilterMenuComponent from "./FilterMenuComponent";
-import { CiShare2 } from "react-icons/ci";
-import { toast } from "@/components/ui/use-toast";
-import { Search } from "lucide-react";
+import styles from "./boxfilterstyle.module.css";
+import { motion } from "framer-motion";
+import AllFiltersComponent from "./AllFiltersComponent";
+import React from "react";
 
-const MobileFilterComponet = ({
+const MobileFilterComponent = ({
   allBrands,
   allCategories,
+  allGenders,
+  priceRange,
+  SetIsActive,
+  isActive,
 }: {
-  allBrands: any;
-  allCategories: any;
+  allBrands: string[];
+  allCategories: string[];
+  allGenders: string[];
+  priceRange: { min: number; max: number };
+  SetIsActive: React.Dispatch<React.SetStateAction<boolean>>;
+  isActive: boolean;
 }) => {
-  const [isActive, SetIsActive] = useState(false);
-  const pathname = usePathname();
-
-  const copyToClipboard = () => {
-    const url = location.href;
-    navigator.clipboard.writeText(url);
-    toast({
-      type: "foreground",
-      duration: 3000,
-      title: "El enlace se copió correctamente en su portapapeles.",
-    });
-  };
-
-  useEffect(() => {
-    if (isActive) SetIsActive(false);
-    // eslint-disable-next-line
-  }, [pathname]);
-
   return (
-    <div className=" w-full mb-5 text-muted">
-      <div
-        className={`mt-5 p-3 border border-muted rounded-xl text-center w-full justify-between flex mx-auto `}
+    <motion.div
+      initial={{ opacity: 0 }}
+      animate={{ opacity: 1 }}
+      exit={{ opacity: 0 }}
+      className="fixed inset-0 bg-black bg-opacity-50 z-50 lg:hidden"
+      onClick={() => SetIsActive(false)}
+    >
+      <motion.div
+        initial={{ x: "100%" }}
+        animate={{ x: 0 }}
+        exit={{ x: "100%" }}
+        transition={{ type: "tween", duration: 0.3 }}
+        className="absolute right-0 top-0 h-full w-80 bg-card shadow-lg overflow-y-auto"
+        onClick={(e) => e.stopPropagation()}
       >
-        <div
-          className={`${styles.header} burger-class flex flex-row justify-between t items-center w-full`}
-        >
-          <div
-            className="flex flex-row items-center gap-x-2 cursor-pointer"
-            onClick={copyToClipboard}
-          >
-            <CiShare2 className="text-base text-white" />
-          </div>
-          <div
-            onClick={() => {
-              SetIsActive(!isActive);
-            }}
-            className={`${styles.button} text-xs`}
-          >
-            <Search className="text-white" />
-            <div
-              className={`${styles.burger} ${
-                isActive ? styles.burgerActive : ""
-              }`}
-            ></div>
-          </div>
-        </div>
-      </div>
-      <AnimatePresence mode="wait">
-        {isActive && (
-          <FilterMenuComponent
+        <div className="p-6">
+          <AllFiltersComponent
             allBrands={allBrands}
             allCategories={allCategories}
+            allGenders={allGenders}
+            priceRange={priceRange}
             SetIsActive={SetIsActive}
-            isActive={isActive}
           />
-        )}
-      </AnimatePresence>
-    </div>
+        </div>
+      </motion.div>
+    </motion.div>
   );
 };
 
-export default MobileFilterComponet;
+export default MobileFilterComponent;
