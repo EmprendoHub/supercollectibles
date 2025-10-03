@@ -143,7 +143,7 @@ const RegistrationModal: React.FC<RegistrationModalProps> = ({
 
   return (
     <Dialog open={isOpen} onOpenChange={onClose}>
-      <DialogContent className="sm:max-w-[500px] bg-gradient-to-br from-purple-50 to-pink-50 border-purple-200">
+      <DialogContent className="sm:max-w-[500px] bg-black border-purple-200">
         <DialogHeader>
           <DialogTitle className="text-2xl font-bold bg-gradient-to-r from-purple-600 to-pink-600 bg-clip-text text-transparent text-center">
             Registro Meet & Greet con Cacha
