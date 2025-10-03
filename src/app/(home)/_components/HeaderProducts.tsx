@@ -30,13 +30,15 @@ const HeaderProducts = ({ editorsProducts }: { editorsProducts: any }) => {
         />
       </div>
       <Carousel
-        className="w-[800px] maxmd:w-[95%] mx-auto mt-10 "
+        className="w-full max-w-[1450px] mx-auto mt-10 px-5"
         opts={{
           align: "center",
           slidesToScroll: 3,
         }}
       >
-        <h3 className="mb-3 text-semibold text-xl">Lo mas nuevo</h3>
+        <h3 className="ml-4 my-3 text-semibold text-4xl font-EB_Garamond text-white">
+          Lo mas nuevo
+        </h3>
         <CarouselContent className="-ml-1 ">
           {editorsProducts.slice(0, 20).map((product: any, index: any) => (
             <CarouselItem

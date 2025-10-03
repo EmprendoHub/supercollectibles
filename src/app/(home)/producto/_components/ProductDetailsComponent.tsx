@@ -408,15 +408,16 @@ const ProductDetailsComponent = ({
             </div>
           </div>
         </div>
-
-        <div className=" maxsm:px-4 mb-10 mt-10 w-[50%] maxxlg:w-[75%] maxlg:w-[80%] maxmd:w-[95%] mx-auto h-full">
-          <p className="text-3xl maxsm:text-4xl font-EB_Garamond pb-5 font-semibold">
-            {"También te puede gustar"}
-          </p>
-          <div className="grid maxsm:grid-cols-2 maxmd:grid-cols-4 grid-cols-4 gap-4 mt-2">
-            {trendingProducts?.map((product: any, index: number) => (
-              <ProductCard key={product._id} item={product} index={index} />
-            ))}
+        <div className="bg-black w-full">
+          <div className="bg-black maxsm:px-4 mb-10 mt-10 w-[50%] maxxlg:w-[75%] maxlg:w-[80%] maxmd:w-[95%] mx-auto h-full">
+            <p className="text-3xl maxsm:text-4xl font-EB_Garamond text-white pb-5 font-semibold">
+              {"También te puede gustar"}
+            </p>
+            <div className="grid maxsm:grid-cols-2 maxmd:grid-cols-4 grid-cols-4 gap-4 mt-2">
+              {trendingProducts?.map((product: any, index: number) => (
+                <ProductCard key={product._id} item={product} index={index} />
+              ))}
+            </div>
           </div>
         </div>
       </div>

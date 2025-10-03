@@ -3,14 +3,12 @@ import Image from "next/image";
 import FormattedPrice from "@/backend/helpers/FormattedPrice";
 import { motion } from "framer-motion";
 import Link from "next/link";
-import { addToFavorites } from "@/redux/shoppingSlice";
 import { useDispatch, useSelector } from "react-redux";
-import { IoMdCart, IoMdHeart } from "react-icons/io";
+import { IoMdCart } from "react-icons/io";
 import { calculatePercentage } from "@/backend/helpers";
 import { toast } from "sonner";
 import { useEffect, useState } from "react";
 import { addToCart } from "@/redux/shoppingSlice";
-import { useRouter } from "next/navigation";
 
 const ProductCard = ({ item, index }: { item: any; index: number }) => {
   const dispatch = useDispatch();
@@ -104,13 +102,11 @@ const ProductCard = ({ item, index }: { item: any; index: number }) => {
         </div>
       </Link>
       <div className=" px-0.5 pb-4 flex flex-col border-card rounded-b-sm">
-        <div className="flex items-center justify-between gap-x-1">
-          <p className=" tracking-wide font-EB_Garamond text-xl font-bold uppercase">
-            {item?.title.substring(0, 23)}
-          </p>
-        </div>
+        <p className="text-center text-white tracking-wide font-EB_Garamond text-base font-bold uppercase">
+          {item?.title.substring(0, 18)}
+        </p>
 
-        <div className="pricing-class flex fle-row items-center gap-x-2 text-center">
+        <div className="pricing-class flex fle-row items-center justify-center gap-x-2 text-center">
           {/* <div className="flex flex-col gap-y-1">
             <p className="font-semibold text-foreground tracking-wider text-4xl">
               {item?.sale_price > 0 ? (
@@ -125,7 +121,7 @@ const ProductCard = ({ item, index }: { item: any; index: number }) => {
           {item?.sale_price ? (
             <div>
               <div className="flex items-center gap-x-2">
-                <p className="line-through text-sm text-foreground font-bodyFont">
+                <p className="line-through text-sm text-white font-bodyFont">
                   <FormattedPrice amount={item?.price} />
                 </p>
               </div>
@@ -135,7 +131,7 @@ const ProductCard = ({ item, index }: { item: any; index: number }) => {
           )}
         </div>
         <div className="">
-          <p className="font-semibold  tracking-wide text-2xl">
+          <p className="font-semibold  tracking-wide text-2xl text-center text-white">
             <FormattedPrice
               amount={
                 item?.variations[0]?.price > 0
@@ -150,7 +146,7 @@ const ProductCard = ({ item, index }: { item: any; index: number }) => {
           initial={{ y: 50, opacity: 0 }}
           whileInView={{ y: 0, opacity: 1 }}
           transition={{ duration: 0.8 }}
-          className="flex items-center group"
+          className="flex items-center justify-center group"
         >
           {alreadyCart ? (
             <Link href="/carrito">
@@ -178,9 +174,9 @@ const ProductCard = ({ item, index }: { item: any; index: number }) => {
                     item?.stock <= 0
                       ? "bg-slate-500 bg-opacity-50 text-foreground "
                       : "group-hover:bg-black group-hover:text-white duration-200 "
-                  }  text-foreground w-auto text-xl px-4 flex items-center justify-center  rounded-full py-2`}
+                  }  text-foreground w-auto text-base px-4 flex items-center justify-center  rounded-full py-2`}
                 >
-                  +<IoMdCart size={18} /> Agregar
+                  <IoMdCart size={18} /> Agregar
                 </span>
               )}
             </motion.button>

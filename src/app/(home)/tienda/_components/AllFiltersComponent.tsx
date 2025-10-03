@@ -56,11 +56,13 @@ const AllFiltersComponent = ({
 
       return () => clearTimeout(timer);
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [searchTerm]);
 
   // Update URL when filters change
   useEffect(() => {
     updateURL();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [selectedCategory, selectedBrand, selectedGender, priceValues]);
 
   const updateURL = () => {

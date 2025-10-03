@@ -284,7 +284,7 @@ const AdminProducts = ({
                   </span>
                 </td>
                 <td className="w-full px-1 py-0 ">{product?.gender}</td>
-                <td className="w-full px-1 py-0 ">{product?.line}</td>
+                <td className="w-full px-1 py-0 ">{product?.linea}</td>
                 <td className="w-full px-6 maxsm:px-0 py-0 ">
                   <b>
                     <FormattedPrice amount={product?.variations[0]?.price} />

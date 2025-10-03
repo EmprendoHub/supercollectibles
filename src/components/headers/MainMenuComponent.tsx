@@ -47,7 +47,7 @@ const MainMenuComponent = ({
 
   return (
     <nav
-      className={`${className} relative self-stretch flex flex-row items-center maxmd:items-start justify-center p-3 mx-auto menu-class bg-primary maxmd:flex maxmd:flex-col-reverse `}
+      className={`${className} relative self-stretch flex flex-row items-center maxmd:items-start justify-center p-3 mx-auto menu-class maxmd:flex maxmd:flex-col-reverse `}
     >
       <div className="relative flex items-center justify-between gap-3">
         {/*Mobile Navigation*/}

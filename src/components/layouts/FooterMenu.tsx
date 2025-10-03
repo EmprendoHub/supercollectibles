@@ -6,7 +6,7 @@ import WhiteLogoComponent from "./WhiteLogoComponent";
 
 const FooterMenu = () => {
   return (
-    <div className="w-full bg-background  px-20 maxmd:px-5 py-24 grid xsm:grid-cols-1 maxmd:grid-cols-2 grid-cols-4 gap-10">
+    <div className="w-full bg-black  px-20 maxmd:px-5 py-24 grid xsm:grid-cols-1 maxmd:grid-cols-2 grid-cols-4 gap-10 text-white">
       <div className=" flex flex-col justify-start">
         <WhiteLogoComponent className="w-[100px]" />
         <p className="text-xs mt-1">{"Super Collectibles Mx"}</p>
@@ -52,16 +52,7 @@ const FooterMenu = () => {
               {"Contacto"}
             </motion.li>
           </Link>
-          <Link href={`/testimonios`}>
-            <motion.li
-              whileHover={{ y: -4 }}
-              whileTap={{ y: 1 }}
-              transition={{ duration: 0.15 }}
-              className="hover:text-primary cursor-pointer duration-200"
-            >
-              {"Testimonios de Clientes"}
-            </motion.li>
-          </Link>
+
           <Link href={`/contacto`}>
             <motion.li
               whileHover={{ y: -4 }}

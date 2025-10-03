@@ -209,7 +209,7 @@ const CarouselPrevious = React.forwardRef<
         "maxmd:hidden absolute  h-10 w-10 rounded-full shadow-black shadow-sm hover:scale-110 ease-in-out duration-400",
         !canScrollPrev && "hidden",
         orientation === "horizontal"
-          ? "-left-12 top-1/2 -translate-y-1/2"
+          ? "-left-10 top-1/2 -translate-y-1/2"
           : "-top-12 left-1/2 -translate-x-1/2 rotate-90",
         className
       )}
@@ -239,7 +239,7 @@ const CarouselNext = React.forwardRef<
         "maxmd:hidden absolute h-10 w-10 rounded-full shadow-black shadow-sm hover:scale-110 ease-in-out duration-400",
         !canScrollNext && "hidden",
         orientation === "horizontal"
-          ? "-right-12 top-1/2 -translate-y-1/2"
+          ? "-right-10 top-1/2 -translate-y-1/2"
           : "-bottom-12 left-1/2 -translate-x-1/2 rotate-90",
         className
       )}
