@@ -440,7 +440,7 @@ const QRScannerPage = () => {
                   {/* Overlay para ayudar con el enfoque del QR */}
                   {isScanning && !error && hasPermission && (
                     <div className="absolute inset-0 pointer-events-none">
-                      <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-48 h-48 border-2 border-white border-dashed rounded-lg opacity-50"></div>
+                      <div className="absolute top-20 left-1/2 transform -translate-x-1/2 -translate-y-[15%] w-48 h-48 border-2 border-white border-dashed rounded-lg opacity-50"></div>
                     </div>
                   )}
                 </div>
