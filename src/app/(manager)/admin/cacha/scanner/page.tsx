@@ -97,6 +97,9 @@ const QRScannerPage = () => {
           fps: 10,
           qrbox: { width: 250, height: 250 },
           aspectRatio: 1.0,
+          showTorchButtonIfSupported: true,
+          showZoomSliderIfSupported: true,
+          defaultZoomValueIfSupported: 2,
           formatsToSupport: [
             Html5QrcodeSupportedFormats.QR_CODE,
             Html5QrcodeSupportedFormats.CODE_128,
@@ -137,7 +140,7 @@ const QRScannerPage = () => {
         scannerRef.current = new Html5QrcodeScanner(
           "qr-scanner-container",
           config,
-          false
+          true // Enable verbose mode for camera selection
         );
 
         scannerRef.current.render(onScanSuccess, onScanError);
@@ -319,6 +322,7 @@ const QRScannerPage = () => {
           padding: 8px 16px !important;
           border-radius: 6px !important;
           font-size: 14px !important;
+          margin: 4px !important;
         }
 
         #html5-qrcode-button-camera-stop {
@@ -328,6 +332,38 @@ const QRScannerPage = () => {
           padding: 8px 16px !important;
           border-radius: 6px !important;
           font-size: 14px !important;
+          margin: 4px !important;
+        }
+
+        #html5-qrcode-select-camera {
+          background-color: white !important;
+          border: 1px solid #d1d5db !important;
+          border-radius: 6px !important;
+          padding: 8px 12px !important;
+          font-size: 14px !important;
+          margin: 4px !important;
+          color: #374151 !important;
+        }
+
+        #html5-qrcode-select-camera:focus {
+          outline: none !important;
+          border-color: #3b82f6 !important;
+          box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.1) !important;
+        }
+
+        .html5-qrcode-element {
+          margin: 4px !important;
+        }
+
+        #html5-qrcode-anchor-scan-type-change {
+          color: #3b82f6 !important;
+          text-decoration: none !important;
+          font-size: 14px !important;
+          margin: 4px !important;
+        }
+
+        #html5-qrcode-anchor-scan-type-change:hover {
+          text-decoration: underline !important;
         }
       `}</style>
       <div className=" max-w-4xl mx-auto">
@@ -370,7 +406,7 @@ const QRScannerPage = () => {
                       }
                     />
                   ) : (
-                    <div className="flex items-center justify-center h-full text-white bg-black">
+                    <div className="flex flex-col items-center justify-center h-full text-white bg-black">
                       <div className="text-center">
                         <Camera className="w-12 h-12 mx-auto mb-2 opacity-50" />
                         <p>Presiona iniciar para usar la cámara</p>
@@ -429,27 +465,24 @@ const QRScannerPage = () => {
                 </div>
 
                 {/* Manual Input */}
-                <Card className="p-0">
-                  <CardHeader>
+                <Card>
+                  <CardHeader className="p-0">
                     <CardTitle className="flex items-center gap-2">
                       <Search className="w-5 h-5" />
                       Búsqueda Manual
                     </CardTitle>
                   </CardHeader>
-                  <CardContent>
+                  <CardContent className="p-0">
                     <div className="space-y-4">
                       <div>
-                        <label className="block text-sm font-medium mb-2">
-                          Código de Confirmación
-                        </label>
                         <Input
                           value={manualCode}
                           onChange={(e) =>
                             setManualCode(e.target.value.toUpperCase())
                           }
-                          placeholder="Ej: CACHA-ABC123"
+                          placeholder="Código de Confirmación"
                           className="font-mono"
-                          onKeyPress={(e) => {
+                          onKeyDown={(e) => {
                             if (e.key === "Enter") {
                               searchByCode(manualCode);
                             }
@@ -559,7 +592,7 @@ const QRScannerPage = () => {
                     {scannedData.estado === "confirmado" && (
                       <Button
                         onClick={() => markAsAttended(scannedData._id)}
-                        className="bg-green-600 hover:bg-blue-700 text-2xl h-20"
+                        className="bg-black hover:bg-blue-700 text-2xl h-20"
                       >
                         ✅ Marcar como Asistido
                       </Button>
