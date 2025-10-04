@@ -98,7 +98,6 @@ const QRScannerPage = () => {
           qrbox: { width: 250, height: 250 },
           aspectRatio: 1.0,
           showTorchButtonIfSupported: true,
-          showZoomSliderIfSupported: true,
           defaultZoomValueIfSupported: 2,
           formatsToSupport: [
             Html5QrcodeSupportedFormats.QR_CODE,
@@ -391,7 +390,7 @@ const QRScannerPage = () => {
               <div className="space-y-4">
                 <div
                   className="relative max-w-[350px] rounded-lg overflow-hidden border-2 border-gray-300"
-                  style={{ aspectRatio: "4/3", minHeight: "300px" }}
+                  style={{ aspectRatio: "4/3", minHeight: "400px" }}
                 >
                   {isScanning ? (
                     <div
@@ -468,7 +467,7 @@ const QRScannerPage = () => {
                 <Card>
                   <CardHeader className="p-0">
                     <CardTitle className="flex items-center gap-2">
-                      <Search className="w-5 h-5" />
+                      <Search className="w-5 h-5 mb-2" />
                       Búsqueda Manual
                     </CardTitle>
                   </CardHeader>
