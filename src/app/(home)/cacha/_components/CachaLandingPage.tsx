@@ -226,7 +226,11 @@ const CachaLandingPage = () => {
               </div>
             </div>
             <Link href="https://www.instagram.com/cacha.oficial">
-              <a className="text-pink-200 text-4xl font-bold ml-4 mt-2">
+              <a
+                className="text-pink-200 text-4xl font-bold ml-4 mt-2"
+                target="_blank"
+                rel="noopener noreferrer"
+              >
                 @cacha.oficial
               </a>
             </Link>
