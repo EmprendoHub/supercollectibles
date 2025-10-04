@@ -1,4 +1,5 @@
 import nodemailer from "nodemailer";
+import QRCode from "qrcode";
 
 interface EmailData {
   nombre: string;
@@ -17,12 +18,27 @@ interface AdminNotificationData {
   fechaRegistro: Date;
 }
 
-export async function sendCachaConfirmationEmail({
+interface CancellationEmailData {
+  nombre: string;
+  email: string;
+  codigoConfirmacion: string;
+  razonCancelacion: string;
+  fechaCancelacion: Date;
+}
+
+interface InitialRegistrationData {
+  nombre: string;
+  email: string;
+  codigoConfirmacion: string;
+  fechaRegistro: Date;
+}
+
+export async function sendInitialRegistrationEmail({
   nombre,
   email,
   codigoConfirmacion,
   fechaRegistro,
-}: EmailData) {
+}: InitialRegistrationData) {
   try {
     const transporter = nodemailer.createTransport({
       service: "gmail",
@@ -43,7 +59,314 @@ export async function sendCachaConfirmationEmail({
       }
     );
 
-    const subject = "🎉 ¡Confirmación de registro - Meet & Greet con Cacha!";
+    const confirmationUrl = `${process.env.NEXTAUTH_URL}/api/cacha/confirm?code=${codigoConfirmacion}`;
+    const subject = "🎉 Confirma tu registro - Meet & Greet con Cacha";
+    const senderEmail = "supercollectibles214@gmail.com";
+
+    const htmlContent = `
+    <!DOCTYPE html>
+    <html lang="es">
+    <head>
+      <meta charset="UTF-8">
+      <meta name="viewport" content="width=device-width, initial-scale=1.0">
+      <title>Confirma tu Registro - Meet & Greet con Cacha</title>
+      <style>
+        body {
+          font-family: 'Arial', sans-serif;
+          margin: 0;
+          padding: 0;
+          background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+          color: #333;
+        }
+        .container {
+          max-width: 600px;
+          margin: 0 auto;
+          background: white;
+          border-radius: 15px;
+          overflow: hidden;
+          box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+        }
+        .header {
+          background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+          padding: 40px 30px;
+          text-align: center;
+          color: white;
+        }
+        .header h1 {
+          margin: 0;
+          font-size: 28px;
+          font-weight: bold;
+          text-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
+        }
+        .header p {
+          margin: 10px 0 0;
+          font-size: 16px;
+          opacity: 0.9;
+        }
+        .emoji {
+          font-size: 48px;
+          margin-bottom: 15px;
+          display: block;
+        }
+        .content {
+          padding: 40px 30px;
+        }
+        .greeting {
+          font-size: 20px;
+          color: #667eea;
+          margin-bottom: 20px;
+          font-weight: bold;
+        }
+        .message {
+          font-size: 16px;
+          line-height: 1.6;
+          margin-bottom: 25px;
+          color: #555;
+        }
+        .confirm-button {
+          background: linear-gradient(135deg, #d9d9d9 0%, #f5f5f5 100%);
+          color: white;
+          padding: 15px 40px;
+          border-radius: 50px;
+          text-decoration: none;
+          font-size: 18px;
+          font-weight: bold;
+          display: inline-block;
+          margin: 30px 0;
+          box-shadow: 0 4px 15px rgba(102, 126, 234, 0.3);
+          transition: all 0.3s ease;
+        }
+        .confirm-button:hover {
+          transform: translateY(-2px);
+          box-shadow: 0 8px 25px rgba(102, 126, 234, 0.4);
+        }
+        .details-box {
+          background: linear-gradient(135deg, #f8f9ff 0%, #e8ebff 100%);
+          border-radius: 10px;
+          padding: 25px;
+          margin: 25px 0;
+          border-left: 5px solid #667eea;
+        }
+        .details-title {
+          font-size: 18px;
+          font-weight: bold;
+          color: #667eea;
+          margin-bottom: 15px;
+        }
+        .detail-item {
+          display: flex;
+          align-items: center;
+          margin-bottom: 10px;
+          font-size: 14px;
+        }
+        .detail-icon {
+          margin-right: 10px;
+          font-size: 16px;
+        }
+        .warning-box {
+          background: #fff8dc;
+          border: 2px solid #ffd700;
+          border-radius: 10px;
+          padding: 20px;
+          margin: 25px 0;
+          text-align: center;
+        }
+        .footer {
+          background: #f8f9fa;
+          padding: 30px;
+          text-align: center;
+          border-top: 1px solid #eee;
+        }
+        .footer-logo {
+          font-size: 18px;
+          font-weight: bold;
+          color: #667eea;
+          margin-bottom: 10px;
+        }
+        .footer-text {
+          font-size: 12px;
+          color: #666;
+          line-height: 1.4;
+        }
+        .social-links {
+          margin: 15px 0;
+        }
+        .social-links a {
+          text-decoration: none;
+          color: #667eea;
+          margin: 0 10px;
+          font-size: 14px;
+        }
+        @media (max-width: 600px) {
+          .container {
+            margin: 0;
+            border-radius: 0;
+          }
+          .header, .content, .footer {
+            padding: 20px;
+          }
+        }
+      </style>
+    </head>
+    <body>
+      <div class="container">
+        <!-- Header -->
+        <div class="header">
+          <span class="emoji">📧</span>
+          <h1>¡Confirma tu Registro!</h1>
+          <p>Meet & Greet con Cacha</p>
+        </div>
+
+        <!-- Content -->
+        <div class="content">
+          <div class="greeting">¡Hola ${nombre}! 👋</div>
+          
+          <div class="message">
+            ¡Gracias por registrarte para el <strong>Meet & Greet con Cacha</strong>! 
+            Para completar tu registro, necesitamos que confirmes tu dirección de email.
+          </div>
+
+          <div class="message" style="text-align: center;">
+            <strong>👆 Haz clic en el botón para confirmar:</strong>
+          </div>
+
+          <!-- Confirmation Button -->
+          <div style="text-align: center;">
+            <a href="${confirmationUrl}" class="confirm-button">
+              ✅ CONFIRMAR MI REGISTRO
+            </a>
+          </div>
+
+          <!-- Registration Details -->
+          <div class="details-box">
+            <div class="details-title">📋 Detalles de tu Registro</div>
+            <div class="detail-item">
+              <span class="detail-icon">👤</span>
+              <strong>Nombre:</strong> &nbsp;${nombre}
+            </div>
+            <div class="detail-item">
+              <span class="detail-icon">📧</span>
+              <strong>Email:</strong> &nbsp;${email}
+            </div>
+            <div class="detail-item">
+              <span class="detail-icon">📅</span>
+              <strong>Fecha de registro:</strong> &nbsp;${fechaFormateada}
+            </div>
+            <div class="detail-item">
+              <span class="detail-icon">🎫</span>
+              <strong>Estado:</strong> &nbsp;Pendiente de confirmación
+            </div>
+          </div>
+
+          <!-- Important Notice -->
+          <div class="warning-box">
+            <div style="font-weight: bold; color: #d97706; margin-bottom: 10px;">
+              ⚠️ Importante
+            </div>
+            <div style="font-size: 14px; color: #92400e;">
+              Tienes <strong>24 horas</strong> para confirmar tu registro.
+              Si no confirmas, tu lugar podría ser asignado a otra persona.
+            </div>
+          </div>
+
+          <div class="message">
+            <strong>📱 ¿No puedes hacer clic?</strong><br>
+            Copia y pega este enlace en tu navegador:<br>
+            <code style="background: #f3f4f6; padding: 5px 10px; border-radius: 5px; font-size: 12px;">
+              ${confirmationUrl}
+            </code>
+          </div>
+
+          <div class="message">
+            <strong>💝 ¿Tienes preguntas?</strong><br>
+            No dudes en contactarnos a través de nuestros canales oficiales. 
+            ¡Estamos emocionados de verte en el evento!
+          </div>
+        </div>
+
+        <!-- Footer -->
+        <div class="footer">
+          <div class="footer-logo">Super Collectibles</div>
+          <div class="social-links">
+            <a href="https://www.supercollectibles.com.mx">🌐 Sitio Web</a>
+            <a href="https://www.instagram.com/supercollectibles_mx">📱 Instagram</a>
+            <a href="https://www.facebook.com/profile.php?id=61564208924734">📘 Facebook</a>
+          </div>
+          <div class="footer-text">
+            Este es un email de confirmación de registro.<br>
+            Por favor, confirma tu registro lo antes posible.<br>
+            <br>
+            <strong>Super Collectibles</strong><br>
+            www.supercollectibles.com.mx<br>
+            ¡Creciendo tu colección, un evento a la vez! 🚀
+          </div>
+        </div>
+      </div>
+    </body>
+    </html>
+    `;
+
+    const mailOptions = {
+      from: `"Super Collectibles - Evento Cacha" <${senderEmail}>`,
+      to: email,
+      subject,
+      html: htmlContent,
+    };
+
+    await transporter.sendMail(mailOptions);
+
+    return {
+      success: true,
+      message: "Email de confirmación inicial enviado exitosamente",
+    };
+  } catch (error) {
+    console.error("Error al enviar email de confirmación inicial:", error);
+    return {
+      success: false,
+      message: "Error al enviar email de confirmación inicial",
+      error,
+    };
+  }
+}
+
+export async function sendCachaConfirmationEmail({
+  nombre,
+  email,
+  codigoConfirmacion,
+  fechaRegistro,
+}: EmailData) {
+  try {
+    const transporter = nodemailer.createTransport({
+      service: "gmail",
+      auth: {
+        user: process.env.GOOGLE_MAIL,
+        pass: process.env.GOOGLE_MAIL_PASS,
+      },
+    });
+
+    // Generar QR Code como buffer para adjuntar al email
+    const qrCodeBuffer = await QRCode.toBuffer(codigoConfirmacion, {
+      width: 200,
+      margin: 2,
+      color: {
+        dark: "#31215c",
+        light: "#ffffff",
+      },
+      type: "png",
+    });
+
+    const fechaFormateada = new Date(fechaRegistro).toLocaleDateString(
+      "es-MX",
+      {
+        year: "numeric",
+        month: "long",
+        day: "numeric",
+        hour: "2-digit",
+        minute: "2-digit",
+      }
+    );
+
+    const subject = "🎉 ¡Registro Confirmado! - Meet & Greet con Cacha";
     const senderEmail = "supercollectibles214@gmail.com";
 
     const htmlContent = `
@@ -129,17 +452,33 @@ export async function sendCachaConfirmationEmail({
           margin-right: 10px;
           font-size: 16px;
         }
-        .confirmation-code {
+        .qr-container {
           background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
           color: white;
-          padding: 15px;
-          border-radius: 8px;
+          padding: 30px;
+          border-radius: 15px;
           text-align: center;
-          font-size: 18px;
+          margin: 30px 0;
+          box-shadow: 0 8px 25px rgba(102, 126, 234, 0.3);
+        }
+        .qr-title {
+          font-size: 20px;
           font-weight: bold;
-          letter-spacing: 2px;
-          margin: 20px 0;
-          box-shadow: 0 4px 15px rgba(102, 126, 234, 0.3);
+          margin-bottom: 15px;
+          text-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
+        }
+        .qr-code {
+          background: white;
+          padding: 20px;
+          border-radius: 10px;
+          display: inline-block;
+          margin: 15px 0;
+          box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+        }
+        .qr-instructions {
+          font-size: 14px;
+          opacity: 0.9;
+          margin-top: 10px;
         }
         .event-info {
           background: #f0f4ff;
@@ -215,9 +554,16 @@ export async function sendCachaConfirmationEmail({
             Estamos emocionados de tenerte en este evento exclusivo.
           </div>
 
-          <!-- Confirmation Code -->
-          <div class="confirmation-code">
-            Código de Confirmación: ${codigoConfirmacion}
+          <!-- QR Code -->
+          <div class="qr-container">
+            <div class="qr-title">🎫 Tu Código QR de Acceso</div>
+            <div class="qr-code">
+              <img src="cid:qrcode" alt="Código QR - ${codigoConfirmacion}" style="width: 200px; height: 200px;" />
+            </div>
+            <div class="qr-instructions">
+              Presenta este código QR en el evento para acceder<br>
+              <strong>Código: ${codigoConfirmacion}</strong>
+            </div>
           </div>
 
           <!-- Registration Details -->
@@ -265,7 +611,8 @@ export async function sendCachaConfirmationEmail({
           <div class="message">
             <strong>📍 Próximos pasos:</strong><br>
             • Te esperamos este Sábado 01 de Noviembre a las 2:00 PM en El Centro Magno - Av. Ignacio L Vallarta 2425, Arcos Vallarta, 44130 Guadalajara, Jal.<br>
-            • Guarda tu código de confirmación para el acceso al evento<br>
+            • Presenta tu código QR al llegar al evento para acceder<br>
+            • Guarda este email o toma captura de pantalla del QR<br>
             • Mantente atento a tu email para más información<br>
             • Síguenos en redes sociales para actualizaciones
           </div>
@@ -304,6 +651,13 @@ export async function sendCachaConfirmationEmail({
       to: email,
       subject,
       html: htmlContent,
+      attachments: [
+        {
+          filename: `qr-cacha-${codigoConfirmacion}.png`,
+          content: qrCodeBuffer,
+          cid: "qrcode", // Contenido embebido con ID para referenciar en HTML
+        },
+      ],
     };
 
     await transporter.sendMail(mailOptions);
@@ -512,6 +866,293 @@ export async function sendAdminNotificationEmail({
     return {
       success: false,
       message: "Error al enviar notificación admin",
+      error,
+    };
+  }
+}
+
+export async function sendCachaCancellationEmail({
+  nombre,
+  email,
+  codigoConfirmacion,
+  razonCancelacion,
+  fechaCancelacion,
+}: CancellationEmailData) {
+  try {
+    const transporter = nodemailer.createTransport({
+      service: "gmail",
+      auth: {
+        user: process.env.GOOGLE_MAIL,
+        pass: process.env.GOOGLE_MAIL_PASS,
+      },
+    });
+
+    const fechaFormateada = new Date(fechaCancelacion).toLocaleDateString(
+      "es-MX",
+      {
+        year: "numeric",
+        month: "long",
+        day: "numeric",
+        hour: "2-digit",
+        minute: "2-digit",
+      }
+    );
+
+    const subject = "😔 Cancelación de registro - Meet & Greet con Cacha";
+    const senderEmail = "supercollectibles214@gmail.com";
+
+    const htmlContent = `
+    <!DOCTYPE html>
+    <html lang="es">
+    <head>
+      <meta charset="UTF-8">
+      <meta name="viewport" content="width=device-width, initial-scale=1.0">
+      <title>Cancelación de Registro - Meet & Greet con Cacha</title>
+      <style>
+        body {
+          font-family: 'Arial', sans-serif;
+          margin: 0;
+          padding: 0;
+          background: linear-gradient(135deg, #f3f4f6 0%, #e5e7eb 100%);
+          color: #333;
+        }
+        .container {
+          max-width: 600px;
+          margin: 0 auto;
+          background: white;
+          border-radius: 15px;
+          overflow: hidden;
+          box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+        }
+        .header {
+          background: linear-gradient(135deg, #ef4444 0%, #dc2626 100%);
+          padding: 40px 30px;
+          text-align: center;
+          color: white;
+        }
+        .header h1 {
+          margin: 0;
+          font-size: 28px;
+          font-weight: bold;
+          text-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
+        }
+        .header p {
+          margin: 10px 0 0;
+          font-size: 16px;
+          opacity: 0.9;
+        }
+        .emoji {
+          font-size: 48px;
+          margin-bottom: 15px;
+          display: block;
+        }
+        .content {
+          padding: 40px 30px;
+        }
+        .greeting {
+          font-size: 20px;
+          color: #ef4444;
+          margin-bottom: 20px;
+          font-weight: bold;
+        }
+        .message {
+          font-size: 16px;
+          line-height: 1.6;
+          margin-bottom: 25px;
+          color: #555;
+        }
+        .details-box {
+          background: linear-gradient(135deg, #fef2f2 0%, #fee2e2 100%);
+          border-radius: 10px;
+          padding: 25px;
+          margin: 25px 0;
+          border-left: 5px solid #ef4444;
+        }
+        .details-title {
+          font-size: 18px;
+          font-weight: bold;
+          color: #ef4444;
+          margin-bottom: 15px;
+        }
+        .detail-item {
+          display: flex;
+          align-items: center;
+          margin-bottom: 10px;
+          font-size: 14px;
+        }
+        .detail-icon {
+          margin-right: 10px;
+          font-size: 16px;
+        }
+        .reason-box {
+          background: #fffbeb;
+          border: 2px solid #fbbf24;
+          border-radius: 10px;
+          padding: 20px;
+          margin: 25px 0;
+        }
+        .reason-title {
+          font-size: 16px;
+          font-weight: bold;
+          color: #d97706;
+          margin-bottom: 10px;
+        }
+        .reason-text {
+          color: #92400e;
+          line-height: 1.5;
+          font-style: italic;
+        }
+        .contact-box {
+          background: #f0f9ff;
+          border-radius: 10px;
+          padding: 20px;
+          margin: 25px 0;
+          text-align: center;
+        }
+        .footer {
+          background: #f8f9fa;
+          padding: 30px;
+          text-align: center;
+          border-top: 1px solid #eee;
+        }
+        .footer-logo {
+          font-size: 18px;
+          font-weight: bold;
+          color: #ef4444;
+          margin-bottom: 10px;
+        }
+        .footer-text {
+          font-size: 12px;
+          color: #666;
+          line-height: 1.4;
+        }
+        .social-links {
+          margin: 15px 0;
+        }
+        .social-links a {
+          text-decoration: none;
+          color: #ef4444;
+          margin: 0 10px;
+          font-size: 14px;
+        }
+        @media (max-width: 600px) {
+          .container {
+            margin: 0;
+            border-radius: 0;
+          }
+          .header, .content, .footer {
+            padding: 20px;
+          }
+        }
+      </style>
+    </head>
+    <body>
+      <div class="container">
+        <!-- Header -->
+        <div class="header">
+          <span class="emoji">😔</span>
+          <h1>Registro Cancelado</h1>
+          <p>Meet & Greet con Cacha</p>
+        </div>
+
+        <!-- Content -->
+        <div class="content">
+          <div class="greeting">Hola ${nombre}, 👋</div>
+          
+          <div class="message">
+            Lamentamos informarte que tu registro para el <strong>Meet & Greet con Cacha</strong> 
+            ha sido cancelado. Entendemos que esto puede ser decepcionante y nos disculpamos por cualquier inconveniente.
+          </div>
+
+          <!-- Registration Details -->
+          <div class="details-box">
+            <div class="details-title">📋 Detalles de tu Registro Cancelado</div>
+            <div class="detail-item">
+              <span class="detail-icon">👤</span>
+              <strong>Nombre:</strong> &nbsp;${nombre}
+            </div>
+            <div class="detail-item">
+              <span class="detail-icon">📧</span>
+              <strong>Email:</strong> &nbsp;${email}
+            </div>
+            <div class="detail-item">
+              <span class="detail-icon">🎫</span>
+              <strong>Código de confirmación:</strong> &nbsp;${codigoConfirmacion}
+            </div>
+            <div class="detail-item">
+              <span class="detail-icon">📅</span>
+              <strong>Fecha de cancelación:</strong> &nbsp;${fechaFormateada}
+            </div>
+          </div>
+
+          <!-- Cancellation Reason -->
+          <div class="reason-box">
+            <div class="reason-title">📝 Motivo de la Cancelación</div>
+            <div class="reason-text">"${razonCancelacion}"</div>
+          </div>
+
+          <div class="message">
+            <strong>💬 ¿Tienes preguntas?</strong><br>
+            Si tienes alguna duda sobre esta cancelación o necesitas más información, 
+            no dudes en contactarnos. Nuestro equipo está disponible para ayudarte.
+          </div>
+
+          <!-- Contact Information -->
+          <div class="contact-box">
+            <div style="font-weight: bold; color: #0ea5e9; margin-bottom: 10px;">
+              📞 Mantente en contacto
+            </div>
+            <div style="font-size: 14px; color: #0369a1;">
+              Síguenos en nuestras redes sociales para estar al tanto de futuros eventos y oportunidades.
+              ¡Esperamos verte en próximas ocasiones!
+            </div>
+          </div>
+
+          <div class="message">
+            Gracias por tu comprensión y esperamos poder ofrecerte una mejor experiencia en el futuro.
+          </div>
+        </div>
+
+        <!-- Footer -->
+        <div class="footer">
+          <div class="footer-logo">Super Collectibles</div>
+          <div class="social-links">
+            <a href="https://www.supercollectibles.com.mx">🌐 Sitio Web</a>
+            <a href="#">📱 Instagram</a>
+            <a href="#">📘 Facebook</a>
+          </div>
+          <div class="footer-text">
+            Este es un email automático de cancelación.<br>
+            Por favor, no respondas a este mensaje.<br>
+            <br>
+            <strong>Super Collectibles</strong><br>
+            www.supercollectibles.com.mx<br>
+            Siempre buscando brindarte las mejores experiencias 💫
+          </div>
+        </div>
+      </div>
+    </body>
+    </html>
+    `;
+
+    const mailOptions = {
+      from: `"Super Collectibles - Evento Cacha" <${senderEmail}>`,
+      to: email,
+      subject,
+      html: htmlContent,
+    };
+
+    await transporter.sendMail(mailOptions);
+
+    return {
+      success: true,
+      message: "Email de cancelación enviado exitosamente",
+    };
+  } catch (error) {
+    console.error("Error al enviar email de cancelación:", error);
+    return {
+      success: false,
+      message: "Error al enviar email de cancelación",
       error,
     };
   }

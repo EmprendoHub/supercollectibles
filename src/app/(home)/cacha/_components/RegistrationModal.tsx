@@ -81,7 +81,7 @@ const RegistrationModal: React.FC<RegistrationModalProps> = ({
             edad: "",
             mensaje: "",
           });
-        }, 3000);
+        }, 10000);
       } else {
         throw new Error(data.message || "Error al registrar");
       }
@@ -99,19 +99,19 @@ const RegistrationModal: React.FC<RegistrationModalProps> = ({
   if (isSuccess) {
     return (
       <Dialog open={isOpen} onOpenChange={onClose}>
-        <DialogContent className="sm:max-w-[500px] bg-black border-green-200">
+        <DialogContent className="sm:max-w-[500px] bg-black border-emerald-200">
           <div className="text-center py-8">
-            <div className="w-20 h-20 bg-green-500 rounded-full flex items-center justify-center mx-auto mb-4">
+            <div className="w-20 h-20 bg-emerald-600 rounded-full flex items-center justify-center mx-auto mb-4">
               <BsUiChecks className="w-10 h-10 text-white" />
             </div>
-            <h3 className="text-2xl font-bold text-green-800 mb-4">
+            <h3 className="text-2xl font-bold text-emerald-800 mb-4">
               ¡Registro Exitoso! 🎉
             </h3>
-            <div className="bg-white rounded-lg p-6 mb-4 border border-green-200">
-              <p className="text-green-700 mb-3 font-medium">
+            <div className="bg-white rounded-lg p-6 mb-4 border border-emerald-200">
+              <p className="text-emerald-700 mb-3 font-medium">
                 Te has registrado correctamente para el Meet & Greet con Cacha.
               </p>
-              <div className="space-y-2 text-sm text-green-600">
+              <div className="space-y-2 text-sm text-emerald-600">
                 <div className="flex items-center justify-center gap-2">
                   <span>📧</span>
                   <span>
@@ -133,7 +133,7 @@ const RegistrationModal: React.FC<RegistrationModalProps> = ({
               Guarda el código de confirmación para el acceso al evento.
             </p>
             <div className="text-xs text-gray-500">
-              Este modal se cerrará automáticamente en unos segundos
+              Este mensaje se cerrará automáticamente en unos segundos
             </div>
           </div>
         </DialogContent>

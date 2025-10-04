@@ -1,20 +1,138 @@
 "use client";
 
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import Image from "next/image";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
 import RegistrationModal from "./RegistrationModal";
 import CachaIcon from "./CachaIcon";
 import Link from "next/link";
+import { useSearchParams } from "next/navigation";
 
 const CachaLandingPage = () => {
   const [isModalOpen, setIsModalOpen] = useState(false);
+  const [notification, setNotification] = useState<{
+    type: "success" | "error" | "info";
+    message: string;
+  } | null>(null);
+
+  const searchParams = useSearchParams();
+
+  useEffect(() => {
+    const message = searchParams.get("message");
+    const error = searchParams.get("error");
+
+    if (message) {
+      switch (message) {
+        case "confirmed":
+          setNotification({
+            type: "success",
+            message:
+              "¡Tu registro ha sido confirmado exitosamente! Revisa tu email para ver tu código QR de acceso.",
+          });
+          break;
+        case "already-confirmed":
+          setNotification({
+            type: "info",
+            message: "Tu registro ya había sido confirmado anteriormente.",
+          });
+          break;
+        default:
+          break;
+      }
+    }
+
+    if (error) {
+      switch (error) {
+        case "missing-code":
+          setNotification({
+            type: "error",
+            message: "El enlace de confirmación no es válido.",
+          });
+          break;
+        case "invalid-code":
+          setNotification({
+            type: "error",
+            message: "El código de confirmación no es válido o no existe.",
+          });
+          break;
+        case "expired":
+          setNotification({
+            type: "error",
+            message:
+              "El enlace de confirmación ha expirado. Debes registrarte nuevamente.",
+          });
+          break;
+        case "server-error":
+          setNotification({
+            type: "error",
+            message:
+              "Hubo un error al procesar tu confirmación. Intenta nuevamente.",
+          });
+          break;
+        default:
+          break;
+      }
+    }
+
+    // Limpiar la notificación después de 10 segundos
+    if (message || error) {
+      const timer = setTimeout(() => {
+        setNotification(null);
+      }, 10000);
+      return () => clearTimeout(timer);
+    }
+  }, [searchParams]);
+
+  const getNotificationStyles = (type: "success" | "error" | "info") => {
+    switch (type) {
+      case "success":
+        return "bg-gradient-to-br from-purple-900 via-pink-800 to-purple-500 border-white-400";
+      case "error":
+        return "bg-gradient-to-br from-red-500 via-red-600 to-red-700 border-red-400";
+      case "info":
+        return "bg-gradient-to-br from-blue-500 via-blue-600 to-blue-700 border-blue-400";
+      default:
+        return "bg-gray-500/90 border-gray-400";
+    }
+  };
 
   return (
     <div className="min-h-screen bg-gradient-to-br from-purple-900 via-pink-800 to-purple-500 relative overflow-hidden">
       {/* Background Pattern */}
       <div className="absolute inset-0 bg-black/30"></div>
+
+      {/* Notification Banner */}
+      {notification && (
+        <div className={`fixed top-4 left-4 right-4 z-50 mx-auto max-w-lg`}>
+          <div
+            className={`${getNotificationStyles(
+              notification.type
+            )} text-white p-4 rounded-lg border shadow-lg flex items-start space-x-3`}
+          >
+            <div className="flex-shrink-0 mt-0.5">
+              {notification.type === "success" && (
+                <CachaIcon name="heart" size={20} />
+              )}
+              {notification.type === "error" && (
+                <CachaIcon name="party" size={20} />
+              )}
+              {notification.type === "info" && (
+                <CachaIcon name="ticket" size={20} />
+              )}
+            </div>
+            <div className="flex-1">
+              <p className="text-sm font-medium">{notification.message}</p>
+            </div>
+            <button
+              onClick={() => setNotification(null)}
+              className="flex-shrink-0 text-white/80 hover:text-white"
+            >
+              ×
+            </button>
+          </div>
+        </div>
+      )}
 
       {/* Hero Section */}
       <section className="relative z-10 min-h-screen flex items-center justify-center px-4">

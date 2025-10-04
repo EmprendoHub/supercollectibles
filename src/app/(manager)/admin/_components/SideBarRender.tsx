@@ -6,7 +6,7 @@ import { TbDeviceIpadDollar, TbReport } from "react-icons/tb";
 import { PiUserListLight } from "react-icons/pi";
 import { CiGrid31 } from "react-icons/ci";
 import { TfiDashboard } from "react-icons/tfi";
-import { MdOutlinePostAdd } from "react-icons/md";
+import { MdOutlinePostAdd, MdEvent } from "react-icons/md";
 import { GiClothes } from "react-icons/gi";
 import { FaCartPlus } from "react-icons/fa6";
 
@@ -81,6 +81,12 @@ const SideBarRender = () => {
         text={"Clientes"}
         active={pathname === "/admin/clientes" ? "true" : "false"}
         url={"/admin/clientes"}
+      />
+      <SideBarItem
+        icon={<MdEvent size={20} />}
+        text={"Influencer"}
+        active={pathname === "/admin/cacha" ? "true" : "false"}
+        url={"/admin/cacha"}
       />
       <SideBarItem
         icon={<TbReport size={20} />}

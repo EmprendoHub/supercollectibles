@@ -1,4 +1,4 @@
-import mongoose, { Schema, Document, Model } from 'mongoose';
+import mongoose, { Schema, Document, Model } from "mongoose";
 
 // Interface para TypeScript
 export interface ICachaRegistration extends Document {
@@ -8,7 +8,8 @@ export interface ICachaRegistration extends Document {
   edad: number;
   mensaje?: string;
   fechaRegistro: Date;
-  estado: 'pendiente' | 'confirmado' | 'asistio' | 'cancelado';
+  fechaConfirmacion?: Date;
+  estado: "pendiente" | "confirmado" | "asistio" | "cancelado";
   codigoConfirmacion?: string;
   notificacionesEnviadas: boolean;
   confirmarAsistencia(): Promise<ICachaRegistration>;
@@ -36,13 +37,13 @@ const CachaRegistrationSchema = new Schema<ICachaRegistration>(
       required: true,
       trim: true,
       lowercase: true,
-      match: [/^\w+([.-]?\w+)*@\w+([.-]?\w+)*(\.\w{2,3})+$/, 'Email inválido'],
+      match: [/^\w+([.-]?\w+)*@\w+([.-]?\w+)*(\.\w{2,3})+$/, "Email inválido"],
     },
     telefono: {
       type: String,
       required: true,
       trim: true,
-      match: [/^[\d\s\-\+\(\)]+$/, 'Formato de teléfono inválido'],
+      match: [/^[\d\s\-\+\(\)]+$/, "Formato de teléfono inválido"],
     },
     edad: {
       type: Number,
@@ -54,16 +55,19 @@ const CachaRegistrationSchema = new Schema<ICachaRegistration>(
       type: String,
       trim: true,
       maxlength: 500,
-      default: '',
+      default: "",
     },
     fechaRegistro: {
       type: Date,
       default: Date.now,
     },
+    fechaConfirmacion: {
+      type: Date,
+    },
     estado: {
       type: String,
-      enum: ['pendiente', 'confirmado', 'asistio', 'cancelado'],
-      default: 'pendiente',
+      enum: ["pendiente", "confirmado", "asistio", "cancelado"],
+      default: "pendiente",
     },
     codigoConfirmacion: {
       type: String,
@@ -88,26 +92,28 @@ CachaRegistrationSchema.index({ fechaRegistro: -1 });
 CachaRegistrationSchema.index({ estado: 1 });
 
 // Middleware pre-save para generar código de confirmación
-CachaRegistrationSchema.pre('save', function (next) {
+CachaRegistrationSchema.pre("save", function (next) {
   if (this.isNew && !this.codigoConfirmacion) {
-    this.codigoConfirmacion = Math.random().toString(36).substring(2, 15) + Math.random().toString(36).substring(2, 15);
+    this.codigoConfirmacion =
+      Math.random().toString(36).substring(2, 15) +
+      Math.random().toString(36).substring(2, 15);
   }
   next();
 });
 
 // Métodos del schema
 CachaRegistrationSchema.methods.confirmarAsistencia = function () {
-  this.estado = 'confirmado';
+  this.estado = "confirmado";
   return this.save();
 };
 
 CachaRegistrationSchema.methods.marcarAsistencia = function () {
-  this.estado = 'asistio';
+  this.estado = "asistio";
   return this.save();
 };
 
 CachaRegistrationSchema.methods.cancelarRegistro = function () {
-  this.estado = 'cancelado';
+  this.estado = "cancelado";
   return this.save();
 };
 
@@ -121,7 +127,7 @@ CachaRegistrationSchema.statics.getEstadisticas = function () {
   return this.aggregate([
     {
       $group: {
-        _id: '$estado',
+        _id: "$estado",
         count: { $sum: 1 },
       },
     },
@@ -129,7 +135,10 @@ CachaRegistrationSchema.statics.getEstadisticas = function () {
 };
 
 // Exportar el modelo
-const CachaRegistration = (mongoose.models.CachaRegistration || 
-  mongoose.model<ICachaRegistration, ICachaRegistrationModel>('CachaRegistration', CachaRegistrationSchema)) as ICachaRegistrationModel;
+const CachaRegistration = (mongoose.models.CachaRegistration ||
+  mongoose.model<ICachaRegistration, ICachaRegistrationModel>(
+    "CachaRegistration",
+    CachaRegistrationSchema
+  )) as ICachaRegistrationModel;
 
 export default CachaRegistration;

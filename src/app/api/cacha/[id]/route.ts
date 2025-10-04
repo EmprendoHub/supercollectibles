@@ -1,6 +1,11 @@
 import { NextRequest, NextResponse } from "next/server";
 import CachaRegistration from "@/backend/models/CachaRegistration";
 import dbConnect from "@/lib/db";
+import { sendCachaCancellationEmail } from "@/backend/helpers/emailService";
+
+// Configuración para renderizado dinámico
+export const runtime = "nodejs";
+export const dynamic = "force-dynamic";
 
 // GET - Obtener un registro específico por ID
 export async function GET(
@@ -50,7 +55,7 @@ export async function PATCH(
 
     const { id } = params;
     const body = await request.json();
-    const { estado, notificacionesEnviadas } = body;
+    const { estado, notificacionesEnviadas, razonCancelacion } = body;
 
     // Validar estado
     const estadosValidos = ["pendiente", "confirmado", "asistio", "cancelado"];
@@ -61,6 +66,29 @@ export async function PATCH(
           message: "Estado no válido",
         },
         { status: 400 }
+      );
+    }
+
+    // Si es cancelación, requerir razón
+    if (estado === "cancelado" && !razonCancelacion?.trim()) {
+      return NextResponse.json(
+        {
+          success: false,
+          message: "La razón de cancelación es requerida",
+        },
+        { status: 400 }
+      );
+    }
+
+    // Obtener el registro actual antes de actualizar
+    const currentRegistration = await CachaRegistration.findById(id);
+    if (!currentRegistration) {
+      return NextResponse.json(
+        {
+          success: false,
+          message: "Registro no encontrado",
+        },
+        { status: 404 }
       );
     }
 
@@ -84,6 +112,26 @@ export async function PATCH(
         },
         { status: 404 }
       );
+    }
+
+    // Si el estado cambió a cancelado, enviar email de cancelación
+    if (estado === "cancelado" && currentRegistration.estado !== "cancelado") {
+      try {
+        await sendCachaCancellationEmail({
+          nombre: registration.nombre,
+          email: registration.email,
+          codigoConfirmacion: registration.codigoConfirmacion!,
+          razonCancelacion: razonCancelacion.trim(),
+          fechaCancelacion: new Date(),
+        });
+        console.log(
+          "Email de cancelación enviado exitosamente a:",
+          registration.email
+        );
+      } catch (emailError) {
+        console.error("Error al enviar email de cancelación:", emailError);
+        // No fallar la actualización si hay error en el email
+      }
     }
 
     return NextResponse.json({

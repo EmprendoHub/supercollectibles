@@ -2,9 +2,13 @@ import { NextRequest, NextResponse } from "next/server";
 import CachaRegistration from "@/backend/models/CachaRegistration";
 import dbConnect from "@/lib/db";
 import {
-  sendCachaConfirmationEmail,
+  sendInitialRegistrationEmail,
   sendAdminNotificationEmail,
 } from "@/backend/helpers/emailService";
+
+// Configuración para renderizado dinámico
+export const runtime = "nodejs";
+export const dynamic = "force-dynamic";
 
 export async function POST(request: NextRequest) {
   try {
@@ -74,20 +78,20 @@ export async function POST(request: NextRequest) {
 
     await newRegistration.save();
 
-    // Enviar email de confirmación al usuario
+    // Enviar email inicial para confirmación al usuario
     try {
-      await sendCachaConfirmationEmail({
+      await sendInitialRegistrationEmail({
         nombre: newRegistration.nombre,
         email: newRegistration.email,
         codigoConfirmacion: newRegistration.codigoConfirmacion!,
         fechaRegistro: newRegistration.fechaRegistro,
       });
       console.log(
-        "Email de confirmación enviado exitosamente a:",
+        "Email inicial enviado exitosamente a:",
         newRegistration.email
       );
     } catch (emailError) {
-      console.error("Error al enviar email de confirmación:", emailError);
+      console.error("Error al enviar email inicial:", emailError);
     }
 
     // Enviar notificación a administradores
@@ -111,7 +115,7 @@ export async function POST(request: NextRequest) {
       {
         success: true,
         message:
-          "Registro exitoso para el Meet & Greet con Cacha. Revisa tu email para la confirmación.",
+          "¡Registro recibido! Te hemos enviado un email de confirmación. Por favor, revisa tu bandeja de entrada y haz clic en el enlace para confirmar tu asistencia.",
         data: {
           id: newRegistration._id,
           nombre: newRegistration.nombre,
