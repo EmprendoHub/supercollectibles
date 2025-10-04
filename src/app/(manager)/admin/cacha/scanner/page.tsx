@@ -377,7 +377,7 @@ const QRScannerPage = () => {
       `}</style>
       <div className=" max-w-4xl mx-auto">
         <div className="mb-6">
-          <h1 className="text-xl font-bold text-gray-200 mb-2">
+          <h1 className="text-lg font-bold text-gray-200 mb-2">
             🎫 Escáner QR - Evento Cacha
           </h1>
         </div>
