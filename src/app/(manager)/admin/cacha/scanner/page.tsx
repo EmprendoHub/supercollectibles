@@ -282,7 +282,7 @@ const QRScannerPage = () => {
       case "confirmado":
         return "bg-blue-500";
       case "asistio":
-        return "bg-green-500";
+        return "bg-emerald-600";
       case "pendiente":
         return "bg-yellow-500";
       case "cancelado":
@@ -405,7 +405,7 @@ const QRScannerPage = () => {
                       }
                     />
                   ) : (
-                    <div className="flex flex-col items-center justify-center h-full text-white bg-black">
+                    <div className="flex flex-col items-start justify-start h-full text-white bg-black">
                       <div className="text-center">
                         <Camera className="w-12 h-12 mx-auto mb-2 opacity-50" />
                         <p>Presiona iniciar para usar la cámara</p>
@@ -568,7 +568,7 @@ const QRScannerPage = () => {
 
             {scannedData && (
               <div className="space-y-6">
-                <div className="grid md:grid-cols-2 gap-4">
+                <div className="grid grid-cols-1 gap-4">
                   <div>
                     <p className="text-sm text-gray-500">Nombre</p>
                     <p className="font-semibold">{scannedData.nombre}</p>
