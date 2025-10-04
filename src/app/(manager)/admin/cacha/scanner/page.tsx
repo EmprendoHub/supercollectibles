@@ -513,7 +513,7 @@ const QRScannerPage = () => {
             </CardContent>
           </Card>
           {/* Instructions */}
-          <Card>
+          {/* <Card>
             <CardHeader>
               <CardTitle>📖 Instrucciones de Uso</CardTitle>
             </CardHeader>
@@ -542,7 +542,7 @@ const QRScannerPage = () => {
                 </div>
               </div>
             </CardContent>
-          </Card>
+          </Card> */}
         </div>
 
         {/* Participant Information Modal */}
