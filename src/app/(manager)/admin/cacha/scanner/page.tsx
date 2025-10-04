@@ -389,7 +389,7 @@ const QRScannerPage = () => {
             <CardContent className="p-2">
               <div className="space-y-4">
                 <div
-                  className="relative max-w-[300px] rounded-lg overflow-hidden border-2 border-gray-300"
+                  className="relative max-w-[280px] rounded-lg overflow-hidden border-2 border-gray-300"
                   style={{ aspectRatio: "4/3", minHeight: "450px" }}
                 >
                   {isScanning ? (
@@ -440,7 +440,7 @@ const QRScannerPage = () => {
                   {/* Overlay para ayudar con el enfoque del QR */}
                   {isScanning && !error && hasPermission && (
                     <div className="absolute inset-0 pointer-events-none">
-                      <div className="absolute top-20 left-1/2 transform -translate-x-1/2 -translate-y-[15%] w-48 h-48 border-2 border-white border-dashed rounded-lg opacity-50"></div>
+                      <div className="absolute top-24 left-1/2 transform -translate-x-1/2 -translate-y-[15%] w-48 h-48 border-2 border-white border-dashed rounded-lg opacity-50"></div>
                     </div>
                   )}
                 </div>
