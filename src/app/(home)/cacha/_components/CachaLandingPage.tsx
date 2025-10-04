@@ -135,7 +135,7 @@ const CachaLandingPage = () => {
       )}
 
       {/* Hero Section */}
-      <section className="relative z-10 min-h-screen flex items-center justify-center px-4">
+      <section className="relative z-10 min-h-screen flex items-center justify-center px-4 pb-5">
         <div className="max-w-6xl mx-auto grid lg:grid-cols-2 gap-8 items-center">
           {/* Left Column - Event Info */}
           <div className="text-white space-y-6 text-center lg:text-left">
@@ -225,12 +225,11 @@ const CachaLandingPage = () => {
                 <CachaIcon name="heart" size={36} />
               </div>
             </div>
-            <Link href="https://www.instagram.com/cacha.oficial">
-              <a
-                className="text-pink-200 text-4xl font-bold ml-4 mt-2"
-                target="_blank"
-                rel="noopener noreferrer"
-              >
+            <Link
+              href="https://www.instagram.com/cacha.oficial"
+              target="_blank"
+            >
+              <a className="text-pink-200 text-4xl font-bold ml-4 mt-2">
                 @cacha.oficial
               </a>
             </Link>
