@@ -6,6 +6,13 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Badge } from "@/components/ui/badge";
 import {
+  Dialog,
+  DialogContent,
+  DialogHeader,
+  DialogTitle,
+  DialogTrigger,
+} from "@/components/ui/dialog";
+import {
   Camera,
   CameraOff,
   Search,
@@ -38,6 +45,7 @@ const QRScannerPage = () => {
   const [loading, setLoading] = useState(false);
   const [hasPermission, setHasPermission] = useState<boolean | null>(null);
   const [error, setError] = useState<string | null>(null);
+  const [isModalOpen, setIsModalOpen] = useState(false);
   const scannerRef = useRef<Html5QrcodeScanner | null>(null);
 
   // Cleanup on component unmount
@@ -184,6 +192,7 @@ const QRScannerPage = () => {
 
         if (registration) {
           setScannedData(registration);
+          setIsModalOpen(true);
           console.log("✅ Datos del participante cargados");
         } else {
           console.log("❌ No se encontró coincidencia exacta");
@@ -253,6 +262,7 @@ const QRScannerPage = () => {
         setTimeout(() => {
           setScannedData(null);
           setManualCode("");
+          setIsModalOpen(false);
         }, 2000);
       } else {
         Swal.fire(
@@ -376,12 +386,6 @@ const QRScannerPage = () => {
         <div className="grid md:grid-cols-2 gap-6 mb-6">
           {/* Camera Scanner */}
           <Card>
-            <CardHeader>
-              <CardTitle className="flex items-center gap-2">
-                <Camera className="w-5 h-5" />
-                Escáner de Cámara
-              </CardTitle>
-            </CardHeader>
             <CardContent className="p-2">
               <div className="space-y-4">
                 <div
@@ -510,113 +514,6 @@ const QRScannerPage = () => {
           </Card>
           {/* Instructions */}
           <Card>
-            {/* Results Section */}
-            {scannedData && (
-              <Card className="mb-6">
-                <CardHeader>
-                  <CardTitle className="flex items-center justify-between">
-                    <span className="text-sm">
-                      📋 Información del Participante
-                    </span>
-                    <Badge
-                      className={`${getStatusColor(
-                        scannedData.estado
-                      )} text-white`}
-                    >
-                      {getStatusIcon(scannedData.estado)}
-                      <span className="ml-1 capitalize text-2xl">
-                        {scannedData.estado}
-                      </span>
-                    </Badge>
-                  </CardTitle>
-                </CardHeader>
-                <CardContent>
-                  <div className="grid md:grid-cols-2 gap-4 mb-4">
-                    <div>
-                      <p className="text-sm text-gray-400">Nombre</p>
-                      <p className="font-semibold text-sm">
-                        {scannedData.nombre}
-                      </p>
-                    </div>
-                    <div>
-                      <p className="text-sm text-gray-400">Email</p>
-                      <p className="font-semibold text-sm">
-                        {scannedData.email}
-                      </p>
-                    </div>
-                    <div>
-                      <p className="text-sm text-gray-400">Teléfono</p>
-                      <p className="font-semibold text-sm">
-                        {scannedData.telefono}
-                      </p>
-                    </div>
-                    <div>
-                      <p className="text-sm text-gray-400">Edad</p>
-                      <p className="font-semibold text-sm">
-                        {scannedData.edad} años
-                      </p>
-                    </div>
-                    <div>
-                      <p className="text-sm text-gray-400">Código</p>
-                      <p className="font-mono font-semibold text-sm">
-                        {scannedData.codigoConfirmacion}
-                      </p>
-                    </div>
-                    <div>
-                      <p className="text-sm text-gray-400">Fecha de Registro</p>
-                      <p className="font-semibold text-sm">
-                        {new Date(scannedData.fechaRegistro).toLocaleDateString(
-                          "es-MX"
-                        )}
-                      </p>
-                    </div>
-                  </div>
-
-                  {scannedData.mensaje && (
-                    <div className="mb-4">
-                      <p className="text-sm text-gray-600">
-                        Mensaje para Cacha
-                      </p>
-                      <p className="italic bg-gray-700 p-2 rounded">
-                        &ldquo;{scannedData.mensaje}&rdquo;
-                      </p>
-                    </div>
-                  )}
-
-                  <div className="flex gap-2">
-                    {scannedData.estado === "confirmado" && (
-                      <Button
-                        onClick={() => markAsAttended(scannedData._id)}
-                        className="bg-black hover:bg-blue-700 text-2xl h-20"
-                      >
-                        ✅ Marcar como Asistido
-                      </Button>
-                    )}
-
-                    {scannedData.estado === "asistio" && (
-                      <div className="flex items-center text-green-600 font-semibold">
-                        <CheckCircle className="w-5 h-5 mr-2" />
-                        Ya registró su asistencia
-                      </div>
-                    )}
-
-                    {scannedData.estado === "pendiente" && (
-                      <div className="flex items-center text-yellow-600 font-semibold">
-                        <Clock className="w-5 h-5 mr-2" />
-                        Registro pendiente de confirmación
-                      </div>
-                    )}
-
-                    {scannedData.estado === "cancelado" && (
-                      <div className="flex items-center text-red-600 font-semibold">
-                        <XCircle className="w-5 h-5 mr-2" />
-                        Registro cancelado
-                      </div>
-                    )}
-                  </div>
-                </CardContent>
-              </Card>
-            )}
             <CardHeader>
               <CardTitle>📖 Instrucciones de Uso</CardTitle>
             </CardHeader>
@@ -647,6 +544,111 @@ const QRScannerPage = () => {
             </CardContent>
           </Card>
         </div>
+
+        {/* Participant Information Modal */}
+        <Dialog open={isModalOpen} onOpenChange={setIsModalOpen}>
+          <DialogContent className="max-w-2xl">
+            <DialogHeader>
+              <DialogTitle className="flex items-center justify-between">
+                <span className="text-lg">📋 Información del Participante</span>
+                {scannedData && (
+                  <Badge
+                    className={`${getStatusColor(
+                      scannedData.estado
+                    )} text-white`}
+                  >
+                    {getStatusIcon(scannedData.estado)}
+                    <span className="ml-1 text-2xl capitalize">
+                      {scannedData.estado}
+                    </span>
+                  </Badge>
+                )}
+              </DialogTitle>
+            </DialogHeader>
+
+            {scannedData && (
+              <div className="space-y-6">
+                <div className="grid md:grid-cols-2 gap-4">
+                  <div>
+                    <p className="text-sm text-gray-500">Nombre</p>
+                    <p className="font-semibold">{scannedData.nombre}</p>
+                  </div>
+                  <div>
+                    <p className="text-sm text-gray-500">Email</p>
+                    <p className="font-semibold">{scannedData.email}</p>
+                  </div>
+                  <div>
+                    <p className="text-sm text-gray-500">Teléfono</p>
+                    <p className="font-semibold">{scannedData.telefono}</p>
+                  </div>
+                  <div>
+                    <p className="text-sm text-gray-500">Edad</p>
+                    <p className="font-semibold">{scannedData.edad} años</p>
+                  </div>
+                  <div>
+                    <p className="text-sm text-gray-500">Código</p>
+                    <p className="font-mono font-semibold">
+                      {scannedData.codigoConfirmacion}
+                    </p>
+                  </div>
+                  <div>
+                    <p className="text-sm text-gray-500">Fecha de Registro</p>
+                    <p className="font-semibold">
+                      {new Date(scannedData.fechaRegistro).toLocaleDateString(
+                        "es-MX"
+                      )}
+                    </p>
+                  </div>
+                </div>
+
+                {scannedData.mensaje && (
+                  <div>
+                    <p className="text-sm text-gray-500 mb-2">
+                      Mensaje para Cacha
+                    </p>
+                    <p className="italic bg-gray-300 p-3 rounded">
+                      &ldquo;{scannedData.mensaje}&rdquo;
+                    </p>
+                  </div>
+                )}
+
+                <div className="flex gap-3 pt-4">
+                  {scannedData.estado === "confirmado" && (
+                    <Button
+                      onClick={() => markAsAttended(scannedData._id)}
+                      className="bg-green-600 hover:bg-green-700 text-lg px-8 py-6"
+                      size="lg"
+                    >
+                      <UserCheck className="w-5 h-5 mr-2" />
+                      Marcar como Asistido
+                    </Button>
+                  )}
+
+                  {scannedData.estado === "asistio" && (
+                    <div className="flex items-center text-green-600 font-semibold text-lg">
+                      <CheckCircle className="w-6 h-6 mr-2" />
+                      Ya registró su asistencia
+                    </div>
+                  )}
+
+                  {scannedData.estado === "pendiente" && (
+                    <div className="flex items-center text-yellow-600 font-semibold text-lg">
+                      <Clock className="w-6 h-6 mr-2" />
+                      Registro pendiente de confirmación
+                    </div>
+                  )}
+
+                  {scannedData.estado === "cancelado" && (
+                    <div className="flex items-center text-red-600 font-semibold text-lg">
+                      <XCircle className="w-6 h-6 mr-2" />
+                      Registro cancelado
+                    </div>
+                  )}
+                </div>
+              </div>
+            )}
+          </DialogContent>
+        </Dialog>
       </div>
     </>
   );

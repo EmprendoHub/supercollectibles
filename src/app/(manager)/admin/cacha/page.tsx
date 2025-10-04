@@ -14,9 +14,9 @@ export const metadata: Metadata = {
 const AdminCachaPage = async () => {
   return (
     <div className="min-h-screen bg-background">
-      <div className="container mx-auto py-8">
+      <div className="px-2 mx-auto py-8">
         <div className="mb-8">
-          <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
+          <div className="flex flex-col sm:flex-row sm:items-center sm:justify-start gap-4">
             <div>
               <h1 className="text-3xl font-bold mb-2">
                 Registros Meet & Greet Cacha
