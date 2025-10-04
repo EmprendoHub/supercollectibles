@@ -367,13 +367,9 @@ const QRScannerPage = () => {
       `}</style>
       <div className=" max-w-4xl mx-auto">
         <div className="mb-6">
-          <h1 className="text-3xl font-bold text-gray-200 mb-2">
+          <h1 className="text-xl font-bold text-gray-200 mb-2">
             🎫 Escáner QR - Evento Cacha
           </h1>
-          <p className="text-gray-400">
-            Escanea los códigos QR o ingresa manualmente para verificar el
-            acceso al evento
-          </p>
         </div>
 
         {/* Scanner Section */}
@@ -386,11 +382,11 @@ const QRScannerPage = () => {
                 Escáner de Cámara
               </CardTitle>
             </CardHeader>
-            <CardContent>
+            <CardContent className="p-2">
               <div className="space-y-4">
                 <div
-                  className="relative max-w-[350px] rounded-lg overflow-hidden border-2 border-gray-300"
-                  style={{ aspectRatio: "4/3", minHeight: "400px" }}
+                  className="relative max-w-[300px] rounded-lg overflow-hidden border-2 border-gray-300"
+                  style={{ aspectRatio: "4/3", minHeight: "450px" }}
                 >
                   {isScanning ? (
                     <div
