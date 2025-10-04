@@ -549,7 +549,7 @@ const QRScannerPage = () => {
         <Dialog open={isModalOpen} onOpenChange={setIsModalOpen}>
           <DialogContent className="max-w-2xl">
             <DialogHeader>
-              <DialogTitle className="flex items-center justify-between">
+              <DialogTitle className="flex flex-col items-center justify-between">
                 <span className="text-lg">📋 Información del Participante</span>
                 {scannedData && (
                   <Badge
@@ -606,7 +606,7 @@ const QRScannerPage = () => {
                     <p className="text-sm text-gray-500 mb-2">
                       Mensaje para Cacha
                     </p>
-                    <p className="italic bg-gray-300 p-3 rounded">
+                    <p className="italic bg-gray-500 p-3 rounded">
                       &ldquo;{scannedData.mensaje}&rdquo;
                     </p>
                   </div>
@@ -616,11 +616,11 @@ const QRScannerPage = () => {
                   {scannedData.estado === "confirmado" && (
                     <Button
                       onClick={() => markAsAttended(scannedData._id)}
-                      className="bg-green-600 hover:bg-green-700 text-lg px-8 py-6"
+                      className="bg-emerald-700 hover:bg-emerald-800 text-lg px-8 py-6"
                       size="lg"
                     >
                       <UserCheck className="w-5 h-5 mr-2" />
-                      Marcar como Asistido
+                      Marcar Asistencia
                     </Button>
                   )}
 
