@@ -547,7 +547,7 @@ const QRScannerPage = () => {
 
         {/* Participant Information Modal */}
         <Dialog open={isModalOpen} onOpenChange={setIsModalOpen}>
-          <DialogContent className="max-w-[350px] top-[40%]">
+          <DialogContent className="max-w-[350px] top-[50%]">
             <DialogHeader>
               <DialogTitle className="flex flex-col items-center justify-between">
                 <span className="text-lg">📋 Información del Participante</span>
