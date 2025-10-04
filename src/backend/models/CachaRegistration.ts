@@ -94,9 +94,9 @@ CachaRegistrationSchema.index({ estado: 1 });
 // Middleware pre-save para generar código de confirmación
 CachaRegistrationSchema.pre("save", function (next) {
   if (this.isNew && !this.codigoConfirmacion) {
-    this.codigoConfirmacion =
-      Math.random().toString(36).substring(2, 15) +
-      Math.random().toString(36).substring(2, 15);
+    // Generar código más descriptivo para Cacha
+    const randomPart = Math.random().toString(36).substring(2, 8).toUpperCase();
+    this.codigoConfirmacion = `CACHA-${randomPart}`;
   }
   next();
 });

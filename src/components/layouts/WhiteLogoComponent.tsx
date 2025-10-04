@@ -1,9 +1,7 @@
 import Link from "next/link";
 import Image from "next/image";
 
-const WhiteLogoComponent = ({ className }: { className: string }) => {
-  console.log(className);
-
+const WhiteLogoComponent = ({ className }: { className?: string }) => {
   return (
     <Link href={`/`}>
       <Image

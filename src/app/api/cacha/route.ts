@@ -159,9 +159,21 @@ export async function GET(request: NextRequest) {
     const page = parseInt(searchParams.get("page") || "1");
     const limit = parseInt(searchParams.get("limit") || "10");
     const estado = searchParams.get("estado");
+    const search = searchParams.get("search"); // Parámetro de búsqueda
 
     // Filtros
     const filter: any = {};
+
+    // Si hay un parámetro de búsqueda, buscar por código de confirmación, nombre o email
+    if (search) {
+      filter.$or = [
+        { codigoConfirmacion: { $regex: search, $options: "i" } },
+        { nombre: { $regex: search, $options: "i" } },
+        { email: { $regex: search, $options: "i" } },
+        { telefono: { $regex: search, $options: "i" } },
+      ];
+    }
+
     if (
       estado &&
       ["pendiente", "confirmado", "asistio", "cancelado"].includes(estado)
@@ -179,18 +191,38 @@ export async function GET(request: NextRequest) {
       .skip(skip)
       .limit(limit);
 
+    // Only log during development and when search is actually provided
+    if (search && process.env.NODE_ENV === "development") {
+      console.log(
+        `📊 Encontrados ${registrations.length} registros para búsqueda:`,
+        search
+      );
+    }
+
     // Contar total de registros
     const total = await CachaRegistration.countDocuments(filter);
 
-    // Obtener estadísticas
-    const estadisticas = await CachaRegistration.aggregate([
-      {
-        $group: {
-          _id: "$estado",
-          count: { $sum: 1 },
+    // Solo obtener estadísticas si no es una búsqueda específica
+    let estadisticas = [];
+    if (!search) {
+      estadisticas = await CachaRegistration.aggregate([
+        {
+          $group: {
+            _id: "$estado",
+            count: { $sum: 1 },
+          },
         },
-      },
-    ]);
+      ]);
+    }
+
+    // Si es una búsqueda, devolver los datos directamente para facilitar el acceso
+    if (search) {
+      return NextResponse.json({
+        success: true,
+        data: registrations, // Devolver directamente el array para búsquedas
+        total,
+      });
+    }
 
     return NextResponse.json({
       success: true,
