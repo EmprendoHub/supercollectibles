@@ -8,6 +8,7 @@ import { GoogleAnalytics } from "@next/third-parties/google";
 import CustomSessionProvider from "../SessionProvider";
 import { Toaster } from "@/components/ui/toaster";
 import CookieConsentComponent from "./_components/CookieConsentComponent";
+import ConditionalHeaderWrapper from "./_components/ConditionalHeaderWrapper";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -33,7 +34,9 @@ export default function RootLayout({
             enableSystem
             disableTransitionOnChange
           >
-            <HeaderComponent />
+            <ConditionalHeaderWrapper>
+              <HeaderComponent />
+            </ConditionalHeaderWrapper>
             {children}
             <FooterComponent />
             <CookieConsentComponent />

@@ -98,7 +98,7 @@ const CachaLandingPage = () => {
   };
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-purple-900 via-pink-800 to-purple-500 relative overflow-hidden">
+    <div className="min-h-screen bg-gradient-to-br from-purple-900 via-pink-800 to-purple-500 relative overflow-hidden pt-10">
       {/* Background Pattern */}
       <div className="absolute inset-0 bg-black/30"></div>
 
