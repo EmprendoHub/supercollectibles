@@ -174,7 +174,7 @@ const RegistrationModal: React.FC<RegistrationModalProps> = ({
                 value={formData.email}
                 onChange={handleInputChange}
                 required
-                className="border-purple-200 focus:border-purple-400 focus:ring-purple-400 placeholder:text-purple-500"
+                className="border-purple-200 text-gray-700 bg-gray-200 focus:border-purple-400 focus:ring-purple-400 placeholder:text-purple-500"
               />
             </div>
 
@@ -188,7 +188,7 @@ const RegistrationModal: React.FC<RegistrationModalProps> = ({
                   value={formData.telefono}
                   onChange={handleInputChange}
                   required
-                  className="border-purple-200 focus:border-purple-400 focus:ring-purple-400 placeholder:text-purple-500"
+                  className="border-purple-200 text-gray-700 bg-gray-200 focus:border-purple-400 focus:ring-purple-400 placeholder:text-purple-500"
                 />
               </div>
 
@@ -203,7 +203,7 @@ const RegistrationModal: React.FC<RegistrationModalProps> = ({
                   value={formData.edad}
                   onChange={handleInputChange}
                   required
-                  className="border-purple-200 focus:border-purple-400 focus:ring-purple-400 placeholder:text-purple-500"
+                  className="border-purple-200 text-gray-700 bg-gray-200 focus:border-purple-400 focus:ring-purple-400 placeholder:text-purple-500"
                 />
               </div>
             </div>
@@ -216,7 +216,7 @@ const RegistrationModal: React.FC<RegistrationModalProps> = ({
                 value={formData.mensaje}
                 onChange={handleInputChange}
                 rows={3}
-                className="border-purple-200 focus:border-purple-400 focus:ring-purple-400 placeholder:text-purple-500"
+                className="border-purple-200 text-gray-700 bg-gray-200 focus:border-purple-400 focus:ring-purple-400 placeholder:text-purple-500"
               />
             </div>
           </div>
