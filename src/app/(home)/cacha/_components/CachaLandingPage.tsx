@@ -136,14 +136,14 @@ const CachaLandingPage = () => {
 
       {/* Hero Section */}
       <section className="relative z-10 min-h-screen flex items-center justify-center px-4 pb-5">
-        <div className="max-w-6xl mx-auto grid lg:grid-cols-2 gap-8 items-center">
+        <div className="max-w-6xl mx-auto flex-col-reverse flex lg:flex-row gap-8 items-center">
           {/* Left Column - Event Info */}
           <div className="text-white space-y-6 text-center lg:text-left">
-            <div className="space-y-2">
+            <div className="space-y-2 md:space-y-4">
               <div className="inline-block bg-gradient-to-r from-pink-500 to-purple-500 text-white px-4 py-2 rounded-full text-sm font-semibold">
                 EVENTO EXCLUSIVO
               </div>
-              <h1 className="text-4xl md:text-6xl font-bold  text-white bg-black p-4">
+              <h1 className="text-2xl md:text-6xl font-bold  text-white bg-black p-4">
                 MEET & GREET
               </h1>
               <h2 className="text-2xl md:text-4xl font-bold text-pink-300 pl-4">
@@ -153,28 +153,28 @@ const CachaLandingPage = () => {
 
             <div className="space-y-4">
               <div className="flex items-center justify-center lg:justify-start space-x-3">
-                <div className="w-12 h-12 bg-purple-500 rounded-full flex items-center justify-center">
+                <div className="w-6 h-6 md:w-12 md:h-12 bg-purple-500 rounded-full flex items-center justify-center">
                   <CachaIcon name="music" size={24} />
                 </div>
-                <span className="text-xl p-2 font-bold bg-yellow-500 text-black uppercase">
+                <span className="text-xl p-1 md:p-2 font-bold bg-yellow-500 text-black uppercase">
                   Música by LLOVET
                 </span>
               </div>
 
               <div className="flex items-center justify-center lg:justify-start space-x-3">
-                <div className="w-12 h-12 bg-purple-600 rounded-full flex items-center justify-center">
+                <div className="w-6 h-6 md:w-12 md:h-12 bg-purple-600 rounded-full flex items-center justify-center">
                   <CachaIcon name="tshirt" size={24} />
                 </div>
-                <span className="text-xl p-2 font-bold bg-blue-500 uppercase ">
+                <span className="text-xl p-1 md:p-2 font-bold bg-blue-500 uppercase ">
                   Drop oficial de merch
                 </span>
               </div>
 
               <div className="flex items-center justify-center lg:justify-start space-x-3">
-                <div className="w-12 h-12 bg-purple-700 rounded-full flex items-center justify-center">
+                <div className="w-6 h-6 md:w-12 md:h-12 bg-purple-700 rounded-full flex items-center justify-center">
                   <CachaIcon name="ticket" size={24} />
                 </div>
-                <span className="text-xl p-2 font-bold bg-fuchsia-600 uppercase">
+                <span className="text-xl p-1 md:p-2 font-bold bg-fuchsia-600 uppercase">
                   Acceso GRATIS con registro
                 </span>
               </div>
@@ -198,7 +198,7 @@ const CachaLandingPage = () => {
           {/* Right Column - Cacha Image/Avatar */}
           <div className="flex flex-col items-center gap-y-2 justify-center lg:justify-end">
             <div className="relative">
-              <div className="w-80 h-80 lg:w-96 lg:h-96 rounded-full bg-gradient-to-br from-pink-400 to-purple-600 p-1">
+              <div className="w-60 h-60 lg:w-96 lg:h-96 rounded-full bg-gradient-to-br from-pink-400 to-purple-600 p-1">
                 <div className="w-full h-full rounded-full bg-gradient-to-br from-gray-100 to-gray-200 flex items-center justify-center overflow-hidden">
                   {/* Placeholder for Cacha's photo */}
                   <div className="w-full h-full bg-gradient-to-br from-pink-300 to-purple-400 flex items-center justify-center text-white text-6xl font-bold">
@@ -221,7 +221,10 @@ const CachaLandingPage = () => {
                   height={150}
                 />
               </div>
-              <div className="absolute -bottom-4 -left-4 w-16 h-16 bg-pink-400 rounded-full flex items-center justify-center text-xl animate-pulse">
+              <div
+                className="absolute -bottom-4 -left-4 w-10
+h-10 md:w-16 md:h-16 bg-pink-400 rounded-full flex items-center justify-center text-xl animate-pulse"
+              >
                 <CachaIcon name="heart" size={36} />
               </div>
             </div>
