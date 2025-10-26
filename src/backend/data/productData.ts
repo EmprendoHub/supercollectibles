@@ -234,6 +234,7 @@ export const product_categories = [
   { es: "Attack On Titan", en: "Attack On Titan" },
   { es: "Cartas de Deportes", en: "Cartas de Deportes" },
   { es: "Cartas de Magic", en: "Cartas de Magic" },
+  { es: "Dragon Ball", en: "Dragon Ball" },
   { es: "Paquetes de Cartas", en: "Paquetes de Cartas" },
   { es: "Hot Wheels", en: "Hot Wheels" },
   { es: "Relojes de Colección", en: "Relojes de Colección" },
