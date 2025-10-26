@@ -46,9 +46,9 @@ export async function middleware(request: NextRequest) {
       return NextResponse.redirect(signInUrl);
     }
 
-    // Allow organizer to access only /admin/evento
+    // Allow organizer to access only /admin/evento and /admin/evento/scanner
     if (token?.user?.role === "organizer") {
-      if (pathname !== "/admin/evento") {
+      if (!pathname.startsWith("/admin/evento")) {
         signInUrl = new URL("/admin/evento", request.url);
         return NextResponse.redirect(signInUrl);
       }
