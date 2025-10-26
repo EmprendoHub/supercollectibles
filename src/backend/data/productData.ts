@@ -227,29 +227,30 @@ export const sizes_shoes_woman = [
 ];
 
 export const product_categories = [
-  { es: "Cartas de Pokemon", en: "Cartas de Pokemon" },
-  { es: "Cartas de Yu-Gi-Oh", en: "Cartas de Yu-Gi-Oh" },
-  { es: "Cartas de Digimon", en: "Cartas de Digimon" },
-  { es: "Cartas de One Piece", en: "Cartas de One Piece" },
+  { es: "Pokemon", en: "Pokemon" },
+  { es: "Yu-Gi-Oh", en: "Yu-Gi-Oh" },
+  { es: "Digimon", en: "Digimon" },
+  { es: "One Piece", en: "One Piece" },
   { es: "Attack On Titan", en: "Attack On Titan" },
-  { es: "Cartas de Deportes", en: "Cartas de Deportes" },
-  { es: "Cartas de Magic", en: "Cartas de Magic" },
+  { es: "Deportes", en: "Deportes" },
+  { es: "Magic", en: "Magic" },
   { es: "Dragon Ball", en: "Dragon Ball" },
   { es: "Paquetes de Cartas", en: "Paquetes de Cartas" },
   { es: "Hot Wheels", en: "Hot Wheels" },
   { es: "Relojes de Colección", en: "Relojes de Colección" },
   { es: "Jerseys Autografiadas", en: "Jerseys Autografiadas" },
   { es: "Ropa de Colección", en: "Ropa de Colección" },
-  { es: "Memorabilia UFC", en: "Memorabilia UFC" },
-  { es: "Memorabilia Futbol", en: "Memorabilia Futbol" },
-  { es: "Memorabilia NBA", en: "Memorabilia NBA" },
-  { es: "Memorabilia NFL", en: "Memorabilia NFL" },
-  { es: "Memorabilia Baseball", en: "Memorabilia Baseball" },
-  { es: "Memorabilia Tenis", en: "Memorabilia Tenis" },
-  { es: "Memorabilia Anime", en: "Memorabilia Anime" },
+  { es: "UFC", en: "UFC" },
+  { es: "Futbol", en: "Futbol" },
+  { es: "NBA", en: "NBA" },
+  { es: "NFL", en: "NFL" },
+  { es: "Baseball", en: "Baseball" },
+  { es: "Tenis", en: "Tenis" },
+  { es: "Anime", en: "Anime" },
   { es: "Figuras Pokemon", en: "Figuras Pokemon" },
   { es: "Artículos de Cuidado", en: "Artículos de Cuidado" },
-  { es: "Organizadores y Estuches", en: "Organizadores y Estuches" },
+  { es: "Estuches", en: "Estuches" },
+  { es: "Organizadores", en: "Organizadores" },
 ];
 
 export const cat_tarjetas = [
@@ -259,8 +260,8 @@ export const cat_tarjetas = [
 ];
 
 export const cat_articulos = [
-  { value: "Cerrado", label: "Cerrado" },
   { value: "Nuevo", label: "Nuevo" },
+  { value: "Cerrado", label: "Cerrado" },
   { value: "No Aplica", label: "No Aplica" },
 ];
 
