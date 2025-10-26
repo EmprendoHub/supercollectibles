@@ -231,6 +231,7 @@ export const product_categories = [
   { es: "Cartas de Yu-Gi-Oh", en: "Cartas de Yu-Gi-Oh" },
   { es: "Cartas de Digimon", en: "Cartas de Digimon" },
   { es: "Cartas de One Piece", en: "Cartas de One Piece" },
+  { es: "Attack On Titan", en: "Attack On Titan" },
   { es: "Cartas de Deportes", en: "Cartas de Deportes" },
   { es: "Cartas de Magic", en: "Cartas de Magic" },
   { es: "Paquetes de Cartas", en: "Paquetes de Cartas" },
@@ -273,6 +274,8 @@ export const genders = [
   { es: "Namco", en: "Namco" },
   { es: "Nintendo", en: "Nintendo" },
   { es: "Tomy", en: "Tomy" },
+  { es: "Pokemon Company", en: "Pokemon Company" },
+  { es: "Universus", en: "Universus" },
   { es: "Wizards of the Coast", en: "Wizards of the Coast" },
   { es: "Ninguna", en: "Ninguna" },
 ];
