@@ -9,43 +9,70 @@ import Stripe from "stripe";
 
 async function getCartItems(items: any) {
   try {
-    return new Promise((resolve, reject) => {
-      let cartItems = [];
+    const cartItemsPromises = items.map(async (item: any) => {
+      const variationId = item.variation || item._id;
+      const productId = item.product || item._id; // Usar el _id del item si product no existe
 
-      items?.forEach(async (item: any) => {
-        const variationId = item.variation;
-        const product = await Product.findOne({
-          "variations._id": variationId,
-        });
-
-        const variation = product.variations.find((variation: any) =>
-          variation._id.equals(item.variation)
-        );
-        // Check if there is enough stock
-        if (variation.stock < item.quantity) {
-          console.log("Insufficient stock");
-          return;
-        }
-
-        cartItems.push({
-          product: { _id: item.product },
-          variation: variationId,
-          name: item.title.replace(/[^\w\s]/gi, ""),
-          description: item.title.replace(/[^\w\s]/gi, ""),
-          color: item.color,
-          size: item.size,
-          price: item.price,
-          quantity: item.quantity,
-          image: item.image[0].url,
-        });
-
-        if (cartItems.length === items?.length) {
-          resolve(cartItems);
-        }
+      console.log("Processing item:", {
+        variationId,
+        productId,
+        title: item.title,
+        quantity: item.quantity,
       });
+
+      const product = await Product.findOne({
+        "variations._id": variationId,
+      });
+
+      if (!product) {
+        console.log("Product not found for variation:", variationId);
+        return null;
+      }
+
+      const variation = product.variations.find((variation: any) =>
+        variation._id.equals(variationId)
+      );
+
+      if (!variation) {
+        console.log("Variation not found:", variationId);
+        return null;
+      }
+
+      // Check if there is enough stock
+      if (variation.stock < item.quantity) {
+        console.log("Insufficient stock for:", item.title);
+        return null;
+      }
+
+      return {
+        product: product._id, // Usar el ID del producto encontrado
+        variation: variationId,
+        name: item.title?.replace(/[^\w\s]/gi, "") || "Producto",
+        description: item.title?.replace(/[^\w\s]/gi, "") || "Producto",
+        color: item.color || "",
+        size: item.size || "",
+        price: item.price,
+        quantity: item.quantity,
+        image: item.image?.[0]?.url || "",
+      };
     });
+
+    const cartItems = await Promise.all(cartItemsPromises);
+
+    // Filtrar items nulos (productos no encontrados o sin stock)
+    const validCartItems = cartItems.filter((item) => item !== null);
+
+    console.log(
+      "Processed cart items:",
+      validCartItems.length,
+      "of",
+      items.length
+    );
+
+    return validCartItems;
   } catch (error) {
-    console.log("erro", error);
+    console.log("Error en getCartItems:", error);
+    throw error;
   }
 }
 
@@ -61,8 +88,15 @@ export const POST = async (request: any) => {
   const stripe = new Stripe(process.env.STRIPE_SECRET_KEY!);
   const mongoSession = await mongoose.startSession();
   const reqBody = await request.json();
-  const { items, email, user, shipping, affiliateInfo, payType } =
-    await reqBody;
+  const {
+    items,
+    email,
+    user,
+    shipping,
+    shippingMethod,
+    affiliateInfo,
+    payType,
+  } = await reqBody;
 
   try {
     mongoSession.startTransaction();
@@ -95,6 +129,13 @@ export const POST = async (request: any) => {
 
     // Calculate total amount based on items
     let totalAmount = await calculateTotalAmount(items);
+
+    // Add shipping cost if shipping method is selected
+    let shippingCost = 0;
+    if (shippingMethod && shippingMethod.price) {
+      shippingCost = shippingMethod.price;
+      totalAmount += shippingCost;
+    }
 
     let pay_method_options: any[] = ["card", "oxxo"];
 
@@ -144,9 +185,16 @@ export const POST = async (request: any) => {
       phone: user?.phone,
       email: user?.email,
       customerName: user?.name,
-      ship_cost,
+      ship_cost: shippingCost,
       createdAt: date,
-      shippingInfo: shipping,
+      shippingInfo: {
+        ...shipping,
+        shippingMethod: shippingMethod,
+        shippingCost: shippingCost,
+        carrier: shippingMethod?.carrier || "",
+        service: shippingMethod?.service || "",
+        estimatedDays: shippingMethod?.estimatedDays || 0,
+      },
       paymentInfo,
       branch: "WWW",
       orderItems: order_items,

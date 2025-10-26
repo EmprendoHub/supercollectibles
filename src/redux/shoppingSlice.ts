@@ -35,6 +35,7 @@ const initialState = {
   userInfo: null,
   locationInfo: null,
   shippingInfo: null,
+  shippingMethod: null,
   orderData: [],
   affiliateInfo: null,
   emailListData: [],
@@ -157,6 +158,9 @@ export const shoppingSlice = createSlice({
     addShippingInfo: (state, action) => {
       state.shippingInfo = action.payload;
     },
+    addShippingMethod: (state, action) => {
+      state.shippingMethod = action.payload;
+    },
     deleteUser: (state) => {
       state.userInfo = null;
     },
@@ -241,6 +245,7 @@ export const {
   savePOSOrder,
   repopulateCart,
   addShippingInfo,
+  addShippingMethod,
   saveEmailReceiver,
   removeEmailReceiver,
   resetEmailReceiver,

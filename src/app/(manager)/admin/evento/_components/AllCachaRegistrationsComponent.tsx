@@ -180,7 +180,7 @@ const AllCachaRegistrationsComponent: React.FC<
                     <tr
                       key={registration._id}
                       className={`border-b hover:bg-gray-600 ${
-                        registration.estado === "cancelado" ? "bg-red-50" : ""
+                        registration.estado === "cancelado" ? "bg-red-500" : ""
                       }`}
                     >
                       <td className="px-6 py-4">
@@ -211,7 +211,7 @@ const AllCachaRegistrationsComponent: React.FC<
                       <td className="px-6 py-4">
                         {getStatusBadge(registration.estado)}
                       </td>
-                      <td className="px-6 py-4 text-gray-500 text-xs">
+                      <td className="px-6 py-4 text-gray-200 text-xs">
                         {formatDate(registration.fechaRegistro)}
                       </td>
                       <td className="px-6 py-4">

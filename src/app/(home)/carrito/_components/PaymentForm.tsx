@@ -15,16 +15,20 @@ const PaymentForm = () => {
   const dispatch = useDispatch();
   const { data: session } = useSession();
   const isLoggedIn = Boolean(session?.user);
-  const { productsData, shippingInfo, userInfo, affiliateInfo } = useSelector(
-    (state: any) => state.compras
-  );
+  const {
+    productsData,
+    shippingInfo,
+    userInfo,
+    affiliateInfo,
+    shippingMethod,
+  } = useSelector((state: any) => state.compras);
 
   const amountTotal = productsData?.reduce(
     (acc: any, cartItem: any) => acc + cartItem.quantity * cartItem.price,
     0
   );
 
-  const shipAmount = 0;
+  const shipAmount = shippingMethod?.price || 0;
   const layawayAmount = Number(amountTotal) * 0.3;
 
   const totalAmountCalc = Number(amountTotal) + Number(shipAmount);
@@ -35,6 +39,12 @@ const PaymentForm = () => {
 
   const stripePromise = loadStripe(process.env.NEXT_PUBLIC_STRIPE__KEY!);
   const handleCheckout = async (payType: any) => {
+    // Validar que se haya seleccionado un método de envío
+    if (!shippingMethod) {
+      alert("Por favor selecciona un método de envío antes de continuar.");
+      return;
+    }
+
     const stripe = await stripePromise;
 
     const response = await fetch(`/api/checkout?${payType}`, {
@@ -45,6 +55,7 @@ const PaymentForm = () => {
         email: session?.user?.email,
         user: userInfo,
         shipping: shippingInfo,
+        shippingMethod: shippingMethod,
         affiliateInfo: affiliateInfo,
         payType: payType,
       }),
@@ -85,11 +96,24 @@ const PaymentForm = () => {
           </li>
 
           <li className="flex justify-between text-muted  mb-1">
-            <span>Envió:</span>
+            <span>Envío:</span>
             <span>
               <FormattedPrice amount={shipAmount} />
             </span>
           </li>
+          {shippingMethod && (
+            <li className="flex justify-between text-muted mb-1">
+              <span className="text-xs">Método:</span>
+              <span className="text-xs text-right">
+                {shippingMethod.carrier} - {shippingMethod.serviceName}
+                <br />
+                <span className="text-emerald-600">
+                  {shippingMethod.estimatedDays} día
+                  {shippingMethod.estimatedDays !== 1 ? "s" : ""}
+                </span>
+              </span>
+            </li>
+          )}
           <li className="text-lg font-bold border-t flex justify-between mt-3 pt-3">
             <span>Total:</span>
             <span>
@@ -102,9 +126,20 @@ const PaymentForm = () => {
           <div className="flex flex-col items-center gap-1">
             <button
               onClick={() => handleCheckout("total")}
-              className="bg-emerald-600 rounded-xl w-full text-slate-100 mt-4 py-3 px-6 hover:bg-emerald-800 hover:text-foreground duration-300 ease-in-out cursor-pointer"
+              className={`rounded-xl w-full text-slate-100 mt-4 py-3 px-6 duration-300 ease-in-out cursor-pointer ${
+                shippingMethod
+                  ? "bg-emerald-600 hover:bg-emerald-800 hover:text-foreground"
+                  : "bg-gray-400 cursor-not-allowed"
+              }`}
+              disabled={!shippingMethod}
             >
-              Pagar Total{" "}
+              {shippingMethod ? (
+                <>
+                  Pagar Total <FormattedPrice amount={totalAmountCalc} />
+                </>
+              ) : (
+                "Selecciona método de envío"
+              )}
             </button>
             <p className="text-[11px]">
               Si realizaste un pago por Oxxo o Transferencia Bancaria

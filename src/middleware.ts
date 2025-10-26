@@ -16,21 +16,12 @@ export async function middleware(request: NextRequest) {
   const nextUrl = request.nextUrl;
 
   if (token?.user) {
-    // if (token?.user?.role === "instagram" && !pathname.includes("instagram")) {
-    //   signInUrl = new URL("/instagram", request.url);
-    //   return NextResponse.redirect(signInUrl);
-    // }
-
-    // if (
-    //   token?.user?.role === "sucursal" &&
-    //   !pathname.includes("puntodeventa")
-    // ) {
-    //   signInUrl = new URL("/puntodeventa", request.url);
-    //   return NextResponse.redirect(signInUrl);
-    // }
-
     if (token?.user?.role === "manager" && !pathname.includes("admin")) {
       signInUrl = new URL("/admin", request.url);
+      return NextResponse.redirect(signInUrl);
+    }
+    if (token?.user?.role === "organizer" && !pathname.includes("admin")) {
+      signInUrl = new URL("/admin/evento", request.url);
       return NextResponse.redirect(signInUrl);
     }
     if (
@@ -55,7 +46,13 @@ export async function middleware(request: NextRequest) {
       return NextResponse.redirect(signInUrl);
     }
 
-    if (token?.user?.role !== "manager") {
+    // Allow organizer to access only /admin/evento
+    if (token?.user?.role === "organizer") {
+      if (pathname !== "/admin/evento") {
+        signInUrl = new URL("/admin/evento", request.url);
+        return NextResponse.redirect(signInUrl);
+      }
+    } else if (token?.user?.role !== "manager") {
       signInUrl = new URL("/no-autorizado", request.url);
       return NextResponse.redirect(signInUrl);
     }
@@ -74,54 +71,6 @@ export async function middleware(request: NextRequest) {
       return NextResponse.redirect(signInUrl);
     }
   }
-
-  // if (pathname.includes("puntodeventa")) {
-  //   if admin user is not logged in
-  //   let signInUrl;
-  //   if (!token) {
-  //     signInUrl = new URL("/api/auth/signin", request.url);
-  //     signInUrl.searchParams.set("callbackUrl", pathname);
-  //     return NextResponse.redirect(signInUrl);
-  //   }
-
-  //   if (token?.user?.role !== "sucursal") {
-  //     signInUrl = new URL("/no-autorizado", request.url);
-  //     return NextResponse.redirect(signInUrl);
-  //   }
-  // }
-
-  // if (pathname.includes("instagram")) {
-  //   //if admin user is not logged in
-  //   let signInUrl;
-  //   if (!token) {
-  //     signInUrl = new URL("/api/auth/signin", request.url);
-  //     signInUrl.searchParams.set("callbackUrl", pathname);
-  //     return NextResponse.redirect(signInUrl);
-  //   }
-
-  //   if (token?.user?.role !== "instagram") {
-  //     signInUrl = new URL("/no-autorizado", request.url);
-  //     return NextResponse.redirect(signInUrl);
-  //   }
-  // }
-
-  // if (
-  //   pathname.includes("afiliado") ||
-  //   pathname === "/registro/affiliate/stripe"
-  // ) {
-  //   //if afiliado user is not logged in
-  //   let signInUrl;
-  //   if (!token) {
-  //     signInUrl = new URL("/api/auth/signin", request.url);
-  //     signInUrl.searchParams.set("callbackUrl", pathname);
-  //     return NextResponse.redirect(signInUrl);
-  //   }
-
-  //   if (token?.user?.role !== "afiliado") {
-  //     signInUrl = new URL("/no-autorizado", request.url);
-  //     return NextResponse.redirect(signInUrl);
-  //   }
-  // }
 
   if (pathname.includes("perfil")) {
     //if afiliado user is not logged in

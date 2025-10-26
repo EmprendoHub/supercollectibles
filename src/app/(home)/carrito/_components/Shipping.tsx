@@ -1,13 +1,20 @@
 "use client";
-import React from "react";
+import React, { useState } from "react";
 import Link from "next/link";
 import BreadCrumbs from "@/components/layouts/BreadCrumbs";
 import PaymentForm from "./PaymentForm";
-import { addUser, addShippingInfo } from "@/redux/shoppingSlice";
+import ShippingOptions from "./ShippingOptions";
+import {
+  addUser,
+  addShippingInfo,
+  addShippingMethod,
+} from "@/redux/shoppingSlice";
 import { useDispatch } from "react-redux";
 import { useSession } from "next-auth/react";
 
 const Shipping = ({ addresses }: { addresses: any }) => {
+  const [selectedShipping, setSelectedShipping] = useState<any>(null);
+
   const breadCrumbs = [
     {
       name: "Tienda",
@@ -24,6 +31,7 @@ const Shipping = ({ addresses }: { addresses: any }) => {
   ];
   const dispatch = useDispatch();
   const session: any = useSession();
+
   function handleClick(radio: any, selectedAddress: any) {
     if (radio.checked === false) {
       //delete filter
@@ -40,6 +48,11 @@ const Shipping = ({ addresses }: { addresses: any }) => {
       dispatch(addUser(user));
     }
   }
+
+  const handleShippingSelect = (shippingQuote: any) => {
+    setSelectedShipping(shippingQuote);
+    dispatch(addShippingMethod(shippingQuote));
+  };
   return (
     <div>
       <section className="py-10 ">
@@ -89,6 +102,12 @@ const Shipping = ({ addresses }: { addresses: any }) => {
                   </Link>
                 )}
               </article>
+
+              {/* Shipping Options Section */}
+              <ShippingOptions
+                onShippingSelect={handleShippingSelect}
+                selectedShipping={selectedShipping}
+              />
             </main>
             <aside className="md:w-1/4">
               <article className="border border-muted bg-background shadow-sm rounded-xl mb-5 p-1">

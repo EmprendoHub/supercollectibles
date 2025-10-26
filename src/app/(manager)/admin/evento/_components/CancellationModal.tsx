@@ -105,7 +105,9 @@ const CancellationModal: React.FC<CancellationModalProps> = ({
         {registration && (
           <div className="space-y-4">
             <div className="bg-gray-50 p-4 rounded-lg">
-              <h4 className="font-medium mb-2">Participante a cancelar:</h4>
+              <h4 className="font-medium mb-2 text-gray-700">
+                Participante a cancelar:
+              </h4>
               <div className="space-y-1 text-sm text-gray-600">
                 <p>
                   <strong>Nombre:</strong> {registration.nombre}

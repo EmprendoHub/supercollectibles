@@ -146,39 +146,37 @@ const ProductCard = ({ item, index }: { item: any; index: number }) => {
           initial={{ y: 50, opacity: 0 }}
           whileInView={{ y: 0, opacity: 1 }}
           transition={{ duration: 0.8 }}
-          className="flex items-center justify-center group"
+          className="flex items-center justify-center group mt-3"
         >
           {alreadyCart ? (
             <Link href="/carrito">
-              <span className="  border-black text-base text-slate-100 rounded-full border  drop-shadow-md flex flex-row items-center justify-between   gap-x-4 bg-primary ease-in-out  duration-300 w-auto tracking-wider cursor-not-allowed ">
+              <span className="  border-black p-3 text-base text-slate-100 rounded-full border  drop-shadow-md flex flex-row items-center justify-between   gap-x-4 bg-primary ease-in-out  duration-300 w-auto tracking-wider cursor-not-allowed ">
                 {"En Carrito"}
               </span>
             </Link>
           ) : (
             <motion.button
-              disabled={item?.stock <= 0}
+              disabled={variation?.stock <= 0}
               whileHover={{ scale: 1.07 }}
               whileTap={{ scale: 0.9 }}
               className={`${
-                item?.stock <= 0
-                  ? "bg-slate-500  bg-opacity-50 text-foreground border-slate-300 cursor-not-allowed"
-                  : "text-white border-black cursor-pointer "
-              } rounded-full border  drop-shadow-md flex flex-row items-center justify-between gap-x-4 text-base bg-primary ease-in-out  duration-300 w-auto uppercase tracking-wider `}
-              onClick={item?.stock <= 0 ? handleClick : () => {}}
+                variation?.stock <= 0
+                  ? "bg-slate-300 grayscale-0 text-foreground border-slate-300"
+                  : "text-white border-black"
+              } border  drop-shadow-md flex flex-row items-center justify-between px-6 py-2  gap-x-4 text-xs bg-primary   ease-in-out  duration-300 w-auto uppercase tracking-wider cursor-pointer `}
+              onClick={handleClick}
             >
-              {item?.stock <= 0 ? (
-                <span className="py-2 px-2 ">Vendido</span>
-              ) : (
-                <span
-                  className={`text-white ${
-                    item?.stock <= 0
-                      ? "bg-slate-500 bg-opacity-50 text-foreground "
-                      : "group-hover:bg-black group-hover:text-white duration-200 "
-                  }  text-foreground w-auto text-base px-4 flex items-center justify-center  rounded-full py-2`}
-                >
-                  <IoMdCart size={18} /> Agregar
-                </span>
-              )}
+              {variation?.stock <= 0 ? "Out of Stock" : "Agregar a carrito"}
+
+              <span
+                className={`text-white ${
+                  variation?.stock <= 0
+                    ? "bg-slate-300 grayscale-0 text-foreground"
+                    : "group-hover:bg-black group-hover:text-white duration-200 "
+                } text-xl text-foreground w-12 flex items-center justify-center  rounded-full py-2`}
+              >
+                <IoMdCart size={18} />
+              </span>
             </motion.button>
           )}
         </motion.div>

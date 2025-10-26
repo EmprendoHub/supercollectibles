@@ -26,7 +26,7 @@ const AdminCachaPage = async () => {
               </p>
             </div>
             <div className="flex gap-3">
-              <Link href="/admin/cacha/scanner">
+              <Link href="/admin/evento/scanner">
                 <Button className="bg-green-600 hover:bg-green-700">
                   <QrCode className="w-4 h-4 mr-2" />
                   🎫 Escáner QR

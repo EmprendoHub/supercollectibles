@@ -2,6 +2,7 @@
 import React from "react";
 import AdminSidebar, { SideBarItem } from "../_components/AdminSidebar";
 import { usePathname } from "next/navigation";
+import { useSession } from "next-auth/react";
 import { TbDeviceIpadDollar, TbReport } from "react-icons/tb";
 import { PiUserListLight } from "react-icons/pi";
 import { CiGrid31 } from "react-icons/ci";
@@ -12,6 +13,24 @@ import { FaCartPlus } from "react-icons/fa6";
 
 const SideBarRender = () => {
   const pathname = usePathname();
+  const { data: session } = useSession();
+  const userRole = (session?.user as any)?.role;
+
+  // If user is organizer, only show evento menu
+  if (userRole === "organizer") {
+    return (
+      <AdminSidebar>
+        <SideBarItem
+          icon={<MdEvent size={20} />}
+          text={"Influencer"}
+          active={pathname === "/admin/evento" ? "true" : "false"}
+          url={"/admin/evento"}
+        />
+      </AdminSidebar>
+    );
+  }
+
+  // For manager role, show all menu items
   return (
     <AdminSidebar>
       <SideBarItem
@@ -85,8 +104,8 @@ const SideBarRender = () => {
       <SideBarItem
         icon={<MdEvent size={20} />}
         text={"Influencer"}
-        active={pathname === "/admin/cacha" ? "true" : "false"}
-        url={"/admin/cacha"}
+        active={pathname === "/admin/evento" ? "true" : "false"}
+        url={"/admin/evento"}
       />
       <SideBarItem
         icon={<TbReport size={20} />}
