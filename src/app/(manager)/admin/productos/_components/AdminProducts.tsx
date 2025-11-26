@@ -6,6 +6,7 @@ import {
   FaStar,
   FaExclamationCircle,
   FaEye,
+  FaFileExcel,
 } from "react-icons/fa";
 import FormattedPrice from "@/backend/helpers/FormattedPrice";
 import Swal, { SweetAlertIcon } from "sweetalert2";
@@ -16,6 +17,7 @@ import { TbWorldWww } from "react-icons/tb";
 import { usePathname, useSearchParams } from "next/navigation";
 import { useEffect, useState } from "react";
 import { SiMercadopago } from "react-icons/si";
+import ExportToTikTokButton from "./ExportToTikTokButton";
 
 const AdminProducts = ({
   products,
@@ -38,6 +40,9 @@ const AdminProducts = ({
   const searchParams = useSearchParams();
   const searchValue = searchParams.get("page");
   const [currentPage, setCurrentPage] = useState<string>("");
+  const [selectedProducts, setSelectedProducts] = useState<Set<string>>(
+    new Set()
+  );
 
   useEffect(() => {
     if (searchValue !== null) {
@@ -46,6 +51,27 @@ const AdminProducts = ({
       setCurrentPage(""); // or any default value you prefer
     }
   }, [searchValue]);
+
+  // Handle select all checkbox
+  const handleSelectAll = (checked: boolean) => {
+    if (checked) {
+      const allProductIds = products.map((p: any) => p._id);
+      setSelectedProducts(new Set(allProductIds));
+    } else {
+      setSelectedProducts(new Set());
+    }
+  };
+
+  // Handle individual product selection
+  const handleSelectProduct = (productId: string, checked: boolean) => {
+    const newSelection = new Set(selectedProducts);
+    if (checked) {
+      newSelection.add(productId);
+    } else {
+      newSelection.delete(productId);
+    }
+    setSelectedProducts(newSelection);
+  };
 
   const deleteHandler: any = (product_id: string) => {
     Swal.fire({
@@ -208,9 +234,35 @@ const AdminProducts = ({
           </h1>
           <SearchProducts search={search} />
         </div>
+
+        {/* Export Button */}
+        {selectedProducts.size > 0 && (
+          <div className="mb-4 flex items-center justify-between px-4">
+            <p className="text-sm text-muted-foreground">
+              {selectedProducts.size} producto(s) seleccionado(s)
+            </p>
+            <ExportToTikTokButton
+              selectedProductIds={Array.from(selectedProducts)}
+              onExportComplete={() => setSelectedProducts(new Set())}
+            />
+          </div>
+        )}
+
         <table className="w-full text-sm  text-left h-full">
           <thead className="text-l text-gray-700 uppercase">
             <tr className="flex flex-row items-center">
+              <th scope="col" className="w-full px-2 py-3">
+                <input
+                  type="checkbox"
+                  checked={
+                    selectedProducts.size === products.length &&
+                    products.length > 0
+                  }
+                  onChange={(e) => handleSelectAll(e.target.checked)}
+                  className="w-4 h-4 cursor-pointer"
+                  aria-label="Seleccionar todos"
+                />
+              </th>
               <th
                 scope="col"
                 className="w-full px-6 maxsm:px-0 py-3 maxsm:hidden"
@@ -250,6 +302,17 @@ const AdminProducts = ({
                 }`}
                 key={product?._id}
               >
+                <td className="w-full px-2 py-0">
+                  <input
+                    type="checkbox"
+                    checked={selectedProducts.has(product._id)}
+                    onChange={(e) =>
+                      handleSelectProduct(product._id, e.target.checked)
+                    }
+                    className="w-4 h-4 cursor-pointer"
+                    aria-label={`Seleccionar ${product.title}`}
+                  />
+                </td>
                 <td
                   className={`w-full px-6 maxsm:px-0 py-0 font-bold maxsm:hidden text-[12px]`}
                 >

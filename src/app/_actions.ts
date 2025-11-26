@@ -4437,3 +4437,92 @@ export async function subscribeToFbApp(pageId: string) {
     return { status: 400 };
   }
 }
+
+/**
+ * Export selected products to TikTok Shop Excel format
+ * with AI-optimized titles and descriptions
+ */
+export async function exportProductsToTikTok(productIds: string[]) {
+  try {
+    const session = await getServerSession(options);
+    if (!session || !["manager", "sucursal"].includes(session?.user?.role)) {
+      return {
+        success: false,
+        error: "No autorizado",
+      };
+    }
+
+    if (!productIds || productIds.length === 0) {
+      return {
+        success: false,
+        error: "No se seleccionaron productos",
+      };
+    }
+
+    await dbConnect();
+
+    // Import required utilities
+    const { optimizeProductsBatch } = await import("@/lib/aiOptimizer");
+    const { mapProductsBatchToTikTok } = await import("@/lib/tiktokMapper");
+    const { generateTikTokExcelBase64, validateTikTokRows } = await import(
+      "@/lib/excelGenerator"
+    );
+
+    // Fetch products from database
+    const products = await Product.find({
+      _id: { $in: productIds },
+    }).lean();
+
+    if (!products || products.length === 0) {
+      return {
+        success: false,
+        error: "No se encontraron productos",
+      };
+    }
+
+    // Prepare products for AI optimization
+    const productsForAI = products.map((p: any) => ({
+      title: p.title || "",
+      description: p.description || "",
+      category: p.category || "",
+      brand: p.brand || "",
+    }));
+
+    // Optimize with AI
+    const optimizedContents = await optimizeProductsBatch(productsForAI);
+
+    // Map to TikTok format
+    const tiktokRows = mapProductsBatchToTikTok(
+      products as any,
+      optimizedContents
+    );
+
+    // Validate rows
+    const validationErrors = validateTikTokRows(tiktokRows);
+    if (validationErrors.length > 0) {
+      return {
+        success: false,
+        error: `Errores de validación: ${validationErrors.join(", ")}`,
+      };
+    }
+
+    // Generate Excel file as base64
+    const fileName = `tiktok-products-${
+      new Date().toISOString().split("T")[0]
+    }`;
+    const fileData = generateTikTokExcelBase64(tiktokRows, fileName);
+
+    return {
+      success: true,
+      fileName: `${fileName}.xlsx`,
+      fileData,
+      productsProcessed: products.length,
+    };
+  } catch (error: any) {
+    console.error("Error exporting to TikTok:", error);
+    return {
+      success: false,
+      error: error.message || "Error al exportar productos",
+    };
+  }
+}
