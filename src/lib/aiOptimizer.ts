@@ -97,7 +97,32 @@ Devuelve ÚNICAMENTE un objeto JSON con esta estructura exacta (sin markdown, si
       cleanedText = cleanedText.replace(/```\n?/g, "");
     }
 
-    const parsed = JSON.parse(cleanedText);
+    // Additional cleaning to fix control characters
+    cleanedText = cleanedText.trim();
+    
+    // Try to parse, and if it fails due to control characters, sanitize and retry
+    let parsed;
+    try {
+      parsed = JSON.parse(cleanedText);
+    } catch (parseError) {
+      console.warn("Initial JSON parse failed, attempting to sanitize...");
+      // Sanitize the JSON by escaping control characters properly
+      // This regex finds unescaped control characters within string values
+      cleanedText = cleanedText
+        .replace(/[\u0000-\u001F\u007F-\u009F]/g, (match) => {
+          // Map common control characters to their escape sequences
+          const escapeMap: { [key: string]: string } = {
+            '\n': '\\n',
+            '\r': '\\r',
+            '\t': '\\t',
+            '\b': '\\b',
+            '\f': '\\f',
+          };
+          return escapeMap[match] || '';
+        });
+      
+      parsed = JSON.parse(cleanedText);
+    }
 
     return {
       optimizedTitle: parsed.optimizedTitle || title,
