@@ -61,7 +61,7 @@ export async function sendInitialRegistrationEmail({
 
     const confirmationUrl = `${process.env.NEXTAUTH_URL}/api/cacha/confirm?code=${codigoConfirmacion}`;
     const subject = "🎉 Confirma tu registro - Meet & Greet con Cacha";
-    const senderEmail = "supercollectibles214@gmail.com";
+    const senderEmail = "supercollectiblesc12@gmail.com";
 
     const htmlContent = `
     <!DOCTYPE html>
@@ -367,7 +367,7 @@ export async function sendCachaConfirmationEmail({
     );
 
     const subject = "🎉 ¡Registro Confirmado! - Meet & Greet con Cacha";
-    const senderEmail = "supercollectibles214@gmail.com";
+    const senderEmail = "supercollectiblesc12@gmail.com";
 
     const htmlContent = `
     <!DOCTYPE html>
@@ -706,7 +706,7 @@ export async function sendAdminNotificationEmail({
     );
 
     const subject = "🎉 Nuevo registro para Meet & Greet con Cacha";
-    const senderEmail = "supercollectibles214@gmail.com";
+    const senderEmail = "supercollectiblesc12@gmail.com";
     const adminEmail = process.env.ADMIN_EMAIL || senderEmail;
 
     const htmlContent = `
@@ -899,7 +899,7 @@ export async function sendCachaCancellationEmail({
     );
 
     const subject = "😔 Cancelación de registro - Meet & Greet con Cacha";
-    const senderEmail = "supercollectibles214@gmail.com";
+    const senderEmail = "supercollectiblesc12@gmail.com";
 
     const htmlContent = `
     <!DOCTYPE html>

@@ -33,9 +33,9 @@ const ContactComponent = () => {
                 textThree={"Platiquemos en persona"}
                 phoneLinkOne={"tel:+523328123760"}
                 phoneLinkTextOne={"(+52)332-812-3760"}
-                linkTwo={"mailto:supercollectibles214@gmail.com"}
+                linkTwo={"mailto:supercollectiblesc12@gmail.com"}
                 linkThree={"https://maps.app.goo.gl/X6xZUphdFqacX4hz6"}
-                linkTwoText={"supercollectibles214@gmail.com"}
+                linkTwoText={"supercollectiblesc12@gmail.com"}
                 textAddressThree={
                   "Av. Ignacio L Vallarta 2425, 44130 Guadalajara, Jal."
                 }

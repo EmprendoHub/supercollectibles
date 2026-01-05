@@ -88,7 +88,7 @@ const PoliticaPage = () => {
           <li>
             Av. Ignacio L Vallarta 2425, Arcos Vallarta, 44130 Guadalajara, Jal.
           </li>
-          <li>Correo Electrónico: supercollectibles214@gmail.com</li>
+          <li>Correo Electrónico: supercollectiblesc12@gmail.com</li>
         </ul>
       </div>
     </div>

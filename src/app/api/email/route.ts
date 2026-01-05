@@ -57,7 +57,7 @@ export async function POST(req: any) {
       const senderName = "www.supercollectibles.com.mx";
       const bestRegards = "¡Creciendo tu presencia un contacto a la vez!";
       const contact_email = email;
-      const sender_email = "supercollectibles214@gmail.com";
+      const sender_email = "supercollectiblesc12@gmail.com";
 
       var transporter = nodemailer.createTransport({
         service: "gmail",

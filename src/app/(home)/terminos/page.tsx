@@ -594,7 +594,7 @@ const TerminosPage = () => {
           </h2>
           <p className="mt-2 font-raleway text-sm">
             Preguntas sobre los Términos de Servicio deben enviarnos a
-            supercollectibles214@gmail.com
+            supercollectiblesc12@gmail.com
           </p>
         </section>
       </div>

@@ -109,7 +109,7 @@ export default function LocationConcent() {
           <motion.a
             whileHover={{ scale: 1.3 }}
             whileTap={{ scale: 0.9 }}
-            href="mailto:supercollectibles214@gmail.com"
+            href="mailto:supercollectiblesc12@gmail.com"
             target="_blank"
           >
             <span className="socialLink">
