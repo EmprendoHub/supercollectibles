@@ -35,7 +35,7 @@ const SectionFourComponent = () => {
               addressTwo={
                 "Av. Ignacio L Vallarta 2425, Arcos Vallarta, 44130 Guadalajara, Jal."
               }
-              tel={"332-218-9963"}
+              tel={"332-812-3760"}
               email={"supercollectibles214@gmail.com"}
               btnUrl="/contacto"
               btnText={"Contactar"}

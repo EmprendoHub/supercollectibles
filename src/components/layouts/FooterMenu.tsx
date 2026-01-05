@@ -22,10 +22,10 @@ const FooterMenu = () => {
         </span>
         <div className="flex item-center justify-start text-[12px] gap-x-1 mt-1">
           <Link
-            href={"tel:332-218-9963"}
+            href={"tel:+523328123760"}
             className="flex flex-row items-center  "
           >
-            <p>{"332-218-9963"}</p>
+            <p>{"332-812-3760"}</p>
           </Link>
         </div>
       </div>

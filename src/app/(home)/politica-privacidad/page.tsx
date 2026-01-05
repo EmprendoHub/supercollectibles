@@ -84,7 +84,7 @@ const PoliticaPage = () => {
           Privacidad, por favor contáctenos en:
         </p>
         <ul className="list-disc pl-8">
-          <li>Teléfono: +52 (332)-218-9963</li>
+          <li>Teléfono: +52 332 812 3760</li>
           <li>
             Av. Ignacio L Vallarta 2425, Arcos Vallarta, 44130 Guadalajara, Jal.
           </li>

@@ -1,7 +1,6 @@
 "use client";
 import { useState } from "react";
 import { FaFileExcel } from "react-icons/fa";
-import { exportProductsToTikTok } from "@/app/_actions";
 import Swal from "sweetalert2";
 
 interface ExportToTikTokButtonProps {
@@ -43,59 +42,63 @@ export default function ExportToTikTokButton({
         showConfirmButton: false,
       });
 
-      // Call the server action
-      const result = await exportProductsToTikTok(selectedProductIds);
+      // Call the API route
+      const response = await fetch("/api/export-tiktok", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({ productIds: selectedProductIds }),
+      });
 
-      if (result.success && result.fileData) {
-        // Close loading alert
-        Swal.close();
+      if (!response.ok) {
+        const errorData = await response.json();
+        throw new Error(errorData.error || "Error al exportar productos");
+      }
 
-        // Convert base64 to blob
-        const byteCharacters = atob(result.fileData);
-        const byteNumbers = new Array(byteCharacters.length);
-        for (let i = 0; i < byteCharacters.length; i++) {
-          byteNumbers[i] = byteCharacters.charCodeAt(i);
+      // Get the file blob
+      const blob = await response.blob();
+      const productsProcessed = response.headers.get("X-Products-Processed");
+
+      // Close loading alert
+      Swal.close();
+
+      // Extract filename from Content-Disposition header or use default
+      const contentDisposition = response.headers.get("Content-Disposition");
+      let fileName = "tiktok-products.xlsx";
+      if (contentDisposition) {
+        const matches = /filename="([^"]+)"/.exec(contentDisposition);
+        if (matches && matches[1]) {
+          fileName = matches[1];
         }
-        const byteArray = new Uint8Array(byteNumbers);
-        const blob = new Blob([byteArray], {
-          type: "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet",
-        });
+      }
 
-        // Create download link
-        const url = window.URL.createObjectURL(blob);
-        const link = document.createElement("a");
-        link.href = url;
-        link.download = result.fileName || "tiktok-products.xlsx";
-        document.body.appendChild(link);
-        link.click();
-        document.body.removeChild(link);
-        window.URL.revokeObjectURL(url);
+      // Create download link
+      const url = window.URL.createObjectURL(blob);
+      const link = document.createElement("a");
+      link.href = url;
+      link.download = fileName;
+      document.body.appendChild(link);
+      link.click();
+      document.body.removeChild(link);
+      window.URL.revokeObjectURL(url);
 
-        // Show success message
-        Swal.fire({
-          title: "¡Éxito!",
-          html: `
-            <p>Se exportaron ${result.productsProcessed} producto(s)</p>
-            <p class="text-sm text-muted-foreground mt-2">
-              Los títulos y descripciones fueron optimizados con IA para SEO
-            </p>
-          `,
-          icon: "success",
-          confirmButtonColor: "#228B22",
-        });
+      // Show success message
+      Swal.fire({
+        title: "¡Éxito!",
+        html: `
+          <p>Se exportaron ${productsProcessed || selectedProductIds.length} producto(s)</p>
+          <p class="text-sm text-muted-foreground mt-2">
+            Los títulos y descripciones fueron optimizados con IA para SEO
+          </p>
+        `,
+        icon: "success",
+        confirmButtonColor: "#228B22",
+      });
 
-        // Call completion callback
-        if (onExportComplete) {
-          onExportComplete();
-        }
-      } else {
-        // Show error message
-        Swal.fire({
-          title: "Error",
-          text: result.error || "Error al exportar productos",
-          icon: "error",
-          confirmButtonColor: "#d33",
-        });
+      // Call completion callback
+      if (onExportComplete) {
+        onExportComplete();
       }
     } catch (error: any) {
       console.error("Export error:", error);
