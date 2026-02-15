@@ -115,6 +115,17 @@ export const POST = async (request: any) => {
   try {
     mongoSession.startTransaction();
 
+    // Validate user data
+    if (!user || !user.email) {
+      return NextResponse.json(
+        {
+          error:
+            "Información de usuario no válida. Por favor inicia sesión nuevamente.",
+        },
+        { status: 400 },
+      );
+    }
+
     let affiliate: any;
     if (affiliateInfo) {
       const affiliateLink = await ReferralLink.findOne({ _id: affiliateInfo });

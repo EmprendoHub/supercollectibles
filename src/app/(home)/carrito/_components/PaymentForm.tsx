@@ -77,6 +77,14 @@ const PaymentForm = () => {
   const stripePromise = loadStripe(stripeKey);
 
   const handleCheckout = async (payType: any) => {
+    // Validar que tenemos información del usuario
+    const userData = userInfo || session?.user;
+
+    if (!userData || !userData.email) {
+      alert("Por favor completa tu información de usuario antes de continuar.");
+      return;
+    }
+
     // Usar método de envío seleccionado o el calculado automáticamente
     const finalShippingMethod = shippingMethod || calculatedShipAmount;
 
@@ -94,8 +102,8 @@ const PaymentForm = () => {
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({
         items: productsData,
-        email: session?.user?.email,
-        user: userInfo,
+        email: userData.email,
+        user: userData,
         shipping: shippingInfo,
         shippingMethod: finalShippingMethod,
         affiliateInfo: affiliateInfo,
