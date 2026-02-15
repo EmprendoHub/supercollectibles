@@ -1,10 +1,11 @@
 "use client";
-import React from "react";
+import React, { useMemo } from "react";
 import { useSelector } from "react-redux";
 import { useSession } from "next-auth/react";
 import Image from "next/image";
 import Link from "next/link";
 import FormattedPrice from "@/backend/helpers/FormattedPrice";
+import { calculateShippingQuotes } from "@/lib/shippingRates";
 
 const CheckOutForm = () => {
   const { data: session } = useSession();
@@ -13,10 +14,34 @@ const CheckOutForm = () => {
 
   const amountTotal = productsData?.reduce(
     (acc: any, cartItem: any) => acc + cartItem.quantity * cartItem.price,
-    0
+    0,
   );
 
-  const shipAmount = 0;
+  // Calcular automáticamente el costo de envío (opción Estándar)
+  const shipAmount = useMemo(() => {
+    if (!productsData || productsData.length === 0) return 0;
+
+    try {
+      const cartItems = productsData.map((item: any) => ({
+        weight: item.weight || 0.5,
+        dimensions: item.dimensions || {
+          length: item.length || 15,
+          width: item.width || 15,
+          height: item.height || 10,
+        },
+        quantity: item.quantity || 1,
+        price: item.price || 0,
+        title: item.title || item.name || "Producto",
+      }));
+
+      const quotes = calculateShippingQuotes(cartItems);
+      // Retornar el precio de la opción Estándar (la primera y más barata)
+      return quotes.length > 0 ? quotes[0].price : 0;
+    } catch (error) {
+      console.error("Error calculando envío:", error);
+      return 199; // Tarifa mínima por defecto
+    }
+  }, [productsData]);
 
   const totalAmountCalc = Number(amountTotal) + Number(shipAmount);
 
@@ -35,7 +60,7 @@ const CheckOutForm = () => {
             <span className=" text-[11px]">
               {productsData?.reduce(
                 (acc: any, cartItem: any) => acc + cartItem.quantity,
-                0
+                0,
               )}
               (Artículos)
             </span>

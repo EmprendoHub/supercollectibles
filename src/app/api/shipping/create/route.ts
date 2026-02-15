@@ -17,7 +17,7 @@ export async function POST(request: NextRequest) {
     if (!session) {
       return NextResponse.json(
         { success: false, message: "No autorizado" },
-        { status: 401 }
+        { status: 401 },
       );
     }
 
@@ -27,7 +27,7 @@ export async function POST(request: NextRequest) {
     if (!orderId || !selectedQuote) {
       return NextResponse.json(
         { success: false, message: "Datos incompletos" },
-        { status: 400 }
+        { status: 400 },
       );
     }
 
@@ -36,7 +36,7 @@ export async function POST(request: NextRequest) {
     if (!order) {
       return NextResponse.json(
         { success: false, message: "Orden no encontrada" },
-        { status: 404 }
+        { status: 404 },
       );
     }
 
@@ -82,9 +82,11 @@ export async function POST(request: NextRequest) {
         email: order.user.email,
       },
       packages,
-      carrier_id: selectedQuote.carrierId,
-      service_id: selectedQuote.serviceId,
-      shipment_type: 1, // 1 for guide
+      shipment: {
+        type: 1,
+        carrier: selectedQuote.carrier,
+        service: selectedQuote.service,
+      },
       additional_services: [],
     };
 
@@ -108,7 +110,7 @@ export async function POST(request: NextRequest) {
           orderStatus: "Procesando",
         },
       },
-      { new: true }
+      { new: true },
     );
 
     return NextResponse.json({
@@ -135,7 +137,7 @@ export async function POST(request: NextRequest) {
         message: "Error al crear el envío",
         error: error.message,
       },
-      { status: 500 }
+      { status: 500 },
     );
   }
 }
@@ -151,7 +153,7 @@ export async function GET(request: NextRequest) {
     if (!shipmentId && !orderId) {
       return NextResponse.json(
         { success: false, message: "Se requiere shipmentId o orderId" },
-        { status: 400 }
+        { status: 400 },
       );
     }
 
@@ -161,7 +163,7 @@ export async function GET(request: NextRequest) {
       if (!order || !order.shippingInfo.enviaId) {
         return NextResponse.json(
           { success: false, message: "Envío no encontrado" },
-          { status: 404 }
+          { status: 404 },
         );
       }
     }
@@ -182,7 +184,7 @@ export async function GET(request: NextRequest) {
         message: "Error al obtener información del envío",
         error: error.message,
       },
-      { status: 500 }
+      { status: 500 },
     );
   }
 }

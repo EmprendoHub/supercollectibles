@@ -26,7 +26,15 @@ const FavoritesComp = ({ session }: { session: any }) => {
   }, [favoritesData]);
 
   function handleAddToCart(item: any) {
-    dispatch(addToCart(item)) &&
+    // Add shipping info to item
+    const itemWithShipping = {
+      ...item,
+      weight: item.weight || 0.5,
+      length: item.dimensions?.length || 15,
+      width: item.dimensions?.width || 15,
+      height: item.dimensions?.height || 10,
+    };
+    dispatch(addToCart(itemWithShipping)) &&
       dispatch(deleteFavorite(item?._id)) &&
       toast(`${item?.title.substring(0, 15)}... se agrego al carrito`) &&
       router.push("/carrito");

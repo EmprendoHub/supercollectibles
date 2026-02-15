@@ -66,10 +66,19 @@ const EditVariationProduct = ({
   const [gender, setGender] = useState(product?.gender);
   const [featured, setFeatured] = useState(product?.featured);
   const [onlineAvailability, setOnlineAvailability] = useState(
-    product?.availability?.online
+    product?.availability?.online,
   );
   const [updatedAt, setUpdatedAt] = useState(
-    cstDateTimeClient().toLocaleString()
+    cstDateTimeClient().toLocaleString(),
+  );
+
+  const [weight, setWeight] = useState(product?.weight || 0.5);
+  const [dimensions, setDimensions] = useState(
+    product?.dimensions || {
+      length: 15,
+      width: 15,
+      height: 10,
+    },
   );
 
   const [validationError, setValidationError] =
@@ -79,7 +88,7 @@ const EditVariationProduct = ({
 
   const [variations, setVariations] = useState(product?.variations);
   const [secondaryImages, setSecondaryImages] = useState(
-    product?.images?.slice(1) || []
+    product?.images?.slice(1) || [],
   );
 
   // Debug logging
@@ -99,7 +108,7 @@ const EditVariationProduct = ({
       (
         prevVariations: {
           price: any;
-        }[]
+        }[],
       ) => [
         ...prevVariations,
         {
@@ -110,13 +119,13 @@ const EditVariationProduct = ({
           price: prevVariations[0].price,
           stock: 1,
         },
-      ]
+      ],
     );
   };
 
   const removeVariation = (indexToRemove: any) => {
     setVariations((prevVariations: any[]) =>
-      prevVariations.filter((_: any, index: any) => index !== indexToRemove)
+      prevVariations.filter((_: any, index: any) => index !== indexToRemove),
     );
   };
 
@@ -163,7 +172,7 @@ const EditVariationProduct = ({
       mainImage !== "/images/product-placeholder-minimalist.jpg"
     ) {
       const confirmed = window.confirm(
-        "¿Estás seguro de que quieres eliminar la imagen principal?"
+        "¿Estás seguro de que quieres eliminar la imagen principal?",
       );
       if (confirmed) {
         const deleted = await deleteImageFromMinio(mainImage);
@@ -186,13 +195,13 @@ const EditVariationProduct = ({
     const imageToDelete = secondaryImages[index];
     if (imageToDelete?.url) {
       const confirmed = window.confirm(
-        "¿Estás seguro de que quieres eliminar esta imagen?"
+        "¿Estás seguro de que quieres eliminar esta imagen?",
       );
       if (confirmed) {
         const deleted = await deleteImageFromMinio(imageToDelete.url);
         if (deleted) {
           const newSecondaryImages = secondaryImages.filter(
-            (_: any, i: number) => i !== index
+            (_: any, i: number) => i !== index,
           );
           setSecondaryImages(newSecondaryImages);
         }
@@ -207,7 +216,7 @@ const EditVariationProduct = ({
       (file: any, url: string): void;
       (file: any, url: any): void;
       (arg0: any, arg1: string): void;
-    }
+    },
   ) {
     const endpoint = `/api/minio/`;
     fetch(endpoint, {
@@ -265,7 +274,7 @@ const EditVariationProduct = ({
   async function compressAndOptimizeMainImage(
     file: Blob | MediaSource,
     url: any,
-    section: any
+    section: any,
   ) {
     const loadImage = (imageUrl: string): Promise<HTMLImageElement> => {
       return new Promise((resolve, reject) => {
@@ -315,7 +324,7 @@ const EditVariationProduct = ({
   async function uploadFile(
     blobData: Blob,
     url: any | URL | Request,
-    section: string
+    section: string,
   ) {
     fetch(url, {
       headers: {
@@ -378,7 +387,7 @@ const EditVariationProduct = ({
   async function compressAndOptimizeSecondaryImage(
     file: Blob | MediaSource,
     url: string,
-    index: number
+    index: number,
   ) {
     // Create an HTML Image element
     const img = document.createElement("img");
@@ -405,7 +414,7 @@ const EditVariationProduct = ({
 
       // Convert base64 data URL to Blob
       const blobData = await fetch(compressedImageData).then((res) =>
-        res.blob()
+        res.blob(),
       );
 
       // Upload the compressed image
@@ -416,7 +425,7 @@ const EditVariationProduct = ({
   async function uploadSecondaryFiles(
     blobData: Blob,
     url: any | URL | Request,
-    index: number
+    index: number,
   ) {
     fetch(url, {
       method: "PUT",
@@ -513,7 +522,7 @@ const EditVariationProduct = ({
       formData.append("featured", featured?.toString() || "false");
       formData.append(
         "onlineAvailability",
-        onlineAvailability?.toString() || "false"
+        onlineAvailability?.toString() || "false",
       );
       formData.append("brand", brand || "");
       formData.append("grade", grade?.toString() || "0");
@@ -521,6 +530,8 @@ const EditVariationProduct = ({
       formData.append("gender", gender || "");
       formData.append("mainImage", mainImage);
       formData.append("variations", JSON.stringify(variations));
+      formData.append("weight", weight.toString());
+      formData.append("dimensions", JSON.stringify(dimensions));
       formData.append("updatedAt", updatedAt);
       formData.append("_id", product._id);
 
@@ -547,7 +558,7 @@ const EditVariationProduct = ({
         const errorText = await result.text();
         console.error("API error response:", errorText);
         throw new Error(
-          `HTTP error! status: ${result.status}, message: ${errorText}`
+          `HTTP error! status: ${result.status}, message: ${errorText}`,
         );
       }
 
@@ -825,7 +836,7 @@ const EditVariationProduct = ({
                       </div>
                     </div>
                     {/* Main Variation - Removed size and image */}
-                    <div className="w-52 main-variation flex maxsm:flex-col items-center">
+                    <div className="w-full main-variation flex flex-col items-center">
                       <div className="flex flex-row items-center gap-3 w-full">
                         <div className="mb-4 w-full">
                           <label className="block mb-1 font-EB_Garamond text-xs">
@@ -879,6 +890,102 @@ const EditVariationProduct = ({
                             </div>
                           </div>
                         </div>
+                      </div>
+
+                      {/* Peso y Dimensiones para Cálculo de Envío */}
+                      <div className="mb-4 border-t pt-4">
+                        <label className="block mb-1 font-EB_Garamond text-xs font-semibold">
+                          Información de Envío
+                        </label>
+                        <p className="text-xs text-gray-500 mb-3">
+                          Para cálculo automático de costos de envío
+                        </p>
+
+                        <div className="grid grid-cols-4 gap-3">
+                          <div>
+                            <label className="block mb-1 font-EB_Garamond text-xs">
+                              Peso (kg)
+                            </label>
+                            <input
+                              type="number"
+                              step="0.01"
+                              className="appearance-none border bg-input rounded-xl py-2 px-3 border-gray-300 focus:outline-none focus:border-gray-400 w-full"
+                              placeholder="0.5"
+                              min="0.01"
+                              value={weight}
+                              onChange={(e) =>
+                                setWeight(parseFloat(e.target.value) || 0.5)
+                              }
+                              name="weight"
+                            />
+                          </div>
+
+                          <div>
+                            <label className="block mb-1 font-EB_Garamond text-xs">
+                              Largo (cm)
+                            </label>
+                            <input
+                              type="number"
+                              step="0.1"
+                              className="appearance-none border bg-input rounded-xl py-2 px-3 border-gray-300 focus:outline-none focus:border-gray-400 w-full"
+                              placeholder="15"
+                              min="0.1"
+                              value={dimensions.length}
+                              onChange={(e) =>
+                                setDimensions({
+                                  ...dimensions,
+                                  length: parseFloat(e.target.value) || 15,
+                                })
+                              }
+                              name="length"
+                            />
+                          </div>
+
+                          <div>
+                            <label className="block mb-1 font-EB_Garamond text-xs">
+                              Ancho (cm)
+                            </label>
+                            <input
+                              type="number"
+                              step="0.1"
+                              className="appearance-none border bg-input rounded-xl py-2 px-3 border-gray-300 focus:outline-none focus:border-gray-400 w-full"
+                              placeholder="15"
+                              min="0.1"
+                              value={dimensions.width}
+                              onChange={(e) =>
+                                setDimensions({
+                                  ...dimensions,
+                                  width: parseFloat(e.target.value) || 15,
+                                })
+                              }
+                              name="width"
+                            />
+                          </div>
+
+                          <div>
+                            <label className="block mb-1 font-EB_Garamond text-xs">
+                              Alto (cm)
+                            </label>
+                            <input
+                              type="number"
+                              step="0.1"
+                              className="appearance-none border bg-input rounded-xl py-2 px-3 border-gray-300 focus:outline-none focus:border-gray-400 w-full"
+                              placeholder="10"
+                              min="0.1"
+                              value={dimensions.height}
+                              onChange={(e) =>
+                                setDimensions({
+                                  ...dimensions,
+                                  height: parseFloat(e.target.value) || 10,
+                                })
+                              }
+                              name="height"
+                            />
+                          </div>
+                        </div>
+                        <p className="text-xs text-gray-400 mt-2">
+                          Defaults: 0.5 kg, 15×15×10 cm
+                        </p>
                       </div>
                     </div>
                   </div>
@@ -935,7 +1042,7 @@ const EditVariationProduct = ({
 
                   stock: string | number | readonly string[] | undefined;
                 },
-                index: number
+                index: number,
               ) => (
                 <div
                   key={index + 1}
@@ -991,7 +1098,7 @@ const EditVariationProduct = ({
                     </div>
                   </div>
                 </div>
-              )
+              ),
             )}
 
             <button

@@ -50,7 +50,7 @@ const OneOrder = ({
     // Use reduce to sum up the 'total' field
     const totalAmount = orderItems?.reduce(
       (acc: any, cartItem: any) => acc + cartItem.quantity * cartItem.price,
-      0
+      0,
     );
 
     if (Number(orderAmountPaid) >= Number(totalAmount)) {
@@ -62,7 +62,7 @@ const OneOrder = ({
     // Use reduce to sum up the 'total' field
     const totalAmount = orderItems?.reduce(
       (acc: any, cartItem: any) => acc + cartItem.quantity * cartItem.price,
-      0
+      0,
     );
     const pendingAmount = totalAmount - orderAmountPaid;
     return pendingAmount;
@@ -84,10 +84,10 @@ const OneOrder = ({
               order && order?.orderStatus === "Apartado"
                 ? "text-amber-700"
                 : order.orderStatus === "En Camino"
-                ? "text-blue-700"
-                : order.orderStatus === "Entregado"
-                ? "text-green-700"
-                : "text-muted"
+                  ? "text-blue-700"
+                  : order.orderStatus === "Entregado"
+                    ? "text-green-700"
+                    : "text-muted"
             }`}
           >
             {order?.orderStatus}
@@ -97,6 +97,9 @@ const OneOrder = ({
         <table className="w-full text-sm text-left">
           <thead className="text-l text-gray-700 uppercase">
             <tr>
+              <th scope="col" className="px-6 py-3">
+                Nombre
+              </th>
               <th scope="col" className="px-6 py-3">
                 Domicilio
               </th>
@@ -116,11 +119,38 @@ const OneOrder = ({
           </thead>
           <tbody>
             <tr className="bg-background">
-              <td className="px-6 py-2">{deliveryAddress?.street}</td>
-              <td className="px-6 py-2">{deliveryAddress?.city}</td>
-              <td className="px-6 py-2">{deliveryAddress?.province}</td>
-              <td className="px-6 py-2">{deliveryAddress?.zip_code}</td>
-              <td className="px-6 py-2">{deliveryAddress?.phone}</td>
+              <td className="px-6 py-2">
+                {deliveryAddress?.name ||
+                  order?.shippingInfo?.name ||
+                  order?.customerName ||
+                  "N/A"}
+              </td>
+              <td className="px-6 py-2">
+                {deliveryAddress?.street ||
+                  order?.shippingInfo?.street ||
+                  "N/A"}
+              </td>
+              <td className="px-6 py-2">
+                {deliveryAddress?.city || order?.shippingInfo?.city || "N/A"}
+              </td>
+              <td className="px-6 py-2">
+                {deliveryAddress?.province ||
+                  order?.shippingInfo?.province ||
+                  order?.shippingInfo?.state ||
+                  "N/A"}
+              </td>
+              <td className="px-6 py-2">
+                {deliveryAddress?.zip_code ||
+                  order?.shippingInfo?.zip_code ||
+                  order?.shippingInfo?.zipCode ||
+                  "N/A"}
+              </td>
+              <td className="px-6 py-2">
+                {deliveryAddress?.phone ||
+                  order?.shippingInfo?.phone ||
+                  order?.phone ||
+                  "N/A"}
+              </td>
             </tr>
           </tbody>
         </table>
@@ -138,11 +168,11 @@ const OneOrder = ({
               <th scope="col" className="px-6 py-3">
                 Nombre
               </th>
-              <th scope="col" className="px-6 py-3">
+              {/* <th scope="col" className="px-6 py-3">
                 Color
-              </th>
+              </th> */}
               <th scope="col" className="px-6 py-3">
-                Talla
+                Tipo
               </th>
               <th scope="col" className="px-6 py-3">
                 Precio
@@ -161,7 +191,7 @@ const OneOrder = ({
                 </td>
                 <td className="px-6 py-2">{item.quantity}</td>
                 <td className="px-6 py-2">{item.name}</td>
-                <td className="px-6 py-2">{item.color}</td>
+                {/* <td className="px-6 py-2">{item.color}</td> */}
                 <td className="px-6 py-2">{item.size}</td>
                 <td className="px-6 py-2">
                   <FormattedPrice amount={item?.price || 0} />
@@ -214,7 +244,7 @@ const OneOrder = ({
                       amount={
                         getPendingTotal(
                           order?.orderItems,
-                          order?.paymentInfo?.amountPaid
+                          order?.paymentInfo?.amountPaid,
                         ) || 0
                       }
                     />
@@ -228,7 +258,7 @@ const OneOrder = ({
               className={`text-4xl font-raleway font-bold uppercase  ${
                 checkIfPaid(
                   order?.orderItems,
-                  order?.paymentInfo?.amountPaid
+                  order?.paymentInfo?.amountPaid,
                 ) === "pagado"
                   ? "text-green-700"
                   : "text-amber-700"
@@ -270,7 +300,6 @@ const OneOrder = ({
                 <li className="flex justify-between gap-x-5 text-muted  mb-1">
                   <span>Envió:</span>
                   <FormattedPrice amount={order?.ship_cost || 0} />
-                  (Gratis)
                 </li>
                 <li className="flex justify-between gap-x-5 text-muted  mb-1">
                   <span>Total:</span>
@@ -292,7 +321,7 @@ const OneOrder = ({
               className={`text-5xl font-EB_Garamond uppercase  -rotate-12 ${
                 checkIfPaid(
                   order?.orderItems,
-                  order?.paymentInfo?.amountPaid
+                  order?.paymentInfo?.amountPaid,
                 ) === "pagado"
                   ? "text-green-700"
                   : "text-amber-700"

@@ -31,6 +31,7 @@
     "clsx": "^2.1.1",
     "countries-list": "^3.1.1",
     "csv-parser": "^3.2.0",
+    "dotenv": "^17.2.3",
     "embla-carousel-autoplay": "^8.3.0",
     "embla-carousel-react": "^8.3.0",
     "framer-motion": "^11.11.1",

@@ -44,19 +44,25 @@ const NewVariationOptimized = ({
   const [grade, setGrade] = useState(0);
   const [onlineAvailability, setOnlineAvailability] = useState(true);
   const [description, setDescription] = useState("");
+  const [weight, setWeight] = useState(0.5); // Peso en kg
+  const [dimensions, setDimensions] = useState({
+    length: 15, // en cm
+    width: 15, // en cm
+    height: 10, // en cm
+  });
   const [category, setCategory] = useState("Tarjetas Coleccionables");
   const [gender, setGender] = useState("Nintendo");
   const [franquicia, setFranquicia] = useState("Nintendo");
   const [featured, setFeatured] = useState(false);
   const [createdAt, setCreatedAt] = useState(
-    cstDateTimeClient().toLocaleString()
+    cstDateTimeClient().toLocaleString(),
   );
   const [sizeSelection, setSizeSelection] = useState(cat_tarjetas);
   const [sizeSelectionLabel, setSizeSelectionLabel] = useState("Colección");
   const [validationError, setValidationError] =
     useState<ValidationError | null>(null);
   const [mainImage, setMainImage] = useState(
-    "/images/product-placeholder-minimalist.jpg"
+    "/images/product-placeholder-minimalist.jpg",
   );
   const [secondaryImages, setSecondaryImages] = useState([
     { id: 0, url: "/images/product-placeholder-minimalist.jpg" },
@@ -65,7 +71,7 @@ const NewVariationOptimized = ({
   ]);
 
   const [mainVariation, setMainVariation] = useState(
-    "/images/product-placeholder-minimalist.jpg"
+    "/images/product-placeholder-minimalist.jpg",
   );
 
   const [variations, setVariations] = useState([
@@ -101,14 +107,14 @@ const NewVariationOptimized = ({
 
   const removeVariation = (indexToRemove: number) => {
     setVariations((prevVariations) =>
-      prevVariations.filter((_, index) => index !== indexToRemove)
+      prevVariations.filter((_, index) => index !== indexToRemove),
     );
   };
 
   const isCombinationUnique = (size: string, color: string, index: number) => {
     return !variations.some(
       (variation, i) =>
-        i !== index && variation.size === size && variation.color === color
+        i !== index && variation.size === size && variation.color === color,
     );
   };
 
@@ -174,7 +180,7 @@ const NewVariationOptimized = ({
   async function compressAndOptimizeImage(
     file: Blob | MediaSource,
     url: string,
-    index: number
+    index: number,
   ) {
     // Create an HTML Image element
     const img = document.createElement("img");
@@ -201,7 +207,7 @@ const NewVariationOptimized = ({
 
       // Convert base64 data URL to Blob
       const blobData = await fetch(compressedImageData).then((res) =>
-        res.blob()
+        res.blob(),
       );
 
       // Upload the compressed image
@@ -240,7 +246,7 @@ const NewVariationOptimized = ({
   async function compressAndOptimizeSecondaryImage(
     file: Blob | MediaSource,
     url: string,
-    index: number
+    index: number,
   ) {
     // Create an HTML Image element
     const img = document.createElement("img");
@@ -267,7 +273,7 @@ const NewVariationOptimized = ({
 
       // Convert base64 data URL to Blob
       const blobData = await fetch(compressedImageData).then((res) =>
-        res.blob()
+        res.blob(),
       );
 
       // Upload the compressed image
@@ -278,7 +284,7 @@ const NewVariationOptimized = ({
   async function uploadSecondaryFiles(
     blobData: Blob,
     url: any | URL | Request,
-    index: number
+    index: number,
   ) {
     fetch(url, {
       method: "PUT",
@@ -298,7 +304,7 @@ const NewVariationOptimized = ({
   async function uploadVariationFile(
     blobData: Blob,
     url: any | URL | Request,
-    index: number
+    index: number,
   ) {
     fetch(url, {
       method: "PUT",
@@ -322,7 +328,7 @@ const NewVariationOptimized = ({
       (file: any, url: string): void;
       (file: any, url: any): void;
       (arg0: any, arg1: string): void;
-    }
+    },
   ) {
     const endpoint = `/api/minio/`;
     fetch(endpoint, {
@@ -379,7 +385,7 @@ const NewVariationOptimized = ({
   async function compressAndOptimizeMainImage(
     file: Blob | MediaSource,
     url: any,
-    section: any
+    section: any,
   ) {
     const loadImage = (imageUrl: string): Promise<HTMLImageElement> => {
       return new Promise((resolve, reject) => {
@@ -441,7 +447,7 @@ const NewVariationOptimized = ({
   async function uploadFile(
     blobData: Blob,
     url: any | URL | Request,
-    section: string
+    section: string,
   ) {
     fetch(url, {
       method: "PUT",
@@ -601,15 +607,17 @@ const NewVariationOptimized = ({
     formData.append("category", category);
     formData.append(
       "featured",
-      featured !== undefined ? featured.toString() : ""
+      featured !== undefined ? featured.toString() : "",
     );
     formData.append(
       "onlineAvailability",
-      onlineAvailability !== undefined ? onlineAvailability.toString() : ""
+      onlineAvailability !== undefined ? onlineAvailability.toString() : "",
     );
     formData.append("brand", brand);
     formData.append("grade", grade.toString());
     formData.append("gender", gender);
+    formData.append("weight", weight.toString());
+    formData.append("dimensions", JSON.stringify(dimensions));
     formData.append("mainImage", mainImage);
     formData.append("variations", JSON.stringify(variations));
     formData.append("secondaryImages", JSON.stringify(secondaryImages));
@@ -987,6 +995,103 @@ const NewVariationOptimized = ({
                       )}
                     </div>
                   </div>
+                </div>
+
+                {/* Peso y Dimensiones para Cálculo de Envío */}
+                <div className="mb-4 w-full">
+                  <label className="block mb-1 font-EB_Garamond text-xs font-semibold">
+                    Información de Envío
+                  </label>
+                  <p className="text-xs text-gray-500 mb-2">
+                    Para cálculo automático de costos de envío
+                  </p>
+
+                  <div className="mb-3">
+                    <label className="block mb-1 font-EB_Garamond text-xs">
+                      Peso (kg)
+                    </label>
+                    <input
+                      type="number"
+                      step="0.01"
+                      className="appearance-none border border-gray-300 bg-card text-card-foreground rounded-xl pl-2 py-1 remove-arrow focus:outline-none focus:border-gray-400 w-full"
+                      placeholder="0.5"
+                      min="0.01"
+                      value={weight}
+                      onChange={(e) =>
+                        setWeight(parseFloat(e.target.value) || 0.5)
+                      }
+                      name="weight"
+                    />
+                  </div>
+
+                  <label className="block mb-1 font-EB_Garamond text-xs">
+                    Dimensiones (cm)
+                  </label>
+                  <div className="grid grid-cols-3 gap-2">
+                    <div>
+                      <label className="block text-xs text-gray-500 mb-1">
+                        Largo
+                      </label>
+                      <input
+                        type="number"
+                        step="0.1"
+                        className="appearance-none border border-gray-300 bg-card text-card-foreground rounded-xl pl-2 py-1 remove-arrow focus:outline-none focus:border-gray-400 w-full"
+                        placeholder="15"
+                        min="0.1"
+                        value={dimensions.length}
+                        onChange={(e) =>
+                          setDimensions({
+                            ...dimensions,
+                            length: parseFloat(e.target.value) || 15,
+                          })
+                        }
+                        name="length"
+                      />
+                    </div>
+                    <div>
+                      <label className="block text-xs text-gray-500 mb-1">
+                        Ancho
+                      </label>
+                      <input
+                        type="number"
+                        step="0.1"
+                        className="appearance-none border border-gray-300 bg-card text-card-foreground rounded-xl pl-2 py-1 remove-arrow focus:outline-none focus:border-gray-400 w-full"
+                        placeholder="15"
+                        min="0.1"
+                        value={dimensions.width}
+                        onChange={(e) =>
+                          setDimensions({
+                            ...dimensions,
+                            width: parseFloat(e.target.value) || 15,
+                          })
+                        }
+                        name="width"
+                      />
+                    </div>
+                    <div>
+                      <label className="block text-xs text-gray-500 mb-1">
+                        Alto
+                      </label>
+                      <input
+                        type="number"
+                        step="0.1"
+                        className="appearance-none border border-gray-300 bg-card text-card-foreground rounded-xl pl-2 py-1 remove-arrow focus:outline-none focus:border-gray-400 w-full"
+                        placeholder="10"
+                        min="0.1"
+                        value={dimensions.height}
+                        onChange={(e) =>
+                          setDimensions({
+                            ...dimensions,
+                            height: parseFloat(e.target.value) || 10,
+                          })
+                        }
+                        name="height"
+                      />
+                    </div>
+                  </div>
+                  <p className="text-xs text-gray-400 mt-1">
+                    Defaults: 0.5 kg, 15×15×10 cm
+                  </p>
                 </div>
               </div>
               <div className="mb-4 w-1/3 maxsm:w-full ml-3">

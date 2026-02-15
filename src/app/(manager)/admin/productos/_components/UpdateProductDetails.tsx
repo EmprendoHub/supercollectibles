@@ -115,7 +115,15 @@ const UpdateProductDetails = ({ product }: { product: any }) => {
   const [price, setPrice] = useState(product?.price);
   const [salePrice, setSalePrice] = useState(product?.sale_price);
   const [salePriceEndDate, setSalePriceEndDate] = useState(
-    product?.sale_price_end_date
+    product?.sale_price_end_date,
+  );
+  const [weight, setWeight] = useState(product?.weight || 0.5);
+  const [dimensions, setDimensions] = useState(
+    product?.dimensions || {
+      length: 15,
+      width: 15,
+      height: 10,
+    },
   );
 
   const [sizeSelection, setSizeSelection] = useState<
@@ -207,6 +215,8 @@ const UpdateProductDetails = ({ product }: { product: any }) => {
       formData.set("images", imagesJson);
       formData.set("salePrice", salePrice);
       formData.set("salePriceEndDate", salePriceEndDate);
+      formData.set("weight", weight.toString());
+      formData.set("dimensions", JSON.stringify(dimensions));
       formData.set("_id", product?._id);
 
       try {
@@ -284,7 +294,7 @@ const UpdateProductDetails = ({ product }: { product: any }) => {
   const handleImageInputChange = (
     index: number,
     fieldName: string,
-    event: any
+    event: any,
   ) => {
     const newInputImageFields = [...inputImageFields];
     if (fieldName === "i_file") {
@@ -366,7 +376,7 @@ const UpdateProductDetails = ({ product }: { product: any }) => {
                         <p>
                           {calculatePercentage(
                             product?.price,
-                            product?.sale_price
+                            product?.sale_price,
                           )}
                           % menos
                         </p>
@@ -435,12 +445,12 @@ const UpdateProductDetails = ({ product }: { product: any }) => {
                         color: {
                           value: string | number;
                         },
-                        index: React.Key | null | undefined
+                        index: React.Key | null | undefined,
                       ) => (
                         <span key={index} className="t font-bodyFont">
                           {color?.value},
                         </span>
-                      )
+                      ),
                     )}
                   </span>
                   <span>
@@ -450,12 +460,12 @@ const UpdateProductDetails = ({ product }: { product: any }) => {
                         size: {
                           value: string | number;
                         },
-                        index: React.Key | null | undefined
+                        index: React.Key | null | undefined,
                       ) => (
                         <span key={index} className="t font-bodyFont">
                           {size?.value},
                         </span>
-                      )
+                      ),
                     )}
                   </span>
                 </motion.div>
@@ -564,6 +574,113 @@ const UpdateProductDetails = ({ product }: { product: any }) => {
                     </div>
                   </div>
                 </div>
+              </div>
+
+              {/* Sección de Peso y Dimensiones */}
+              <div className="mb-6 border-t pt-4">
+                <h3 className="text-lg font-semibold text-slate-700 mb-2">
+                  Información de Envío
+                </h3>
+                <p className="text-xs text-slate-500 mb-4">
+                  Para cálculo automático de costos de envío
+                </p>
+
+                <div className="flex flex-row maxsm:flex-col items-center gap-5">
+                  <div className="mb-4 w-full">
+                    <label className="block mb-1 text-slate-500">
+                      Peso (kg)
+                    </label>
+                    <div className="relative">
+                      <input
+                        type="number"
+                        step="0.01"
+                        className="appearance-none border border-gray-300 bg-background rounded-xl py-2 px-3 focus:outline-none focus:border-gray-400 w-full"
+                        placeholder="0.5"
+                        min="0.01"
+                        value={weight}
+                        onChange={(e) =>
+                          setWeight(parseFloat(e.target.value) || 0.5)
+                        }
+                        name="weight"
+                      />
+                    </div>
+                  </div>
+
+                  <div className="mb-4 w-full">
+                    <label className="block mb-1 text-slate-500">
+                      Largo (cm)
+                    </label>
+                    <div className="relative">
+                      <input
+                        type="number"
+                        step="0.1"
+                        className="appearance-none border border-gray-300 bg-background rounded-xl py-2 px-3 focus:outline-none focus:border-gray-400 w-full"
+                        placeholder="15"
+                        min="0.1"
+                        value={dimensions.length}
+                        onChange={(e) =>
+                          setDimensions({
+                            ...dimensions,
+                            length: parseFloat(e.target.value) || 15,
+                          })
+                        }
+                        name="length"
+                      />
+                    </div>
+                  </div>
+
+                  <div className="mb-4 w-full">
+                    <label className="block mb-1 text-slate-500">
+                      Ancho (cm)
+                    </label>
+                    <div className="relative">
+                      <input
+                        type="number"
+                        step="0.1"
+                        className="appearance-none border border-gray-300 bg-background rounded-xl py-2 px-3 focus:outline-none focus:border-gray-400 w-full"
+                        placeholder="15"
+                        min="0.1"
+                        value={dimensions.width}
+                        onChange={(e) =>
+                          setDimensions({
+                            ...dimensions,
+                            width: parseFloat(e.target.value) || 15,
+                          })
+                        }
+                        name="width"
+                      />
+                    </div>
+                  </div>
+
+                  <div className="mb-4 w-full">
+                    <label className="block mb-1 text-slate-500">
+                      Alto (cm)
+                    </label>
+                    <div className="relative">
+                      <input
+                        type="number"
+                        step="0.1"
+                        className="appearance-none border border-gray-300 bg-background rounded-xl py-2 px-3 focus:outline-none focus:border-gray-400 w-full"
+                        placeholder="10"
+                        min="0.1"
+                        value={dimensions.height}
+                        onChange={(e) =>
+                          setDimensions({
+                            ...dimensions,
+                            height: parseFloat(e.target.value) || 10,
+                          })
+                        }
+                        name="height"
+                      />
+                    </div>
+                  </div>
+                </div>
+                <p className="text-xs text-slate-400">
+                  Valores por defecto: 0.5 kg, 15×15×10 cm
+                </p>
+              </div>
+
+              <div className="flex flex-row maxsm:flex-col items-center gap-5">
                 <div className="mb-4 w-full">
                   <label className="block mb-1 text-slate-500">
                     {" "}
@@ -709,7 +826,7 @@ const UpdateProductDetails = ({ product }: { product: any }) => {
                 {inputImageFields.map(
                   (
                     inputImageField: { url: string | StaticImport },
-                    index: number
+                    index: number,
                   ) => (
                     <div
                       key={index}
@@ -788,7 +905,7 @@ const UpdateProductDetails = ({ product }: { product: any }) => {
                         </div>
                       </div>
                     </div>
-                  )
+                  ),
                 )}
               </div>
             </div>

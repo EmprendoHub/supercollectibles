@@ -1,6 +1,6 @@
 import { Inter } from "next/font/google";
 import { Metadata } from "next";
-import { GoogleAnalytics } from "@next/third-parties/google";
+// import { GoogleAnalytics } from "@next/third-parties/google";
 import CustomSessionProvider from "../SessionProvider";
 import { ThemeProvider } from "next-themes";
 import { Toaster } from "@/components/ui/toaster";
@@ -22,7 +22,7 @@ export default function UserRootLayout({
 }>) {
   return (
     <html lang="es" suppressHydrationWarning>
-      <GoogleAnalytics gaId="G-0FJ701YCLD" />
+      {/* <GoogleAnalytics gaId="G-0FJ701YCLD" /> */}
       <body className="max-w-full body-class overscroll-x-none overflow-x-hidden">
         <CustomSessionProvider>
           <ThemeProvider

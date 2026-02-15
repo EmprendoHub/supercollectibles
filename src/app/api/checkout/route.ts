@@ -30,7 +30,7 @@ async function getCartItems(items: any) {
       }
 
       const variation = product.variations.find((variation: any) =>
-        variation._id.equals(variationId)
+        variation._id.equals(variationId),
       );
 
       if (!variation) {
@@ -54,6 +54,10 @@ async function getCartItems(items: any) {
         price: item.price,
         quantity: item.quantity,
         image: item.image?.[0]?.url || "",
+        weight: item.weight || product.weight || 0.5,
+        length: item.length || product.dimensions?.length || 15,
+        width: item.width || product.dimensions?.width || 15,
+        height: item.height || product.dimensions?.height || 10,
       };
     });
 
@@ -66,7 +70,7 @@ async function getCartItems(items: any) {
       "Processed cart items:",
       validCartItems.length,
       "of",
-      items.length
+      items.length,
     );
 
     return validCartItems;
@@ -78,14 +82,24 @@ async function getCartItems(items: any) {
 
 const calculateTotalAmount = (items: any) => {
   // Assuming each item has a 'price' and 'quantity' property
-  return items.reduce(
+  const total = items.reduce(
     (total: any, item: any) => total + item.price * item.quantity,
-    0
+    0,
   );
+  // Round to 2 decimal places to avoid floating point precision errors
+  return Math.round(total * 100) / 100;
 };
 
 export const POST = async (request: any) => {
-  const stripe = new Stripe(process.env.STRIPE_SECRET_KEY!);
+  // Use test mode for localhost, live mode for production
+  const isLocalhost =
+    process.env.NEXTAUTH_URL?.includes("localhost") ||
+    process.env.NODE_ENV === "development";
+  const stripeKey = isLocalhost
+    ? process.env.STRIPE_SECRET_TEST_KEY!
+    : process.env.STRIPE_SECRET_KEY!;
+
+  const stripe = new Stripe(stripeKey);
   const mongoSession = await mongoose.startSession();
   const reqBody = await request.json();
   const {
@@ -133,8 +147,8 @@ export const POST = async (request: any) => {
     // Add shipping cost if shipping method is selected
     let shippingCost = 0;
     if (shippingMethod && shippingMethod.price) {
-      shippingCost = shippingMethod.price;
-      totalAmount += shippingCost;
+      shippingCost = Math.round(shippingMethod.price * 100) / 100;
+      totalAmount = Math.round((totalAmount + shippingCost) * 100) / 100;
     }
 
     let pay_method_options: any[] = ["card", "oxxo"];
@@ -163,7 +177,7 @@ export const POST = async (request: any) => {
       return {
         price_data: {
           currency: "mxn",
-          unit_amount: item.price * 100,
+          unit_amount: Math.round(item.price * 100),
           product_data: {
             name: item.title,
             description: item.description,
@@ -208,6 +222,37 @@ export const POST = async (request: any) => {
     // Intentionally cause an error by attempting to insert a document with missing required fields
     //await new Customer({}).save({ session: mongoSession });
 
+    // Create shipping rate dynamically if shipping cost exists
+    let shipping_options = undefined;
+    if (shippingCost > 0 && shippingMethod) {
+      const shippingRate = await stripe.shippingRates.create({
+        display_name: shippingMethod.service || "Envío",
+        type: "fixed_amount",
+        fixed_amount: {
+          amount: Math.round(shippingCost * 100), // Convert to cents
+          currency: "mxn",
+        },
+        delivery_estimate: shippingMethod.estimatedDays
+          ? {
+              minimum: {
+                unit: "business_day",
+                value: shippingMethod.estimatedDays,
+              },
+              maximum: {
+                unit: "business_day",
+                value: shippingMethod.estimatedDays + 2,
+              },
+            }
+          : undefined,
+      });
+
+      shipping_options = [
+        {
+          shipping_rate: shippingRate.id,
+        },
+      ];
+    }
+
     session = await stripe.checkout.sessions.create({
       payment_method_types: pay_method_options,
       mode: "payment",
@@ -235,11 +280,7 @@ export const POST = async (request: any) => {
         order: newOrder._id.toString(),
         referralID: affiliateInfo,
       },
-      shipping_options: [
-        {
-          shipping_rate: "shr_1Pt0n4IWvmM2ObRMhsFB7mxR",
-        },
-      ],
+      shipping_options,
       line_items,
     });
 

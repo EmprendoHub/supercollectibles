@@ -194,6 +194,24 @@ const ProductSchema = new mongoose.Schema(
       type: Number,
       default: 1,
     },
+    weight: {
+      type: Number,
+      default: 0.5,
+    },
+    dimensions: {
+      length: {
+        type: Number,
+        default: 15,
+      },
+      width: {
+        type: Number,
+        default: 15,
+      },
+      height: {
+        type: Number,
+        default: 10,
+      },
+    },
     reviews: {
       type: mongoose.Schema.Types.ObjectId,
       ref: "Review",

@@ -11,7 +11,14 @@ const PedidoCancelado = () => {
   const { orderData } = useSelector((state: any) => state?.compras);
   useEffect(() => {
     orderData.order.forEach((product: any) => {
-      dispatch(addToCart(product));
+      const productWithShipping = {
+        ...product,
+        weight: product.weight || 0.5,
+        length: product.dimensions?.length || product.length || 15,
+        width: product.dimensions?.width || product.width || 15,
+        height: product.dimensions?.height || product.height || 10,
+      };
+      dispatch(addToCart(productWithShipping));
     });
     router.replace("/carrito");
     // eslint-disable-next-line

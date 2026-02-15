@@ -15,6 +15,10 @@ interface OrderDocument extends Document {
     quantity: number;
     price: number;
     image: string;
+    weight?: number;
+    length?: number;
+    width?: number;
+    height?: number;
   }>;
   paymentInfo: {
     id: string;
@@ -31,7 +35,12 @@ interface OrderDocument extends Document {
   phone?: string;
   customerName?: string;
   comment?: string;
-  shippingInfo?: mongoose.Types.ObjectId;
+  shippingInfo?: any; // Can be ObjectId reference or embedded object
+  trackingNumber?: string;
+  labelUrl?: string;
+  shippingCarrier?: string;
+  shippingService?: string;
+  estimatedDelivery?: string;
   user?: mongoose.Types.ObjectId;
   customer: mongoose.Types.ObjectId;
 }
@@ -85,6 +94,18 @@ const OrderSchema = new Schema<OrderDocument>({
         type: String,
         require: true,
       },
+      weight: {
+        type: Number,
+      },
+      length: {
+        type: Number,
+      },
+      width: {
+        type: Number,
+      },
+      height: {
+        type: Number,
+      },
     },
   ],
   paymentInfo: {
@@ -134,8 +155,22 @@ const OrderSchema = new Schema<OrderDocument>({
     type: String,
   },
   shippingInfo: {
-    type: Schema.Types.ObjectId,
-    ref: "Address",
+    type: Schema.Types.Mixed, // Allows both ObjectId and embedded object
+  },
+  trackingNumber: {
+    type: String,
+  },
+  labelUrl: {
+    type: String,
+  },
+  shippingCarrier: {
+    type: String,
+  },
+  shippingService: {
+    type: String,
+  },
+  estimatedDelivery: {
+    type: String,
   },
   user: {
     type: Schema.Types.ObjectId,
@@ -166,7 +201,7 @@ OrderSchema.pre<OrderDocument>("save", async function (next) {
       const highestOrder = await OrderModel.findOne(
         {},
         {},
-        { sort: { orderId: -1 } }
+        { sort: { orderId: -1 } },
       ).exec();
 
       // Calculate the next order number

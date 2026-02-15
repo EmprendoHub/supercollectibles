@@ -5,6 +5,56 @@ interface EnviaConfig {
   environment: "test" | "production";
 }
 
+// Function to normalize state names to Envía.com state codes
+function normalizeStateName(state: string): string {
+  const stateMap: { [key: string]: string } = {
+    // Estados de México
+    Aguascalientes: "AGU",
+    "Baja California": "BCN",
+    "Baja California Sur": "BCS",
+    Campeche: "CAM",
+    Chiapas: "CHP",
+    Chihuahua: "CHH",
+    "Ciudad de México": "CMX",
+    CDMX: "CMX",
+    "Mexico City": "CMX",
+    Coahuila: "COA",
+    Colima: "COL",
+    Durango: "DUR",
+    Guanajuato: "GUA",
+    Guerrero: "GRO",
+    Hidalgo: "HID",
+    Jalisco: "JAL",
+    México: "MEX",
+    "Estado de México": "MEX",
+    Michoacán: "MICH",
+    Morelos: "MOR",
+    Nayarit: "NAY",
+    "Nuevo León": "NLE",
+    Oaxaca: "OAX",
+    Puebla: "PUE",
+    Querétaro: "QUE",
+    "Quintana Roo": "ROO",
+    "San Luis Potosí": "SLP",
+    Sinaloa: "SIN",
+    Sonora: "SON",
+    Tabasco: "TAB",
+    Tamaulipas: "TAM",
+    Tlaxcala: "TLA",
+    Veracruz: "VER",
+    Yucatán: "YUC",
+    Zacatecas: "ZAC",
+  };
+
+  // If already a code (3 characters), return as is
+  if (state.length === 3) {
+    return state.toUpperCase();
+  }
+
+  // Try to find in map
+  return stateMap[state] || state.substring(0, 3).toUpperCase();
+}
+
 interface Address {
   name: string;
   company?: string;
@@ -28,6 +78,7 @@ interface Package {
   declared_value: number; // in MXN
   content: string;
   type: string; // "box", "envelope", etc.
+  quantity?: number; // optional quantity field
 }
 
 interface ShippingQuoteRequest {
@@ -54,10 +105,11 @@ interface ShipmentRequest {
   origin: Address;
   destination: Address;
   packages: Package[];
-  shipment_type?: number; // 1 for guide, 2 for ltl
-  carrier_id?: number;
-  service_id?: number;
-  additional_services?: string[];
+  shipment: {
+    type: number;
+    carrier: string;
+    service: string;
+  };
 }
 
 interface ShipmentResponse {
@@ -129,7 +181,7 @@ class EnviaService {
   private async makeRequest(
     endpoint: string,
     method: "GET" | "POST" | "PUT" | "DELETE" = "GET",
-    data?: any
+    data?: any,
   ): Promise<any> {
     const url = `${this.config.baseUrl}${endpoint}`;
 
@@ -162,14 +214,14 @@ class EnviaService {
           body: errorText,
         });
         throw new Error(
-          `Envía.com API error: ${response.status} ${response.statusText} - ${errorText}`
+          `Envía.com API error: ${response.status} ${response.statusText} - ${errorText}`,
         );
       }
 
       const result = await response.json();
       console.log(
         `✅ Envía.com API success response:`,
-        JSON.stringify(result, null, 2)
+        JSON.stringify(result, null, 2),
       );
 
       return result;
@@ -182,20 +234,96 @@ class EnviaService {
   async getQuotes(request: ShippingQuoteRequest): Promise<ShippingQuote[]> {
     try {
       console.log("📦 Getting shipping quotes from Envía.com...");
+      console.log("Request data:", JSON.stringify(request, null, 2));
 
-      // First, let's check available carriers for the destination country
-      const countryCode = request.destination.country;
-      const carriersResponse = await this.makeRequest(
-        `/available-carrier-detailed/${countryCode}/0/1`
+      // Envía.com quote endpoint - using exact API format
+      const quoteRequest = {
+        origin: {
+          name: request.origin.name,
+          company: request.origin.company || "",
+          email: request.origin.email || "",
+          phone: request.origin.phone || "",
+          street: request.origin.street,
+          number: request.origin.number,
+          city: request.origin.city,
+          state: normalizeStateName(request.origin.state),
+          country: request.origin.country || "MX",
+          postalCode: request.origin.postal_code,
+        },
+        destination: {
+          name: request.destination.name,
+          phone: request.destination.phone || "",
+          street: request.destination.street,
+          number: request.destination.number,
+          city: request.destination.city,
+          state: normalizeStateName(request.destination.state),
+          country: request.destination.country || "MX",
+          postalCode: request.destination.postal_code,
+        },
+        packages: request.packages.map((pkg) => ({
+          type: pkg.type || "box",
+          content: pkg.content || "Merchandise",
+          amount: pkg.quantity || 1,
+          declaredValue: pkg.declared_value || 0,
+          lengthUnit: "CM",
+          weightUnit: "KG",
+          weight: pkg.weight,
+          dimensions: {
+            length: Math.round(pkg.length),
+            width: Math.round(pkg.width),
+            height: Math.round(pkg.height),
+          },
+        })),
+        shipment: {
+          type: 1,
+          carrier: "fedex",
+          service: "express",
+        },
+      };
+
+      console.log(
+        "Sending quote request to Envía.com:",
+        JSON.stringify(quoteRequest, null, 2),
       );
 
-      console.log("🚛 Available carriers:", carriersResponse);
+      const response = await this.makeRequest(
+        "/ship/rate",
+        "POST",
+        quoteRequest,
+      );
 
-      // For now, let's return the fallback quotes until we implement proper quote API
-      // Envía.com might need specific endpoints for quotes that aren't clearly documented
+      console.log(
+        "Received response from Envía.com:",
+        JSON.stringify(response, null, 2),
+      );
+
+      // Check if we got valid quotes
+      if (response && response.data && Array.isArray(response.data)) {
+        const quotes: ShippingQuote[] = response.data.map((quote: any) => ({
+          carrier_name: quote.carrier || quote.carrierName,
+          service_name: quote.service || quote.serviceName,
+          price: parseFloat(quote.totalPrice || quote.price || 0),
+          currency: quote.currency || "MXN",
+          estimated_days: parseInt(
+            quote.deliveryEstimate || quote.estimatedDays || 5,
+          ),
+          service_id: quote.serviceId || quote.service_id,
+          carrier_id: quote.carrierId || quote.carrier_id,
+          delivery_estimate:
+            quote.deliveryEstimate || `${quote.estimatedDays || 5} días`,
+        }));
+
+        if (quotes.length > 0) {
+          console.log("✅ Successfully retrieved quotes from Envía.com");
+          return quotes;
+        }
+      }
+
+      console.log("⚠️ No valid quotes received, using fallback");
       return this.generateFallbackQuotes(request);
-    } catch (error) {
-      console.error("❌ Error getting quotes from Envía.com:", error);
+    } catch (error: any) {
+      console.error("❌ Error getting quotes from Envía.com:", error.message);
+      console.log("🔄 Falling back to estimated quotes");
       // Return fallback quotes on error
       return this.generateFallbackQuotes(request);
     }
@@ -204,22 +332,19 @@ class EnviaService {
   async createShipment(request: ShipmentRequest): Promise<ShipmentResponse> {
     try {
       console.log("📦 Creating shipment with Envía.com...");
-
+      console.log(request);
       // Transform request to Envía.com format
       const enviaRequest = {
         origin: request.origin,
         destination: request.destination,
         packages: request.packages,
-        shipment_type: request.shipment_type || 1,
-        carrier_id: request.carrier_id,
-        service_id: request.service_id,
-        additional_services: request.additional_services || [],
+        shipment: request.shipment,
       };
 
       const response: EnviaShipmentResponse = await this.makeRequest(
-        "/shipments",
+        "/ship/generate",
         "POST",
-        enviaRequest
+        enviaRequest,
       );
 
       return {
@@ -242,7 +367,7 @@ class EnviaService {
       console.log("🔍 Tracking shipment with Envía.com:", trackingNumber);
 
       const response: EnviaTrackingResponse = await this.makeRequest(
-        `/guide/${trackingNumber}`
+        `/guide/${trackingNumber}`,
       );
 
       return {
@@ -261,7 +386,7 @@ class EnviaService {
       console.log("🚛 Getting available carriers from Envía.com...");
 
       const response = await this.makeRequest(
-        `/available-carrier-detailed/${countryCode}/0/1`
+        `/available-carrier-detailed/${countryCode}/0/1`,
       );
 
       return response.data || [];
@@ -272,65 +397,35 @@ class EnviaService {
   }
 
   private generateFallbackQuotes(
-    request: ShippingQuoteRequest
+    request: ShippingQuoteRequest,
   ): ShippingQuote[] {
     console.log("🔄 Generating fallback quotes for Envía.com...");
 
     const totalWeight = request.packages.reduce(
       (sum, pkg) => sum + pkg.weight,
-      0
+      0,
     );
     const totalValue = request.packages.reduce(
       (sum, pkg) => sum + pkg.declared_value,
-      0
+      0,
     );
 
     // Base shipping cost calculation
     const baseWeight = Math.max(1, Math.ceil(totalWeight));
-    const baseCost = 50; // Base cost in MXN
+    const baseCost = 200; // Base cost in MXN
     const perKgCost = 15; // Cost per kg in MXN
     const insuranceCost = request.insurance ? totalValue * 0.005 : 0; // 0.5% of value
 
     const quotes: ShippingQuote[] = [
       {
-        carrier_name: "Estafeta",
-        service_name: "Día Siguiente",
-        price: baseCost + baseWeight * perKgCost * 1.5 + insuranceCost,
-        currency: "MXN",
-        estimated_days: 1,
-        service_id: 1,
-        carrier_id: 1,
-        delivery_estimate: "1 día hábil",
-      },
-      {
         carrier_name: "FedEx",
         service_name: "Express",
-        price: baseCost + baseWeight * perKgCost * 2.0 + insuranceCost,
+        price: baseCost + baseWeight * perKgCost,
         currency: "MXN",
-        estimated_days: 1,
+        estimated_days: 2,
         service_id: 2,
         carrier_id: 2,
         delivery_estimate: "1-2 días hábiles",
-      },
-      {
-        carrier_name: "DHL",
-        service_name: "Express",
-        price: baseCost + baseWeight * perKgCost * 2.2 + insuranceCost,
-        currency: "MXN",
-        estimated_days: 2,
-        service_id: 3,
-        carrier_id: 3,
-        delivery_estimate: "2-3 días hábiles",
-      },
-      {
-        carrier_name: "Redpack",
-        service_name: "Estándar",
-        price: baseCost + baseWeight * perKgCost * 1.2 + insuranceCost,
-        currency: "MXN",
-        estimated_days: 3,
-        service_id: 4,
-        carrier_id: 4,
-        delivery_estimate: "3-5 días hábiles",
       },
     ];
 
@@ -341,16 +436,24 @@ class EnviaService {
 
 // Default configuration
 function createEnviaService(): EnviaService {
+  // Use test mode for localhost, live mode for production
+  const isLocalhost =
+    process.env.NEXTAUTH_URL?.includes("localhost") ||
+    process.env.NODE_ENV === "development";
+
   const config: EnviaConfig = {
-    apiToken: process.env.ENVIA_API_TOKEN || "",
-    baseUrl: process.env.ENVIA_BASE_URL || "https://queries-test.envia.com",
-    environment:
-      (process.env.ENVIA_ENVIRONMENT as "test" | "production") || "test",
+    apiToken: isLocalhost
+      ? process.env.ENVIA_API_TOKEN_TEST || process.env.ENVIA_API_TOKEN || ""
+      : process.env.ENVIA_API_TOKEN_LIVE || process.env.ENVIA_API_TOKEN || "",
+    baseUrl: isLocalhost
+      ? "https://api-test.envia.com"
+      : "https://api.envia.com",
+    environment: isLocalhost ? "test" : "production",
   };
 
   if (!config.apiToken) {
     console.warn(
-      "⚠️ ENVIA_API_TOKEN not configured, some features may not work"
+      "⚠️ ENVIA_API_TOKEN not configured, some features may not work",
     );
   }
 
@@ -358,6 +461,7 @@ function createEnviaService(): EnviaService {
     baseUrl: config.baseUrl,
     environment: config.environment,
     hasToken: !!config.apiToken,
+    mode: isLocalhost ? "TEST MODE" : "PRODUCTION MODE",
   });
 
   return new EnviaService(config);

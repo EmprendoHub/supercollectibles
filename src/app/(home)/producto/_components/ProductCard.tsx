@@ -31,6 +31,10 @@ const ProductCard = ({ item, index }: { item: any; index: number }) => {
     variation.image = [{ url: variation.image }];
     variation.quantity = 1;
     variation.brand = item.brand;
+    variation.weight = item.weight || 0.5;
+    variation.length = item.dimensions?.length || 15;
+    variation.width = item.dimensions?.width || 15;
+    variation.height = item.dimensions?.height || 10;
     dispatch(addToCart(variation));
     toast(`${item?.title.substring(0, 15)}... se agrego al carrito`);
   };
@@ -38,10 +42,10 @@ const ProductCard = ({ item, index }: { item: any; index: number }) => {
   useEffect(() => {
     // Find matches based on _id property
     const existingProduct = productsData.find((item1: any) =>
-      item.variations.some((item2: any) => item1._id === item2._id)
+      item.variations.some((item2: any) => item1._id === item2._id),
     );
     const existingVariation = item.variations.find((item1: any) =>
-      productsData.some((item2: any) => item1._id === item2._id)
+      productsData.some((item2: any) => item1._id === item2._id),
     );
 
     if (existingProduct?.quantity >= existingVariation?.stock) {
@@ -52,9 +56,9 @@ const ProductCard = ({ item, index }: { item: any; index: number }) => {
 
   return (
     <motion.div
-      initial={{ y: 50, opacity: 0.5 }}
+      initial={{ y: 2, opacity: 0.5 }}
       whileInView={{ y: 0, opacity: 1 }}
-      transition={{ duration: `${index / 5}` }}
+      transition={{ duration: `${index / 2}` }}
       className=" max-w-content relative  overflow-hidden"
     >
       <Link href={`/producto/${item.slug}`}>
@@ -136,7 +140,7 @@ const ProductCard = ({ item, index }: { item: any; index: number }) => {
               amount={
                 item?.variations[0]?.price > 0
                   ? item?.variations[0].price
-                  : item?.sale_price ?? item?.sale_price
+                  : (item?.sale_price ?? item?.sale_price)
               }
             />
           </p>

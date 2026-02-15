@@ -1,5 +1,5 @@
 "use client";
-import React from "react";
+import React, { useMemo } from "react";
 import { useSelector } from "react-redux";
 import { AiOutlineUser } from "react-icons/ai";
 import { useSession } from "next-auth/react";
@@ -10,6 +10,7 @@ import Image from "next/image";
 import Link from "next/link";
 import FormattedPrice from "@/backend/helpers/FormattedPrice";
 import { revalidatePath } from "next/cache";
+import { calculateShippingQuotes } from "@/lib/shippingRates";
 
 const PaymentForm = () => {
   const dispatch = useDispatch();
@@ -25,10 +26,40 @@ const PaymentForm = () => {
 
   const amountTotal = productsData?.reduce(
     (acc: any, cartItem: any) => acc + cartItem.quantity * cartItem.price,
-    0
+    0,
   );
 
-  const shipAmount = shippingMethod?.price || 0;
+  // Calcular automáticamente el costo de envío si no hay método seleccionado
+  const calculatedShipAmount = useMemo(() => {
+    if (!productsData || productsData.length === 0) return 0;
+
+    try {
+      const cartItems = productsData.map((item: any) => ({
+        weight: item.weight || 0.5,
+        dimensions: item.dimensions || {
+          length: item.length || 15,
+          width: item.width || 15,
+          height: item.height || 10,
+        },
+        quantity: item.quantity || 1,
+        price: item.price || 0,
+        title: item.title || item.name || "Producto",
+      }));
+
+      const quotes = calculateShippingQuotes(cartItems);
+      return quotes.length > 0 ? quotes[0] : null;
+    } catch (error) {
+      console.error("Error calculando envío:", error);
+      return { price: 199, serviceName: "Envío ", estimatedDays: 2 };
+    }
+  }, [productsData]);
+
+  const shipAmount =
+    shippingMethod?.price ||
+    (calculatedShipAmount && typeof calculatedShipAmount === "object"
+      ? calculatedShipAmount.price
+      : 0) ||
+    0;
   const layawayAmount = Number(amountTotal) * 0.3;
 
   const totalAmountCalc = Number(amountTotal) + Number(shipAmount);
@@ -37,11 +68,22 @@ const PaymentForm = () => {
 
   //=============================== Stripe Payment starts here ============================
 
-  const stripePromise = loadStripe(process.env.NEXT_PUBLIC_STRIPE__KEY!);
+  // Use test key in development, live key in production
+  const isLocalhost =
+    typeof window !== "undefined" && window.location.hostname === "localhost";
+  const stripeKey = isLocalhost
+    ? process.env.NEXT_PUBLIC_STRIPE_TEST_KEY!
+    : process.env.NEXT_PUBLIC_STRIPE__KEY!;
+  const stripePromise = loadStripe(stripeKey);
+
   const handleCheckout = async (payType: any) => {
-    // Validar que se haya seleccionado un método de envío
-    if (!shippingMethod) {
-      alert("Por favor selecciona un método de envío antes de continuar.");
+    // Usar método de envío seleccionado o el calculado automáticamente
+    const finalShippingMethod = shippingMethod || calculatedShipAmount;
+
+    if (!finalShippingMethod) {
+      alert(
+        "Error al calcular el costo de envío. Por favor intenta nuevamente.",
+      );
       return;
     }
 
@@ -55,7 +97,7 @@ const PaymentForm = () => {
         email: session?.user?.email,
         user: userInfo,
         shipping: shippingInfo,
-        shippingMethod: shippingMethod,
+        shippingMethod: finalShippingMethod,
         affiliateInfo: affiliateInfo,
         payType: payType,
       }),
@@ -64,12 +106,36 @@ const PaymentForm = () => {
     try {
       const data = await response.json();
 
+      if (!response.ok) {
+        console.error("Checkout error:", data);
+        alert(
+          `Error al procesar el pago: ${data.error || "Error desconocido"}`,
+        );
+        return;
+      }
+
+      if (!data.id || !data.url) {
+        console.error("Missing session ID or URL:", data);
+        alert("Error: No se recibió la sesión de pago");
+        return;
+      }
+
+      console.log("Redirecting to checkout:", data.url);
       dispatch(saveOrder({ order: productsData, id: data.id }));
-      stripe?.redirectToCheckout({ sessionId: data.id });
+
+      const result = await stripe?.redirectToCheckout({ sessionId: data.id });
+
+      if (result?.error) {
+        console.error("Stripe redirect error:", result.error);
+        alert(`Error al redirigir: ${result.error.message}`);
+        return;
+      }
+
       dispatch(resetCart());
       revalidatePath("/admin/pedidos");
     } catch (error) {
-      console.log(error);
+      console.error("Checkout exception:", error);
+      alert("Error al procesar el pago. Por favor intenta nuevamente.");
     }
   };
 
@@ -89,7 +155,7 @@ const PaymentForm = () => {
             <span className="text-emerald-700 text-[11px]">
               {productsData?.reduce(
                 (acc: any, cartItem: any) => acc + cartItem.quantity,
-                0
+                0,
               )}
               (Artículos)
             </span>
@@ -101,15 +167,20 @@ const PaymentForm = () => {
               <FormattedPrice amount={shipAmount} />
             </span>
           </li>
-          {shippingMethod && (
+          {(shippingMethod || calculatedShipAmount) && (
             <li className="flex justify-between text-muted mb-1">
               <span className="text-xs">Método:</span>
               <span className="text-xs text-right">
-                {shippingMethod.carrier} - {shippingMethod.serviceName}
+                {(shippingMethod || calculatedShipAmount).serviceName ||
+                  "Envío "}
                 <br />
                 <span className="text-emerald-600">
-                  {shippingMethod.estimatedDays} día
-                  {shippingMethod.estimatedDays !== 1 ? "s" : ""}
+                  {(shippingMethod || calculatedShipAmount).estimatedDays || 5}{" "}
+                  día
+                  {((shippingMethod || calculatedShipAmount).estimatedDays ||
+                    5) !== 1
+                    ? "s"
+                    : ""}
                 </span>
               </span>
             </li>

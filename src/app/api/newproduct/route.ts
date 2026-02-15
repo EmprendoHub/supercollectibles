@@ -26,6 +26,8 @@ export async function POST(request: any, res: any) {
       variations,
       secondaryImages,
       createdAt,
+      weight,
+      dimensions,
     } = Object.fromEntries(payload);
 
     let slug = generateUrlSafeTitle(title);
@@ -52,7 +54,7 @@ export async function POST(request: any, res: any) {
         };
         //check array of object to see if values exists
         const exists = colors.some(
-          (c) => c.value === value || c.label === value
+          (c) => c.value === value || c.label === value,
         );
         if (!exists) {
           colors.push(color); // add to colors array
@@ -80,7 +82,7 @@ export async function POST(request: any, res: any) {
     // calculate product stock
     const stock = variations.reduce(
       (total: any, variation: any) => total + variation.stock,
-      0
+      0,
     );
 
     createdAt = newCSTDate();
@@ -88,6 +90,16 @@ export async function POST(request: any, res: any) {
     const availability = {
       online: onlineAvailability,
     };
+
+    // Parse weight and dimensions
+    const productWeight = weight ? parseFloat(weight) : 0.5;
+    const productDimensions = dimensions
+      ? JSON.parse(dimensions)
+      : {
+          length: 15,
+          width: 15,
+          height: 10,
+        };
 
     const newProduct = new Product({
       type: "variation",
@@ -103,6 +115,8 @@ export async function POST(request: any, res: any) {
       images,
       variations,
       stock,
+      weight: productWeight,
+      dimensions: productDimensions,
       createdAt,
       user,
     });
@@ -119,7 +133,7 @@ export async function POST(request: any, res: any) {
         headers: {
           "Content-Type": "application/json",
         },
-      }
+      },
     );
   } catch (error) {
     console.log(error);
@@ -128,7 +142,7 @@ export async function POST(request: any, res: any) {
       JSON.stringify({
         error: "Error al crear Producto",
       }),
-      { status: 500, headers: { "Content-Type": "application/json" } }
+      { status: 500, headers: { "Content-Type": "application/json" } },
     );
   }
 }
@@ -158,6 +172,8 @@ export async function PUT(request: any, res: any) {
       secondaryImages,
       updatedAt,
       _id,
+      weight,
+      dimensions,
     } = Object.fromEntries(payload);
 
     let slug = generateUrlSafeTitle(title);
@@ -187,7 +203,7 @@ export async function PUT(request: any, res: any) {
         };
         //check array of object to see if values exists
         const exists = colors.some(
-          (c) => c.value === value || c.label === value
+          (c) => c.value === value || c.label === value,
         );
         if (!exists) {
           colors.push(color); // add to colors array
@@ -215,7 +231,7 @@ export async function PUT(request: any, res: any) {
     // calculate product stock
     const stock = variations.reduce(
       (total: any, variation: any) => total + variation.stock,
-      0
+      0,
     );
 
     updatedAt = new Date(updatedAt);
@@ -223,6 +239,16 @@ export async function PUT(request: any, res: any) {
     const availability = {
       online: onlineAvailability,
     };
+
+    // Parse weight and dimensions
+    const productWeight = weight ? parseFloat(weight) : 0.5;
+    const productDimensions = dimensions
+      ? JSON.parse(dimensions)
+      : {
+          length: 15,
+          width: 15,
+          height: 10,
+        };
 
     // Update a Product in the database
     await Product.updateOne(
@@ -242,9 +268,11 @@ export async function PUT(request: any, res: any) {
         colors,
         variations,
         stock,
+        weight: productWeight,
+        dimensions: productDimensions,
         updatedAt,
         user,
-      }
+      },
     );
     const response = NextResponse.json({
       message: "Producto actualizado exitosamente",
@@ -257,7 +285,7 @@ export async function PUT(request: any, res: any) {
       {
         error: "Error al crear Producto",
       },
-      { status: 500 }
+      { status: 500 },
     );
   }
 }

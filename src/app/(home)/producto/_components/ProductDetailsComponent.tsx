@@ -27,7 +27,7 @@ const ProductDetailsComponent = ({
   }));
   const initialSizes = product?.variations
     .filter(
-      (variation: any) => variation.color === product?.variations[0].color
+      (variation: any) => variation.color === product?.variations[0].color,
     )
     .map((variation: any) => variation.size);
   const dispatch = useDispatch();
@@ -61,10 +61,10 @@ const ProductDetailsComponent = ({
   useEffect(() => {
     // Find matches based on _id property
     const existingProduct = productsData.find((item1: any) =>
-      product.variations.some((item2: any) => item1._id === item2._id)
+      product.variations.some((item2: any) => item1._id === item2._id),
     );
     const existingVariation = product.variations.find((item1: any) =>
-      productsData.some((item2: any) => item1._id === item2._id)
+      productsData.some((item2: any) => item1._id === item2._id),
     );
 
     if (existingProduct?.quantity >= existingVariation?.stock) {
@@ -84,6 +84,10 @@ const ProductDetailsComponent = ({
     variation.image = [{ url: variation.image }];
     variation.quantity = 1;
     variation.brand = product.brand;
+    variation.weight = product.weight || 0.5;
+    variation.length = product.dimensions?.length || 15;
+    variation.width = product.dimensions?.width || 15;
+    variation.height = product.dimensions?.height || 10;
     dispatch(addToCart(variation));
     toast(`${product?.title.substring(0, 15)}... se agrego al carrito`);
     router.push("/carrito");
@@ -95,11 +99,11 @@ const ProductDetailsComponent = ({
     setColor(valueToCheck);
 
     const pickedVariationByColor = product.variations.find(
-      (variation: any) => variation.color === valueToCheck
+      (variation: any) => variation.color === valueToCheck,
     );
 
     const existingProduct = productsData.find(
-      (variation: any) => variation._id === pickedVariationByColor._id
+      (variation: any) => variation._id === pickedVariationByColor._id,
     );
     if (existingProduct) {
       setAlreadyCart(true);
@@ -130,7 +134,7 @@ const ProductDetailsComponent = ({
     const valueToCheck = e.target.value;
     const pickedSizeVariation = product.variations.find(
       (variation: any) =>
-        variation.size === valueToCheck && variation.color === color
+        variation.size === valueToCheck && variation.color === color,
     );
     setVariation(pickedSizeVariation);
     setSize(valueToCheck);
@@ -269,7 +273,7 @@ const ProductDetailsComponent = ({
                         <p>
                           {calculatePercentage(
                             variation.price,
-                            product?.sale_price
+                            product?.sale_price,
                           )}
                           % menos
                         </p>

@@ -39,7 +39,7 @@ const Cart = () => {
   const handleIncreaseQuantity = async (cartItem: any) => {
     const currentStock = await getVariationStock(cartItem._id);
     const existingProduct = productsData.find(
-      (item: any) => item._id === cartItem._id
+      (item: any) => item._id === cartItem._id,
     );
     if (
       existingProduct &&
@@ -109,11 +109,14 @@ const Cart = () => {
                         <div>
                           <div className="leading-5">
                             <p className="font-semibold not-italic">
-                              ${cartItem?.price * cartItem?.quantity.toFixed(2)}
+                              $
+                              {(cartItem?.price * cartItem?.quantity).toFixed(
+                                2,
+                              )}
                             </p>
                             <small className="text-gray-400">
                               {" "}
-                              ${cartItem?.price} / por articulo{" "}
+                              ${cartItem?.price.toFixed(2)} / por articulo{" "}
                             </small>
                           </div>
                         </div>
