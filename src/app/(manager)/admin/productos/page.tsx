@@ -10,7 +10,7 @@ const AdminProductsPage = async ({ searchParams }: { searchParams: any }) => {
     page: searchParams.page,
   };
   const filteredUrlParams = Object.fromEntries(
-    Object.entries(urlParams).filter(([key, value]) => value !== undefined)
+    Object.entries(urlParams).filter(([key, value]) => value !== undefined),
   );
   const searchQuery = new URLSearchParams(filteredUrlParams).toString();
 
@@ -23,7 +23,7 @@ const AdminProductsPage = async ({ searchParams }: { searchParams: any }) => {
   // pagination
   let page = parseInt(searchParams.page, 10);
   page = !page || page < 1 ? 1 : page;
-  const perPage = 10;
+  const perPage = 20;
   const itemCount = data?.productsCount;
   const totalPages = Math.ceil(data.filteredProductsCount / perPage);
   const prevPage = page - 1 > 0 ? page - 1 : 1;

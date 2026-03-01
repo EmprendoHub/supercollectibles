@@ -16,7 +16,7 @@ import {
   VariationUpdateProductEntrySchema,
   VerifyEmailSchema,
 } from "@/lib/schemas";
-import { revalidatePath } from "next/cache";
+import { revalidatePath, unstable_cache } from "next/cache";
 import Post from "@/backend/models/Post";
 import Product from "@/backend/models/Product";
 import User from "@/backend/models/User";
@@ -2535,24 +2535,39 @@ export async function getOneProductWithTrending(slug: string, id: string) {
   }
 }
 
+const getCachedEditorsProducts = unstable_cache(
+  async () => {
+    await dbConnect();
+    const editorsProducts = await Product.find(
+      { "availability.online": true },
+      {
+        _id: 1,
+        title: 1,
+        slug: 1,
+        price: 1,
+        category: 1,
+        brand: 1,
+        gender: 1,
+        createdAt: 1,
+        images: { $slice: 1 },
+        variations: { $slice: 1 },
+      },
+    )
+      .sort({ createdAt: -1 })
+      .limit(20)
+      .lean();
+    return JSON.stringify(editorsProducts);
+  },
+  ["home-editors-products"],
+  { revalidate: 300 }, // 5 minutes
+);
+
 export async function getHomeProductsData() {
   try {
-    await dbConnect();
-    // Extract tag values from post.tags array
-    let trendingProducts: any = await Product.find({})
-      .sort({ createdAt: -1 })
-      .limit(100);
-    let editorsProducts: any = await Product.find({
-      "availability.online": true,
-    })
-      .sort({ createdAt: -1 })
-      .limit(20);
-
-    trendingProducts = JSON.stringify(trendingProducts);
-    editorsProducts = JSON.stringify(editorsProducts);
+    const editorsProducts = await getCachedEditorsProducts();
     return {
-      trendingProducts: trendingProducts,
-      editorsProducts: editorsProducts,
+      trendingProducts: "[]",
+      editorsProducts,
     };
   } catch (error: any) {
     console.log(error);
@@ -2647,6 +2662,38 @@ export async function changeProductAvailability(productId: any, location: any) {
     revalidatePath("/admin/productos");
     revalidatePath("/admin/pos/tienda");
     revalidatePath("/puntodeventa/tienda");
+  } catch (error: any) {
+    console.log(error);
+    throw Error(error);
+  }
+}
+
+export async function bulkUpdateProducts(
+  productIds: string[],
+  updates: {
+    category?: string;
+    gender?: string;
+    dimensions?: { length?: number; width?: number; height?: number };
+  },
+) {
+  try {
+    await dbConnect();
+    const updateFields: Record<string, any> = {};
+    if (updates.category) updateFields.category = updates.category;
+    if (updates.gender) updateFields.gender = updates.gender;
+    if (updates.dimensions) {
+      const { length, width, height } = updates.dimensions;
+      if (length != null) updateFields["dimensions.length"] = length;
+      if (width != null) updateFields["dimensions.width"] = width;
+      if (height != null) updateFields["dimensions.height"] = height;
+    }
+    if (Object.keys(updateFields).length === 0) return;
+    await Product.updateMany(
+      { _id: { $in: productIds } },
+      { $set: updateFields },
+    );
+    revalidatePath("/admin/productos");
+    revalidatePath("/tienda");
   } catch (error: any) {
     console.log(error);
     throw Error(error);
@@ -2905,7 +2952,7 @@ export async function getAllProduct(searchQuery: any) {
     }
 
     const searchParams = new URLSearchParams(searchQuery);
-    const resPerPage = Number(searchParams.get("perpage")) || 10;
+    const resPerPage = Number(searchParams.get("perpage")) || 20;
     const page = Number(searchParams.get("page")) || 1;
 
     productQuery = productQuery.sort({ createdAt: -1 });

@@ -35,24 +35,24 @@ const CategoryStack = () => {
             />
           </Link>
         </motion.div>
-        {/* Image Section 2 */}
+        {/* Image Section 6 */}
         <div className="flex maxsm:flex-col relative gap-3 items-center justify-center w-full h-full">
           <motion.div
             initial={{ x: -50, opacity: 0 }}
             whileInView={{ x: 0, opacity: 1 }}
-            transition={{ duration: 0.5 }}
+            transition={{ duration: 0.7 }}
             whileHover={{
               scale: 1.05,
               rotate: 1,
               boxShadow: "0px 8px 15px rgba(0, 0, 0, 0.3)",
             }}
             whileTap={{ scale: 0.98 }}
-            className="relative w-full h-auto "
+            className="relative w-full h-30"
           >
-            <Link href={"/tienda?gender=Anime"}>
+            <Link href={"/tienda?gender=Yu-Gi-Oh"}>
               <Image
                 alt="Super Collectibles Mx"
-                src="/covers/Group1.webp"
+                src="/covers/Anime_Category.webp"
                 width={1920}
                 height={400}
                 className="object-cover rounded-[5px]"
@@ -62,21 +62,119 @@ const CategoryStack = () => {
           <motion.div
             initial={{ x: 50, opacity: 0 }}
             whileInView={{ x: 0, opacity: 1 }}
-            transition={{ duration: 0.5 }}
+            transition={{ duration: 0.7 }}
             whileHover={{
               scale: 1.05,
               rotate: 1,
               boxShadow: "0px 8px 15px rgba(0, 0, 0, 0.3)",
             }}
             whileTap={{ scale: 0.98 }}
-            className="relative w-full h-auto"
+            className="relative w-full h-30"
           >
-            <Link href={"/tienda?gender=Anime"}>
+            <Link href={"/tienda?gender=ONE+PIECE"}>
               <Image
                 alt="Super Collectibles Mx"
-                src="/covers/Group2.webp"
+                src="/covers/Group3.webp"
                 width={1920}
                 height={400}
+                className="object-cover rounded-[5px]"
+              />
+            </Link>
+          </motion.div>
+        </div>
+
+        {/* Image Section 7 */}
+        <div className="flex maxsm:flex-col relative gap-3 items-center justify-center w-full h-full">
+          <motion.div
+            initial={{ x: -50, opacity: 0 }}
+            whileInView={{ x: 0, opacity: 1 }}
+            transition={{ duration: 0.7 }}
+            whileHover={{
+              scale: 1.05,
+              rotate: 1,
+              boxShadow: "0px 8px 15px rgba(0, 0, 0, 0.3)",
+            }}
+            whileTap={{ scale: 0.98 }}
+            className="relative w-full h-30"
+          >
+            <Link href={"/tienda?gender=DRAGON+BALL"}>
+              <Image
+                alt="Super Collectibles Mx"
+                src="/covers/Group4.webp"
+                width={1920}
+                height={400}
+                className="object-cover rounded-[5px]"
+              />
+            </Link>
+          </motion.div>
+          <motion.div
+            initial={{ x: 50, opacity: 0 }}
+            whileInView={{ x: 0, opacity: 1 }}
+            transition={{ duration: 0.7 }}
+            whileHover={{
+              scale: 1.05,
+              rotate: 1,
+              boxShadow: "0px 8px 15px rgba(0, 0, 0, 0.3)",
+            }}
+            whileTap={{ scale: 0.98 }}
+            className="relative w-full h-30"
+          >
+            <Link href={"/tienda?gender=Star+Wars"}>
+              <Image
+                alt="Super Collectibles Mx"
+                src="/covers/Group5.webp"
+                width={1920}
+                height={400}
+                className="object-cover rounded-[5px]"
+              />
+            </Link>
+          </motion.div>
+        </div>
+
+        {/* Image Section 8 */}
+        <div className="flex maxsm:flex-col relative gap-3 items-center justify-center w-full h-full">
+          <motion.div
+            initial={{ x: -50, opacity: 0 }}
+            whileInView={{ x: 0, opacity: 1 }}
+            transition={{ duration: 0.9 }}
+            whileHover={{
+              scale: 1.05,
+              rotate: 1,
+              boxShadow: "0px 8px 15px rgba(0, 0, 0, 0.3)",
+            }}
+            whileTap={{ scale: 0.98 }}
+            className="relative w-full h-30"
+          >
+            <Link href={"/tienda?category=Magic"}>
+              <Image
+                alt="Super Collectibles Mx"
+                src="/covers/Group6.webp"
+                width={1920}
+                height={400}
+                quality={100}
+                className="object-cover  rounded-[5px]"
+              />
+            </Link>
+          </motion.div>
+          <motion.div
+            initial={{ x: 50, opacity: 0 }}
+            whileInView={{ x: 0, opacity: 1 }}
+            transition={{ duration: 0.9 }}
+            whileHover={{
+              scale: 1.05,
+              rotate: 1,
+              boxShadow: "0px 8px 15px rgba(0, 0, 0, 0.3)",
+            }}
+            whileTap={{ scale: 0.98 }}
+            className="relative w-full h-30"
+          >
+            <Link href={"/tienda?gender=Disney"}>
+              <Image
+                alt="Super Collectibles Mx"
+                src="/covers/Group7.webp"
+                width={1920}
+                height={400}
+                quality={100}
                 className="object-cover rounded-[5px]"
               />
             </Link>
@@ -220,152 +318,6 @@ const CategoryStack = () => {
                 src="/covers/Tenis_Category.webp"
                 width={1920}
                 height={400}
-                className="object-cover rounded-[5px]"
-              />
-            </Link>
-          </motion.div>
-        </div>
-
-        {/* Image Section 6 */}
-        <div className="flex maxsm:flex-col relative gap-3 items-center justify-center w-full h-full">
-          <motion.div
-            initial={{ x: -50, opacity: 0 }}
-            whileInView={{ x: 0, opacity: 1 }}
-            transition={{ duration: 0.7 }}
-            whileHover={{
-              scale: 1.05,
-              rotate: 1,
-              boxShadow: "0px 8px 15px rgba(0, 0, 0, 0.3)",
-            }}
-            whileTap={{ scale: 0.98 }}
-            className="relative w-full h-30"
-          >
-            <Link href={"/tienda?gender=Anime"}>
-              <Image
-                alt="Super Collectibles Mx"
-                src="/covers/Anime_Category.webp"
-                width={1920}
-                height={400}
-                className="object-cover rounded-[5px]"
-              />
-            </Link>
-          </motion.div>
-          <motion.div
-            initial={{ x: 50, opacity: 0 }}
-            whileInView={{ x: 0, opacity: 1 }}
-            transition={{ duration: 0.7 }}
-            whileHover={{
-              scale: 1.05,
-              rotate: 1,
-              boxShadow: "0px 8px 15px rgba(0, 0, 0, 0.3)",
-            }}
-            whileTap={{ scale: 0.98 }}
-            className="relative w-full h-30"
-          >
-            <Link href={"/tienda?gender=ONE+PIECE"}>
-              <Image
-                alt="Super Collectibles Mx"
-                src="/covers/Group3.webp"
-                width={1920}
-                height={400}
-                className="object-cover rounded-[5px]"
-              />
-            </Link>
-          </motion.div>
-        </div>
-
-        {/* Image Section 7 */}
-        <div className="flex maxsm:flex-col relative gap-3 items-center justify-center w-full h-full">
-          <motion.div
-            initial={{ x: -50, opacity: 0 }}
-            whileInView={{ x: 0, opacity: 1 }}
-            transition={{ duration: 0.7 }}
-            whileHover={{
-              scale: 1.05,
-              rotate: 1,
-              boxShadow: "0px 8px 15px rgba(0, 0, 0, 0.3)",
-            }}
-            whileTap={{ scale: 0.98 }}
-            className="relative w-full h-30"
-          >
-            <Link href={"/tienda?gender=DRAGON+BALL"}>
-              <Image
-                alt="Super Collectibles Mx"
-                src="/covers/Group4.webp"
-                width={1920}
-                height={400}
-                className="object-cover rounded-[5px]"
-              />
-            </Link>
-          </motion.div>
-          <motion.div
-            initial={{ x: 50, opacity: 0 }}
-            whileInView={{ x: 0, opacity: 1 }}
-            transition={{ duration: 0.7 }}
-            whileHover={{
-              scale: 1.05,
-              rotate: 1,
-              boxShadow: "0px 8px 15px rgba(0, 0, 0, 0.3)",
-            }}
-            whileTap={{ scale: 0.98 }}
-            className="relative w-full h-30"
-          >
-            <Link href={"/tienda?gender=Anime"}>
-              <Image
-                alt="Super Collectibles Mx"
-                src="/covers/Group5.webp"
-                width={1920}
-                height={400}
-                className="object-cover rounded-[5px]"
-              />
-            </Link>
-          </motion.div>
-        </div>
-
-        {/* Image Section 8 */}
-        <div className="flex maxsm:flex-col relative gap-3 items-center justify-center w-full h-full">
-          <motion.div
-            initial={{ x: -50, opacity: 0 }}
-            whileInView={{ x: 0, opacity: 1 }}
-            transition={{ duration: 0.9 }}
-            whileHover={{
-              scale: 1.05,
-              rotate: 1,
-              boxShadow: "0px 8px 15px rgba(0, 0, 0, 0.3)",
-            }}
-            whileTap={{ scale: 0.98 }}
-            className="relative w-full h-30"
-          >
-            <Link href={"/tienda?gender=Anime"}>
-              <Image
-                alt="Super Collectibles Mx"
-                src="/covers/Group6.webp"
-                width={1920}
-                height={400}
-                quality={100}
-                className="object-cover  rounded-[5px]"
-              />
-            </Link>
-          </motion.div>
-          <motion.div
-            initial={{ x: 50, opacity: 0 }}
-            whileInView={{ x: 0, opacity: 1 }}
-            transition={{ duration: 0.9 }}
-            whileHover={{
-              scale: 1.05,
-              rotate: 1,
-              boxShadow: "0px 8px 15px rgba(0, 0, 0, 0.3)",
-            }}
-            whileTap={{ scale: 0.98 }}
-            className="relative w-full h-30"
-          >
-            <Link href={"/tienda?gender=Anime"}>
-              <Image
-                alt="Super Collectibles Mx"
-                src="/covers/Group7.webp"
-                width={1920}
-                height={400}
-                quality={100}
                 className="object-cover rounded-[5px]"
               />
             </Link>

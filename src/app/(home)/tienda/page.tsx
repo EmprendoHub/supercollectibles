@@ -1,4 +1,5 @@
 import { Suspense } from "react";
+import { unstable_cache } from "next/cache";
 import dbConnect from "@/lib/db";
 import Product from "@/backend/models/Product";
 
@@ -9,65 +10,63 @@ export const metadata = {
   description: "Explora nuestra colección de cartas coleccionables",
 };
 
-async function getStoreData() {
-  await dbConnect();
+// Cache the heavy DB query for 5 minutes — prevents hitting MongoDB on every page load
+const getStoreData = unstable_cache(
+  async () => {
+    await dbConnect();
 
-  const products = await Product.find({
-    "availability.online": true,
-  })
-    .sort({ createdAt: -1 })
-    .select(
-      "_id title slug price images category brand gender variations createdAt",
+    // $slice: 1 on images and variations reduces data transfer significantly
+    // (product cards only show the first image and first variation)
+    const products = await Product.find(
+      { "availability.online": true },
+      {
+        _id: 1,
+        title: 1,
+        slug: 1,
+        price: 1,
+        category: 1,
+        brand: 1,
+        gender: 1,
+        createdAt: 1,
+        images: { $slice: 1 },
+        variations: { $slice: 1 },
+      },
     )
-    .lean();
+      .sort({ createdAt: -1 })
+      .lean();
 
-  // Get unique values for filters
-  const allCategories = Array.from(
-    new Set(products.map((p) => p.category).filter(Boolean)),
-  );
-  const allBrands = Array.from(
-    new Set(products.map((p) => p.brand).filter(Boolean)),
-  );
-  const allGenders = Array.from(
-    new Set(products.map((p) => p.gender).filter(Boolean)),
-  );
+    const allCategories = Array.from(
+      new Set((products as any[]).map((p) => p.category).filter(Boolean)),
+    ).sort() as string[];
 
-  // Get price range
-  interface ProductVariation {
-    price: number;
-    [key: string]: any;
-  }
+    const allBrands = Array.from(
+      new Set((products as any[]).map((p) => p.brand).filter(Boolean)),
+    ).sort() as string[];
 
-  interface StoreProduct {
-    _id: string;
-    title: string;
-    slug: string;
-    price: number;
-    images: string[];
-    category?: string;
-    brand?: string;
-    gender?: string;
-    variations?: ProductVariation[];
-    [key: string]: any;
-  }
+    const allGenders = Array.from(
+      new Set((products as any[]).map((p) => p.gender).filter(Boolean)),
+    ).sort() as string[];
 
-  const productsTyped = products as unknown as StoreProduct[];
+    const prices: number[] = (products as any[]).flatMap(
+      (p) =>
+        p.variations
+          ?.map((v: any) => v.price)
+          .filter((price: any) => price != null) || [],
+    );
+    const minPrice = prices.length ? Math.min(...prices) : 0;
+    const maxPrice = prices.length ? Math.max(...prices) : 1000;
 
-  const prices: number[] = productsTyped.flatMap(
-    (p) =>
-      p.variations?.map((v) => v.price).filter((price) => price != null) || [],
-  );
-  const minPrice = Math.min(...prices) || 0;
-  const maxPrice = Math.max(...prices) || 1000;
-
-  return {
-    products: JSON.parse(JSON.stringify(products)),
-    allCategories: allCategories.sort(),
-    allBrands: allBrands.sort(),
-    allGenders: allGenders.sort(),
-    priceRange: { min: minPrice, max: maxPrice },
-  };
-}
+    return {
+      products: JSON.parse(JSON.stringify(products)),
+      allCategories,
+      allBrands,
+      allGenders,
+      priceRange: { min: minPrice, max: maxPrice },
+    };
+  },
+  ["tienda-store-data"],
+  { revalidate: 300 }, // 5 minutes
+);
 
 export default async function TiendaPage({
   searchParams,

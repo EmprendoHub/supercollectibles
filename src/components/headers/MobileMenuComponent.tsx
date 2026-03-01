@@ -312,7 +312,7 @@ const MobileMenuComponent = () => {
                       className="relative w-full h-30"
                     >
                       <Link
-                        href={"/tienda?gender=Anime"}
+                        href={"/tienda?gender=Yu-Gi-Oh"}
                         onClick={toggleMobileMenu}
                       >
                         <Image
@@ -337,7 +337,7 @@ const MobileMenuComponent = () => {
                       className="relative w-full h-30"
                     >
                       <Link
-                        href={"/tienda?gender=Anime"}
+                        href={"/tienda?gender=One+Piece"}
                         onClick={toggleMobileMenu}
                       >
                         <Image
