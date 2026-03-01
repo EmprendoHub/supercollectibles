@@ -8,8 +8,13 @@ import AdminOrderSearch from "./AdminOrderSearch";
 import { TfiMoney } from "react-icons/tfi";
 import { Key, useState } from "react";
 import Modal from "@/components/modals/Modal";
+import DeleteConfirmationModal from "@/components/modals/DeleteConfirmationModal";
+import SuccessModal from "@/components/modals/SuccessModal";
 import { FaPrint } from "react-icons/fa6";
 import { usePathname } from "next/navigation";
+import { FaTrash } from "react-icons/fa";
+import { deleteOrder } from "@/app/_actions";
+import { useRouter } from "next/navigation";
 
 const AdminOrders = ({
   orders,
@@ -19,6 +24,7 @@ const AdminOrders = ({
   filteredOrdersCount: any;
 }) => {
   const getPathname = usePathname();
+  const router = useRouter();
   let pathname: string = "";
   if (getPathname.includes("admin")) {
     pathname = "admin";
@@ -31,12 +37,51 @@ const AdminOrders = ({
   const [showModal, setShowModal] = useState(false);
   const [usedOrderId, setUsedOrderId] = useState("");
   const [pendingTotal, setPendingTotal] = useState(0);
+  const [deleting, setDeleting] = useState(false);
+  const [showDeleteModal, setShowDeleteModal] = useState(false);
+  const [showSuccessModal, setShowSuccessModal] = useState(false);
+  const [successMessage, setSuccessMessage] = useState("");
+  const [orderToDelete, setOrderToDelete] = useState<{
+    id: string;
+    number: string;
+  } | null>(null);
+
   const updateOrderStatus = async (order: any) => {
     const calcPending =
       getTotalFromItems(order.orderItems) - order?.paymentInfo?.amountPaid;
     setPendingTotal(calcPending);
     setUsedOrderId(order._id);
     setShowModal(true);
+  };
+
+  const openDeleteModal = (orderId: string, orderNumber: string) => {
+    setOrderToDelete({ id: orderId, number: orderNumber });
+    setShowDeleteModal(true);
+  };
+
+  const handleDeleteOrder = async () => {
+    if (!orderToDelete) return;
+
+    setDeleting(true);
+    try {
+      const result = await deleteOrder(orderToDelete.id);
+      if (result.success) {
+        setShowDeleteModal(false);
+        setSuccessMessage(
+          `El pedido #${orderToDelete.number} ha sido eliminado exitosamente.`,
+        );
+        setShowSuccessModal(true);
+        router.refresh();
+      } else {
+        alert(`Error: ${result.error}`);
+      }
+    } catch (error) {
+      console.error("Error deleting order:", error);
+      alert("Error al eliminar el pedido");
+    } finally {
+      setDeleting(false);
+      setOrderToDelete(null);
+    }
   };
   return (
     <>
@@ -47,6 +92,25 @@ const AdminOrders = ({
         pathname={pathname}
         pendingTotal={pendingTotal}
         isPaid={false}
+      />
+      <DeleteConfirmationModal
+        showModal={showDeleteModal}
+        setShowModal={setShowDeleteModal}
+        onConfirm={handleDeleteOrder}
+        title="Eliminar Pedido"
+        message={`¿Estás seguro de que deseas eliminar el pedido #${orderToDelete?.number}? Esta acción no se puede deshacer y toda la información del pedido se perderá permanentemente.`}
+        confirmText="Sí, eliminar"
+        cancelText="No, cancelar"
+        isDeleting={deleting}
+      />
+      <SuccessModal
+        showModal={showSuccessModal}
+        setShowModal={setShowSuccessModal}
+        title="Pedido Eliminado"
+        message={successMessage}
+        buttonText="Aceptar"
+        autoClose={true}
+        autoCloseDelay={3000}
       />
       <div className="pl-5 maxsm:pl-3 relative overflow-x-auto shadow-md maxsm:rounded-xl">
         <div className=" flex flex-row maxsm:flex-col maxsm:items-start items-center justify-between">
@@ -98,7 +162,7 @@ const AdminOrders = ({
                   createdAt: any;
                   orderItems: any;
                 },
-                index: Key | null | undefined
+                index: Key | null | undefined,
               ) => (
                 <tr className="bg-background" key={index}>
                   <td className="px-2 maxsm:px-2 py-2">
@@ -120,12 +184,12 @@ const AdminOrders = ({
                       order.orderStatus === "Apartado"
                         ? "text-amber-700"
                         : order.orderStatus === "En Camino"
-                        ? "text-blue-700"
-                        : order.orderStatus === "Entregado"
-                        ? "text-green-700"
-                        : order.orderStatus === "Pagado"
-                        ? "text-green-800"
-                        : "text-muted"
+                          ? "text-blue-700"
+                          : order.orderStatus === "Entregado"
+                            ? "text-green-700"
+                            : order.orderStatus === "Pagado"
+                              ? "text-green-800"
+                              : "text-muted"
                     }`}
                   >
                     {order.orderStatus}
@@ -180,10 +244,20 @@ const AdminOrders = ({
                           )}
                         </button>
                       )}
+                      <button
+                        onClick={() =>
+                          openDeleteModal(order._id, order.orderId)
+                        }
+                        disabled={deleting}
+                        className="px-2 py-2 inline-block text-white hover:text-foreground bg-red-600 shadow-sm border border-gray-200 rounded-xl hover:bg-red-700 disabled:opacity-50 disabled:cursor-not-allowed cursor-pointer"
+                        title="Eliminar pedido"
+                      >
+                        <FaTrash />
+                      </button>
                     </div>
                   </td>
                 </tr>
-              )
+              ),
             )}
           </tbody>
         </table>

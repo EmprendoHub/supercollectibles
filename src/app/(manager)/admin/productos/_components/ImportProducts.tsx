@@ -98,13 +98,14 @@ const ImagePreview = ({
                 : "border-gray-300"
             }`}
             onClick={() => setCurrentImageIndex(index)}
-            title={img.url.split("/").pop()} // Show filename on hover
+            title={img.url.split("/").pop()}
           >
             <Image
               src={getImageSrc(img.url, index)}
               alt={`${productTitle} ${index + 1}`}
               width={32}
               height={32}
+              unoptimized
               className="w-full h-full object-cover"
               onError={() => handleImageError(index)}
             />
@@ -126,6 +127,7 @@ const ImagePreview = ({
               alt={`${productTitle} main`}
               width={96}
               height={96}
+              unoptimized
               className="w-full h-full object-cover"
               onError={() => handleImageError(currentImageIndex)}
             />
@@ -173,6 +175,7 @@ const ImagePreview = ({
                 alt={`${productTitle} ${currentImageIndex + 1}`}
                 width={800}
                 height={600}
+                unoptimized
                 className="max-w-full max-h-full object-contain"
                 onError={() => handleImageError(currentImageIndex)}
               />
@@ -211,6 +214,7 @@ const ImagePreview = ({
                       alt={`${productTitle} thumb ${index + 1}`}
                       width={48}
                       height={48}
+                      unoptimized
                       className="w-full h-full object-cover"
                       onError={() => handleImageError(index)}
                     />
@@ -257,7 +261,7 @@ export default function ImportProducts() {
     if (data.success) {
       // 1. Only keep products with stock > 0
       let filtered = data.products.filter(
-        (p: ProductRow) => Number(p.stock) > 0
+        (p: ProductRow) => Number(p.stock) > 0,
       );
 
       // 2. Keep the cleaned_images paths from the import (they are already correctly formatted)
@@ -315,7 +319,7 @@ export default function ImportProducts() {
         // Download CSV of excluded products if any exist
         if (data.csvData && data.excludedCount > 0) {
           const shouldDownload = window.confirm(
-            `${data.excludedCount} products were excluded. Would you like to download a CSV report?`
+            `${data.excludedCount} products were excluded. Would you like to download a CSV report?`,
           );
 
           if (shouldDownload) {
@@ -333,7 +337,7 @@ export default function ImportProducts() {
             window.URL.revokeObjectURL(url);
 
             console.log(
-              `📥 Downloaded CSV report for ${data.excludedCount} excluded products`
+              `📥 Downloaded CSV report for ${data.excludedCount} excluded products`,
             );
           }
         }
@@ -363,14 +367,14 @@ export default function ImportProducts() {
 
     // Show current state for selected products only
     const selectedProducts = Array.from(selected).map(
-      (index) => products[index]
+      (index) => products[index],
     );
     const totalImagesBefore = selectedProducts.reduce(
       (total, p) => total + (p.images?.length || 0),
-      0
+      0,
     );
     const productsWithMultipleImages = selectedProducts.filter(
-      (p) => p.images && p.images.length >= 2
+      (p) => p.images && p.images.length >= 2,
     ).length;
 
     const confirmFilter = window.confirm(
@@ -379,14 +383,14 @@ export default function ImportProducts() {
         `- ${selected.size} products selected\n` +
         `- ${totalImagesBefore} total images in selected products\n` +
         `- ${productsWithMultipleImages} selected products with 2+ images (will be filtered)\n\n` +
-        `Continue?`
+        `Continue?`,
     );
 
     if (!confirmFilter) return;
 
     try {
       console.log(
-        `🤖 Starting AI filter for ${selected.size} selected products with ${totalImagesBefore} total images`
+        `🤖 Starting AI filter for ${selected.size} selected products with ${totalImagesBefore} total images`,
       );
 
       const selectedIndices = Array.from(selected);
@@ -404,16 +408,16 @@ export default function ImportProducts() {
 
       if (data.success) {
         const selectedProductsAfter = Array.from(selected).map(
-          (index) => data.products[index]
+          (index) => data.products[index],
         );
         const totalImagesAfter = selectedProductsAfter.reduce(
           (total: number, p: any) => total + (p.images?.length || 0),
-          0
+          0,
         );
         const removedImages = totalImagesBefore - totalImagesAfter;
 
         console.log(
-          `🤖 AI filter complete: ${totalImagesBefore} → ${totalImagesAfter} images (removed ${removedImages})`
+          `🤖 AI filter complete: ${totalImagesBefore} → ${totalImagesAfter} images (removed ${removedImages})`,
         );
 
         setProducts(data.products);
@@ -430,8 +434,8 @@ export default function ImportProducts() {
             `- Images after: ${totalImagesAfter}\n` +
             `- Images removed: ${removedImages}\n` +
             `- Removal rate: ${Math.round(
-              (removedImages / totalImagesBefore) * 100
-            )}%`
+              (removedImages / totalImagesBefore) * 100,
+            )}%`,
         );
       } else {
         alert("AI filtering failed ❌");
@@ -646,7 +650,7 @@ export default function ImportProducts() {
               ? `${Array.from(selected).reduce(
                   (total, index) =>
                     total + (products[index].images?.length || 0),
-                  0
+                  0,
                 )} images in ${selected.size} products`
               : "Select products first"}
             )
@@ -754,7 +758,7 @@ export default function ImportProducts() {
                       <th key={header.id} className="p-2 text-left border-b">
                         {flexRender(
                           header.column.columnDef.header,
-                          header.getContext()
+                          header.getContext(),
                         )}
                       </th>
                     ))}
@@ -768,7 +772,7 @@ export default function ImportProducts() {
                       <td key={cell.id} className="p-2 align-top">
                         {flexRender(
                           cell.column.columnDef.cell,
-                          cell.getContext()
+                          cell.getContext(),
                         )}
                       </td>
                     ))}

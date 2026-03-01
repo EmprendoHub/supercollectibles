@@ -3,7 +3,7 @@ import React from "react";
 import AdminSidebar, { SideBarItem } from "../_components/AdminSidebar";
 import { usePathname } from "next/navigation";
 import { useSession } from "next-auth/react";
-import { TbDeviceIpadDollar, TbReport } from "react-icons/tb";
+import { TbDeviceIpadDollar, TbFileImport, TbReport } from "react-icons/tb";
 import { PiUserListLight } from "react-icons/pi";
 import { CiGrid31 } from "react-icons/ci";
 import { TfiDashboard } from "react-icons/tfi";
@@ -112,6 +112,12 @@ const SideBarRender = () => {
         text={"Reportes"}
         active={pathname === "/admin/reportes" ? "true" : "false"}
         url={"/admin/reportes"}
+      />
+      <SideBarItem
+        icon={<TbFileImport size={20} />}
+        text={"Importar CSV"}
+        active={pathname === "/admin/productos/importar" ? "true" : "false"}
+        url={"/admin/productos/importar"}
       />
     </AdminSidebar>
   );

@@ -2,57 +2,56 @@ import { NextRequest, NextResponse } from "next/server";
 import path from "path";
 import fs from "fs";
 
-const CLEANED_IMAGES_DIR =
-  "/mnt/3TB/CLIENTES/SuperCollectiblesMx/2025/NEW PSA/cleaned_images";
+const IMAGES_ROOT = "/mnt/3TB/CLIENTES/SuperCollectiblesMx";
+
+// Recursively find all directories named "cleaned_images" under root
+function findCleanedImageDirs(root: string): string[] {
+  const results: string[] = [];
+  try {
+    for (const entry of fs.readdirSync(root, { withFileTypes: true })) {
+      if (!entry.isDirectory()) continue;
+      const fullPath = path.join(root, entry.name);
+      if (entry.name === "cleaned_images") {
+        results.push(fullPath);
+      } else {
+        results.push(...findCleanedImageDirs(fullPath));
+      }
+    }
+  } catch {
+    // ignore unreadable dirs
+  }
+  // Sort newest-first: deeper 2026 paths before 2025, etc.
+  return results.sort((a, b) => b.localeCompare(a));
+}
+
+const CLEANED_IMAGE_DIRS = findCleanedImageDirs(IMAGES_ROOT);
 
 export async function GET(
   request: NextRequest,
-  { params }: { params: { path: string[] } }
+  { params }: { params: { path: string[] } },
 ) {
   try {
-    // Reconstruct the file path from the URL segments
-    const filePath = path.join(CLEANED_IMAGES_DIR, ...params.path);
-
     console.log(`🖼️  Image request: ${request.url}`);
-    console.log(`📁 Reconstructed path: ${filePath}`);
     console.log(`📋 URL params:`, params.path);
 
-    // Check if file exists
-    if (!fs.existsSync(filePath)) {
-      console.log(`❌ Image not found: ${filePath}`);
+    // Re-scan on each request so newly added collection folders are found without restart
+    const cleanedImageDirs = findCleanedImageDirs(IMAGES_ROOT);
 
-      // Let's also check what files DO exist in that directory
-      const directory = path.dirname(filePath);
-      const fileName = path.basename(filePath);
-
-      console.log(`📂 Directory: ${directory}`);
-      console.log(`📄 Looking for: ${fileName}`);
-
-      if (fs.existsSync(directory)) {
-        const availableFiles = fs
-          .readdirSync(directory)
-          .filter((f) => f.toLowerCase().endsWith(".png"))
-          .slice(0, 10); // Show first 10 files
-
-        console.log(
-          `📋 Available files in directory (first 10):`,
-          availableFiles
-        );
-
-        // Try to find similar files
-        const similarFiles = availableFiles.filter(
-          (f) =>
-            f.toLowerCase().includes("eustass") ||
-            f.toLowerCase().includes("captain") ||
-            f.toLowerCase().includes("kid") ||
-            f.toLowerCase().includes("st10013")
-        );
-
-        console.log(`🔍 Similar files found:`, similarFiles);
-      } else {
-        console.log(`❌ Directory doesn't exist: ${directory}`);
+    // Try each base directory until we find the file
+    let filePath: string | null = null;
+    for (const baseDir of cleanedImageDirs) {
+      const candidate = path.join(baseDir, ...params.path);
+      if (fs.existsSync(candidate)) {
+        filePath = candidate;
+        break;
       }
+    }
 
+    // Check if file exists
+    if (!filePath) {
+      console.log(
+        `❌ Image not found in any directory: ${params.path.join("/")}`,
+      );
       return new NextResponse("Image not found", { status: 404 });
     }
 
@@ -65,7 +64,7 @@ export async function GET(
     }
 
     console.log(
-      `✅ Successfully read file: ${filePath} (${fileBuffer.length} bytes)`
+      `✅ Successfully read file: ${filePath} (${fileBuffer.length} bytes)`,
     );
 
     // Determine content type based on file extension

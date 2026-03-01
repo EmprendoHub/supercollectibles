@@ -50,7 +50,7 @@ const getDocumentCountPreviousMonth = async (model: any) => {
   const firstDayOfPreviousMonth = new Date(
     now.getFullYear(),
     now.getMonth() - 1,
-    1
+    1,
   );
   const lastDayOfPreviousMonth = new Date(now.getFullYear(), now.getMonth(), 0);
 
@@ -64,7 +64,7 @@ const getDocumentCountPreviousMonth = async (model: any) => {
       },
       {
         published: { $ne: "false" },
-      }
+      },
     );
 
     return documentCount;
@@ -78,7 +78,7 @@ async function getQuantities(orderItems: any) {
   // Use reduce to sum up the 'quantity' fields
   const totalQuantity = orderItems?.reduce(
     (sum: any, obj: any) => sum + obj.quantity,
-    0
+    0,
   );
   return totalQuantity;
 }
@@ -93,7 +93,7 @@ async function getTotal(orderItems: any) {
   let totalAmount = orderItems?.reduce(
     (acc: number, cartItem: { quantity: number; price: number }) =>
       acc + cartItem.quantity * cartItem.price,
-    0
+    0,
   );
   totalAmount = formatter.format(totalAmount);
   return totalAmount;
@@ -104,7 +104,7 @@ async function getPendingTotal(orderItems: any[], orderAmountPaid: number) {
   const totalAmount = orderItems?.reduce(
     (acc: number, cartItem: { quantity: number; price: number }) =>
       acc + cartItem.quantity * cartItem.price,
-    0
+    0,
   );
   let pendingAmount: any = totalAmount - orderAmountPaid;
   pendingAmount = formatter.format(pendingAmount);
@@ -127,7 +127,7 @@ export async function updateUserMercadoToken(tokenData: any) {
     const updatedUser = await User.updateOne(
       { _id: session?.user?._id }, // Query condition
       { $set: { mercado_token: tokenData } }, // Update operation
-      { runValidators: true } // Options
+      { runValidators: true }, // Options
     );
   } catch (error: any) {
     console.log(error);
@@ -144,7 +144,7 @@ export async function getUserMercadoToken() {
   try {
     await dbConnect();
     const user = await User.findOne(
-      { _id: session?.user?._id } // Query condition
+      { _id: session?.user?._id }, // Query condition
     );
 
     const accessToken = user.mercado_token.access_token;
@@ -164,7 +164,7 @@ export async function getProductCategories(token: string, inputSearch: string) {
       headers: {
         Authorization: `Bearer ${token}`,
       },
-    }
+    },
   );
 
   if (!response.ok) {
@@ -183,7 +183,7 @@ export async function getAllOrders(searchParams: any, session: any) {
     const stringSession = JSON.stringify(session);
     // Filter out undefined values
     const filteredUrlParams = Object.fromEntries(
-      Object.entries(urlParams).filter(([key, value]) => value !== undefined)
+      Object.entries(urlParams).filter(([key, value]) => value !== undefined),
     );
     const searchQuery = new URLSearchParams(filteredUrlParams).toString();
     const URL = `${process.env.NEXTAUTH_URL}/api/orders?${searchQuery}`;
@@ -235,7 +235,7 @@ export const updateOrder = async (formData: any) => {
           message: "Se creo actualizo el pedido Exitosamente ",
           payload,
         },
-        { status: 200 }
+        { status: 200 },
       );
     }
   } catch (error: any) {
@@ -280,14 +280,14 @@ export const updateProduct = async (formData: any) => {
         headers: {
           "X-Mysession-Key": JSON.stringify(payload),
         },
-      }
+      },
     );
     if (response) {
       return NextResponse.json(
         {
           message: "Se creo el Producto Exitosamente ",
         },
-        { status: 200 }
+        { status: 200 },
       );
     }
   } catch (error) {
@@ -297,7 +297,7 @@ export const updateProduct = async (formData: any) => {
 
 export const getAffiliateDashboard = async (
   currentCookies: string,
-  email: any
+  email: any,
 ) => {
   const URL = `${process.env.NEXTAUTH_URL}/api/affiliate/dashboard`;
   const { data } = await axios.get(URL, {
@@ -424,7 +424,7 @@ export async function payPOSDrawer(data: any) {
         });
 
         const variation = product.variations.find((variation: any) =>
-          variation._id.equals(variationId)
+          variation._id.equals(variationId),
         );
         // Check if there is enough stock
         if (variation.stock < item.quantity) {
@@ -449,7 +449,7 @@ export async function payPOSDrawer(data: any) {
           });
           product.save();
         }
-      })
+      }),
     );
 
     let orderData = {
@@ -518,7 +518,7 @@ export async function payPOSDrawer(data: any) {
         });
 
         const formattedAmountPaid = formatter.format(
-          newOrder?.paymentInfo?.amountPaid || 0
+          newOrder?.paymentInfo?.amountPaid || 0,
         );
 
         const mailOption = {
@@ -553,7 +553,7 @@ export async function payPOSDrawer(data: any) {
                 <td style="padding: 0.75rem;">${item.color}</td>
                 <td style="padding: 0.75rem;">${item.quantity}</td>
                 <td style="padding: 0.75rem;">${item.price}</td>
-              </tr>`
+              </tr>`,
               )
               .join("")}
               <tr>
@@ -591,7 +591,7 @@ export async function payPOSDrawer(data: any) {
                 ${
                   (await getPendingTotal(
                     newOrder?.orderItems,
-                    newOrder?.paymentInfo?.amountPaid
+                    newOrder?.paymentInfo?.amountPaid,
                   )) || 0
                 }
                 
@@ -770,7 +770,7 @@ export async function payPOSInstagramDrawer(data: any) {
         });
 
         const variation = product.variations.find((variation: any) =>
-          variation._id.equals(variationId)
+          variation._id.equals(variationId),
         );
         // Check if there is enough stock
         if (variation.stock < item.quantity) {
@@ -795,7 +795,7 @@ export async function payPOSInstagramDrawer(data: any) {
           });
           product.save();
         }
-      })
+      }),
     );
 
     let orderData = {
@@ -864,7 +864,7 @@ export async function payPOSInstagramDrawer(data: any) {
         });
 
         const formattedAmountPaid = formatter.format(
-          newOrder?.paymentInfo?.amountPaid || 0
+          newOrder?.paymentInfo?.amountPaid || 0,
         );
 
         const mailOption = {
@@ -899,7 +899,7 @@ export async function payPOSInstagramDrawer(data: any) {
                 <td style="padding: 0.75rem;">${item.color}</td>
                 <td style="padding: 0.75rem;">${item.quantity}</td>
                 <td style="padding: 0.75rem;">${item.price}</td>
-              </tr>`
+              </tr>`,
               )
               .join("")}
               <tr>
@@ -937,7 +937,7 @@ export async function payPOSInstagramDrawer(data: any) {
                 ${
                   (await getPendingTotal(
                     newOrder?.orderItems,
-                    newOrder?.paymentInfo?.amountPaid
+                    newOrder?.paymentInfo?.amountPaid,
                   )) || 0
                 }
                 
@@ -1035,7 +1035,7 @@ export async function getDashboard() {
       23, // 23 hours
       59, // 59 minutes
       59, // 59 seconds
-      999
+      999,
     );
     // Set start of the current month
     const startOfMonth = new Date(
@@ -1045,7 +1045,7 @@ export async function getDashboard() {
       0,
       0,
       0,
-      0
+      0,
     );
 
     // Set end of the current month
@@ -1056,7 +1056,7 @@ export async function getDashboard() {
       23, // 23 hours
       59, // 59 minutes
       59, // 59 seconds
-      999
+      999,
     );
 
     const startOfCurrentWeek = new Date(today);
@@ -1090,7 +1090,7 @@ export async function getDashboard() {
     const startOfLastMonth = new Date(
       today.getFullYear(),
       today.getMonth() - 1,
-      1
+      1,
     );
     startOfLastMonth.setUTCHours(0, 0, 0, 0); // Set time to midnight in UTC
 
@@ -1114,7 +1114,7 @@ export async function getDashboard() {
       0,
       0,
       0,
-      0
+      0,
     );
 
     const endOfToday = new Date(
@@ -1124,7 +1124,7 @@ export async function getDashboard() {
       23,
       59,
       59,
-      999
+      999,
     );
 
     // Calculate yesterday's date
@@ -1138,7 +1138,7 @@ export async function getDashboard() {
       23,
       59,
       59,
-      999
+      999,
     );
 
     orders = await Order.find({ orderStatus: { $ne: "Cancelado" } })
@@ -1527,7 +1527,7 @@ export async function getPOSDashboard() {
       0,
       0,
       0,
-      0
+      0,
     );
 
     const endOfToday = new Date(
@@ -1537,7 +1537,7 @@ export async function getPOSDashboard() {
       0,
       0,
       0,
-      0
+      0,
     );
 
     if (session) {
@@ -1811,17 +1811,17 @@ export async function getInstagramDashboard() {
     const today = newCSTDate();
     const startOfCurrentWeek = new Date(today);
     startOfCurrentWeek.setDate(
-      startOfCurrentWeek.getDate() - startOfCurrentWeek.getDay()
+      startOfCurrentWeek.getDate() - startOfCurrentWeek.getDay(),
     );
     const startOfToday = new Date(
       today.getFullYear(),
       today.getMonth(),
-      today.getDate()
+      today.getDate(),
     );
     const endOfToday = new Date(
       today.getFullYear(),
       today.getMonth(),
-      today.getDate() + 1
+      today.getDate() + 1,
     );
 
     if (session) {
@@ -2099,7 +2099,7 @@ export async function updatePage(data: any) {
       updatedAt,
       published: true,
       authorId: { _id: session?.user._id },
-    }
+    },
   );
   if (error) throw Error(error);
   revalidatePath("/");
@@ -2147,7 +2147,7 @@ export async function getAllPost(searchQuery: any) {
       .slice()
       .sort(
         (a: { createdAt: string }, b: { createdAt: string }) =>
-          new Date(b.createdAt).getTime() - new Date(a.createdAt).getTime()
+          new Date(b.createdAt).getTime() - new Date(a.createdAt).getTime(),
       );
 
     sortedPosts = JSON.stringify(sortedPosts);
@@ -2202,7 +2202,7 @@ export async function getAllOrder(searchQuery: any) {
       session?.user?.role === "sucursal"
     ) {
       orderQuery = Order.find({ orderStatus: { $ne: "Cancelado" } }).populate(
-        "user"
+        "user",
       );
     } else if (session?.user?.role === "afiliado") {
       const affiliate = await Affiliate.findOne({ user: session?.user?._id });
@@ -2228,7 +2228,7 @@ export async function getAllOrder(searchQuery: any) {
     // Apply search Filters including order_id and orderStatus
     const apiOrderFilters: any = new APIOrderFilters(
       orderQuery,
-      searchParams
+      searchParams,
     ).searchAllFields();
 
     let ordersData = await apiOrderFilters.query;
@@ -2347,7 +2347,7 @@ export async function updateOneInstagramOrder(data: any) {
         orderStatus: newOrderStatus,
         "paymentInfo.status": newOrderPaymentStatus,
         $inc: { "paymentInfo.amountPaid": Number(amount) },
-      }
+      },
     );
 
     const lastOrder = await Order.findById(orderId);
@@ -2393,7 +2393,7 @@ export async function changeOrderNoteStatus(data: any) {
         orderStatus: newStatus,
         comment: newNote,
         updatedAt: date,
-      }
+      },
     );
     revalidatePath(`/instagram/pedidos`);
     revalidatePath(`/instagram/pedido/${orderId}`);
@@ -2563,7 +2563,7 @@ export async function updateProductQuantity(variationId: any) {
     if (product) {
       // Find the variation within the variations array
       let variation = product.variations.find(
-        (variation: any) => variation._id.toString() === variationId
+        (variation: any) => variation._id.toString() === variationId,
       );
       // Update the stock of the variation
       variation.stock -= 1; // Example stock update
@@ -2656,7 +2656,7 @@ export async function getVariationStock(variationId: any) {
     if (product) {
       // Find the variation within the variations array
       let variation = product.variations.find(
-        (variation: any) => variation._id.toString() === variationId
+        (variation: any) => variation._id.toString() === variationId,
       );
       return { currentStock: variation.stock };
     } else {
@@ -2677,7 +2677,7 @@ export async function getOnePOSProduct(variationId: any) {
     if (product) {
       // Find the variation within the variations array
       let variation = product.variations.find(
-        (variation: any) => variation._id.toString() === variationId
+        (variation: any) => variation._id.toString() === variationId,
       );
 
       // Add product name and brand to the variation
@@ -2744,7 +2744,7 @@ export async function getAllPOSProductOld(searchQuery: any) {
       .slice()
       .sort(
         (a: { createdAt: string }, b: { createdAt: string }) =>
-          new Date(b.createdAt).getTime() - new Date(a.createdAt).getTime()
+          new Date(b.createdAt).getTime() - new Date(a.createdAt).getTime(),
       );
 
     sortedProducts = JSON.stringify(sortedProducts);
@@ -3055,7 +3055,7 @@ export async function getAllClient(searchQuery: any) {
     // Apply search Filters
     const apiClientFilters: any = new APIClientFilters(
       clientQuery,
-      searchParams
+      searchParams,
     )
       .searchAllFields()
       .filter();
@@ -3071,7 +3071,7 @@ export async function getAllClient(searchQuery: any) {
       .slice()
       .sort(
         (a: { createdAt: string }, b: { createdAt: string }) =>
-          new Date(b.createdAt).getTime() - new Date(a.createdAt).getTime()
+          new Date(b.createdAt).getTime() - new Date(a.createdAt).getTime(),
       );
 
     let clients = JSON.stringify(sortedClients);
@@ -3234,7 +3234,7 @@ export async function getAllAffiliate(searchQuery: any) {
     // Apply search Filters
     const apiAffiliateFilters: any = new APIAffiliateFilters(
       affiliateQuery,
-      searchParams
+      searchParams,
     )
       .searchAllFields()
       .filter();
@@ -3250,7 +3250,7 @@ export async function getAllAffiliate(searchQuery: any) {
       .slice()
       .sort(
         (a: { createdAt: string }, b: { createdAt: string }) =>
-          new Date(b.createdAt).getTime() - new Date(a.createdAt).getTime()
+          new Date(b.createdAt).getTime() - new Date(a.createdAt).getTime(),
       );
 
     let affiliates = JSON.stringify(sortedAffiliates);
@@ -3418,7 +3418,7 @@ export async function updateAddress(data: any) {
       country,
       phone,
       user,
-    }
+    },
   );
   if (error) throw Error(error);
   revalidatePath("/perfil/direcciones");
@@ -3599,7 +3599,7 @@ export async function updatePost(data: any) {
       updatedAt,
       published: true,
       authorId: { _id: session?.user._id },
-    }
+    },
   );
   if (error) throw Error(error);
   revalidatePath("/admin/blog");
@@ -3660,7 +3660,7 @@ export async function addVariationProduct(data: any) {
   // calculate product stock
   const stock = variations.reduce(
     (total: any, variation: any) => total + variation.stock,
-    0
+    0,
   );
   createdAt = new Date(createdAt);
 
@@ -3780,7 +3780,7 @@ export async function updateVariationProduct(data: any) {
   // calculate product stock
   const stock = variations.reduce(
     (total: any, variation: any) => total + variation.stock,
-    0
+    0,
   );
   updatedAt = new Date(updatedAt);
   // validate form data
@@ -3842,7 +3842,7 @@ export async function updateVariationProduct(data: any) {
       sale_price_end_date,
       updatedAt,
       user,
-    }
+    },
   );
   if (error) throw Error(error);
   revalidatePath("/admin/productos");
@@ -3970,7 +3970,7 @@ export async function resendEmail(data: any) {
         headers: {
           "Content-Type": "application/x-www-form-urlencoded",
         },
-      }
+      },
     );
   } catch (e) {
     console.log("recaptcha error:", e);
@@ -4085,7 +4085,7 @@ export async function resetAccountEmail(data: any) {
         headers: {
           "Content-Type": "application/x-www-form-urlencoded",
         },
-      }
+      },
     );
   } catch (e) {
     console.log("recaptcha error:", e);
@@ -4202,7 +4202,7 @@ export async function createFBPost(pageId: string, prompt: string) {
     await aiPromptRequest.choices[0].message.content.replace("json", "").trim();
 
     const responseContent = JSON.parse(
-      aiPromptRequest.choices[0].message.content
+      aiPromptRequest.choices[0].message.content,
     );
 
     // Parse the content manually
@@ -4345,13 +4345,13 @@ export async function createFBPost(pageId: string, prompt: string) {
                 const instagramResponse = await axios.post(
                   instagramBaseUrl,
                   instagramData,
-                  { headers }
+                  { headers },
                 );
 
                 if (instagramResponse.status === 200) {
                   console.log(
                     "Successfully created Instagram post:",
-                    instagramResponse.data.id
+                    instagramResponse.data.id,
                   );
 
                   const mediaPublishData = {
@@ -4362,7 +4362,7 @@ export async function createFBPost(pageId: string, prompt: string) {
                   const instagramPublishResponse = await axios.post(
                     publishToInstagramUrl,
                     mediaPublishData,
-                    { headers }
+                    { headers },
                   );
 
                   console.log("Instagram Publish Response");
@@ -4372,7 +4372,7 @@ export async function createFBPost(pageId: string, prompt: string) {
               } else {
                 console.error(
                   "Unexpected response status:",
-                  createFBPostResponse.status
+                  createFBPostResponse.status,
                 );
                 return {
                   status: createFBPostResponse.status,
@@ -4386,7 +4386,7 @@ export async function createFBPost(pageId: string, prompt: string) {
       } catch (error: any) {
         console.error(
           "Failed to respond to Facebook post:",
-          error.response?.data || error.message
+          error.response?.data || error.message,
         );
         return { status: 400, error: error.response?.data || error.message };
       }
@@ -4464,9 +4464,8 @@ export async function exportProductsToTikTok(productIds: string[]) {
     // Import required utilities
     const { optimizeProductsBatch } = await import("@/lib/aiOptimizer");
     const { mapProductsBatchToTikTok } = await import("@/lib/tiktokMapper");
-    const { generateTikTokExcelBase64, validateTikTokRows } = await import(
-      "@/lib/excelGenerator"
-    );
+    const { generateTikTokExcelBase64, validateTikTokRows } =
+      await import("@/lib/excelGenerator");
 
     // Fetch products from database
     const products = await Product.find({
@@ -4494,7 +4493,7 @@ export async function exportProductsToTikTok(productIds: string[]) {
     // Map to TikTok format
     const tiktokRows = mapProductsBatchToTikTok(
       products as any,
-      optimizedContents
+      optimizedContents,
     );
 
     // Validate rows
@@ -4523,6 +4522,46 @@ export async function exportProductsToTikTok(productIds: string[]) {
     return {
       success: false,
       error: error.message || "Error al exportar productos",
+    };
+  }
+}
+
+export async function deleteOrder(orderId: string) {
+  "use server";
+  try {
+    await dbConnect();
+
+    const session = await getServerSession(options);
+    if (!session?.user || session.user.role !== "manager") {
+      return {
+        success: false,
+        error: "No tienes permisos para eliminar pedidos",
+      };
+    }
+
+    const order = await Order.findById(orderId);
+    if (!order) {
+      return {
+        success: false,
+        error: "Pedido no encontrado",
+      };
+    }
+
+    // Delete the order
+    await Order.findByIdAndDelete(orderId);
+
+    revalidatePath("/admin/pedidos");
+    revalidatePath("/puntodeventa/pedidos");
+
+    return {
+      success: true,
+      message: "Pedido eliminado correctamente",
+    };
+  } catch (error: any) {
+    console.error("Error deleting order:", error);
+    return {
+      success: false,
+      error: error.message || "Error al eliminar el pedido",
     };
   }
 }

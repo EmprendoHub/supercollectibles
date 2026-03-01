@@ -6,6 +6,52 @@ import dbConnect from "@/lib/db";
 import Product from "@/backend/models/Product";
 import { mc } from "@/lib/minio";
 
+import fsSync from "fs";
+
+const IMAGES_ROOT = "/mnt/3TB/CLIENTES/SuperCollectiblesMx";
+
+// Recursively find all directories named "cleaned_images" under root
+function findCleanedImageDirs(root: string): string[] {
+  const results: string[] = [];
+  try {
+    for (const entry of fsSync.readdirSync(root, { withFileTypes: true })) {
+      if (!entry.isDirectory()) continue;
+      const fullPath = path.join(root, entry.name);
+      if (entry.name === "cleaned_images") {
+        results.push(fullPath);
+      } else {
+        results.push(...findCleanedImageDirs(fullPath));
+      }
+    }
+  } catch {
+    // ignore unreadable dirs
+  }
+  // Sort newest-first: deeper 2026 paths before 2025, etc.
+  return results.sort((a, b) => b.localeCompare(a));
+}
+
+// Resolve a relative cleaned_images/... path to the first matching absolute path
+function resolveLocalPath(imgUrl: string): string {
+  if (imgUrl.startsWith("/")) return imgUrl; // already absolute
+  if (imgUrl.startsWith("cleaned_images/")) {
+    const relative = imgUrl.replace(/^cleaned_images\//, "");
+    // Re-scan on every call so newly added collection folders are found without restart
+    const dirs = findCleanedImageDirs(IMAGES_ROOT);
+    for (const base of dirs) {
+      const candidate = path.join(base, relative);
+      try {
+        fsSync.accessSync(candidate);
+        return candidate;
+      } catch {
+        // not in this dir, try next
+      }
+    }
+    // Return first candidate even if not found (let caller handle the 404)
+    return path.join(dirs[0] ?? IMAGES_ROOT, relative);
+  }
+  return path.join(process.cwd(), imgUrl);
+}
+
 // Generate a unique slug from title and ASIN
 function generateSlug(title: string, asin: string): string {
   const baseSlug = title
@@ -24,7 +70,7 @@ function generateSlug(title: string, asin: string): string {
 async function uploadToMinio(
   localPath: string,
   bucket: string,
-  fileName: string
+  fileName: string,
 ): Promise<string> {
   try {
     const etag = await mc.fPutObject(bucket, fileName, localPath);
@@ -77,7 +123,7 @@ export async function POST(req: NextRequest) {
     if (!products || !Array.isArray(products)) {
       return NextResponse.json(
         { error: "Invalid products data" },
-        { status: 400 }
+        { status: 400 },
       );
     }
 
@@ -87,7 +133,7 @@ export async function POST(req: NextRequest) {
     const excludedProducts: any[] = [];
 
     console.log(
-      `🔄 Processing ${products.length} products for database save...`
+      `🔄 Processing ${products.length} products for database save...`,
     );
 
     for (let i = 0; i < products.length; i++) {
@@ -107,7 +153,7 @@ export async function POST(req: NextRequest) {
       } = product;
 
       console.log(
-        `\n📦 Processing product ${i + 1}/${products.length}: "${title}"`
+        `\n📦 Processing product ${i + 1}/${products.length}: "${title}"`,
       );
       console.log(`   Images found: ${images?.length || 0}`);
 
@@ -121,20 +167,8 @@ export async function POST(req: NextRequest) {
         continue;
       }
 
-      // EXCLUSION RULE 2: More than 2 images (too many matches, likely imprecise)
-      if (images.length > 2) {
-        console.log(
-          `❌ Excluding "${title}" - Too many images (${images.length} > 2)`
-        );
-        excludedProducts.push({
-          ...product,
-          exclusionReason: `Too many images (${images.length} found, max 2 allowed)`,
-        });
-        continue;
-      }
-
       console.log(
-        `✅ "${title}" passed image count validation (${images.length} images)`
+        `✅ "${title}" passed image count validation (${images.length} images)`,
       );
 
       const uploadedImages: { url: string; color?: string }[] = [];
@@ -142,21 +176,7 @@ export async function POST(req: NextRequest) {
 
       // Check if all images exist before processing the product
       for (const img of images) {
-        // Handle both relative and absolute paths for cleaned_images
-        let localPath;
-        if (img.url.startsWith("cleaned_images/")) {
-          // This is a relative path from our import, convert to absolute
-          localPath = path.join(
-            "/mnt/3TB/CLIENTES/SuperCollectiblesMx/2025/NEW PSA",
-            img.url
-          );
-        } else if (img.url.startsWith("/")) {
-          // This is already an absolute path
-          localPath = img.url;
-        } else {
-          // This is a relative path from project root
-          localPath = path.join(process.cwd(), img.url);
-        }
+        const localPath = resolveLocalPath(img.url);
 
         console.log(`   Checking image: ${img.url}`);
         console.log(`   Constructed path: ${localPath}`);
@@ -175,7 +195,7 @@ export async function POST(req: NextRequest) {
             const actualFiles = await fs.readdir(dir);
             console.log(
               `   Directory contents (${dir}):`,
-              actualFiles.slice(0, 5)
+              actualFiles.slice(0, 5),
             ); // Show first 5 files
             console.log(`   Looking for: ${expectedFileName}`);
 
@@ -197,7 +217,7 @@ export async function POST(req: NextRequest) {
           }
 
           console.log(
-            `❌ Excluding "${title}" - Missing image file: ${img.url}`
+            `❌ Excluding "${title}" - Missing image file: ${img.url}`,
           );
           excludedProducts.push({
             ...product,
@@ -216,27 +236,13 @@ export async function POST(req: NextRequest) {
       // Upload all images to MinIO (we know all files exist at this point)
       for (const img of images) {
         try {
-          // Handle both relative and absolute paths for cleaned_images
-          let localPath;
-          if (img.url.startsWith("cleaned_images/")) {
-            // This is a relative path from our import, convert to absolute
-            localPath = path.join(
-              "/mnt/3TB/CLIENTES/SuperCollectiblesMx/2025/NEW PSA",
-              img.url
-            );
-          } else if (img.url.startsWith("/")) {
-            // This is already an absolute path
-            localPath = img.url;
-          } else {
-            // This is a relative path from project root
-            localPath = path.join(process.cwd(), img.url);
-          }
+          const localPath = resolveLocalPath(img.url);
 
           const fileName = `${asin}-${path.basename(img.url)}`;
           const minioUrl = (await uploadToMinio(
             localPath,
             "supercollectibles",
-            fileName
+            fileName,
           )) as string;
           uploadedImages.push({ url: minioUrl, color: img.color || "" });
           console.log(`   ✅ Uploaded: ${fileName}`);
@@ -245,7 +251,7 @@ export async function POST(req: NextRequest) {
           excludedProducts.push({
             ...product,
             exclusionReason: `Failed to upload image: ${path.basename(
-              img.url
+              img.url,
             )}`,
           });
           shouldSkipProduct = true;
@@ -299,28 +305,45 @@ export async function POST(req: NextRequest) {
         console.log(`✅ Saved to database: "${title}"`);
       } catch (productError: any) {
         if (productError.code === 11000) {
-          // Duplicate key error - add timestamp to make it unique
-          const uniqueSlug = `${productSlug}-${Date.now()}`;
-          console.log(`   🔄 Duplicate slug detected, using: ${uniqueSlug}`);
+          // Duplicate key error — append ASIN suffix to both title and slug to make unique
+          const uniqueSuffix = asin ? ` ${asin}` : ` ${Date.now()}`;
+          const uniqueTitle = `${title}${uniqueSuffix}`;
+          const uniqueSlug = generateSlug(uniqueTitle, asin) + `-${Date.now()}`;
+          console.log(
+            `   🔄 Duplicate title detected, saving as: "${uniqueTitle}"`,
+          );
 
-          const newProduct = await Product.create({
-            ASIN: asin,
-            title,
-            slug: uniqueSlug,
-            description,
-            price,
-            stock,
-            category,
-            linea,
-            gender,
-            brand,
-            images: uploadedImages,
-            variations: productVariations,
-            user: token.user._id,
-          });
+          try {
+            const newProduct = await Product.create({
+              ASIN: asin,
+              title: uniqueTitle,
+              slug: uniqueSlug,
+              description,
+              price,
+              stock,
+              category,
+              linea,
+              gender,
+              brand,
+              images: uploadedImages,
+              variations: productVariations,
+              user: token.user._id,
+            });
 
-          savedProducts.push(newProduct);
-          console.log(`✅ Saved to database with unique slug: "${title}"`);
+            savedProducts.push(newProduct);
+            console.log(
+              `✅ Saved to database with unique title: "${uniqueTitle}"`,
+            );
+          } catch (retryError: any) {
+            console.error(
+              `❌ Database error on retry for "${title}":`,
+              retryError,
+            );
+            excludedProducts.push({
+              ...product,
+              exclusionReason: `Database error: ${retryError.message}`,
+            });
+          }
         } else {
           console.error(`❌ Database error for "${title}":`, productError);
           excludedProducts.push({
@@ -340,7 +363,7 @@ export async function POST(req: NextRequest) {
     if (excludedProducts.length > 0) {
       csvData = generateExcludedProductsCSV(excludedProducts);
       console.log(
-        `📄 Generated CSV for ${excludedProducts.length} excluded products`
+        `📄 Generated CSV for ${excludedProducts.length} excluded products`,
       );
 
       // Log exclusion reasons summary
@@ -364,7 +387,7 @@ export async function POST(req: NextRequest) {
     console.error("Error saving products:", error);
     return NextResponse.json(
       { error: "Error saving products" },
-      { status: 500 }
+      { status: 500 },
     );
   }
 }
