@@ -25,7 +25,9 @@ export const GET = async (request: any) => {
 
     const trendingProducts = await Product.find({
       category: product.category,
-    }).limit(4);
+    })
+      .sort({ createdAt: -1 })
+      .limit(4);
     const response = NextResponse.json({
       message: "One Product fetched successfully",
       success: true,
@@ -38,7 +40,7 @@ export const GET = async (request: any) => {
       {
         error: "Product loading error",
       },
-      { status: 500 }
+      { status: 500 },
     );
   }
 };

@@ -2521,7 +2521,9 @@ export async function getOneProductWithTrending(slug: string, id: string) {
     let trendingProducts: any = await Product.find({
       category: product.category,
       _id: { $ne: product._id },
-    }).limit(4);
+    })
+      .sort({ createdAt: -1 })
+      .limit(4);
     // convert to string
     product = JSON.stringify(product);
     trendingProducts = JSON.stringify(trendingProducts);
@@ -2537,10 +2539,14 @@ export async function getHomeProductsData() {
   try {
     await dbConnect();
     // Extract tag values from post.tags array
-    let trendingProducts: any = await Product.find({}).limit(100);
+    let trendingProducts: any = await Product.find({})
+      .sort({ createdAt: -1 })
+      .limit(100);
     let editorsProducts: any = await Product.find({
       "availability.online": true,
-    }).limit(20);
+    })
+      .sort({ createdAt: -1 })
+      .limit(20);
 
     trendingProducts = JSON.stringify(trendingProducts);
     editorsProducts = JSON.stringify(editorsProducts);

@@ -15,18 +15,21 @@ async function getStoreData() {
   const products = await Product.find({
     "availability.online": true,
   })
-    .select("_id title slug price images category brand gender variations")
+    .sort({ createdAt: -1 })
+    .select(
+      "_id title slug price images category brand gender variations createdAt",
+    )
     .lean();
 
   // Get unique values for filters
   const allCategories = Array.from(
-    new Set(products.map((p) => p.category).filter(Boolean))
+    new Set(products.map((p) => p.category).filter(Boolean)),
   );
   const allBrands = Array.from(
-    new Set(products.map((p) => p.brand).filter(Boolean))
+    new Set(products.map((p) => p.brand).filter(Boolean)),
   );
   const allGenders = Array.from(
-    new Set(products.map((p) => p.gender).filter(Boolean))
+    new Set(products.map((p) => p.gender).filter(Boolean)),
   );
 
   // Get price range
@@ -52,7 +55,7 @@ async function getStoreData() {
 
   const prices: number[] = productsTyped.flatMap(
     (p) =>
-      p.variations?.map((v) => v.price).filter((price) => price != null) || []
+      p.variations?.map((v) => v.price).filter((price) => price != null) || [],
   );
   const minPrice = Math.min(...prices) || 0;
   const maxPrice = Math.max(...prices) || 1000;

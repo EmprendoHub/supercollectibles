@@ -56,9 +56,9 @@ const ProductCard = ({ item, index }: { item: any; index: number }) => {
 
   return (
     <motion.div
-      initial={{ y: 2, opacity: 0.5 }}
-      whileInView={{ y: 0, opacity: 1 }}
-      transition={{ duration: `${index / 2}` }}
+      initial={{ y: 2 }}
+      whileInView={{ y: 0 }}
+      transition={{ duration: 1 }}
       className=" max-w-content relative  overflow-hidden"
     >
       <Link href={`/producto/${item.slug}`}>
