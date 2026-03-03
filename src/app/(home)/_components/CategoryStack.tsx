@@ -71,7 +71,7 @@ const CategoryStack = () => {
             whileTap={{ scale: 0.98 }}
             className="relative w-full h-30"
           >
-            <Link href={"/tienda?gender=ONE+PIECE"}>
+            <Link href={"/tienda?gender=One+Piece"}>
               <Image
                 alt="Super Collectibles Mx"
                 src="/covers/Group3.webp"
@@ -97,7 +97,7 @@ const CategoryStack = () => {
             whileTap={{ scale: 0.98 }}
             className="relative w-full h-30"
           >
-            <Link href={"/tienda?gender=DRAGON+BALL"}>
+            <Link href={"/tienda?gender=Dragon+Ball"}>
               <Image
                 alt="Super Collectibles Mx"
                 src="/covers/Group4.webp"
@@ -145,7 +145,7 @@ const CategoryStack = () => {
             whileTap={{ scale: 0.98 }}
             className="relative w-full h-30"
           >
-            <Link href={"/tienda?category=Magic"}>
+            <Link href={"/tienda?gender=Magic"}>
               <Image
                 alt="Super Collectibles Mx"
                 src="/covers/Group6.webp"
