@@ -25,7 +25,7 @@ const CategoryStack = () => {
           whileTap={{ scale: 0.98 }}
           className="relative w-full h-auto "
         >
-          <Link href={"/tienda?category=Tarjetas&gender=POKEMON"}>
+          <Link href={"/tienda?gender=Pokemon"}>
             <Image
               alt="Super Collectibles Mx"
               src="/covers/PokemonCategoryTemplate.webp"

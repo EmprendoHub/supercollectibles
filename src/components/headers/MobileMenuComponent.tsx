@@ -122,7 +122,7 @@ const MobileMenuComponent = () => {
                     className="relative w-[320px] h-auto "
                   >
                     <Link
-                      href={"/tienda?category=Tarjetas&gender=POKEMON"}
+                      href={"/tienda?gender=Pokemon"}
                       onClick={toggleMobileMenu}
                     >
                       <Image
