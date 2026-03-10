@@ -194,20 +194,14 @@ export function findShippingRate(
 
   // Si el peso supera el máximo, requiere cotización especial
   if (totalWeight > largestRate.maxWeight) {
-    console.log(
-      `❌ Peso (${totalWeight} kg) supera el máximo (${largestRate.maxWeight} kg) → cotización especial`,
-    );
     return null;
   }
 
   // Primero intentar con peso Y dimensiones (caja estándar)
   for (const rate of SHIPPING_RATES) {
     const fits = fitsInDimensions(dimensions, rate.maxDimensions);
-    console.log(
-      `  📦 Rate "${rate.label}" → weightOK: ${totalWeight <= rate.maxWeight}, fitsInBox: ${fits}`,
-    );
+
     if (totalWeight <= rate.maxWeight && fits) {
-      console.log(`  ✅ Matched rate: ${rate.label} → $${rate.price}`);
       return rate;
     }
   }
@@ -215,9 +209,7 @@ export function findShippingRate(
   // Las dimensiones del producto exceden todas las cajas estándar (ej. 83×14×105 cm).
   // Se usa la tarifa más cara (embalaje especial/sobredimensionado),
   // independientemente del peso.
-  console.log(
-    `  ⚠️ No standard box fits → using largest rate: ${largestRate.label} → $${largestRate.price}`,
-  );
+
   return largestRate;
 }
 
@@ -228,17 +220,11 @@ export function calculateShippingQuotes(items: CartItem[]): ShippingQuote[] {
   let basePrice = 0;
   const perBoxLabels: string[] = [];
 
-  console.log(`🛒 calculateShippingQuotes → ${items.length} item type(s)`);
-
   for (const item of items) {
     const unitWeight = item.weight || 0.5;
     const unitDimensions = getItemDimensionsWithMargin(item);
     console.log(
       `  📦 Item: "${item.title || item.name || "Producto"}" | qty: ${item.quantity} | raw weight: ${item.weight} | raw dims: L${item.dimensions?.length ?? item.length} W${item.dimensions?.width ?? item.width} H${item.dimensions?.height ?? item.height}`,
-    );
-    console.log(
-      `     → unitWeight: ${unitWeight} | dimsWithMargin:`,
-      unitDimensions,
     );
 
     for (let i = 0; i < item.quantity; i++) {
@@ -296,10 +282,7 @@ export function calculateShippingQuotes(items: CartItem[]): ShippingQuote[] {
   const expressPrice = Math.round(basePrice * 1.5);
   const sameDayPrice = Math.round(basePrice * 2);
   const boxCount = perBoxLabels.length;
-  const weightCategory =
-    boxCount > 1
-      ? `${boxCount} cajas (${perBoxLabels.join(", ")})`
-      : perBoxLabels[0] || "1 caja";
+  const weightCategory = boxCount > 1 ? `${boxCount} cajas` : "1 caja";
 
   const quotes: ShippingQuote[] = [
     {

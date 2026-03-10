@@ -1,10 +1,10 @@
 "use client";
 import Image from "next/image";
 import FormattedPrice from "@/backend/helpers/FormattedPrice";
-import { motion } from "framer-motion";
+import { motion, AnimatePresence } from "framer-motion";
 import Link from "next/link";
 import { useDispatch, useSelector } from "react-redux";
-import { IoMdCart } from "react-icons/io";
+import { IoMdCart, IoMdCheckmark } from "react-icons/io";
 import { calculatePercentage } from "@/backend/helpers";
 import { toast } from "sonner";
 import { useEffect, useState } from "react";
@@ -14,6 +14,7 @@ const ProductCard = ({ item, index }: { item: any; index: number }) => {
   const dispatch = useDispatch();
   const { productsData } = useSelector((state: any) => state?.compras);
   const [alreadyCart, setAlreadyCart] = useState(false);
+  const [added, setAdded] = useState(false);
   const [variation, setVariation]: any = useState({
     _id: item?.variations[0]._id || "",
     size: item?.variations[0].size || "",
@@ -38,6 +39,8 @@ const ProductCard = ({ item, index }: { item: any; index: number }) => {
     v.height = item.dimensions?.height || 10;
     dispatch(addToCart(v));
     toast(`${item?.title.substring(0, 15)}... se agrego al carrito`);
+    setAdded(true);
+    setTimeout(() => setAdded(false), 1600);
   };
 
   useEffect(() => {
@@ -63,7 +66,7 @@ const ProductCard = ({ item, index }: { item: any; index: number }) => {
       className=" max-w-content relative  overflow-hidden"
     >
       <Link href={`/producto/${item.slug}`}>
-        <div className="h-[250px] w-full  group  relative">
+        <div className="h-[250px] w-full  group  relative overflow-hidden">
           <Image
             src={item?.images[0].url}
             alt="item image"
@@ -71,6 +74,24 @@ const ProductCard = ({ item, index }: { item: any; index: number }) => {
             width={450}
             height={450}
           />
+
+          {/* Hover overlay — slides up with product details */}
+          <div className="absolute inset-0 bg-gradient-to-t from-black/90 via-black/40 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex flex-col justify-end p-3 pointer-events-none">
+            <p className="text-white font-EB_Garamond font-bold text-sm uppercase leading-tight translate-y-4 group-hover:translate-y-0 transition-transform duration-300">
+              {item?.title}
+            </p>
+            {item?.brand && (
+              <p className="text-gray-300 text-[11px] translate-y-4 group-hover:translate-y-0 transition-transform duration-300 delay-75">
+                {item?.brand}
+              </p>
+            )}
+            {item?.category && (
+              <p className="text-primary text-[11px] translate-y-4 group-hover:translate-y-0 transition-transform duration-300 delay-100 mt-0.5">
+                {item?.category}
+              </p>
+            )}
+          </div>
+
           <div className="absolute top-2 right-2  maxsm:right-2 ">
             {/* add to favorites button */}
             {/* <motion.button
@@ -151,7 +172,7 @@ const ProductCard = ({ item, index }: { item: any; index: number }) => {
           initial={{ y: 50, opacity: 0 }}
           whileInView={{ y: 0, opacity: 1 }}
           transition={{ duration: 0.8 }}
-          className="flex items-center justify-center group mt-3"
+          className="flex items-center justify-center group mt-3 "
         >
           {alreadyCart ? (
             <Link href="/carrito">
@@ -162,26 +183,53 @@ const ProductCard = ({ item, index }: { item: any; index: number }) => {
           ) : (
             <motion.button
               disabled={variation?.stock <= 0}
-              whileHover={{ scale: 1.07 }}
+              whileHover={{ scale: added ? 1 : 1.07 }}
               whileTap={{ scale: 0.9 }}
+              animate={added ? { scale: [1, 1.15, 1] } : {}}
+              transition={added ? { duration: 0.3 } : {}}
               className={`${
-                variation?.stock <= 0
-                  ? "bg-slate-300 grayscale-0 text-foreground border-slate-300"
-                  : "text-white border-black"
-              } border  drop-shadow-md flex flex-row items-center justify-between px-6 py-2  gap-x-4 text-xs bg-primary   ease-in-out  duration-300 w-auto uppercase tracking-wider cursor-pointer `}
+                added
+                  ? "bg-green-700 border-green-700 text-white"
+                  : variation?.stock <= 0
+                    ? "bg-slate-300 grayscale-0 text-foreground border-slate-300"
+                    : "text-white border-black bg-primary"
+              } border drop-shadow-md flex flex-row items-center justify-center px-6 py-4 gap-x-2 text-xs ease-in-out duration-300 w-full uppercase tracking-wider cursor-pointer transition-colors`}
               onClick={handleClick}
             >
-              {variation?.stock <= 0 ? "Out of Stock" : "Agregar a carrito"}
-
-              <span
-                className={`text-white ${
-                  variation?.stock <= 0
-                    ? "bg-slate-300 grayscale-0 text-foreground"
-                    : "group-hover:bg-black group-hover:text-white duration-200 "
-                } text-xl text-foreground w-12 flex items-center justify-center  rounded-full py-2`}
-              >
-                <IoMdCart size={18} />
-              </span>
+              <AnimatePresence mode="wait">
+                {added ? (
+                  <motion.span
+                    key="added"
+                    initial={{ scale: 0, rotate: -180 }}
+                    animate={{ scale: 1, rotate: 0 }}
+                    exit={{ scale: 0, opacity: 0 }}
+                    transition={{ type: "spring", stiffness: 300, damping: 18 }}
+                    className="flex items-center gap-x-2 "
+                  >
+                    <IoMdCheckmark size={16} />
+                    ¡Agregado!
+                  </motion.span>
+                ) : (
+                  <motion.span
+                    key="cart"
+                    initial={{ opacity: 0 }}
+                    animate={{ opacity: 1 }}
+                    exit={{ opacity: 0 }}
+                    className="flex items-center gap-x-2"
+                  >
+                    {variation?.stock <= 0
+                      ? "Out of Stock"
+                      : "Agregar a carrito"}
+                    <span
+                      className={`${
+                        variation?.stock <= 0 ? "text-foreground" : "text-white"
+                      } text-lg`}
+                    >
+                      <IoMdCart size={16} />
+                    </span>
+                  </motion.span>
+                )}
+              </AnimatePresence>
             </motion.button>
           )}
         </motion.div>
