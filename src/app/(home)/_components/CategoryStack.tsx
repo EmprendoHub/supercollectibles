@@ -52,7 +52,7 @@ const CategoryStack = () => {
             <Link href={"/tienda?gender=Yu-Gi-Oh"}>
               <Image
                 alt="Super Collectibles Mx"
-                src="/covers/Anime_Category.webp"
+                src="/covers/yugi_Category.webp"
                 width={1920}
                 height={400}
                 className="object-cover rounded-[5px]"
