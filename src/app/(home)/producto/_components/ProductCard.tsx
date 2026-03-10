@@ -25,17 +25,18 @@ const ProductCard = ({ item, index }: { item: any; index: number }) => {
   });
 
   const handleClick = () => {
-    variation.item = item._id;
-    variation.variation = variation._id;
-    variation.title = item.title;
-    variation.image = [{ url: variation.image }];
-    variation.quantity = 1;
-    variation.brand = item.brand;
-    variation.weight = item.weight || 0.5;
-    variation.length = item.dimensions?.length || 15;
-    variation.width = item.dimensions?.width || 15;
-    variation.height = item.dimensions?.height || 10;
-    dispatch(addToCart(variation));
+    const v = { ...variation };
+    v.item = item._id;
+    v.variation = v._id;
+    v.title = item.title;
+    v.image = [{ url: variation.image }];
+    v.quantity = 1;
+    v.brand = item.brand;
+    v.weight = item.weight || 0.5;
+    v.length = item.dimensions?.length || 15;
+    v.width = item.dimensions?.width || 15;
+    v.height = item.dimensions?.height || 10;
+    dispatch(addToCart(v));
     toast(`${item?.title.substring(0, 15)}... se agrego al carrito`);
   };
 

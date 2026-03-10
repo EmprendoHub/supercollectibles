@@ -78,17 +78,18 @@ const ProductDetailsComponent = ({
   };
 
   const handleClick = () => {
-    variation.product = product._id;
-    variation.variation = variation._id;
-    variation.title = product.title;
-    variation.image = [{ url: variation.image }];
-    variation.quantity = 1;
-    variation.brand = product.brand;
-    variation.weight = product.weight || 0.5;
-    variation.length = product.dimensions?.length || 15;
-    variation.width = product.dimensions?.width || 15;
-    variation.height = product.dimensions?.height || 10;
-    dispatch(addToCart(variation));
+    const v = { ...variation };
+    v.product = product._id;
+    v.variation = v._id;
+    v.title = product.title;
+    v.image = [{ url: variation.image }];
+    v.quantity = 1;
+    v.brand = product.brand;
+    v.weight = product.weight || 0.5;
+    v.length = product.dimensions?.length || 15;
+    v.width = product.dimensions?.width || 15;
+    v.height = product.dimensions?.height || 10;
+    dispatch(addToCart(v));
     toast(`${product?.title.substring(0, 15)}... se agrego al carrito`);
     router.push("/carrito");
   };

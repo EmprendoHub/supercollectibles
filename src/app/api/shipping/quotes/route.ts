@@ -78,29 +78,14 @@ export async function POST(request: NextRequest) {
   } catch (error: any) {
     console.error("❌ Error calculando cotizaciones de envío:", error);
 
-    // Fallback con opciones de envío estáticas si hay algún error
-    const fallbackQuotes = [
+    return NextResponse.json(
       {
-        id: "standard",
-        carrier: "Envío ",
-        service: "standard",
-        serviceName: "Envío ",
-        price: 199,
-        currency: "MXN",
-        estimatedDays: 2,
-        guaranteed: false,
-        description: "Envío  - Entrega en 2-3 días hábiles",
-        displayPrice: "$199.00 MXN",
-        weightCategory: "1 kg - 25 × 20 × 10 cm",
+        success: false,
+        message: "Error calculando cotizaciones de envío",
+        error: error.message,
+        stack: error.stack,
       },
-    ];
-
-    return NextResponse.json({
-      success: true,
-      quotes: fallbackQuotes,
-      count: fallbackQuotes.length,
-      fallback: true,
-      error: error.message,
-    });
+      { status: 500 },
+    );
   }
 }

@@ -2549,6 +2549,8 @@ const getCachedEditorsProducts = unstable_cache(
         brand: 1,
         gender: 1,
         createdAt: 1,
+        weight: 1,
+        dimensions: 1,
         images: { $slice: 1 },
         variations: { $slice: 1 },
       },
