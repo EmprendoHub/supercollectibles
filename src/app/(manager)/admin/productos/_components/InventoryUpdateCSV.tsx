@@ -388,7 +388,9 @@ const InventoryUpdateCSV = () => {
                   <th className="px-3 py-2">Método</th>
                   <th className="px-3 py-2 text-center">Stock actual</th>
                   <th className="px-3 py-2 text-center">Stock nuevo</th>
-                  {!isApplied && <th className="px-3 py-2 text-center">Quitar</th>}
+                  {!isApplied && (
+                    <th className="px-3 py-2 text-center">Quitar</th>
+                  )}
                 </tr>
               </thead>
               <tbody className="divide-y">
