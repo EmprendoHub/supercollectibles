@@ -64,6 +64,7 @@ const EditVariationProduct = ({
   const [description, setDescription] = useState(product?.description);
   const [category, setCategory] = useState(product?.category);
   const [gender, setGender] = useState(product?.gender);
+  const [asin, setAsin] = useState(product?.ASIN || "");
   const [featured, setFeatured] = useState(product?.featured);
   const [onlineAvailability, setOnlineAvailability] = useState(
     product?.availability?.online,
@@ -317,7 +318,7 @@ const EditVariationProduct = ({
 
     const blobData = await fetch(compressedImageData).then((res) => res.blob());
     // Upload the compressed image
-    uploadFile(blobData, url, section);
+    await uploadFile(blobData, url, section);
   }
 
   // to upload this file to S3 at `https://minio.salvawebpro.com:9000` using the URL:
@@ -326,7 +327,7 @@ const EditVariationProduct = ({
     url: any | URL | Request,
     section: string,
   ) {
-    fetch(url, {
+    return fetch(url, {
       headers: {
         "Access-Control-Allow-Origin": "*",
       },
@@ -337,18 +338,6 @@ const EditVariationProduct = ({
         const newUrl = url.split("?");
         if (section === "selectorMain") {
           setMainImage(newUrl[0]);
-          if (variations && variations.length > 0) {
-            setVariations([
-              {
-                color: variations[0]?.color || "",
-                colorHex: variations[0]?.colorHex || "",
-                colorHexTwo: variations[0]?.colorHexTwo || "",
-                colorHexThree: variations[0]?.colorHexThree || "",
-                price: variations[0]?.price || 0,
-                stock: variations[0]?.stock || 1,
-              },
-            ]);
-          }
         }
       })
       .catch((e) => {
@@ -389,37 +378,31 @@ const EditVariationProduct = ({
     url: string,
     index: number,
   ) {
-    // Create an HTML Image element
-    const img = document.createElement("img");
-
-    // Load the file into the Image element
-    img.src = URL.createObjectURL(file);
-
-    // Wait for the image to load
-    img.onload = async () => {
-      // Create a canvas element
-      const canvas = document.createElement("canvas");
-      const ctx: any = canvas.getContext("2d");
-
-      // Set the canvas dimensions to the image dimensions
-      canvas.width = img.width;
-      canvas.height = img.height;
-
-      // Draw the image onto the canvas
-      ctx.drawImage(img, 0, 0);
-
-      // Compress and set quality (adjust quality value as needed)
-      const quality = 0.9; // Adjust quality value as needed
-      const compressedImageData = canvas.toDataURL("image/webp", quality);
-
-      // Convert base64 data URL to Blob
-      const blobData = await fetch(compressedImageData).then((res) =>
-        res.blob(),
-      );
-
-      // Upload the compressed image
-      uploadSecondaryFiles(blobData, url, index);
+    const loadImage = (imageUrl: string): Promise<HTMLImageElement> => {
+      return new Promise((resolve, reject) => {
+        const img = document.createElement("img");
+        img.onload = () => resolve(img);
+        img.onerror = reject;
+        img.src = imageUrl;
+      });
     };
+
+    const imageUrl = URL.createObjectURL(file);
+    const img = await loadImage(imageUrl);
+
+    const canvas = document.createElement("canvas");
+    const ctx = canvas.getContext("2d");
+    if (!ctx) throw new Error("Failed to get canvas context");
+
+    canvas.width = img.width;
+    canvas.height = img.height;
+    ctx.drawImage(img, 0, 0);
+
+    const quality = 0.9;
+    const compressedImageData = canvas.toDataURL("image/webp", quality);
+    const blobData = await fetch(compressedImageData).then((res) => res.blob());
+
+    await uploadSecondaryFiles(blobData, url, index);
   }
 
   async function uploadSecondaryFiles(
@@ -427,17 +410,19 @@ const EditVariationProduct = ({
     url: any | URL | Request,
     index: number,
   ) {
-    fetch(url, {
+    return fetch(url, {
       method: "PUT",
       body: blobData,
     })
       .then(() => {
         const newUrl = url?.split("?");
-        const newSecondaryImages = [...secondaryImages];
-        if (newSecondaryImages[index]) {
-          newSecondaryImages[index].url = newUrl[0];
-          setSecondaryImages(newSecondaryImages);
-        }
+        setSecondaryImages((prev: any[]) => {
+          const updated = [...prev];
+          if (updated[index]) {
+            updated[index] = { ...updated[index], url: newUrl[0] };
+          }
+          return updated;
+        });
       })
       .catch((e) => {
         console.error(e);
@@ -532,6 +517,7 @@ const EditVariationProduct = ({
       formData.append("variations", JSON.stringify(variations));
       formData.append("weight", weight.toString());
       formData.append("dimensions", JSON.stringify(dimensions));
+      formData.append("asin", asin || "");
       formData.append("updatedAt", updatedAt);
       formData.append("_id", product._id);
 
@@ -1028,6 +1014,21 @@ const EditVariationProduct = ({
                         {validationError.category._errors.join(", ")}
                       </p>
                     )}
+                  </div>
+
+                  {/* ASIN */}
+                  <div className="mb-1 w-full">
+                    <label className="block mb-1 font-EB_Garamond text-xs">
+                      ASIN
+                    </label>
+                    <input
+                      type="text"
+                      className="appearance-none border bg-card text-card-foreground rounded-xl py-2 px-3 border-gray-300 focus:outline-none focus:border-gray-400 w-full uppercase"
+                      placeholder="Ej. B08N5WRWNW"
+                      value={asin}
+                      onChange={(e) => setAsin(e.target.value.toUpperCase())}
+                      name="asin"
+                    />
                   </div>
                 </div>
               </div>

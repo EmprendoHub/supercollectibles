@@ -174,6 +174,7 @@ export async function PUT(request: any, res: any) {
       _id,
       weight,
       dimensions,
+      asin,
     } = Object.fromEntries(payload);
 
     let slug = generateUrlSafeTitle(title);
@@ -270,6 +271,7 @@ export async function PUT(request: any, res: any) {
         stock,
         weight: productWeight,
         dimensions: productDimensions,
+        ASIN: asin || "",
         updatedAt,
         user,
       },

@@ -438,6 +438,9 @@ const AdminProducts = ({
                 Linea
               </th>
               <th scope="col" className="w-full px-2 maxsm:px-0 py-3 ">
+                ASIN
+              </th>
+              <th scope="col" className="w-full px-2 maxsm:px-0 py-3 ">
                 Precio
               </th>
               <th scope="col" className="w-full px-1 py-3 ">
@@ -514,6 +517,9 @@ const AdminProducts = ({
                 </td>
                 <td className="w-full px-1 py-0 ">{product?.gender}</td>
                 <td className="w-full px-1 py-0 ">{product?.linea}</td>
+                <td className="w-full px-1 py-0 text-[11px] uppercase">
+                  {product?.ASIN || "—"}
+                </td>
                 <td className="w-full px-6 maxsm:px-0 py-0 ">
                   <b>
                     <FormattedPrice amount={product?.variations[0]?.price} />

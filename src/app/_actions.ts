@@ -2167,9 +2167,9 @@ export async function getOneOrder(id: any) {
     await dbConnect();
 
     let order = await Order.findOne({ _id: id });
-    let deliveryAddress = await Address.findOne(order.shippingInfo);
+    let deliveryAddress = await Address.findOne({ user: order.user });
     let orderPayments: any = await Payment.find({ order: order._id });
-    let customer = await Customer.findOne({ email: order.email });
+    let customer = await Customer.findOne({ user: order.user });
 
     // convert to string
     order = JSON.stringify(order);

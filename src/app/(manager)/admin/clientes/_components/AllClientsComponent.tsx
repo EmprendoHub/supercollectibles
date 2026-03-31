@@ -57,7 +57,7 @@ const AllClientsComponent = ({
   useEffect(() => {
     // Set selectAll based on whether all displayed products are selected
     const areAllSelected = selectedClients.every(
-      (client: any) => client.isSelected
+      (client: any) => client.isSelected,
     );
     setSelectAll(areAllSelected);
   }, [selectedClients]); // Runs whenever selectedProducts changes
@@ -133,7 +133,7 @@ const AllClientsComponent = ({
           ...client,
           isSelected: !selectAll,
         };
-      })
+      }),
     );
   };
 
@@ -211,7 +211,7 @@ const AllClientsComponent = ({
                   </td>
                   <td className="px-6 maxsm:px-2 py-2 maxmd:hidden">
                     <Link key={index} href={`/admin/cliente/${client._id}`}>
-                      {client.name.substring(0, 15)}...
+                      {client.name}
                     </Link>
                   </td>
                   <td className="px-6 maxsm:px-0 py-2">
@@ -253,7 +253,7 @@ const AllClientsComponent = ({
                     </div>
                   </td>
                 </tr>
-              )
+              ),
             )}
           </tbody>
         </table>

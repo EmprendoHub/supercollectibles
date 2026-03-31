@@ -1,6 +1,7 @@
 import GoogleProvider from "next-auth/providers/google";
 import CredentialsProvider from "next-auth/providers/credentials";
 import User from "@/backend/models/User";
+import Customer from "@/backend/models/Customer";
 import bcrypt from "bcrypt";
 import { signJwtToken } from "@/lib/jwt";
 import dbConnect from "@/lib/db";
@@ -50,7 +51,7 @@ export const options = {
               headers: {
                 "Content-Type": "application/x-www-form-urlencoded",
               },
-            }
+            },
           );
         } catch (error) {
           console.log("recaptcha error:", error);
@@ -123,6 +124,20 @@ export const options = {
             });
 
             await newUser.save();
+
+            // Also create a matching Customer record
+            const existingCustomer = await Customer.findOne({
+              email: user.email,
+            });
+            if (!existingCustomer) {
+              const newCustomer = new Customer({
+                name: user.name,
+                email: user.email,
+                user: newUser._id,
+              });
+              await newCustomer.save();
+            }
+
             return true;
           }
           return true;
@@ -170,7 +185,7 @@ export const options = {
           token._id = user._id;
           token.user = user;
           const updatedUser = await User.findById(token._id).select(
-            "+password"
+            "+password",
           );
           token.user = updatedUser;
         }

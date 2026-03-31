@@ -56,7 +56,7 @@ export async function sendInitialRegistrationEmail({
         day: "numeric",
         hour: "2-digit",
         minute: "2-digit",
-      }
+      },
     );
 
     const confirmationUrl = `${process.env.NEXTAUTH_URL}/api/cacha/confirm?code=${codigoConfirmacion}`;
@@ -363,7 +363,7 @@ export async function sendCachaConfirmationEmail({
         day: "numeric",
         hour: "2-digit",
         minute: "2-digit",
-      }
+      },
     );
 
     const subject = "🎉 ¡Registro Confirmado! - Meet & Greet con Cacha";
@@ -702,7 +702,7 @@ export async function sendAdminNotificationEmail({
         day: "numeric",
         hour: "2-digit",
         minute: "2-digit",
-      }
+      },
     );
 
     const subject = "🎉 Nuevo registro para Meet & Greet con Cacha";
@@ -895,7 +895,7 @@ export async function sendCachaCancellationEmail({
         day: "numeric",
         hour: "2-digit",
         minute: "2-digit",
-      }
+      },
     );
 
     const subject = "😔 Cancelación de registro - Meet & Greet con Cacha";
@@ -1156,4 +1156,290 @@ export async function sendCachaCancellationEmail({
       error,
     };
   }
+}
+
+// ─── Order confirmation emails (admin + customer) ────────────────────────────
+
+export async function sendOrderConfirmationEmails(
+  order: any,
+  paymentDetails: { method: string; reference: string },
+  options: { adminOnly?: boolean } = {},
+) {
+  const transporter = nodemailer.createTransport({
+    service: "gmail",
+    auth: {
+      user: process.env.GOOGLE_MAIL,
+      pass: process.env.GOOGLE_MAIL_PASS,
+    },
+  });
+
+  // Lazy-load Address model to avoid circular imports in edge cases
+  const Address = (await import("@/backend/models/Address")).default;
+
+  // Fetch saved delivery address as fallback (same as AdminOneOrder / getOneOrder)
+  let deliveryAddress: any = null;
+  try {
+    if (order.user) {
+      deliveryAddress = await Address.findOne({ user: order.user });
+    }
+  } catch (e) {
+    console.error("Error fetching delivery address fallback:", e);
+  }
+
+  // Format order items HTML
+  const orderItemsHTML = order.orderItems
+    .map(
+      (item: any) => `
+    <tr>
+      <td style="padding: 8px; border-bottom: 1px solid #ddd;">${item.name}</td>
+      <td style="padding: 8px; border-bottom: 1px solid #ddd;">${item.color || "-"} / ${item.size || "-"}</td>
+      <td style="padding: 8px; border-bottom: 1px solid #ddd; text-align: center;">${item.quantity}</td>
+      <td style="padding: 8px; border-bottom: 1px solid #ddd; text-align: right;">$${item.price.toFixed(2)} MXN</td>
+      <td style="padding: 8px; border-bottom: 1px solid #ddd; text-align: right;">$${(item.price * item.quantity).toFixed(2)} MXN</td>
+    </tr>`,
+    )
+    .join("");
+
+  const totalOrderAmount = order.orderItems.reduce(
+    (acc: number, item: any) => acc + item.quantity * item.price,
+    0,
+  );
+  const shippingCost = order.ship_cost || 0;
+  const totalWithShipping = totalOrderAmount + shippingCost;
+
+  // Parse shippingInfo
+  let shippingInfo = order.shippingInfo;
+  if (typeof shippingInfo === "string") {
+    try {
+      shippingInfo = JSON.parse(shippingInfo);
+    } catch (e) {
+      shippingInfo = {};
+    }
+  }
+
+  // Address fields — shippingInfo first, fallback to deliveryAddress
+  const street = shippingInfo?.street || deliveryAddress?.street || "";
+  const city = shippingInfo?.city || deliveryAddress?.city || "";
+  const province =
+    shippingInfo?.province ||
+    shippingInfo?.state ||
+    deliveryAddress?.province ||
+    "";
+  const zipCode =
+    shippingInfo?.zip_code ||
+    shippingInfo?.zipCode ||
+    deliveryAddress?.zip_code ||
+    "";
+  const country = shippingInfo?.country || deliveryAddress?.country || "México";
+  const phone =
+    shippingInfo?.phone || deliveryAddress?.phone || order.phone || "";
+  const carrier =
+    shippingInfo?.carrier || shippingInfo?.shippingMethod?.carrier || "";
+  const service =
+    shippingInfo?.service ||
+    shippingInfo?.shippingMethod?.service ||
+    shippingInfo?.shippingMethod?.serviceName ||
+    "";
+  const estimatedDays =
+    shippingInfo?.estimatedDays ||
+    shippingInfo?.shippingMethod?.estimatedDays ||
+    0;
+  const trackingNumber = order.trackingNumber || "Pendiente";
+  const labelUrl = order.labelUrl || "";
+
+  const tableStyle = `width: 100%; border-collapse: collapse; margin: 15px 0;`;
+  const thStyle = `background-color: #4CAF50; color: white; padding: 10px; text-align: left;`;
+
+  const totalsRowsHTML = `
+    <tr style="font-weight: bold; background-color: #f0f0f0;">
+      <td colspan="4" style="padding: 8px; text-align: right;">Subtotal:</td>
+      <td style="padding: 8px; text-align: right;">$${totalOrderAmount.toFixed(2)} MXN</td>
+    </tr>
+    <tr style="font-weight: bold; background-color: #f0f0f0;">
+      <td colspan="4" style="padding: 8px; text-align: right;">Envío:</td>
+      <td style="padding: 8px; text-align: right;">$${shippingCost.toFixed(2)} MXN</td>
+    </tr>
+    <tr style="font-weight: bold; background-color: #4CAF50; color: white;">
+      <td colspan="4" style="padding: 8px; text-align: right;">Total Pagado:</td>
+      <td style="padding: 8px; text-align: right;">$${totalWithShipping.toFixed(2)} MXN</td>
+    </tr>`;
+
+  const addressBlockHTML = `
+    <div style="background-color: white; padding: 15px; margin: 10px 0; border-radius: 5px;">
+      <h3>Dirección de Envío:</h3>
+      <p>${street}</p>
+      <p>${city}, ${province} ${zipCode}</p>
+      <p>${country}</p>
+      ${phone ? `<p><strong>Teléfono:</strong> ${phone}</p>` : ""}
+      <p><strong>Método de envío:</strong> ${carrier} - ${service}</p>
+      ${trackingNumber !== "Pendiente" ? `<p><strong>Número de rastreo:</strong> ${trackingNumber}</p>` : ""}
+      ${labelUrl ? `<p><strong>Etiqueta de envío:</strong> <a href="${labelUrl}" target="_blank">Descargar</a></p>` : ""}
+    </div>`;
+
+  // ── Admin email ──────────────────────────────────────────────────────────
+  const salesEmailHTML = `<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <style>
+    body { font-family: Arial, sans-serif; line-height: 1.6; color: #333; }
+    .container { max-width: 600px; margin: 0 auto; padding: 20px; }
+    .header { background-color: #4CAF50; color: white; padding: 20px; text-align: center; }
+    .content { padding: 20px; background-color: #f9f9f9; }
+    table { ${tableStyle} }
+    th { ${thStyle} }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <div class="header"><h1>🎉 Nuevo Pedido Pagado</h1></div>
+    <div class="content">
+      <div style="background-color: white; padding: 15px; margin: 10px 0; border-radius: 5px;">
+        <h2>Detalles del Pedido: ${order._id}</h2>
+        <p><strong>Cliente:</strong> ${order.customerName}</p>
+        <p><strong>Email:</strong> ${order.email}</p>
+        <p><strong>Teléfono:</strong> ${order.phone || "No proporcionado"}</p>
+        <p><strong>Fecha:</strong> ${new Date(order.createdAt).toLocaleString("es-MX")}</p>
+        <p><strong>Estado:</strong> ${order.orderStatus}</p>
+        <p><strong>Método de Pago:</strong> ${paymentDetails.method}</p>
+        <p><strong>Referencia:</strong> ${paymentDetails.reference}</p>
+      </div>
+      <h3>Artículos del Pedido:</h3>
+      <table>
+        <thead>
+          <tr>
+            <th>Producto</th><th>Variante</th>
+            <th style="text-align:center;">Cant.</th>
+            <th style="text-align:right;">Precio</th>
+            <th style="text-align:right;">Subtotal</th>
+          </tr>
+        </thead>
+        <tbody>${orderItemsHTML}${totalsRowsHTML}</tbody>
+      </table>
+      ${addressBlockHTML}
+      <p style="margin-top: 20px; color: #666;"><strong>SuperCollectibles.com.mx</strong><br>Equipo de Ventas</p>
+    </div>
+  </div>
+</body>
+</html>`;
+
+  // ── Customer email ───────────────────────────────────────────────────────
+  const customerEmailHTML = `<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <style>
+    body { font-family: Arial, sans-serif; line-height: 1.6; color: #333; }
+    .container { max-width: 600px; margin: 0 auto; padding: 20px; }
+    .header { background-color: #4CAF50; color: white; padding: 20px; text-align: center; }
+    .content { padding: 20px; background-color: #f9f9f9; }
+    table { ${tableStyle} }
+    th { ${thStyle} }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <div class="header"><h1>¡Gracias por tu compra!</h1></div>
+    <div class="content">
+      <p>Estimado/a ${order.customerName},</p>
+      <p>Hemos recibido tu pago exitosamente. Tu pedido está siendo procesado y lo enviaremos pronto.</p>
+      <div style="background-color: white; padding: 15px; margin: 10px 0; border-radius: 5px;">
+        <h2>Detalles del Pedido: ${order._id}</h2>
+        <p><strong>Fecha:</strong> ${new Date(order.createdAt).toLocaleString("es-MX")}</p>
+        <p><strong>Estado:</strong> ${order.orderStatus}</p>
+      </div>
+      <h3>Artículos del Pedido:</h3>
+      <table>
+        <thead>
+          <tr>
+            <th>Producto</th><th>Variante</th>
+            <th style="text-align:center;">Cant.</th>
+            <th style="text-align:right;">Precio</th>
+            <th style="text-align:right;">Subtotal</th>
+          </tr>
+        </thead>
+        <tbody>${orderItemsHTML}${totalsRowsHTML}</tbody>
+      </table>
+      <div style="background-color: white; padding: 15px; margin: 10px 0; border-radius: 5px;">
+        <h3>Dirección de Envío:</h3>
+        <p>${street}</p>
+        <p>${city}, ${province} ${zipCode}</p>
+        <p>${country}</p>
+        ${phone ? `<p><strong>Teléfono:</strong> ${phone}</p>` : ""}
+        <p><strong>Método de envío:</strong> ${carrier} - ${service}</p>
+        <p><strong>Tiempo estimado:</strong> ${estimatedDays} días hábiles</p>
+        ${trackingNumber !== "Pendiente" ? `<p><strong>Número de rastreo:</strong> ${trackingNumber}</p>` : ""}
+        ${labelUrl ? `<p><strong>Rastrea tu pedido:</strong> <a href="https://supercollectibles.com.mx/rastreo/${trackingNumber}" target="_blank">Ver rastreo</a></p>` : ""}
+      </div>
+      <p style="margin-top: 20px;">Si tienes alguna pregunta sobre tu pedido, no dudes en contactarnos.</p>
+      <p style="color: #666;"><strong>SuperCollectibles.com.mx</strong><br>¡Gracias por tu preferencia!</p>
+    </div>
+  </div>
+</body>
+</html>`;
+
+  try {
+    await transporter.sendMail({
+      from: process.env.GOOGLE_MAIL,
+      to: "supercollectiblesc12@gmail.com",
+      subject: `Nuevo Pedido Pagado - ${order._id}`,
+      html: salesEmailHTML,
+    });
+
+    if (!options.adminOnly && order.email) {
+      await transporter.sendMail({
+        from: process.env.GOOGLE_MAIL,
+        to: order.email,
+        subject: `Confirmación de Pedido - SuperCollectibles`,
+        html: customerEmailHTML,
+      });
+    }
+
+    console.log("Order confirmation emails sent successfully");
+  } catch (error) {
+    console.error("Error sending order confirmation emails:", error);
+    throw error;
+  }
+}
+
+// ── Per-item refund notification ─────────────────────────────────────────────
+export async function sendItemRefundEmail(params: {
+  order: any;
+  item: any;
+  itemTotal: number;
+  shippingShare: number;
+  refundAmount: number;
+}) {
+  const { order, item, itemTotal, shippingShare, refundAmount } = params;
+
+  if (!order.email) {
+    console.warn("sendItemRefundEmail: order has no email, skipping.");
+    return;
+  }
+
+  const { buildItemRefundEmailHtml } = await import("@/lib/emailTemplates");
+
+  const html = buildItemRefundEmailHtml({
+    customerName: order.customerName ?? order.email,
+    orderId: order.orderId ?? order._id?.toString() ?? "",
+    item,
+    itemTotal,
+    shippingShare,
+    refundAmount,
+  });
+
+  const transporter = nodemailer.createTransport({
+    service: "gmail",
+    auth: {
+      user: process.env.GOOGLE_MAIL,
+      pass: process.env.GOOGLE_MAIL_PASS,
+    },
+  });
+
+  await transporter.sendMail({
+    from: `"SuperCollectibles" <${process.env.GOOGLE_MAIL}>`,
+    to: order.email,
+    subject: `Reembolso procesado — Pedido #${order.orderId ?? order._id}`,
+    html,
+  });
 }
